@@ -10,6 +10,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import pl.psi.creatures.NecropolisFactory;
+import pl.psi.spells.SampleSpell;
+import pl.psi.spells.Spellbook;
 
 public class Start extends Application
 {
@@ -48,13 +50,17 @@ public class Start extends Application
 
     private Hero createP2()
     {
-        final Hero ret = new Hero( List.of( new NecropolisFactory().create( true, 1, 5 ) ) );
+        final Hero ret = new Hero(
+                List.of( new NecropolisFactory().create( true, 1, 5 ) ),
+                new Spellbook( List.of( new SampleSpell()) ));
         return ret;
     }
 
     private Hero createP1()
     {
-        final Hero ret = new Hero( List.of( new NecropolisFactory().create( false, 1, 5 ) ) );
+        final Hero ret = new Hero(
+                List.of( new NecropolisFactory().create( false, 1, 5 ) ),
+                new Spellbook( List.of( new SampleSpell() ) ));
         return ret;
     }
 

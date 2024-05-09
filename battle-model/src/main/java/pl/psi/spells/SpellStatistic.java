@@ -4,7 +4,8 @@ import lombok.Getter;
 
 @Getter
 public enum SpellStatistic implements SpellStatisticIf {
-    DAMAGING_SPELL("Damaging Spell", "Damages a creature", 0, SpellType.COMBAT, 0);
+    DAMAGING_SPELL("Damaging Spell", "Damages a creature", 0, SpellType.COMBAT, 0),
+    SAMPLE_SPELL("Sample", "Sample spell", 0, SpellType.UNKNOWN, 0);
 
     private final String name;
     private final String description;
