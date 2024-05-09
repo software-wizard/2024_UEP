@@ -12,5 +12,8 @@ public class Spell {
         this.stats = aStats;
     }
     public void cast() {}
+    public String getName(){
+        return stats.getName();
+    }
 }
 

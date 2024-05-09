@@ -6,4 +6,6 @@ public interface SpellStatisticIf {
     int getCost();
     SpellType getType();
     int getLevel();
+    int getBaseDmg();
+    int getPowerMultiplier();
 }

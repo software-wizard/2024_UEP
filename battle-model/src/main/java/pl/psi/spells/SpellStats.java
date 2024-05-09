@@ -11,4 +11,6 @@ public class SpellStats implements SpellStatisticIf {
     private final int cost;
     private final SpellType type;
     private final int level;
+    private final int baseDmg;
+    private final int powerMultiplier;
 }

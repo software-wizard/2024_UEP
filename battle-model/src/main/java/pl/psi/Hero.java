@@ -17,7 +17,11 @@ public class Hero
 
     @Getter
     private final Spellbook spellbook;
-
+    private int attack;
+    private int defense;
+    private int spellPower;
+    @Getter
+    private int knowledge;
     public Hero( final List< Creature > aCreatures, final Spellbook aSpellbook )
     {
         spellbook = aSpellbook;
