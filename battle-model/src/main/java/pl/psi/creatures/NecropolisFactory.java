@@ -1,7 +1,5 @@
 package pl.psi.creatures;
 
-import pl.psi.creatures.Creature;
-import pl.psi.creatures.CreatureStatistic;
 import pl.psi.enums.AttackTypeEnum;
 
 public class NecropolisFactory

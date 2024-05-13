@@ -1,6 +1,5 @@
 package pl.psi.creatures;
 
-import pl.psi.enums.AttackTypeEnum;
 
 public class ArcheryCalculatorDecorator extends AbstractCalculateDamageStrategy {
     private final int level;

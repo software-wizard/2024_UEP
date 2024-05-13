@@ -22,7 +22,7 @@ public class SkillsTest {
                         .damage(Range.closed(50, 50))
                         .build())
                 .build();
-        creatureWithArmorer.decorateDamageApplier(new ArmoredDamageApplierDecorator(creatureWithArmorer.getDamageApplier(), 1));
+        creatureWithArmorer.setDamageApplier(new ArmoredDamageApplierDecorator(creatureWithArmorer.getDamageApplier(), 1));
 
         Creature creatureWithoutArmorer = new Creature.Builder().statistic(CreatureStats.builder()
                         .armor(20)
@@ -52,7 +52,7 @@ public class SkillsTest {
                         .damage(Range.closed(50, 50))
                         .build())
                 .build();
-        creatureWithArmorer.decorateDamageApplier(new ArmoredDamageApplierDecorator(creatureWithArmorer.getDamageApplier(), 2));
+        creatureWithArmorer.setDamageApplier(new ArmoredDamageApplierDecorator(creatureWithArmorer.getDamageApplier(), 2));
 
         Creature creatureWithoutArmorer = new Creature.Builder().statistic(CreatureStats.builder()
                         .armor(20)
@@ -82,7 +82,7 @@ public class SkillsTest {
                         .damage(Range.closed(50, 50))
                         .build())
                 .build();
-        creatureWithArmorer.decorateDamageApplier(new ArmoredDamageApplierDecorator(creatureWithArmorer.getDamageApplier(), 3));
+        creatureWithArmorer.setDamageApplier(new ArmoredDamageApplierDecorator(creatureWithArmorer.getDamageApplier(), 3));
 
         Creature creatureWithoutArmorer = new Creature.Builder().statistic(CreatureStats.builder()
                         .armor(20)
@@ -112,7 +112,7 @@ public class SkillsTest {
                         .damage(Range.closed(50, 50))
                         .build())
                 .build();
-        creatureWithOffense.decorateCalculator(new OffenseCalculatorDecorator(creatureWithOffense.getCalculator(), 1));
+        creatureWithOffense.setCalculator(new OffenseCalculatorDecorator(creatureWithOffense.getCalculator(), 1));
 
         Creature creatureWithoutOffense = new Creature.Builder().statistic(CreatureStats.builder()
                         .armor(20)
@@ -142,7 +142,7 @@ public class SkillsTest {
                         .damage(Range.closed(50, 50))
                         .build())
                 .build();
-        creatureWithOffense.decorateCalculator(new OffenseCalculatorDecorator(creatureWithOffense.getCalculator(), 2));
+        creatureWithOffense.setCalculator(new OffenseCalculatorDecorator(creatureWithOffense.getCalculator(), 2));
 
         Creature creatureWithoutOffense = new Creature.Builder().statistic(CreatureStats.builder()
                         .armor(20)
@@ -172,7 +172,7 @@ public class SkillsTest {
                         .damage(Range.closed(50, 50))
                         .build())
                 .build();
-        creatureWithOffense.decorateCalculator(new OffenseCalculatorDecorator(creatureWithOffense.getCalculator(), 3));
+        creatureWithOffense.setCalculator(new OffenseCalculatorDecorator(creatureWithOffense.getCalculator(), 3));
 
         Creature creatureWithoutOffense = new Creature.Builder().statistic(CreatureStats.builder()
                         .armor(20)
@@ -203,7 +203,7 @@ public class SkillsTest {
                         .build())
                 .attackType(AttackTypeEnum.RANGE)
                 .build();
-        lichWithArchery.decorateCalculator(new ArcheryCalculatorDecorator(lichWithArchery.getCalculator(), 1));
+        lichWithArchery.setCalculator(new ArcheryCalculatorDecorator(lichWithArchery.getCalculator(), 1));
 
         Creature lichWithoutArchery = new Creature.Builder().statistic(CreatureStats.builder()
                         .armor(10)
@@ -234,7 +234,7 @@ public class SkillsTest {
                         .build())
                 .attackType(AttackTypeEnum.RANGE)
                 .build();
-        lichWithArchery.decorateCalculator(new ArcheryCalculatorDecorator(lichWithArchery.getCalculator(), 2));
+        lichWithArchery.setCalculator(new ArcheryCalculatorDecorator(lichWithArchery.getCalculator(), 2));
 
         Creature lichWithoutArchery = new Creature.Builder().statistic(CreatureStats.builder()
                         .armor(10)
@@ -264,7 +264,7 @@ public class SkillsTest {
                         .build())
                 .attackType(AttackTypeEnum.RANGE)
                 .build();
-        lichWithArchery.decorateCalculator(new ArcheryCalculatorDecorator(lichWithArchery.getCalculator(), 3));
+        lichWithArchery.setCalculator(new ArcheryCalculatorDecorator(lichWithArchery.getCalculator(), 3));
 
         Creature lichWithoutArchery = new Creature.Builder().statistic(CreatureStats.builder()
                         .armor(10)
