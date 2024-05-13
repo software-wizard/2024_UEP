@@ -192,33 +192,33 @@ public class SkillsTest {
     }
 
     @Test
-    void basicArcheryCreatureTest() {
+    void expertArcheryCreatureTest() {
         final int MAX_HP = 30;
         //given
-        Creature zealotWithArchery = new Creature.Builder().statistic(CreatureStats.builder()
+        Creature lichWithArchery = new Creature.Builder().statistic(CreatureStats.builder()
                         .armor(10)
-                        .attack(12)
+                        .attack(13)
                         .maxHp(MAX_HP)
-                        .damage(Range.closed(10, 10))
+                        .damage(Range.closed(11, 11))
                         .build())
                 .attackType(AttackTypeEnum.RANGE)
                 .build();
-        zealotWithArchery.decorateCalculator(new ArcheryCalculatorDecorator(zealotWithArchery.getCalculator(), 1));
+        lichWithArchery.decorateCalculator(new ArcheryCalculatorDecorator(lichWithArchery.getCalculator(), 3));
 
-        Creature zealotWithoutArchery = new Creature.Builder().statistic(CreatureStats.builder()
+        Creature lichWithoutArchery = new Creature.Builder().statistic(CreatureStats.builder()
                         .armor(10)
-                        .attack(12)
+                        .attack(13)
                         .maxHp(MAX_HP)
-                        .damage(Range.closed(10, 10))
+                        .damage(Range.closed(11, 11))
                         .build())
                 .build();
 
 
         //when
-        zealotWithArchery.attack(zealotWithoutArchery);
+        lichWithArchery.attack(lichWithoutArchery);
 
         //then
-        assertThat(zealotWithoutArchery.getCurrentHp()).isEqualTo(MAX_HP - 12);
-        assertThat(zealotWithArchery.getCurrentHp()).isEqualTo(MAX_HP - 11);
+        assertThat(lichWithoutArchery.getCurrentHp()).isEqualTo(MAX_HP - 18);
+        assertThat(lichWithArchery.getCurrentHp()).isEqualTo(MAX_HP - 12);
     }
 }
