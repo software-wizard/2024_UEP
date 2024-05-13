@@ -192,6 +192,67 @@ public class SkillsTest {
     }
 
     @Test
+    void basicArcheryCreatureTest() {
+        final int MAX_HP = 30;
+        //given
+        Creature lichWithArchery = new Creature.Builder().statistic(CreatureStats.builder()
+                        .armor(10)
+                        .attack(13)
+                        .maxHp(MAX_HP)
+                        .damage(Range.closed(11, 11))
+                        .build())
+                .attackType(AttackTypeEnum.RANGE)
+                .build();
+        lichWithArchery.decorateCalculator(new ArcheryCalculatorDecorator(lichWithArchery.getCalculator(), 1));
+
+        Creature lichWithoutArchery = new Creature.Builder().statistic(CreatureStats.builder()
+                        .armor(10)
+                        .attack(13)
+                        .maxHp(MAX_HP)
+                        .damage(Range.closed(11, 11))
+                        .build())
+                .build();
+
+
+        //when
+        lichWithArchery.attack(lichWithoutArchery);
+
+        //then
+        assertThat(lichWithoutArchery.getCurrentHp()).isEqualTo(MAX_HP - 13);
+        assertThat(lichWithArchery.getCurrentHp()).isEqualTo(MAX_HP - 12);
+    }
+
+    @Test
+    void advancedArcheryCreatureTest() {
+        final int MAX_HP = 30;
+        //given
+        Creature lichWithArchery = new Creature.Builder().statistic(CreatureStats.builder()
+                        .armor(10)
+                        .attack(13)
+                        .maxHp(MAX_HP)
+                        .damage(Range.closed(11, 11))
+                        .build())
+                .attackType(AttackTypeEnum.RANGE)
+                .build();
+        lichWithArchery.decorateCalculator(new ArcheryCalculatorDecorator(lichWithArchery.getCalculator(), 2));
+
+        Creature lichWithoutArchery = new Creature.Builder().statistic(CreatureStats.builder()
+                        .armor(10)
+                        .attack(13)
+                        .maxHp(MAX_HP)
+                        .damage(Range.closed(11, 11))
+                        .build())
+                .build();
+
+
+        //when
+        lichWithArchery.attack(lichWithoutArchery);
+
+        //then
+        assertThat(lichWithoutArchery.getCurrentHp()).isEqualTo(MAX_HP - 15);
+        assertThat(lichWithArchery.getCurrentHp()).isEqualTo(MAX_HP - 12);
+    }
+    @Test
     void expertArcheryCreatureTest() {
         final int MAX_HP = 30;
         //given
