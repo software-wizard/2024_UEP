@@ -13,6 +13,7 @@ import pl.psi.hero.EconomyHero;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import pl.psi.spells.Spellbook;
 
 public class EcoBattleConverter
 {
@@ -43,9 +44,10 @@ public class EcoBattleConverter
     {
         final List< Creature > creatures = new ArrayList<>();
         final NecropolisFactory factory = new NecropolisFactory();
+        final Spellbook spellbook = new Spellbook(new ArrayList<>());
         aPlayer1.getCreatures()
             .forEach( ecoCreature -> creatures.add( factory.create( ecoCreature.isUpgraded(),
                 ecoCreature.getTier(), ecoCreature.getAmount() ) ) );
-        return new Hero( creatures );
+        return new Hero(creatures, spellbook);
     }
 }

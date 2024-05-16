@@ -1,0 +1,23 @@
+Info
+Spells have cost, school, level, damage, AOE and sometimes special effects. Cost can be decreased by learning magic from elemental school. Damage can be increased by gaining wisdom.
+
+Casting
+Spells can be casted by both Heroes and creatures. While all Heroes can learn spells, creatures can't learn and can cast only spells from preexisting pool.
+The power of spell depends on wisdom. Like with learning spells, Heroes can gain skill Wisdom (basic <- most heroes have it at start, advanced, expert) and creatures have some wisdom (also assigned and not changeable).
+Wisdom is important as it limits the level of spells Hero can learn and the output of spell*. Basic wisdom is equal to 3 lvl spells at best, advanced - 4 and expert - 5. Heroes without wisdom can learn only 1 and 2 lvl spells.
+Higher wisdom = better effect and/or higher damage.
+*If hero has assigned skill with higher lvl than wisdom at start, it can still cast this spell.
+
+School
+Each spell is assigned to 1 elemental (fire, water, earth, air) school with exception of Magic Bolt and Visions (these two can be assigned to any school aka universal spells).
+If Hero learns magic from elemental school, it automatically decreases the cost of spells only from this school by its' level,
+e.g. Hero learned fire magic from school of fire and knows Fireball (fire, 3 lvl spell) which normally costs 15 Spell Points, now it costs only 12 Spell Points but Ice Bolt (water, 2 lvl spell) still costs 8 SP as it's not fire spell but water.
+
+Vulnerability
+Some creatures get more damage when attacked by spells of opposite or the same element. It's really easy to understand, it's like this:
+- Air beats Air,
+- Earth beats Earth,
+- Water beats Fire,
+- Fire beats Water.
+With immunities, it's complicated as some creatures are immune to specific statuses while others are immune to all 1-4 lvl spells (more info here: https://heroes.thelazy.net/index.php/Spell_immunity)
+

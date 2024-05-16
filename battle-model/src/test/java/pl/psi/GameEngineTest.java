@@ -15,7 +15,7 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class GameEngineTest
 {
     @Test
-    void shoudWorksHeHe()
+    void shouldWorksHeHe()
     {
         final CastleCreatureFactory creatureFactory = new CastleCreatureFactory();
         final GameEngine gameEngine =
