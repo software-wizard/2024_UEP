@@ -1,6 +1,7 @@
 package pl.psi.skills;
 
 import com.google.common.collect.Range;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import pl.psi.creatures.*;
 import pl.psi.enums.AttackTypeEnum;
@@ -282,4 +283,39 @@ public class SkillsTest {
         assertThat(lichWithoutArchery.getCurrentHp()).isEqualTo(MAX_HP - 18);
         assertThat(lichWithArchery.getCurrentHp()).isEqualTo(MAX_HP - 12);
     }
+
+    @Test
+    @Disabled
+    void archeryAndOffenseWorkTogether() { //must implement ranged and melee attacks for this to work
+        final int MAX_HP = 30;
+        //given
+        Creature lichWithArcheryAndOffense = new Creature.Builder().statistic(CreatureStats.builder()
+                        .armor(10)
+                        .attack(13)
+                        .maxHp(MAX_HP)
+                        .damage(Range.closed(11, 11))
+                        .build())
+                .attackType(AttackTypeEnum.RANGE)
+                .build();
+        lichWithArcheryAndOffense.setCalculator(new ArcheryCalculatorDecorator(lichWithArcheryAndOffense.getCalculator(), 3));
+        lichWithArcheryAndOffense.setCalculator(new OffenseCalculatorDecorator(lichWithArcheryAndOffense.getCalculator(), 3));
+
+        Creature lichWithoutArchery = new Creature.Builder().statistic(CreatureStats.builder()
+                        .armor(10)
+                        .attack(13)
+                        .maxHp(MAX_HP)
+                        .damage(Range.closed(11, 11))
+                        .build())
+                .build();
+
+
+        //when
+        lichWithArcheryAndOffense.attack(lichWithoutArchery);
+
+        //then
+        assertThat(lichWithoutArchery.getCurrentHp()).isEqualTo(MAX_HP - 18);
+        assertThat(lichWithArcheryAndOffense.getCurrentHp()).isEqualTo(MAX_HP - 12);
+    }
+
+
 }
