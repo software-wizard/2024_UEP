@@ -1,4 +1,4 @@
-package pl.psi.spells.spellbook;
+package pl.psi.spells;
 
 import pl.psi.Hero;
 import pl.psi.Point;

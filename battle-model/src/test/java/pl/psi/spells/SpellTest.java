@@ -11,7 +11,6 @@ import pl.psi.creatures.CreatureStats;
 import pl.psi.spells.calculator.EmpoweredSpellDamageCalculator;
 import pl.psi.spells.calculator.ReducedSpellCostCalculator;
 import pl.psi.spells.object.SpellFactory;
-import pl.psi.spells.spellbook.Spellbook;
 import pl.psi.spells.object.Spell;
 import pl.psi.spells.object.SpellStatistic;
 import pl.psi.spells.spell.AreaOfEffectAttackSpellDecorator;

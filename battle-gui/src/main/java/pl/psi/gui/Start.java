@@ -12,7 +12,7 @@ import javafx.stage.Stage;
 import pl.psi.PrimarySkill;
 import pl.psi.creatures.NecropolisFactory;
 import pl.psi.spells.object.SpellFactory;
-import pl.psi.spells.spellbook.Spellbook;
+import pl.psi.spells.Spellbook;
 
 public class Start extends Application
 {

@@ -2,11 +2,10 @@ package pl.psi;
 
 import java.util.List;
 
-import lombok.Setter;
 import pl.psi.creatures.Creature;
 
 import lombok.Getter;
-import pl.psi.spells.spellbook.Spellbook;
+import pl.psi.spells.Spellbook;
 
 /**
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
