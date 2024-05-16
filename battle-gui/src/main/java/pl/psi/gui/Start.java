@@ -54,7 +54,7 @@ public class Start extends Application
                 List.of(
                         new NecropolisFactory().create( true, 1, 5 )
                 ),
-                new PrimarySkill(0, 0, 2, 0),
+                new PrimarySkill(0, 0, 2, 5),
                 new Spellbook(SpellFactory.all()));
         return ret;
     }
@@ -65,7 +65,7 @@ public class Start extends Application
                 List.of(
                         new NecropolisFactory().create( true, 1, 5 )
                 ),
-                new PrimarySkill(0, 0, 1, 0),
+                new PrimarySkill(0, 0, 1, 5),
                 new Spellbook(SpellFactory.all()));
         return ret;
     }
