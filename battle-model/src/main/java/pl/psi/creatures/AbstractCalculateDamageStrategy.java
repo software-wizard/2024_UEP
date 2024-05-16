@@ -1,5 +1,7 @@
 package pl.psi.creatures;
 
+import lombok.Getter;
+
 import java.util.Random;
 
 abstract class AbstractCalculateDamageStrategy implements DamageCalculatorIf
@@ -9,6 +11,7 @@ abstract class AbstractCalculateDamageStrategy implements DamageCalculatorIf
     public static final int MAX_DEFENCE_DIFF = 12;
     public static final double DEFENCE_BONUS = 0.025;
     public static final double ATTACK_BONUS = 0.05;
+    @Getter
     private final Random rand;
 
     protected AbstractCalculateDamageStrategy( final Random aRand )

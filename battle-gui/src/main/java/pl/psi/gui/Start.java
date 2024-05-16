@@ -18,7 +18,6 @@ public class Start extends Application
 
     public Start()
     {
-
     }
 
     static void main( final String[] args )

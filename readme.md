@@ -8,49 +8,43 @@ Projects:
 
 -------------------------------------------------------------------------------------------------
 
-- czary
+- czary 2 - Mateusz Kaczmarek 
     1. Obrażeni
     2. Bufy/debufy
     3. Mistrzostwo magii
     4. Czary na pola
 -------------------------------------------------------------------------------------------------
 
-- zamki/frakcje
+- zamki/frakcje 3 Maciej Michałek
     1. Typ poruszania się,
     2. Dwie dodatkowe frakcje
 -------------------------------------------------------------------------------------------------
 
-- pola specjalne
+- pola specjalne 4 Bartosz Baliński
     1. Przeszkoda dla jednostek chodzących 2.zadające obrażenia (dla latających albo chodzacych)
     3. Nakładające buffy/debufy
     4. Przszkody do zaatakowania
 -------------------------------------------------------------------------------------------------
 
-- ekonomia
+- ekonomia 10+
     1. Zakładki na kupowanie wszelakich bytów (kreatury, czary, artefakty, umiejętności)
     2. Dodatkowe gui przed z wybore frakcji oraz bohatera
     3. Artefakty mają swoje miejsca
 -------------------------------------------------------------------------------------------------
 
-- artefakty
+- artefakty 3 Wojtek Kidyba
     1. Spell
     2. Combat 3 Primary
 -------------------------------------------------------------------------------------------------
 
-- umiejętności
+- umiejętności 3 Tymoteusz Strojny
     1. heros
     2. 6 z góry, 4 z góry - wzmocnienie kreatury, 2 kolejne nowe mechaniki
     3. 4 z dołu, magia
 -------------------------------------------------------------------------------------------------
 
-- maszyny oblężnicze
+- maszyny oblężnicze 3 Kamil Michalak
     1. Namiot
     2. Balista
     3. Katapulta
 -------------------------------------------------------------------------------------------------
-
-- Herosi
-    - standard statistic
-    - ekwipunek
-- moral / luck
-- konwersja eco -> creature

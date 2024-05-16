@@ -8,14 +8,19 @@ package pl.psi.creatures;//  ***************************************************
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.List;
 import java.util.Random;
 
 import lombok.Setter;
+import pl.psi.enums.AttackTypeEnum;
 import pl.psi.TurnQueue;
 
 import com.google.common.collect.Range;
 
 import lombok.Getter;
+import pl.psi.enums.CreatureTypeEnum;
+
+import static java.lang.Math.random;
 
 /**
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
@@ -28,22 +33,31 @@ public class Creature implements PropertyChangeListener {
     private int currentHp;
     private int counterAttackCounter = 1;
     private DamageCalculatorIf calculator;
+    private CreatureTypeEnum creatureType;
+    private AttackTypeEnum attackType;
+    private DamageApplier damageApplier;
 
     Creature() {
     }
 
     private Creature(final CreatureStatisticIf aStats, final DamageCalculatorIf aCalculator,
-                     final int aAmount) {
+                     final int aAmount, CreatureTypeEnum aCreatureType, AttackTypeEnum aAttackType) {
         stats = aStats;
         amount = aAmount;
         currentHp = stats.getMaxHp();
         calculator = aCalculator;
+        damageApplier = new DamageApplier(this); //maybe should initialize it like counterAttackCounter
+        creatureType = aCreatureType;
+        attackType = aAttackType;
     }
+
 
     public void attack(final Creature aDefender) {
         if (isAlive()) {
             final int damage = getCalculator().calculateDamage(this, aDefender);
-            applyDamage(aDefender, damage);
+            DamageValueObject damageObject = new DamageValueObject(damage, this.attackType, this.creatureType);
+//            aDefender.applyDamage(damageObject);
+            aDefender.getDamageApplier().applyDamage(damageObject);
             if (canCounterAttack(aDefender)) {
                 counterAttack(aDefender);
             }
@@ -54,19 +68,8 @@ public class Creature implements PropertyChangeListener {
         return getAmount() > 0;
     }
 
-    private void applyDamage(final Creature aDefender, final int aDamage) {
-        int hpToSubstract = aDamage % aDefender.getMaxHp();
-        int amountToSubstract = Math.round(aDamage / aDefender.getMaxHp());
-
-        int hp = aDefender.getCurrentHp() - hpToSubstract;
-        if (hp <= 0) {
-            aDefender.setCurrentHp(aDefender.getMaxHp() - hp);
-            aDefender.setAmount(aDefender.getAmount() - 1);
-        }
-        else{
-            aDefender.setCurrentHp(hp);
-        }
-        aDefender.setAmount(aDefender.getAmount() - amountToSubstract);
+    private void applyDamage(DamageValueObject aDamageValueObject) {
+        getDamageApplier().applyDamage(aDamageValueObject);
     }
 
     public void applyDamage(final int aDamage) {
@@ -99,9 +102,21 @@ public class Creature implements PropertyChangeListener {
     private void counterAttack(final Creature aAttacker) {
         final int damage = aAttacker.getCalculator()
                 .calculateDamage(aAttacker, this);
-        applyDamage(this, damage);
+        DamageValueObject aDamageValueObject = new DamageValueObject(damage, this.attackType, this.creatureType);
+//        applyDamage(aDamageValueObject);
+        this.getDamageApplier().applyDamage(aDamageValueObject); //spytac czy lepiej uzywac getDamageApplier czy damageApplier
         aAttacker.counterAttackCounter--;
     }
+
+    //potencjalnie lepiej zamiast skillEnuma dawac jako parametr dekorator DamageAppliera
+    public void decorateDamageApplier(DamageApplier aDamageApplier) {
+            damageApplier = aDamageApplier;
+    }
+
+    public void decorateCalculator(DamageCalculatorIf aCalculator) {
+        calculator = aCalculator;
+    }
+
 
     Range<Integer> getDamage() {
         return stats.getDamage();
@@ -126,6 +141,16 @@ public class Creature implements PropertyChangeListener {
         currentHp = stats.getMaxHp();
     }
 
+    protected void restoreCurrentHpToPartHP() {
+        Random random = new Random();
+        int healHP = random.nextInt(25)+1;
+        if (currentHp+healHP >= stats.getMaxHp()) {
+            currentHp = stats.getMaxHp();
+        } else {
+            currentHp = currentHp+healHP;
+        }
+    }
+
     public String getName() {
         return stats.getName();
     }
@@ -138,6 +163,8 @@ public class Creature implements PropertyChangeListener {
         private int amount = 1;
         private DamageCalculatorIf calculator = new DefaultDamageCalculator(new Random());
         private CreatureStatisticIf statistic;
+        private final CreatureTypeEnum creatureType = CreatureTypeEnum.GROUND;
+        private AttackTypeEnum attackType = AttackTypeEnum.MELEE;
 
         public Builder statistic(final CreatureStatisticIf aStatistic) {
             statistic = aStatistic;
@@ -154,13 +181,36 @@ public class Creature implements PropertyChangeListener {
             return this;
         }
 
+        public Builder attackType(final AttackTypeEnum aAttackType) {
+            attackType = aAttackType;
+            return this;
+        }
+
         public Creature build() {
-            return new Creature(statistic, calculator, amount);
+            return new Creature(statistic, calculator, amount, creatureType, attackType);
         }
     }
 
     @Override
     public String toString() {
         return getName() + System.lineSeparator() + getAmount();
+    }
+
+
+    //MachineFactoryMethods - FirstAidTent
+    public void healHPCreature(Creature creature) {
+        creature.restoreCurrentHpToPartHP();
+    }
+
+    public void chooseHealCreature(List<Creature> creatureList) {
+        Creature smallHP = creatureList.get(0);
+        for (Creature creature : creatureList) {
+            if (creature.getCurrentHp()<smallHP.getCurrentHp()){
+                smallHP=creature;
+            }
+
+        }
+        healHPCreature(smallHP);
+
     }
 }

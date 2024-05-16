@@ -89,4 +89,9 @@ class SelfHealAfterTurnCreature extends Creature {
         decorated.propertyChange(evt);
         decorated.restoreCurrentHpToMax();
     }
+
+    @Override
+    public DamageApplier getDamageApplier() {
+        return decorated.getDamageApplier();
+    }
 }

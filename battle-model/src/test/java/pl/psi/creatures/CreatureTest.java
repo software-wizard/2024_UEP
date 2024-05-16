@@ -99,7 +99,7 @@ public class CreatureTest {
                 .build();
         // when
         attacker.attack(defender);
-        // then
+        // then asd
         assertThat(attacker.getCurrentHp()).isEqualTo(100);
     }
 
