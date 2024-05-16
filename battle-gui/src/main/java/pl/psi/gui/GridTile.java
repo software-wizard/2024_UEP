@@ -5,6 +5,8 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
+import java.util.Objects;
+
 class GridTile extends StackPane
 {
 
@@ -19,6 +21,8 @@ class GridTile extends StackPane
         getChildren().add( rect );
         label = new Label( aName );
         getChildren().add( label );
+
+        label.maxWidth(rect.getWidth());
     }
 
     void setName( final String aName )

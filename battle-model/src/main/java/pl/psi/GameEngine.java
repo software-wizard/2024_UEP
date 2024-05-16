@@ -21,11 +21,19 @@ public class GameEngine {
     private final Hero hero1;
     private final Hero hero2;
 
+    private static GameEngine engine;
+
     public  GameEngine(final Hero aHero1, final Hero aHero2) {
         hero1 = aHero1;
         hero2 = aHero2;
         turnQueue = new TurnQueue(aHero1.getCreatures(), aHero2.getCreatures());
         board = new Board(aHero1.getCreatures(), aHero2.getCreatures());
+
+        engine = this;
+    }
+
+    public static GameEngine getInstance() {
+        return engine;
     }
 
     public void attack(final Point point) {
@@ -69,6 +77,10 @@ public class GameEngine {
         return this.turnQueue.getCurrentCreature();
     }
 
+    public Point getCreaturePosition(Creature c) {
+        return this.board.getPosition(c);
+    }
+
     public Hero getHeroToMove() {
         if (hero1.getCreatures().contains(getCreatureToMove())) {
             return hero1;
@@ -81,5 +93,9 @@ public class GameEngine {
 
     public boolean isCurrentCreature(Point aPoint) {
         return Optional.of(turnQueue.getCurrentCreature()).equals(board.getCreature(aPoint));
+    }
+
+    public boolean isValidPoint(Point p) {
+        return board.isWithinBounds(p);
     }
 }

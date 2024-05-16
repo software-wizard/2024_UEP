@@ -5,7 +5,7 @@ import java.util.List;
 import org.junit.jupiter.api.Test;
 
 import pl.psi.creatures.CastleCreatureFactory;
-import pl.psi.spells.Spellbook;
+import pl.psi.spells.spellbook.Spellbook;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -15,14 +15,16 @@ import static org.assertj.core.api.Assertions.assertThat;
 public class GameEngineTest
 {
     @Test
-    void shoudWorksHeHe()
+    void shouldWorksHeHe()
     {
         final CastleCreatureFactory creatureFactory = new CastleCreatureFactory();
         final GameEngine gameEngine =
             new GameEngine( new Hero( List.of( creatureFactory.create( 1, false, 5 ) ),
-                            new Spellbook( List.of() )),
+                                    new PrimarySkill(1, 2, 3, 4),
+                                    new Spellbook( List.of() )),
                             new Hero( List.of( creatureFactory.create( 1, false, 5 ) ),
-                            new Spellbook( List.of() )));
+                                    new PrimarySkill(1, 2, 3, 4),
+                                    new Spellbook( List.of() )));
 
         gameEngine.attack( new Point( 1, 1 ) );
     }
@@ -32,8 +34,10 @@ public class GameEngineTest
         final CastleCreatureFactory creatureFactory = new CastleCreatureFactory();
 
         final Hero hero1 = new Hero( List.of( creatureFactory.create( 1, false, 5 ) ),
+                new PrimarySkill(1, 2, 3, 4),
                 new Spellbook( List.of() ));
         final Hero hero2 = new Hero( List.of( creatureFactory.create( 1, false, 5 ) ),
+                new PrimarySkill(1, 2, 3, 4),
                 new Spellbook( List.of() ));
 
         final GameEngine gameEngine = new GameEngine(hero1, hero2);

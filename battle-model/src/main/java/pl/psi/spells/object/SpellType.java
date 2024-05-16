@@ -1,9 +1,11 @@
-package pl.psi.spells;
+package pl.psi.spells.object;
 
 public enum SpellType {
     UNKNOWN,
+    UTILITY,
     COMBAT,
     BUFF,
     DEBUFF,
-    ADVENTURE
+    PASSIVE,
+    //ADVENTURE
 }

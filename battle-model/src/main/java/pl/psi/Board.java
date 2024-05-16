@@ -60,4 +60,8 @@ public class Board
         return map.inverse()
             .get( aCreature );
     }
+
+    boolean isWithinBounds(final Point p) {
+        return map.containsKey(p);
+    }
 }
