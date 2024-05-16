@@ -31,12 +31,12 @@ public class MainBattleController implements PropertyChangeListener
     private Button spellButton;
 
     private Stage spellGridStage;
-    private String selectedSpellName;
+    private int selectedSpellId;
 
     public MainBattleController( final Hero aHero1, final Hero aHero2 )
     {
         this.gameEngine = new GameEngine( aHero1, aHero2 );
-        this.selectedSpellName = null;
+        this.selectedSpellId = -1;
         initializeSpellGrid();
     }
 
@@ -79,7 +79,7 @@ public class MainBattleController implements PropertyChangeListener
 
         final Hero hero = gameEngine.getHeroToMove();
 
-        if (hero.getSpellbook().canCast(selectedSpellName, hero, p)) {
+        if (hero.getSpellbook().canCast(selectedSpellId, hero, p)) {
             source.setBackground(Color.AQUA);
         } else {
             source.setBackground(Color.DARKRED);
@@ -94,8 +94,8 @@ public class MainBattleController implements PropertyChangeListener
     private void onSpellCastMapClick(MouseEvent e, Point p) {
         final Hero hero = gameEngine.getHeroToMove();
 
-        if (hero.getSpellbook().canCast(selectedSpellName, hero, p)) {
-            hero.getSpellbook().castSpell(selectedSpellName, hero, p);
+        if (hero.getSpellbook().canCast(selectedSpellId, hero, p)) {
+            hero.getSpellbook().castSpell(selectedSpellId, hero, p);
         }
 
         gameEngine.pass();
@@ -113,7 +113,7 @@ public class MainBattleController implements PropertyChangeListener
                 Optional< Creature > creature = gameEngine.getCreature( currentPoint );
                 final GridTile mapTile = new GridTile( "" );
 
-                if (selectedSpellName != null) {
+                if (selectedSpellId != -1) {
                     mapTile.addEventHandler(MouseEvent.MOUSE_ENTERED, (e) -> onSpellCastMapHover(e, currentPoint));
                     mapTile.addEventHandler(MouseEvent.MOUSE_EXITED, (e) -> onSpellCastMapHoverExit(e, currentPoint));
                     mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> onSpellCastMapClick(e, currentPoint));
@@ -146,10 +146,10 @@ public class MainBattleController implements PropertyChangeListener
     {
         System.out.println(evt.getPropertyName());
         if (evt.getPropertyName().equals(SpellbookController.SPELL_SELECTED_EVENT)) {
-            selectedSpellName = (String)evt.getNewValue();
+            selectedSpellId = (int)evt.getNewValue();
             spellGridStage.hide();
         } else if (evt.getPropertyName().equals(TurnQueue.END_OF_TURN)) {
-            selectedSpellName = null;
+            selectedSpellId = -1;
             //spellGridStage.hide();
         }
 

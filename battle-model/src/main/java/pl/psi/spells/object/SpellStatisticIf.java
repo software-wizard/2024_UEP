@@ -1,6 +1,7 @@
 package pl.psi.spells.object;
 
 public interface SpellStatisticIf {
+    int getSpellId();
     String getName();
     String getDescription();
     int getCost();

@@ -123,7 +123,7 @@ public class SpellTest {
         ));
 
         assertThat(spellbook.hasSpell(spellA)).isTrue();
-        assertThat(spellbook.getSpell(spellA.getName())).isEqualTo(spellA);
+        assertThat(spellbook.getSpell(spellA.getStats().getSpellId())).isEqualTo(spellA);
         assertThat(spellbook.hasSpell(spellC.getName())).isFalse();
     }
 
@@ -160,8 +160,8 @@ public class SpellTest {
         final Point cPosition = engine.getCreaturePosition(defender);
         final Point c2Position = engine.getCreaturePosition(defender2);
 
-        hero2.getSpellbook().castSpell("Damaging Spell", hero2, cPosition);
-        hero1.getSpellbook().castSpell("Damaging Spell", hero1, c2Position);
+        hero2.getSpellbook().castSpell(SpellStatistic.DAMAGING_SPELL.getSpellId(), hero2, cPosition);
+        hero1.getSpellbook().castSpell(SpellStatistic.DAMAGING_SPELL.getSpellId(), hero1, c2Position);
 
         // Hero2 ma spelle Air Magic i innych szkol magii wiec jego koszt obniza sie w zaleznosci od levela castowanego spella.
         assertThat(hero2.getMana()).isEqualTo(1);
@@ -169,4 +169,6 @@ public class SpellTest {
         // Hero1 ich nie ma wiec jego koszt sie nie obniza.
         assertThat(hero1.getMana()).isEqualTo(0);
     }
+
+
 }

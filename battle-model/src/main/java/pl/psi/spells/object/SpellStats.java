@@ -6,6 +6,7 @@ import lombok.Getter;
 @Getter
 @Builder
 public class SpellStats implements SpellStatisticIf {
+    private final int spellId;
     private final String name;
     private final String description;
     private final int cost;
