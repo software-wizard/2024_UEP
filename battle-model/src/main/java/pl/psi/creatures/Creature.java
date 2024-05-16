@@ -20,7 +20,7 @@ import lombok.Getter;
 import pl.psi.enums.CreatureTypeEnum;
 
 /**
- * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
+ * cokolwiek
  */
 @Getter
 public class Creature implements PropertyChangeListener {
