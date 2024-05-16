@@ -11,7 +11,7 @@ import javafx.stage.Stage;
 import pl.psi.EconomyHero;
 import pl.psi.Hero;
 import pl.psi.StartBattlePack;
-import pl.psi.spells.Spellbook;
+import pl.psi.spells.spellbook.Spellbook;
 import skills.BattleSkill;
 import pl.psi.creatures.Creature;
 import pl.psi.creatures.NecropolisFactory;

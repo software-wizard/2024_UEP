@@ -9,9 +9,10 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import pl.psi.PrimarySkill;
 import pl.psi.creatures.NecropolisFactory;
-import pl.psi.spells.SampleSpell;
-import pl.psi.spells.Spellbook;
+import pl.psi.spells.object.SpellFactory;
+import pl.psi.spells.spellbook.Spellbook;
 
 public class Start extends Application
 {
@@ -50,16 +51,22 @@ public class Start extends Application
     private Hero createP2()
     {
         final Hero ret = new Hero(
-                List.of( new NecropolisFactory().create( true, 1, 5 ) ),
-                new Spellbook( List.of( new SampleSpell()) ));
+                List.of(
+                        new NecropolisFactory().create( true, 1, 5 )
+                ),
+                new PrimarySkill(0, 0, 2, 0),
+                new Spellbook(SpellFactory.all()));
         return ret;
     }
 
     private Hero createP1()
     {
         final Hero ret = new Hero(
-                List.of( new NecropolisFactory().create( false, 1, 5 ) ),
-                new Spellbook( List.of( new SampleSpell() ) ));
+                List.of(
+                        new NecropolisFactory().create( true, 1, 5 )
+                ),
+                new PrimarySkill(0, 0, 1, 0),
+                new Spellbook(SpellFactory.all()));
         return ret;
     }
 

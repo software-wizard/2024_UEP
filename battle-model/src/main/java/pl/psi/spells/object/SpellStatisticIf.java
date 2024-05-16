@@ -1,4 +1,4 @@
-package pl.psi.spells;
+package pl.psi.spells.object;
 
 public interface SpellStatisticIf {
     String getName();
@@ -7,5 +7,8 @@ public interface SpellStatisticIf {
     SpellType getType();
     int getLevel();
     int getBaseDmg();
+    int getSize();
+
+    SpellSchool getSchool();
     int getPowerMultiplier();
 }
