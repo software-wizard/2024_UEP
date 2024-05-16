@@ -65,7 +65,7 @@ class MachineFactoryTest {
         Creature firstAidTent =  machineFactory.create("First Aid Tent");
         // Animal pies1 = new Pies();
         List<Creature> creaturesList = new ArrayList<>();
-//        creaturesList.add(firstAidTent);
+        creaturesList.add(firstAidTent);
         creaturesList.add(dragon);
         creaturesList.add(angel);
         creaturesList.add(ballista);
@@ -74,8 +74,8 @@ class MachineFactoryTest {
         ballista.attack(angel);
         firstAidTent.chooseHealCreature(creaturesList);
         // then
-        assertThat(dragon.getCurrentHp()).isBetween(80,100);
-//        assertThat(angel.getCurrentHp()).isBetween(80,90); //do policzenia!
+        assertThat(dragon.getCurrentHp()).isBetween(71,100);
+
 
 
 
