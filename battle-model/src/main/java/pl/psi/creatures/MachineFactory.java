@@ -1,15 +1,18 @@
 package pl.psi.creatures;
 
-import java.util.List;
-
 public class MachineFactory
-{   private static final String EXCEPTION_MESSAGE = "Name of war machine not found";
+{
+
+    private static final String EXCEPTION_MESSAGE = "Name of war machine not found";
+
+
+
     public Creature create( final String aName)
     {
             switch( aName )
             {
                 case "First Aid Tent":
-                    return new Creature.Builder().statistic( CreatureStatistic.FIRST_AID_TENT )
+                    return new FirstAidTent.Builder().statistic( CreatureStatistic.FIRST_AID_TENT )
                             .build();
                 case "Ballista":
                     return new Creature.Builder().statistic( CreatureStatistic.BALLISTA )
@@ -21,5 +24,9 @@ public class MachineFactory
                     throw new IllegalArgumentException( EXCEPTION_MESSAGE );
             }
     }
+
+
+
+
 
 }

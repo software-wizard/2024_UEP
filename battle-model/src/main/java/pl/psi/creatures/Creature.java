@@ -20,8 +20,6 @@ import com.google.common.collect.Range;
 import lombok.Getter;
 import pl.psi.enums.CreatureTypeEnum;
 
-import static java.lang.Math.random;
-
 /**
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
  */
@@ -178,6 +176,7 @@ public class Creature implements PropertyChangeListener {
         public Creature build() {
             return new Creature(statistic, calculator, amount, creatureType, attackType);
         }
+
     }
 
     @Override
@@ -185,21 +184,14 @@ public class Creature implements PropertyChangeListener {
         return getName() + System.lineSeparator() + getAmount();
     }
 
-
-    //MachineFactoryMethods - FirstAidTent
     public void healHPCreature(Creature creature) {
         creature.restoreCurrentHpToPartHP();
     }
 
+    //MachineFactoryMethods - FirstAidTent
+    //Implemented in FirstAidTent
     public void chooseHealCreature(List<Creature> creatureList) {
-        Creature smallHP = creatureList.get(0);
-        for (Creature creature : creatureList) {
-            if (creature.getCurrentHp()<smallHP.getCurrentHp()){
-                smallHP=creature;
-            }
-
-        }
-        healHPCreature(smallHP);
 
     }
+
 }
