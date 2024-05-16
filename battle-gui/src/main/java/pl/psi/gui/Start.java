@@ -50,24 +50,22 @@ public class Start extends Application
 
     private Hero createP2()
     {
-        final Hero ret = new Hero(
+        return new Hero(
                 List.of(
                         new NecropolisFactory().create( true, 1, 5 )
                 ),
                 new PrimarySkill(0, 0, 2, 5),
                 new Spellbook(SpellFactory.all()));
-        return ret;
     }
 
     private Hero createP1()
     {
-        final Hero ret = new Hero(
+        return new Hero(
                 List.of(
                         new NecropolisFactory().create( true, 1, 5 )
                 ),
                 new PrimarySkill(0, 0, 1, 5),
                 new Spellbook(SpellFactory.all()));
-        return ret;
     }
 
 }
