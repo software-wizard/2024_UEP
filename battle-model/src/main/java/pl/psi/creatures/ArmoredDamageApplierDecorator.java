@@ -25,11 +25,11 @@ public class ArmoredDamageApplierDecorator extends DamageApplier {
     }
 
     @Override
-    public void applyDamage(DamageValueObject aDamageValueObject) {
+    public void applyDamage(DamageValueObject aDamageValueObject, Creature aCreature) {
         int dmg = calculateDamage(aDamageValueObject);
-        int hpToSubtract = decorated.calculateHpToSubtract(dmg);
-        int amountToSubtract = decorated.calculateAmountToSubtract(dmg);
-        decorated.dealDamageToCreature(hpToSubtract, amountToSubtract);
+        int hpToSubtract = decorated.calculateHpToSubtract(dmg, aCreature);
+        int amountToSubtract = decorated.calculateAmountToSubtract(dmg, aCreature);
+        decorated.dealDamageToCreature(hpToSubtract, amountToSubtract, aCreature);
     }
 
     private int calculateDamage(DamageValueObject aDamageValueObject) {
@@ -38,10 +38,5 @@ public class ArmoredDamageApplierDecorator extends DamageApplier {
             return (int) (dmg * getMultiplier());
         }
         return dmg;
-    }
-
-    @Override
-    public Creature getCreature() {
-        return decorated.getCreature();
     }
 }

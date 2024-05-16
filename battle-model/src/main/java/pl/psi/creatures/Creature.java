@@ -32,10 +32,12 @@ public class Creature implements PropertyChangeListener {
     private int amount;
     private int currentHp;
     private int counterAttackCounter = 1;
+    @Setter
     private DamageCalculatorIf calculator;
     private CreatureTypeEnum creatureType;
     private AttackTypeEnum attackType;
-    private DamageApplier damageApplier;
+    @Setter
+    private DamageApplier damageApplier = new DamageApplier();
 
     Creature() {
     }
@@ -46,7 +48,6 @@ public class Creature implements PropertyChangeListener {
         amount = aAmount;
         currentHp = stats.getMaxHp();
         calculator = aCalculator;
-        damageApplier = new DamageApplier(this); //maybe should initialize it like counterAttackCounter
         creatureType = aCreatureType;
         attackType = aAttackType;
     }
@@ -56,8 +57,7 @@ public class Creature implements PropertyChangeListener {
         if (isAlive()) {
             final int damage = getCalculator().calculateDamage(this, aDefender);
             DamageValueObject damageObject = new DamageValueObject(damage, this.attackType, this.creatureType);
-//            aDefender.applyDamage(damageObject);
-            aDefender.getDamageApplier().applyDamage(damageObject);
+            aDefender.getDamageApplier().applyDamage(damageObject, aDefender);
             if (canCounterAttack(aDefender)) {
                 counterAttack(aDefender);
             }
@@ -69,7 +69,7 @@ public class Creature implements PropertyChangeListener {
     }
 
     private void applyDamage(DamageValueObject aDamageValueObject) {
-        getDamageApplier().applyDamage(aDamageValueObject);
+        getDamageApplier().applyDamage(aDamageValueObject, this);
     }
 
     public void applyDamage(final int aDamage) {
@@ -103,20 +103,9 @@ public class Creature implements PropertyChangeListener {
         final int damage = aAttacker.getCalculator()
                 .calculateDamage(aAttacker, this);
         DamageValueObject aDamageValueObject = new DamageValueObject(damage, this.attackType, this.creatureType);
-//        applyDamage(aDamageValueObject);
-        this.getDamageApplier().applyDamage(aDamageValueObject); //spytac czy lepiej uzywac getDamageApplier czy damageApplier
+        damageApplier.applyDamage(aDamageValueObject, this); //spytac czy lepiej uzywac getDamageApplier czy damageApplier
         aAttacker.counterAttackCounter--;
     }
-
-    //potencjalnie lepiej zamiast skillEnuma dawac jako parametr dekorator DamageAppliera
-    public void decorateDamageApplier(DamageApplier aDamageApplier) {
-            damageApplier = aDamageApplier;
-    }
-
-    public void decorateCalculator(DamageCalculatorIf aCalculator) {
-        calculator = aCalculator;
-    }
-
 
     Range<Integer> getDamage() {
         return stats.getDamage();
