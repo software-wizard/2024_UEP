@@ -5,13 +5,13 @@ import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 
-class MapTile extends StackPane
+class GridTile extends StackPane
 {
 
     private final Rectangle rect;
     private final Label label;
 
-    MapTile( final String aName )
+    GridTile(final String aName )
     {
         rect = new Rectangle( 60, 60 );
         rect.setFill( Color.WHITE );

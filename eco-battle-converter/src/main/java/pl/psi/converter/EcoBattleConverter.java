@@ -2,6 +2,7 @@ package pl.psi.converter;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.List;
 
 import javafx.fxml.FXMLLoader;
@@ -10,6 +11,7 @@ import javafx.stage.Stage;
 import pl.psi.EconomyHero;
 import pl.psi.Hero;
 import pl.psi.StartBattlePack;
+import pl.psi.spells.Spellbook;
 import skills.BattleSkill;
 import pl.psi.creatures.Creature;
 import pl.psi.creatures.NecropolisFactory;
@@ -50,6 +52,6 @@ public class EcoBattleConverter {
             }
         }
 
-        return new Hero(creatures);
+        return new Hero(creatures, new Spellbook(Collections.emptyList()));
     }
 }

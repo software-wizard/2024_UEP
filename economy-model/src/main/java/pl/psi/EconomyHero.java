@@ -24,7 +24,8 @@ public class EconomyHero implements PropertyChangeListener
     private final List< EconomyCreature > creatures;
     private int maxMovePoints;
     private int currentMovePoints;
-    private Resources resources;
+    private Resources resources = Resources.startRes();
+    private Castle castle;
     private final Map<SkillEnum, Skill> skills;
 
     public EconomyHero( String aName )
@@ -54,6 +55,10 @@ public class EconomyHero implements PropertyChangeListener
 
     public void addCreature(EconomyCreature aEconomyCreature) {
         creatures.add(aEconomyCreature);
+    }
+
+    public void changeResources(Resources resources) {
+        this.resources = this.resources.addResources(resources);
     }
 
     public void addSkill(Skill aSkill) {

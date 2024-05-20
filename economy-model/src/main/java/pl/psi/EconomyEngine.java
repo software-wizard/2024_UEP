@@ -1,6 +1,7 @@
 package pl.psi;
 
 import lombok.Getter;
+import pl.psi.objects.ResourcesField;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -17,6 +18,7 @@ public class EconomyEngine {
     public static final int BOARD_WEIGHT = 25;
     public static final int BOARD_HEIGHT = 15;
     private final EcoTurnQueue turnQueue;
+    @Getter
     private final EcoMap board;
     private final PropertyChangeSupport observerSupport = new PropertyChangeSupport(this);
     @Getter
@@ -65,5 +67,30 @@ public class EconomyEngine {
     public StartBattlePack getStartBattlePack(Point aCurrentPoint) {
         EconomyHero heroToAttack = board.getHero(aCurrentPoint).orElseThrow();
         return StartBattlePack.builder().attacker(turnQueue.getCurrentHero()).defender(heroToAttack).build();
+    }
+
+    public boolean isCastle(Point aPoint) {
+        return board.isCastlePoint(aPoint);
+    }
+
+    public boolean isFieldPoint(Point aPoint){
+        return board.isFieldPoint(aPoint);
+    }
+
+
+    public void collectField(ResourcesField field) {
+        EconomyHero hero = turnQueue.getCurrentHero();
+        field.apply(hero);
+
+    }
+
+    public ResourcesField getField(Point currentPoint) {
+        return board.getField(currentPoint);
+
+    }
+
+
+    public EconomyHero getCurrentHero() {
+        return turnQueue.getCurrentHero();
     }
 }

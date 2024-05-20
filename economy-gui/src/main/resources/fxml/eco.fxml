@@ -1,6 +1,4 @@
 <?xml version="1.0" encoding="UTF-8"?>
-
-
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
@@ -11,6 +9,7 @@
             minWidth="-Infinity"
             prefHeight="800.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/11.0.1">
     <top>
+        <!-- Górny obszar z graczami -->
         <HBox alignment="TOP_CENTER" prefHeight="26.0" prefWidth="600.0" BorderPane.alignment="CENTER">
             <Label fx:id="p1Name" style="-fx-padding: 0 20 0 0;" text="Player 1">
                 <font>
@@ -34,21 +33,33 @@
         </HBox>
     </top>
     <center>
+
         <GridPane fx:id="grid" BorderPane.alignment="CENTER">
         </GridPane>
     </center>
+    <right>
+
+    </right>
     <bottom>
-        <HBox alignment="TOP_RIGHT" prefHeight="1.0" prefWidth="600.0" BorderPane.alignment="CENTER">
-            <Button fx:id="passButton" mnemonicParsing="false" prefHeight="37.0" prefWidth="115.0" text="PASS"
-                    textAlignment="CENTER">
-                <font>
-                    <Font size="16.0"/>
-                </font>
-            </Button>
+        <HBox alignment="TOP_CENTER">
+            <VBox alignment="TOP_CENTER">
+                <Label text="Resources" />
+                <Label fx:id="allResourcesLabel" />
+            </VBox>
+            <HBox alignment="CENTER_RIGHT">
+                <Button fx:id="passButton" mnemonicParsing="false" prefHeight="37.0" prefWidth="115.0" text="PASS"
+                        textAlignment="CENTER">
+                    <font>
+                        <Font size="16.0"/>
+                    </font>
+                </Button>
+            </HBox>
         </HBox>
     </bottom>
+
 
     <stylesheets>
         <URL value="@main.css"/>
     </stylesheets>
 </BorderPane>
+

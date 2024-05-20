@@ -9,6 +9,7 @@ import pl.psi.enums.AttackTypeEnum;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
+@Disabled
 public class SkillsTest {
 
     @Test

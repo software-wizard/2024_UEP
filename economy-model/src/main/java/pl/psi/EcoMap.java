@@ -1,10 +1,12 @@
 package pl.psi;
 
 import java.beans.PropertyChangeSupport;
+import java.util.Map;
 import java.util.Optional;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
+import pl.psi.objects.ResourcesField;
 
 /**
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
@@ -12,11 +14,25 @@ import com.google.common.collect.HashBiMap;
 public class EcoMap
 {
     private final BiMap< Point, EconomyHero > map = HashBiMap.create();
+    private final BiMap<Point, MapObject> mapObjects = HashBiMap.create();
+
+    private final BiMap<Point, ResourcesField> fieldObjects = HashBiMap.create();
+
+    FieldObjects fieldObject = new FieldObjects();
+
+
+
+    Castle castle = new Castle();
 
     public EcoMap(final EconomyHero aHero1, final EconomyHero aHero2, PropertyChangeSupport aObserverSupport)
     {
         map.put( new Point( 5, 5 ), aHero1 );
         map.put( new Point( EconomyEngine.BOARD_WEIGHT - 5, EconomyEngine.BOARD_HEIGHT - 5 ), aHero2 );
+        mapObjects.put(new Point(1,1), castle);
+        for (Map.Entry<Point, ResourcesField> entry : fieldObject.fieldMap.entrySet()) {
+            Point point = entry.getKey();
+            fieldObjects.put(point,entry.getValue());
+        }
     }
 
     Optional< EconomyHero > getHero( final Point aPoint )
@@ -53,5 +69,18 @@ public class EcoMap
 
     public boolean isBattlePoint(Point aPoint) {
         return map.containsKey(aPoint);
+    }
+
+    public boolean isCastlePoint(Point aPoint) {
+        return mapObjects.containsKey(aPoint);
+    }
+
+    public boolean isFieldPoint(Point aPoint){
+        return fieldObjects.containsKey(aPoint);
+    }
+
+    public ResourcesField getField(Point aPoint) {
+
+        return fieldObjects.get(aPoint);
     }
 }

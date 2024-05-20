@@ -2,6 +2,8 @@ package pl.psi.creatures;
 
 import lombok.Data;
 
+
+
 @Data
 public class EconomyCreature
 {
