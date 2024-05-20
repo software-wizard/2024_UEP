@@ -1,15 +1,15 @@
 package pl.psi.skills;
 
 import com.google.common.collect.Range;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import pl.psi.creatures.*;
 import pl.psi.enums.AttackTypeEnum;
 
 
+import java.util.Random;
+
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 
-@Disabled
 public class SkillsTest {
 
     @Test
@@ -254,6 +254,7 @@ public class SkillsTest {
         assertThat(lichWithoutArchery.getCurrentHp()).isEqualTo(MAX_HP - 15);
         assertThat(lichWithArchery.getCurrentHp()).isEqualTo(MAX_HP - 12);
     }
+
     @Test
     void expertArcheryCreatureTest() {
         final int MAX_HP = 30;
@@ -285,37 +286,70 @@ public class SkillsTest {
         assertThat(lichWithArchery.getCurrentHp()).isEqualTo(MAX_HP - 12);
     }
 
+//    @Disabled
+//    @Test
+//    void archeryAndOffenseWorkTogether() { //must implement ranged and melee attacks for this to work
+//        final int MAX_HP = 30;
+//        //given
+//        Creature lichWithArcheryAndOffense = new Creature.Builder().statistic(CreatureStats.builder()
+//                        .armor(10)
+//                        .attack(13)
+//                        .maxHp(MAX_HP)
+//                        .damage(Range.closed(11, 11))
+//                        .build())
+//                .attackType(AttackTypeEnum.RANGE)
+//                .build();
+//        lichWithArcheryAndOffense.setCalculator(new ArcheryCalculatorDecorator(lichWithArcheryAndOffense.getCalculator(), 3));
+//        lichWithArcheryAndOffense.setCalculator(new OffenseCalculatorDecorator(lichWithArcheryAndOffense.getCalculator(), 3));
+//
+//        Creature lichWithoutArchery = new Creature.Builder().statistic(CreatureStats.builder()
+//                        .armor(10)
+//                        .attack(13)
+//                        .maxHp(MAX_HP)
+//                        .damage(Range.closed(11, 11))
+//                        .build())
+//                .build();
+//
+//
+//        //when
+//        lichWithArcheryAndOffense.attack(lichWithoutArchery);
+//
+//        //then
+//        assertThat(lichWithoutArchery.getCurrentHp()).isEqualTo(MAX_HP - 18);
+//        assertThat(lichWithArcheryAndOffense.getCurrentHp()).isEqualTo(MAX_HP - 12);
+//    }
+
     @Test
-    @Disabled
-    void archeryAndOffenseWorkTogether() { //must implement ranged and melee attacks for this to work
-        final int MAX_HP = 30;
-        //given
-        Creature lichWithArcheryAndOffense = new Creature.Builder().statistic(CreatureStats.builder()
-                        .armor(10)
-                        .attack(13)
+    void CreatureAttacksTwiceWhenGoodMorale() {
+        int MAX_HP = 200;
+        Creature angel1 = new Creature.Builder().statistic(CreatureStats.builder()
+                        .armor(20)
+                        .attack(20)
                         .maxHp(MAX_HP)
-                        .damage(Range.closed(11, 11))
+                        .damage(Range.closed(50, 50))
                         .build())
-                .attackType(AttackTypeEnum.RANGE)
+                .morale(new Morale(3, new ZeroRandom()))
                 .build();
-        lichWithArcheryAndOffense.setCalculator(new ArcheryCalculatorDecorator(lichWithArcheryAndOffense.getCalculator(), 3));
-        lichWithArcheryAndOffense.setCalculator(new OffenseCalculatorDecorator(lichWithArcheryAndOffense.getCalculator(), 3));
 
-        Creature lichWithoutArchery = new Creature.Builder().statistic(CreatureStats.builder()
-                        .armor(10)
-                        .attack(13)
+        Creature angel2 = new Creature.Builder().statistic(CreatureStats.builder()
+                        .armor(20)
+                        .attack(20)
                         .maxHp(MAX_HP)
-                        .damage(Range.closed(11, 11))
+                        .damage(Range.closed(50, 50))
                         .build())
                 .build();
 
+        angel1.attack(angel2);
 
-        //when
-        lichWithArcheryAndOffense.attack(lichWithoutArchery);
+        assertThat(angel2.getCurrentHp()).isEqualTo(MAX_HP - 100);
+        assertThat(angel1.getCurrentHp()).isEqualTo(MAX_HP - 50);
+    }
 
-        //then
-        assertThat(lichWithoutArchery.getCurrentHp()).isEqualTo(MAX_HP - 18);
-        assertThat(lichWithArcheryAndOffense.getCurrentHp()).isEqualTo(MAX_HP - 12);
+    private class ZeroRandom extends Random {
+        @Override
+        public double nextDouble() {
+            return 0.0;
+        }
     }
 
 

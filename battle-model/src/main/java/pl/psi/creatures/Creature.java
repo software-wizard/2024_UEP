@@ -20,8 +20,6 @@ import com.google.common.collect.Range;
 import lombok.Getter;
 import pl.psi.enums.CreatureTypeEnum;
 
-import static java.lang.Math.random;
-
 /**
  * cokolwiek
  */
@@ -32,6 +30,7 @@ public class Creature implements PropertyChangeListener {
     private int amount;
     private int currentHp;
     private int counterAttackCounter = 1;
+    private Morale morale; //todo temp
     @Setter
     private DamageCalculatorIf calculator;
     private CreatureTypeEnum creatureType;
@@ -43,48 +42,41 @@ public class Creature implements PropertyChangeListener {
     }
 
     private Creature(final CreatureStatisticIf aStats, final DamageCalculatorIf aCalculator,
-                     final int aAmount, CreatureTypeEnum aCreatureType, AttackTypeEnum aAttackType) {
+                     final int aAmount, CreatureTypeEnum aCreatureType, AttackTypeEnum aAttackType, Morale aMorale) {
         stats = aStats;
         amount = aAmount;
         currentHp = stats.getMaxHp();
         calculator = aCalculator;
         creatureType = aCreatureType;
         attackType = aAttackType;
+        morale = aMorale;
     }
 
 
     public void attack(final Creature aDefender) {
-        if (isAlive()) {
-            final int damage = getCalculator().calculateDamage(this, aDefender);
-            DamageValueObject damageObject = new DamageValueObject(damage, this.attackType, this.creatureType);
-            aDefender.getDamageApplier().applyDamage(damageObject, aDefender);
+        if (isAlive() && !morale.shouldFreeze()) {
+            performAttack(aDefender);
             if (canCounterAttack(aDefender)) {
                 counterAttack(aDefender);
             }
+            if (morale.shouldAttackAgain()) {
+                performAttack(aDefender);
+            }
         }
+    }
+
+    private void performAttack(Creature aDefender) {
+        int damage = getCalculator().calculateDamage(this, aDefender);
+        DamageValueObject damageObject = new DamageValueObject(damage, this.attackType, this.creatureType);
+        aDefender.getDamageApplier().applyDamage(damageObject, aDefender);
     }
 
     public boolean isAlive() {
         return getAmount() > 0;
     }
 
-    private void applyDamage(DamageValueObject aDamageValueObject) {
+    public void applyDamage(DamageValueObject aDamageValueObject) {
         getDamageApplier().applyDamage(aDamageValueObject, this);
-    }
-
-    public void applyDamage(final int aDamage) {
-        int hpToSubstract = aDamage % this.getMaxHp();
-        int amountToSubstract = Math.round(aDamage / this.getMaxHp());
-
-        int hp = this.getCurrentHp() - hpToSubstract;
-        if (hp <= 0) {
-            this.setCurrentHp(this.getMaxHp() - hp);
-            this.setAmount(this.getAmount() - 1);
-        }
-        else{
-            this.setCurrentHp(hp);
-        }
-        this.setAmount(this.getAmount() - amountToSubstract);
     }
 
     public int getMaxHp() {
@@ -100,8 +92,7 @@ public class Creature implements PropertyChangeListener {
     }
 
     private void counterAttack(final Creature aAttacker) {
-        final int damage = aAttacker.getCalculator()
-                .calculateDamage(aAttacker, this);
+        final int damage = aAttacker.getCalculator().calculateDamage(aAttacker, this);
         DamageValueObject aDamageValueObject = new DamageValueObject(damage, this.attackType, this.creatureType);
         damageApplier.applyDamage(aDamageValueObject, this); //spytac czy lepiej uzywac getDamageApplier czy damageApplier
         aAttacker.counterAttackCounter--;
@@ -154,6 +145,7 @@ public class Creature implements PropertyChangeListener {
         private CreatureStatisticIf statistic;
         private final CreatureTypeEnum creatureType = CreatureTypeEnum.GROUND;
         private AttackTypeEnum attackType = AttackTypeEnum.MELEE;
+        private Morale morale = new Morale(0);
 
         public Builder statistic(final CreatureStatisticIf aStatistic) {
             statistic = aStatistic;
@@ -175,8 +167,13 @@ public class Creature implements PropertyChangeListener {
             return this;
         }
 
+        public Builder morale(final Morale aMorale) {
+            morale = aMorale;
+            return this;
+        }
+
         public Creature build() {
-            return new Creature(statistic, calculator, amount, creatureType, attackType);
+            return new Creature(statistic, calculator, amount, creatureType, attackType, morale);
         }
     }
 
