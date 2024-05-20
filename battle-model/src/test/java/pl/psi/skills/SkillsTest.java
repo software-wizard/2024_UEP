@@ -1,6 +1,7 @@
 package pl.psi.skills;
 
 import com.google.common.collect.Range;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import pl.psi.creatures.*;
 import pl.psi.enums.AttackTypeEnum;

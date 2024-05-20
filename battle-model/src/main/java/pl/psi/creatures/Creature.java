@@ -20,6 +20,8 @@ import com.google.common.collect.Range;
 import lombok.Getter;
 import pl.psi.enums.CreatureTypeEnum;
 
+import static java.lang.Math.random;
+
 /**
  * cokolwiek
  */
