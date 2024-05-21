@@ -12,6 +12,7 @@ import java.util.List;
 import java.util.Random;
 
 import lombok.Setter;
+import pl.psi.Point;
 import pl.psi.enums.AttackTypeEnum;
 import pl.psi.TurnQueue;
 
@@ -21,6 +22,8 @@ import lombok.Getter;
 import pl.psi.enums.CreatureTypeEnum;
 
 import static java.lang.Math.random;
+
+import pl.psi.obstacles.ObstaclesWithHP;
 
 /**
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
@@ -62,6 +65,12 @@ public class Creature implements PropertyChangeListener {
                 counterAttack(aDefender);
             }
         }
+    }
+
+    public void attackObstacle(ObstaclesWithHP obstacleWithHP, Point aPoint) {
+        final int damage = getCalculator().calculateDamageToObstacle(this,obstacleWithHP);
+        obstacleWithHP.takeDamage(aPoint, damage);
+
     }
 
     public boolean isAlive() {

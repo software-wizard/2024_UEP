@@ -2,6 +2,7 @@ package pl.psi.spells.calculator;
 
 import pl.psi.creatures.Creature;
 import pl.psi.creatures.DamageCalculatorIf;
+import pl.psi.obstacles.ObstaclesWithHP;
 
 import java.util.Random;
 
@@ -19,6 +20,11 @@ public class EmpoweredSpellDamageCalculator implements DamageCalculatorIf {
     @Override
     public int calculateDamage(Creature aAttacker, Creature aDefender) {
         return baseDamage + power * multiplier;
+    }
+
+    @Override
+    public int calculateDamageToObstacle(Creature attacker, ObstaclesWithHP obstacleWithHP) {
+        return 0;
     }
 
     @Override
