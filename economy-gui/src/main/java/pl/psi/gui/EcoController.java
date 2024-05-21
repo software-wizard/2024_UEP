@@ -3,13 +3,19 @@ package pl.psi.gui;
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
+import java.util.Collection;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
 import com.sun.javafx.charts.Legend;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -19,6 +25,7 @@ import pl.psi.EconomyEngine;
 import pl.psi.EconomyHero;
 import pl.psi.Point;
 import pl.psi.converter.EcoBattleConverter;
+import pl.psi.skills.Skill;
 
 @NoArgsConstructor
 public class EcoController implements PropertyChangeListener {
@@ -34,6 +41,10 @@ public class EcoController implements PropertyChangeListener {
     private Button passButton;
     @FXML
     private Label allResourcesLabel;
+    @FXML
+    private ListView<String> skillsList;
+
+    private ObservableList<String> skills;
 
     public EcoController(final EconomyHero aHero1, final EconomyHero aHero2) {
         engine = new EconomyEngine(aHero1, aHero2);
@@ -105,6 +116,10 @@ public class EcoController implements PropertyChangeListener {
         }
 
         allResourcesLabel.setText(engine.getCurrentHero().getResources().getAllResourcesAsString()) ;
+
+        List<String> skillsData = engine.getCurrentHero().getSkills().values().stream().map(Skill::toString).collect(Collectors.toList());
+        skills = FXCollections.observableArrayList(skillsData);
+        skillsList.setItems(skills);
     }
 
     @Override

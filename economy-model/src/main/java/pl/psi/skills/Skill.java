@@ -7,6 +7,7 @@ import java.util.Objects;
 
 public abstract class Skill {
 
+
     protected int level;
     @Getter
     protected SkillEnum skillName;
@@ -17,10 +18,15 @@ public abstract class Skill {
     }
 
     private int validateLevel(int aLevel) {
-        int levelToReturn;
         if (aLevel < 1) {
-            levelToReturn = 1;
-        } else levelToReturn = Math.min(aLevel, 3);
-        return levelToReturn;
+            return 1;
+        }
+        return Math.min(aLevel, 3);
+    }
+
+    @Override
+    public String toString() {
+        String enumString = skillName.name();
+        return enumString.charAt(0) + enumString.substring(1).toLowerCase() + " (" + level + ")";
     }
 }

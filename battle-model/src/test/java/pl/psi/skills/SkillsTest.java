@@ -352,6 +352,4 @@ public class SkillsTest {
             return 0.0;
         }
     }
-
-
 }
