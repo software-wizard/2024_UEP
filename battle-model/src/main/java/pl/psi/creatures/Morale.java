@@ -6,19 +6,30 @@ import lombok.Setter;
 import java.util.Random;
 
 public class Morale {
-    @Setter
+    @Getter
     private int value;
     @Getter
     private Random random;
 
     public Morale(int value) {
-        this.value = value;
+        this.value = validateValue(value);
         this.random = new Random();
     }
 
     public Morale(int value, Random random) {
-        this.value = value;
+        this.value = validateValue(value);
         this.random = random;
+    }
+
+    private int validateValue(int aValue) {
+        if (aValue < -3) {
+            return -3;
+        }
+        return Math.min(aValue, 3);
+    }
+
+    public void setValue(int value) {
+        this.value = validateValue(value);
     }
 
     public boolean shouldFreeze() {

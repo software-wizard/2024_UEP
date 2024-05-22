@@ -43,7 +43,7 @@ public class EcoBattleConverter {
         final NecropolisFactory factory = new NecropolisFactory();
         aPlayer1.getCreatures()
                 .forEach(ecoCreature -> creatures
-                        .add(factory.create(ecoCreature.isUpgraded(), ecoCreature.getTier(), 1)));
+                        .add(factory.create(ecoCreature.isUpgraded(), ecoCreature.getTier(), 1, ecoCreature.getMoraleValue())));
 
         // Zakładam ze skille "nie battle" nie muszą byc zalaczane tutaj, poniewaz one musza dzialac jak sobie biegamy po mapie
         for (Skill skill : aPlayer1.getSkills().values()) {

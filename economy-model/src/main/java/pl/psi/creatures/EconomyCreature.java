@@ -11,4 +11,5 @@ public class EconomyCreature
     private final boolean isUpgraded;
     private final int tier;
     private final int goldCost;
+    private final int moraleValue;
 }

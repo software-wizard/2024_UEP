@@ -50,7 +50,7 @@ public class Start extends Application
     private Hero createP2()
     {
         final Hero ret = new Hero(
-                List.of( new NecropolisFactory().create( true, 1, 5 ) ),
+                List.of( new NecropolisFactory().create( true, 1, 5, 0 ) ),
                 new Spellbook( List.of( new SampleSpell()) ));
         return ret;
     }
@@ -58,7 +58,7 @@ public class Start extends Application
     private Hero createP1()
     {
         final Hero ret = new Hero(
-                List.of( new NecropolisFactory().create( false, 1, 5 ) ),
+                List.of( new NecropolisFactory().create( false, 1, 5, 0 ) ),
                 new Spellbook( List.of( new SampleSpell() ) ));
         return ret;
     }
