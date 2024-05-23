@@ -76,8 +76,5 @@ class MachineFactoryTest {
         // then
         assertThat(dragon.getCurrentHp()).isBetween(71,100);
 
-
-
-
     }
 }

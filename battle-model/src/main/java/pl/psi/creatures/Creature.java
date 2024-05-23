@@ -40,7 +40,7 @@ public class Creature implements PropertyChangeListener {
     Creature() {
     }
 
-    private Creature(final CreatureStatisticIf aStats, final DamageCalculatorIf aCalculator,
+    protected Creature(final CreatureStatisticIf aStats, final DamageCalculatorIf aCalculator,
                      final int aAmount, CreatureTypeEnum aCreatureType, AttackTypeEnum aAttackType) {
         stats = aStats;
         amount = aAmount;
@@ -129,6 +129,7 @@ public class Creature implements PropertyChangeListener {
     }
 
     protected void restoreCurrentHpToPartHP() {
+        System.out.println("TEST restoreCurrentHpToPartHP");
         Random random = new Random();
         int healHP = random.nextInt(25)+1;
         if (currentHp+healHP >= stats.getMaxHp()) {

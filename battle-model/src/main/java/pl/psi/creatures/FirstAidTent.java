@@ -23,24 +23,9 @@ public class FirstAidTent extends Creature {
 
     private FirstAidTent(final CreatureStatisticIf aStats, final DamageCalculatorIf aCalculator,
                      final int aAmount, CreatureTypeEnum aCreatureType, AttackTypeEnum aAttackType) {
-        stats = aStats;
-        amount = aAmount;
-        currentHp = stats.getMaxHp();
-        calculator = aCalculator;
-        creatureType = aCreatureType;
-        attackType = aAttackType;
+        super(aStats, aCalculator, aAmount, aCreatureType,aAttackType);
     }
-    @Override
-    public void chooseHealCreature(List<Creature> creatureList) {
-        System.out.println("TEST");
-        Creature smallHP = creatureList.get(0);
-        for (Creature creature : creatureList) {
-            if (creature.getCurrentHp()<smallHP.getCurrentHp()){
-                smallHP=creature;
-            }
-        }
-        healHPCreature(smallHP);
-    }
+
     public static class Builder {
         private int amount = 1;
         private DamageCalculatorIf calculator = new DefaultDamageCalculator(new Random());
@@ -64,7 +49,19 @@ public class FirstAidTent extends Creature {
 
     }
     @Override
+    public void chooseHealCreature(List<Creature> creatureList) {
+        System.out.println("TEST");
+        Creature smallHP = creatureList.get(0);
+        for (Creature creature : creatureList) {
+            if (creature.getCurrentHp()<smallHP.getCurrentHp()){
+                smallHP=creature;
+            }
+        }
+        healHPCreature(smallHP);
+    }
+
     protected void restoreCurrentHpToPartHP() {
+        System.out.println("TEST restoreCurrentHpToPartHP");
         Random random = new Random();
         int healHP = random.nextInt(25)+1;
         if (currentHp+healHP >= stats.getMaxHp()) {
@@ -72,6 +69,10 @@ public class FirstAidTent extends Creature {
         } else {
             currentHp = currentHp+healHP;
         }
+    }
+    @Override
+    public void healHPCreature(Creature creature) {
+        creature.restoreCurrentHpToPartHP();
     }
 
 }
