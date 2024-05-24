@@ -4,17 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="5044cea5-d660-4662-ab63-8102a44673c1" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/economy-model/src/main/java/pl/psi/objects/Field.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/economy-model/src/main/java/pl/psi/objects/SkillsField.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/economy-model/src/main/java/pl/psi/skills/EcoSkill.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bundle.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/bundle.ipr" afterDir="false" />
+    <list default="true" id="5044cea5-d660-4662-ab63-8102a44673c1" name="Changes" comment="początki SkillsField">
+      <change afterPath="$PROJECT_DIR$/eco-battle-converter/src/main/java/pl/psi/converter/SkillsConverter.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bundle.iws" beforeDir="false" afterPath="$PROJECT_DIR$/bundle.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/economy-model/src/main/java/pl/psi/EcoMap.java" beforeDir="false" afterPath="$PROJECT_DIR$/economy-model/src/main/java/pl/psi/EcoMap.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/economy-model/src/main/java/pl/psi/EconomyEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/economy-model/src/main/java/pl/psi/EconomyEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/economy-model/src/main/java/pl/psi/FieldObjects.java" beforeDir="false" afterPath="$PROJECT_DIR$/economy-model/src/main/java/pl/psi/FieldObjects.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/economy-model/src/main/java/pl/psi/objects/ResourcesField.java" beforeDir="false" afterPath="$PROJECT_DIR$/economy-model/src/main/java/pl/psi/objects/ResourcesField.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/pom.xml" beforeDir="false" afterPath="$PROJECT_DIR$/pom.xml" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -182,8 +174,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
   </component>
@@ -247,9 +239,9 @@
   <component name="ProblemsViewState">
     <option name="selectedTabId" value="CurrentFile" />
   </component>
-  <component name="ProjectColorInfo"><![CDATA[{
-  "associatedIndex": 5
-}]]></component>
+  <component name="ProjectColorInfo">{
+  &quot;associatedIndex&quot;: 5
+}</component>
   <component name="ProjectId" id="2gscWOPGAuVaD9nw1KO4tuYZQIa" />
   <component name="ProjectLevelVcsManager" settingsEditedManually="true" />
   <component name="ProjectViewSettings">
@@ -264,32 +256,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.EconomyStart.executor": "Run",
-    "Application.LaunchEconomy.executor": "Run",
-    "Downloaded.Files.Path.Enabled": "false",
-    "Repository.Attach.Annotations": "false",
-    "Repository.Attach.JavaDocs": "false",
-    "Repository.Attach.Sources": "false",
-    "RunOnceActivity.OpenProjectViewOnStart": "true",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "45b89c6f",
-    "ignore.virus.scanning.warn.message": "true",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/tymek/Downloads/openjfx-22.0.1_windows-x64_bin-sdk.zip",
-    "node.js.detected.package.eslint": "true",
-    "node.js.detected.package.tslint": "true",
-    "node.js.selected.package.eslint": "(autodetect)",
-    "node.js.selected.package.tslint": "(autodetect)",
-    "nodejs_package_manager_path": "npm",
-    "project.structure.last.edited": "Modules",
-    "project.structure.proportion": "0.0",
-    "project.structure.side.proportion": "0.0",
-    "settings.editor.selected.configurable": "preferences.sourceCode",
-    "vue.rearranger.settings.migration": "true"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.EconomyStart.executor&quot;: &quot;Run&quot;,
+    &quot;Application.LaunchEconomy.executor&quot;: &quot;Run&quot;,
+    &quot;Downloaded.Files.Path.Enabled&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Annotations&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.JavaDocs&quot;: &quot;false&quot;,
+    &quot;Repository.Attach.Sources&quot;: &quot;false&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;04b235d7&quot;,
+    &quot;ignore.virus.scanning.warn.message&quot;: &quot;true&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/tymek/Downloads/openjfx-22.0.1_windows-x64_bin-sdk.zip&quot;,
+    &quot;node.js.detected.package.eslint&quot;: &quot;true&quot;,
+    &quot;node.js.detected.package.tslint&quot;: &quot;true&quot;,
+    &quot;node.js.selected.package.eslint&quot;: &quot;(autodetect)&quot;,
+    &quot;node.js.selected.package.tslint&quot;: &quot;(autodetect)&quot;,
+    &quot;nodejs_package_manager_path&quot;: &quot;npm&quot;,
+    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
+    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
+    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;,
+    &quot;settings.editor.selected.configurable&quot;: &quot;preferences.sourceCode&quot;,
+    &quot;vue.rearranger.settings.migration&quot;: &quot;true&quot;
   }
-}]]></component>
+}</component>
   <component name="RunManager" selected="Application.LaunchEconomy">
     <configuration selected="false" default="true" type="Applet" factoryName="Applet">
       <module name="" />
@@ -398,7 +390,18 @@
       <option name="presentableId" value="Default" />
       <updated>1716489756959</updated>
       <workItem from="1716489758148" duration="7171000" />
+      <workItem from="1716578892599" duration="1889000" />
+      <workItem from="1716580794074" duration="560000" />
     </task>
+    <task id="LOCAL-00001" summary="początki SkillsField">
+      <option name="closed" value="true" />
+      <created>1716579032633</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1716579032633</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -440,15 +443,46 @@
     <option name="version" value="3" />
   </component>
   <component name="Vcs.Log.Tabs.Properties">
-    <option name="TAB_STATES">
+    <option name="RECENT_FILTERS">
       <map>
-        <entry key="MAIN">
+        <entry key="Branch">
           <value>
-            <State />
+            <list>
+              <RecentGroup>
+                <option name="FILTER_VALUES">
+                  <option value="origin/Skills" />
+                </option>
+              </RecentGroup>
+            </list>
           </value>
         </entry>
       </map>
     </option>
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State>
+              <option name="FILTERS">
+                <map>
+                  <entry key="branch">
+                    <value>
+                      <list>
+                        <option value="origin/Skills" />
+                      </list>
+                    </value>
+                  </entry>
+                </map>
+              </option>
+            </State>
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="początki SkillsField" />
+    <option name="LAST_COMMIT_MESSAGE" value="początki SkillsField" />
   </component>
   <component name="VssConfiguration">
     <CheckoutOptions>
