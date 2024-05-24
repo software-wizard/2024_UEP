@@ -3,7 +3,7 @@ package pl.psi.objects;
 import pl.psi.EconomyHero;
 import pl.psi.Resources;
 
-public class ResourcesField {
+public class ResourcesField implements Field {
 
     private final Resources resources;
     public ResourcesField(Resources amount) {
