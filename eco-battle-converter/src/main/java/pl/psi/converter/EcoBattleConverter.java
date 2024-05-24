@@ -11,6 +11,8 @@ import javafx.stage.Stage;
 import pl.psi.EconomyHero;
 import pl.psi.Hero;
 import pl.psi.StartBattlePack;
+import pl.psi.enums.SkillEnum;
+import pl.psi.skills.EcoSkill;
 import pl.psi.spells.Spellbook;
 import skills.BattleSkill;
 import pl.psi.creatures.Creature;
@@ -47,6 +49,11 @@ public class EcoBattleConverter {
 
         // Zakładam ze skille "nie battle" nie muszą byc zalaczane tutaj, poniewaz one musza dzialac jak sobie biegamy po mapie
         for (Skill skill : aPlayer1.getSkills().values()) {
+            if (skill instanceof EcoSkill) {
+                SkillEnum name = skill.getSkillName();
+                int lv = skill.getLevel();
+                new BattleSkill() //todo tymek
+            }
             if (skill instanceof BattleSkill) {
                 ((BattleSkill) skill).cast(creatures);
             }

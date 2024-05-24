@@ -33,15 +33,16 @@
         </HBox>
     </top>
     <center>
-
         <GridPane fx:id="grid" BorderPane.alignment="CENTER">
         </GridPane>
     </center>
     <right>
-        <VBox alignment="CENTER_LEFT" maxHeight="220.0" prefWidth="200.0">
-            <Label text="Skills" />
-            <ListView fx:id="skillsList" prefWidth="200"/>
-        </VBox>
+        <HBox>
+            <VBox alignment="CENTER_LEFT" maxHeight="220.0" prefWidth="200.0">
+                <Label text="Skills" />
+                <ListView fx:id="skillsList" prefWidth="200"/>
+            </VBox>
+        </HBox>
     </right>
     <bottom>
         <HBox alignment="TOP_CENTER">
