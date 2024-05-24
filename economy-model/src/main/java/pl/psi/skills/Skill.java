@@ -5,11 +5,10 @@ import pl.psi.enums.SkillEnum;
 
 import java.util.Objects;
 
+@Getter
 public abstract class Skill {
 
-
-    protected int level;
-    @Getter
+protected int level;
     protected SkillEnum skillName;
 
     public Skill(SkillEnum aSkillEnum, int aLevel) {

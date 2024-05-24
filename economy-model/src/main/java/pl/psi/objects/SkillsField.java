@@ -1,17 +1,17 @@
 package pl.psi.objects;
 
 import pl.psi.EconomyHero;
-import pl.psi.skills.EcoSkill;
+import pl.psi.Resources;
 import pl.psi.skills.Skill;
 
 public class SkillsField implements Field {
 
-    private final EcoSkill aSkill;
-    public SkillsField( EcoSkill aSkill) {
-        this.aSkill = aSkill;
+    private final Skill skill;
+    public SkillsField(Skill aSkill) {
+        skill = aSkill;
     }
-
+    @Override
     public void apply(EconomyHero hero) {
-        hero.addSkill(aSkill);
+        hero.addSkill(skill);
     }
 }

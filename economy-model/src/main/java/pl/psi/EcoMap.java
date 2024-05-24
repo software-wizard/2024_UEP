@@ -32,7 +32,7 @@ public class EcoMap
         mapObjects.put(new Point(1,1), castle);
         for (Map.Entry<Point, Field> entry : fieldObject.fieldMap.entrySet()) {
             Point point = entry.getKey();
-            fieldObjects.put(point,entry.getValue());
+            fieldObjects.put(point, entry.getValue());
         }
     }
 
