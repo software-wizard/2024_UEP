@@ -18,10 +18,9 @@ public class Ballista extends Creature {
     private AttackTypeEnum attackType;
     @Setter
     private DamageApplier damageApplier = new DamageApplier();
-
-    private Ballista(final CreatureStatisticIf aStats, final DamageCalculatorIf aCalculator,
+    private Ballista (final CreatureStatisticIf aStats, final DamageCalculatorIf aCalculator,
                          final int aAmount, CreatureTypeEnum aCreatureType, AttackTypeEnum aAttackType) {
-        super(aStats, aCalculator, aAmount, aCreatureType, aAttackType);
+        super(aStats,aCalculator,aAmount,aCreatureType,aAttackType);
     }
     public static class Builder {
         private int amount = 1;
