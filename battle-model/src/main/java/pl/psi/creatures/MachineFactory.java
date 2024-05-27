@@ -18,7 +18,7 @@ public class MachineFactory
                     return new Ballista.Builder().statistic( CreatureStatistic.BALLISTA )
                             .build();
                 case "Catapult":
-                    return new Creature.Builder().statistic( CreatureStatistic.CATAPULT )
+                    return new Catapult.Builder().statistic( CreatureStatistic.CATAPULT )
                             .build();
                 default:
                     throw new IllegalArgumentException( EXCEPTION_MESSAGE );
