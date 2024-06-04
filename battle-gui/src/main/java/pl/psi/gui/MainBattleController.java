@@ -124,6 +124,7 @@ public class MainBattleController implements PropertyChangeListener
                     mapTile.setBackground(Color.BLUE);
                 }
                 if ( gameEngine.isObstacleWithHP(currentPoint)) {
+                    mapTile.setName("HP");
                     mapTile.setBackground(Color.GREEN);
                 }
                 if( gameEngine.isCurrentCreature( currentPoint ) )

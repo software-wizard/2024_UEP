@@ -43,9 +43,9 @@ public class GameEngine {
             Creature defender = optionalDefender.get();
             turnQueue.getCurrentCreature().attack(defender);
         } else if (board.isObstacleWithHP(point)) {
-            Optional<ObstaclesWithHP> optionalObstacle = board.getObstacleWithHP(point);
-            if (optionalObstacle.isPresent()) {
-                ObstaclesWithHP obstacleWithHP = optionalObstacle.get();
+            Optional<ObstaclesWithHP> optionalObstacleWithHP = board.getObstacleWithHP(point);
+            if (optionalObstacleWithHP.isPresent()) {
+                ObstaclesWithHP obstacleWithHP = optionalObstacleWithHP.get();
                 turnQueue.getCurrentCreature().attackObstacle(obstacleWithHP, point);
             }
         }

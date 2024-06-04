@@ -4,18 +4,13 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f3102dac-a942-4483-9cc7-2febc53c83f3" name="Changes" comment="">
-      <change afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/Obstacle.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/ObstaclesIF.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/ObstaclesWithHP.java" afterDir="false" />
+    <list default="true" id="f3102dac-a942-4483-9cc7-2febc53c83f3" name="Changes" comment="added obstacles">
+      <change afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/ObstaclesWithHPObserver.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/ObstaclesWithHPObserverIF.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/battle-gui/src/main/java/pl/psi/gui/MainBattleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-gui/src/main/java/pl/psi/gui/MainBattleController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/Board.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/GameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/GameEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/AbstractCalculateDamageStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/AbstractCalculateDamageStrategy.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/Creature.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/Creature.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/DamageCalculatorIf.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/DamageCalculatorIf.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/spells/calculator/EmpoweredSpellDamageCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/spells/calculator/EmpoweredSpellDamageCalculator.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bundle.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/bundle.ipr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/ObstaclesWithHP.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/ObstaclesWithHP.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bundle.iws" beforeDir="false" afterPath="$PROJECT_DIR$/bundle.iws" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -181,6 +176,14 @@
     <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
     <option name="HIDE_WARNINGS" value="false" />
   </component>
+  <component name="FileTemplateManagerImpl">
+    <option name="RECENT_TEMPLATES">
+      <list>
+        <option value="Interface" />
+        <option value="Class" />
+      </list>
+    </option>
+  </component>
   <component name="Git.Settings">
     <excluded-from-favorite>
       <branch-storage>
@@ -297,15 +300,15 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent"><![CDATA[{
-  "keyToString": {
-    "Application.LaunchBattle.executor": "Run",
-    "RunOnceActivity.ShowReadmeOnStart": "true",
-    "git-widget-placeholder": "specialFields",
-    "kotlin-language-version-configured": "true",
-    "last_opened_file_path": "C:/Users/barto/Desktop/pliki/Java projects/2024_UEP/battle-model/src/main/java/pl/psi"
+  <component name="PropertiesComponent">{
+  &quot;keyToString&quot;: {
+    &quot;Application.LaunchBattle.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
+    &quot;git-widget-placeholder&quot;: &quot;specialFields&quot;,
+    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
+    &quot;last_opened_file_path&quot;: &quot;C:/Users/barto/Desktop/pliki/Java projects/2024_UEP/battle-model/src/main/java/pl/psi&quot;
   }
-}]]></component>
+}</component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\barto\Desktop\pliki\Java projects\2024_UEP\battle-model\src\main\java\pl\psi" />
@@ -388,6 +391,15 @@
       <option name="presentableId" value="Default" />
       <updated>1715878157689</updated>
     </task>
+    <task id="LOCAL-00001" summary="added obstacles">
+      <option name="closed" value="true" />
+      <created>1716326236702</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1716326236702</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -424,6 +436,21 @@
       <window_info id="EJB" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.25" order="3" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="docked" type="docked" visible="false" weight="0.25" order="5" />
     </layout>
+  </component>
+  <component name="Vcs.Log.Tabs.Properties">
+    <option name="TAB_STATES">
+      <map>
+        <entry key="MAIN">
+          <value>
+            <State />
+          </value>
+        </entry>
+      </map>
+    </option>
+  </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added obstacles" />
+    <option name="LAST_COMMIT_MESSAGE" value="added obstacles" />
   </component>
   <component name="VssConfiguration">
     <CheckoutOptions>
