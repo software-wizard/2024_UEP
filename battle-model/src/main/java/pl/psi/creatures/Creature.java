@@ -57,20 +57,13 @@ public class Creature implements PropertyChangeListener {
 
     public void attack(final Creature aDefender) {
         if (isAlive() && !morale.shouldFreeze()) {
-            performAttack(aDefender);
+            int damage = getCalculator().calculateDamage(this, aDefender);
+            DamageValueObject damageObject = new DamageValueObject(damage, this.attackType, this.creatureType);
+            aDefender.getDamageApplier().applyDamage(damageObject, aDefender);
             if (canCounterAttack(aDefender)) {
                 counterAttack(aDefender);
             }
-            if (morale.shouldAttackAgain()) {
-                performAttack(aDefender);
-            }
         }
-    }
-
-    private void performAttack(Creature aDefender) {
-        int damage = getCalculator().calculateDamage(this, aDefender);
-        DamageValueObject damageObject = new DamageValueObject(damage, this.attackType, this.creatureType);
-        aDefender.getDamageApplier().applyDamage(damageObject, aDefender);
     }
 
     public boolean isAlive() {
@@ -95,8 +88,8 @@ public class Creature implements PropertyChangeListener {
 
     private void counterAttack(final Creature aAttacker) {
         final int damage = aAttacker.getCalculator().calculateDamage(aAttacker, this);
-        DamageValueObject aDamageValueObject = new DamageValueObject(damage, this.attackType, this.creatureType);
-        damageApplier.applyDamage(aDamageValueObject, this); //spytac czy lepiej uzywac getDamageApplier czy damageApplier
+        DamageValueObject aDamageValueObject = new DamageValueObject(damage, aAttacker.getAttackType(), aAttacker.getCreatureType());
+        this.damageApplier.applyDamage(aDamageValueObject, this);
         aAttacker.counterAttackCounter--;
     }
 

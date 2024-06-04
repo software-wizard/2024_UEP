@@ -319,37 +319,4 @@ public class SkillsTest {
         assertThat(lichWithoutArchery.getCurrentHp()).isEqualTo(MAX_HP - 18);
         assertThat(lichWithArcheryAndOffense.getCurrentHp()).isEqualTo(MAX_HP - 12);
     }
-
-    @Test
-    void CreatureAttacksTwiceWhenGoodMorale() {
-        int MAX_HP = 200;
-        Creature angel1 = new Creature.Builder().statistic(CreatureStats.builder()
-                        .armor(20)
-                        .attack(20)
-                        .maxHp(MAX_HP)
-                        .damage(Range.closed(50, 50))
-                        .build())
-                .morale(new Morale(3, new ZeroRandom()))
-                .build();
-
-        Creature angel2 = new Creature.Builder().statistic(CreatureStats.builder()
-                        .armor(20)
-                        .attack(20)
-                        .maxHp(MAX_HP)
-                        .damage(Range.closed(50, 50))
-                        .build())
-                .build();
-
-        angel1.attack(angel2);
-
-        assertThat(angel2.getCurrentHp()).isEqualTo(MAX_HP - 100);
-        assertThat(angel1.getCurrentHp()).isEqualTo(MAX_HP - 50);
-    }
-
-    private class ZeroRandom extends Random {
-        @Override
-        public double nextDouble() {
-            return 0.0;
-        }
-    }
 }
