@@ -20,6 +20,7 @@ public class GameEngine {
 
     private final Hero hero1;
     private final Hero hero2;
+    private boolean gotLucky = false;
 
     public  GameEngine(final Hero aHero1, final Hero aHero2) {
         hero1 = aHero1;
@@ -32,6 +33,12 @@ public class GameEngine {
         board.getCreature(point)
                 .ifPresent(defender -> turnQueue.getCurrentCreature()
                         .attack(defender));
+        //If creature gets lucky morale 
+        if (turnQueue.getCurrentCreature().getMorale().shouldAttackAgain() && !gotLucky) {
+            gotLucky = true;
+            return;
+        }
+        gotLucky = false;
         pass();
     }
 
