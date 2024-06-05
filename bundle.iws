@@ -4,13 +4,9 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f3102dac-a942-4483-9cc7-2febc53c83f3" name="Changes" comment="added obstacles">
-      <change afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/ObstaclesWithHPObserver.java" afterDir="false" />
-      <change afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/ObstaclesWithHPObserverIF.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/battle-gui/src/main/java/pl/psi/gui/MainBattleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-gui/src/main/java/pl/psi/gui/MainBattleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/GameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/GameEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/ObstaclesWithHP.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/ObstaclesWithHP.java" afterDir="false" />
+    <list default="true" id="f3102dac-a942-4483-9cc7-2febc53c83f3" name="Changes" comment="">
+      <change afterPath="$PROJECT_DIR$/battle-model/src/test/java/pl/psi/obstacles/ObstaclesWithHPTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle-model/src/test/java/pl/psi/BoardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/test/java/pl/psi/BoardTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bundle.iws" beforeDir="false" afterPath="$PROJECT_DIR$/bundle.iws" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -300,21 +296,31 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.LaunchBattle.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;specialFields&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/barto/Desktop/pliki/Java projects/2024_UEP/battle-model/src/main/java/pl/psi&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.LaunchBattle.executor": "Run",
+    "JUnit.BoardTest.creatureCannotEnterObstacle.executor": "Run",
+    "JUnit.BoardTest.executor": "Run",
+    "JUnit.BoardTest.obstacleWithHPRemove.executor": "Run",
+    "JUnit.BoardTest.testObstacleWithHPRemovalAfterDestruction.executor": "Run",
+    "JUnit.ObstaclesWithHPTest.executor": "Run",
+    "JUnit.ObstaclesWithHPTest.takeDamageReducesHP.executor": "Run",
+    "JUnit.ObstaclesWithHPTest.testTakeDamageReducesHP.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "specialFields",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/barto/Desktop/pliki/Java projects/2024_UEP/battle-model/src/main/java/pl/psi",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\barto\Desktop\pliki\Java projects\2024_UEP\battle-model\src\main\java\pl\psi" />
     </key>
   </component>
-  <component name="RunManager">
+  <component name="RunManager" selected="JUnit.ObstaclesWithHPTest">
     <configuration selected="false" default="true" type="Applet" factoryName="Applet">
       <module name="" />
       <option name="MAIN_CLASS_NAME" />
@@ -341,6 +347,109 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <configuration name="BoardTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="battle-model" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="pl.psi.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="pl.psi" />
+      <option name="MAIN_CLASS_NAME" value="pl.psi.BoardTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="wholeProject" />
+      </option>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BoardTest.creatureCannotEnterObstacle" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="battle-model" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="pl.psi.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="pl.psi" />
+      <option name="MAIN_CLASS_NAME" value="pl.psi.BoardTest" />
+      <option name="METHOD_NAME" value="creatureCannotEnterObstacle" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="wholeProject" />
+      </option>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BoardTest.obstacleWithHPRemove" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="battle-model" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="pl.psi.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="pl.psi" />
+      <option name="MAIN_CLASS_NAME" value="pl.psi.BoardTest" />
+      <option name="METHOD_NAME" value="obstacleWithHPRemove" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="wholeProject" />
+      </option>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ObstaclesWithHPTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="battle-model" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="pl.psi.obstacles.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="pl.psi.obstacles" />
+      <option name="MAIN_CLASS_NAME" value="pl.psi.obstacles.ObstaclesWithHPTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="wholeProject" />
+      </option>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ObstaclesWithHPTest.takeDamageReducesHP" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="battle-model" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="pl.psi.obstacles.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="pl.psi.obstacles" />
+      <option name="MAIN_CLASS_NAME" value="pl.psi.obstacles.ObstaclesWithHPTest" />
+      <option name="METHOD_NAME" value="takeDamageReducesHP" />
+      <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="wholeProject" />
+      </option>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" />
@@ -352,6 +461,15 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
+    <recent_temporary>
+      <list>
+        <item itemvalue="JUnit.ObstaclesWithHPTest" />
+        <item itemvalue="JUnit.BoardTest" />
+        <item itemvalue="JUnit.BoardTest.creatureCannotEnterObstacle" />
+        <item itemvalue="JUnit.BoardTest.obstacleWithHPRemove" />
+        <item itemvalue="JUnit.ObstaclesWithHPTest.takeDamageReducesHP" />
+      </list>
+    </recent_temporary>
   </component>
   <component name="SpellCheckerSettings" RuntimeDictionaries="0" Folders="0" CustomDictionaries="0" DefaultDictionary="application-level" UseSingleDictionary="true" transferred="true" />
   <component name="StarteamConfiguration">
@@ -399,7 +517,15 @@
       <option name="project" value="LOCAL" />
       <updated>1716326236702</updated>
     </task>
-    <option name="localTasksCounter" value="2" />
+    <task id="LOCAL-00002" summary="added Observer in ObstaclesWithHP">
+      <option name="closed" value="true" />
+      <created>1717512391597</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1717512391597</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -450,7 +576,8 @@
   </component>
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added obstacles" />
-    <option name="LAST_COMMIT_MESSAGE" value="added obstacles" />
+    <MESSAGE value="added Observer in ObstaclesWithHP" />
+    <option name="LAST_COMMIT_MESSAGE" value="added Observer in ObstaclesWithHP" />
   </component>
   <component name="VssConfiguration">
     <CheckoutOptions>
