@@ -1,5 +1,7 @@
 package pl.psi.creatures;
 
+import pl.psi.enums.AttackTypeEnum;
+
 import java.util.List;
 
 public class MachineFactory
@@ -13,9 +15,11 @@ public class MachineFactory
                             .build();
                 case "Ballista":
                     return new Creature.Builder().statistic( CreatureStatistic.BALLISTA )
+                            .attackType(AttackTypeEnum.RANGE)
                             .build();
                 case "Catapult":
                     return new Creature.Builder().statistic( CreatureStatistic.CATAPULT )
+                            .attackType(AttackTypeEnum.RANGE)
                             .build();
                 default:
                     throw new IllegalArgumentException( EXCEPTION_MESSAGE );

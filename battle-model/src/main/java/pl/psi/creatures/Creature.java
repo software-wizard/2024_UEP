@@ -32,7 +32,7 @@ public class Creature implements PropertyChangeListener {
     private int amount;
     private int currentHp;
     private int counterAttackCounter = 1;
-    private Morale morale; //todo temp
+    private Morale morale;
     @Setter
     private DamageCalculatorIf calculator;
     private CreatureTypeEnum creatureType;
@@ -56,9 +56,13 @@ public class Creature implements PropertyChangeListener {
 
 
     public void attack(final Creature aDefender) {
+        attack(aDefender, AttackTypeEnum.MELEE);
+    } //todo tu pytanie
+
+    public void attack(final Creature aDefender, AttackTypeEnum aAttackType) {
         if (isAlive() && !morale.shouldFreeze()) {
             int damage = getCalculator().calculateDamage(this, aDefender);
-            DamageValueObject damageObject = new DamageValueObject(damage, this.attackType, this.creatureType);
+            DamageValueObject damageObject = new DamageValueObject(damage, aAttackType, this.creatureType);
             aDefender.getDamageApplier().applyDamage(damageObject, aDefender);
             if (canCounterAttack(aDefender)) {
                 counterAttack(aDefender);
@@ -152,7 +156,7 @@ public class Creature implements PropertyChangeListener {
             return this;
         }
 
-        Builder calculator(final DamageCalculatorIf aCalc) {
+        public Builder calculator(final DamageCalculatorIf aCalc) {
             calculator = aCalc;
             return this;
         }

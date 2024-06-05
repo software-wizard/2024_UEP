@@ -4,7 +4,6 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Optional;
 
-import lombok.Getter;
 import pl.psi.creatures.Creature;
 
 /**
@@ -20,7 +19,6 @@ public class GameEngine {
 
     private final Hero hero1;
     private final Hero hero2;
-    private boolean gotLucky = false;
 
     public  GameEngine(final Hero aHero1, final Hero aHero2) {
         hero1 = aHero1;
@@ -30,16 +28,18 @@ public class GameEngine {
     }
 
     public void attack(final Point point) {
+        attackOnce(point);
+        //If creature gets lucky morale 
+        if (turnQueue.getCurrentCreature().getMorale().shouldAttackAgain()) {
+            return;
+        }
+        pass();
+    }
+
+    private void attackOnce(Point point) {
         board.getCreature(point)
                 .ifPresent(defender -> turnQueue.getCurrentCreature()
                         .attack(defender));
-        //If creature gets lucky morale 
-        if (turnQueue.getCurrentCreature().getMorale().shouldAttackAgain() && !gotLucky) {
-            gotLucky = true;
-            return;
-        }
-        gotLucky = false;
-        pass();
     }
 
     public boolean canMove(final Point aPoint) {

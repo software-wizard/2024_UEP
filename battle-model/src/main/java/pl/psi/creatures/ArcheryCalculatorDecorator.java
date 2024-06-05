@@ -13,7 +13,7 @@ public class ArcheryCalculatorDecorator extends AbstractCalculateDamageStrategy 
     }
 
     @Override
-    public int calculateDamage( final Creature aAttacker, final Creature aDefender )
+    public int calculateDamage( final Creature aAttacker, final Creature aDefender ) //moze dwa kalkulatory aby uniknac jakiegs couplingu
     {
         return (int) (decorated.calculateDamage(aAttacker, aDefender) * getMultiplier());
     }

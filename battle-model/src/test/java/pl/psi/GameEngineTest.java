@@ -4,15 +4,15 @@ import java.util.List;
 import java.util.Random;
 
 import com.google.common.collect.Range;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
-import pl.psi.creatures.CastleCreatureFactory;
-import pl.psi.creatures.Creature;
-import pl.psi.creatures.CreatureStats;
-import pl.psi.creatures.Morale;
+import pl.psi.creatures.*;
+import pl.psi.enums.AttackTypeEnum;
 import pl.psi.spells.Spellbook;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -20,6 +20,8 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  */
 public class GameEngineTest
 {
+
+    final static Point ENEMY_LOCATION = new Point(14, 1);
     @Test
     void shoudWorksHeHe()
     {
@@ -47,6 +49,40 @@ public class GameEngineTest
         assertThat(gameEngine.getHeroToMove()).isEqualTo(hero1);
         gameEngine.pass();
         assertThat(gameEngine.getHeroToMove()).isEqualTo(hero2);
+    }
+
+    @Disabled
+    @Test
+    void rangedCreatureCorrectlyStatesAttackType() {
+        Range<Integer> notImportantDamage = Range.closed(0, 0);
+        final int maxHp = 30;
+        //given
+        final Creature lichWithArchery = new Creature.Builder().statistic(CreatureStats.builder()
+                        .armor(10)
+                        .attack(13)
+                        .maxHp(maxHp)
+                        .damage(Range.closed(11, 11))
+                        .build())
+                .attackType(AttackTypeEnum.RANGE)
+                .build();
+        lichWithArchery.setCalculator(new ArcheryCalculatorDecorator(lichWithArchery.getCalculator(), 2));
+
+        final Creature lichWithoutArchery = new Creature.Builder().statistic(CreatureStats.builder()
+                        .armor(10)
+                        .attack(13)
+                        .maxHp(maxHp)
+                        .damage(Range.closed(11, 11))
+                        .build())
+                .build();
+        Hero hero1 = new Hero(List.of(lichWithArchery), new Spellbook(List.of()));
+        Hero hero2 = new Hero(List.of(lichWithoutArchery), new Spellbook(List.of()));
+
+        GameEngine gameEngine = new GameEngine(hero1, hero2);
+
+        gameEngine.attack(ENEMY_LOCATION);
+        assertThat(gameEngine.getCreature(ENEMY_LOCATION).get().getCurrentHp()).isEqualTo(maxHp - 15);
+
+
     }
 
     @Test
@@ -79,23 +115,23 @@ public class GameEngineTest
 
         assertEquals(gameEngine.getHeroToMove(), hero1);
         assertEquals(gameEngine.getCreatureToMove(), shouldActTwice);
-        Point enemyLocation = new Point(14, 1);
-        assertEquals(gameEngine.getCreature(enemyLocation).get(), enemyCreature);
+        assertThat(gameEngine.getCreature(ENEMY_LOCATION).isPresent()).isTrue();
+        assertEquals(gameEngine.getCreature(ENEMY_LOCATION).get(), enemyCreature);
 
         assertThat(gameEngine.getCreatureToMove()).isEqualTo(shouldActTwice);
-        gameEngine.attack(enemyLocation);
+        gameEngine.attack(ENEMY_LOCATION);
 
         assertThat(gameEngine.getCreatureToMove()).isEqualTo(shouldActTwice);
-        gameEngine.attack(enemyLocation);
+        gameEngine.attack(ENEMY_LOCATION);
 
         assertThat(gameEngine.getCreatureToMove()).isEqualTo(shouldActOnce);
-        gameEngine.attack(enemyLocation);
+        gameEngine.attack(ENEMY_LOCATION);
 
         assertEquals(gameEngine.getHeroToMove(), hero2);
         assertEquals(gameEngine.getCreatureToMove(), enemyCreature);
     }
 
-    private class QuarterRandom extends Random {
+    private static class QuarterRandom extends Random {
         @Override
         public double nextDouble() {
             return 0.25;

@@ -3,13 +3,11 @@ package pl.psi;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
-import java.util.Random;
 
 import org.junit.jupiter.api.Test;
 
 import pl.psi.creatures.Creature;
 import pl.psi.creatures.CreatureStats;
-import pl.psi.creatures.Morale;
 
 class TurnQueueTest
 {
