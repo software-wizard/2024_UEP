@@ -2,12 +2,8 @@ package pl.psi.gui;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.IOException;
-import java.util.Optional;
 
-import com.sun.javafx.charts.Legend;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -70,6 +66,12 @@ public class EcoController implements PropertyChangeListener {
 
                 if (engine.isBattlePoint(currentPoint)) {
                     mapTile.setBackground(Color.RED);
+                    mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED,
+                            (e) -> EcoBattleConverter.startBattle(engine.getStartBattlePack(currentPoint)));
+                }
+
+                if (engine.isOpponentPoint(currentPoint)) {
+                    mapTile.setBackground(Color.YELLOW);
                     mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED,
                             (e) -> EcoBattleConverter.startBattle(engine.getStartBattlePack(currentPoint)));
                 }

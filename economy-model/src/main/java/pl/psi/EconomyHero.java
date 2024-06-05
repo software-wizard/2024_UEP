@@ -18,8 +18,7 @@ import pl.psi.skills.Skill;
  */
 @Getter
 @AllArgsConstructor
-public class EconomyHero implements PropertyChangeListener
-{
+public class EconomyHero implements PropertyChangeListener {
     private final String name;
     private final List< EconomyCreature > creatures;
     private int maxMovePoints;

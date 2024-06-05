@@ -14,6 +14,8 @@ public class GameEngine {
 
     public static final String CREATURE_MOVED = "CREATURE_MOVED";
 
+    public static final String BATTLE_ENDED = "BATTLE_ENDED";
+
     private final TurnQueue turnQueue;
     private final Board board;
     private final PropertyChangeSupport observerSupport = new PropertyChangeSupport(this);
@@ -41,6 +43,8 @@ public class GameEngine {
                 .ifPresent(defender -> turnQueue.getCurrentCreature()
                         .attack(defender));
         pass();
+
+        checkBattleEnd();
     }
 
     public boolean canMove(final Point aPoint) {
@@ -97,5 +101,32 @@ public class GameEngine {
 
     public boolean isValidPoint(Point p) {
         return board.isWithinBounds(p);
+    }
+
+    public void endBattle(boolean attackerWon){
+        observerSupport.firePropertyChange(BATTLE_ENDED, null, attackerWon);
+    }
+
+
+    public void checkBattleEnd() {
+        boolean attackerWon = determineWinner();
+        endBattle(attackerWon);
+    }
+
+    private Boolean determineWinner() {
+
+        boolean attackerHasCreatures = hero1.getCreatures().stream()
+                .anyMatch(creature -> creature.getCurrentHp() > 0);
+
+        boolean defenderHasCreatures = hero2.getCreatures().stream()
+                .anyMatch(creature -> creature.getCurrentHp() > 0);
+
+        if (attackerHasCreatures && !defenderHasCreatures) {
+            return true;
+        } else if (!attackerHasCreatures && defenderHasCreatures) {
+            return false;
+        } else {
+            return null;
+        }
     }
 }

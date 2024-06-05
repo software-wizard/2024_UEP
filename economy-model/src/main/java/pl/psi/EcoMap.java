@@ -1,6 +1,7 @@
 package pl.psi;
 
 import java.beans.PropertyChangeSupport;
+import java.util.Collections;
 import java.util.Map;
 import java.util.Optional;
 
@@ -18,6 +19,8 @@ public class EcoMap
 
     private final BiMap<Point, ResourcesField> fieldObjects = HashBiMap.create();
 
+    private final BiMap< Point, Opponent> mapOpponents = HashBiMap.create();
+
     FieldObjects fieldObject = new FieldObjects();
 
 
@@ -26,6 +29,11 @@ public class EcoMap
 
     public EcoMap(final EconomyHero aHero1, final EconomyHero aHero2, PropertyChangeSupport aObserverSupport)
     {
+
+        Opponent opponent = new Opponent(Resources.builder().gold(10).build(), Collections.emptyList());
+        mapOpponents.put(new Point(10,10),opponent);
+
+
         map.put( new Point( 5, 5 ), aHero1 );
         map.put( new Point( EconomyEngine.BOARD_WEIGHT - 5, EconomyEngine.BOARD_HEIGHT - 5 ), aHero2 );
         mapObjects.put(new Point(1,1), castle);
@@ -71,6 +79,10 @@ public class EcoMap
         return map.containsKey(aPoint);
     }
 
+    public boolean isOpponentPoint(Point aPoint){
+        return mapOpponents.containsKey(aPoint);
+    }
+
     public boolean isCastlePoint(Point aPoint) {
         return mapObjects.containsKey(aPoint);
     }
@@ -83,4 +95,5 @@ public class EcoMap
 
         return fieldObjects.get(aPoint);
     }
+
 }

@@ -1,6 +1,8 @@
 package pl.psi;
 
 import lombok.Getter;
+import pl.psi.creatures.CreatureStatistic;
+import pl.psi.creatures.EconomyCreature;
 import pl.psi.objects.ResourcesField;
 
 import java.beans.PropertyChangeListener;
@@ -64,6 +66,10 @@ public class EconomyEngine {
         return board.isBattlePoint(aPoint) && aPoint.distance(board.getPosition(turnQueue.getCurrentHero())) < 2;
     }
 
+    public boolean isOpponentPoint(Point aPoint){
+        return board.isOpponentPoint(aPoint);
+    }
+
     public StartBattlePack getStartBattlePack(Point aCurrentPoint) {
         EconomyHero heroToAttack = board.getHero(aCurrentPoint).orElseThrow();
         return StartBattlePack.builder().attacker(turnQueue.getCurrentHero()).defender(heroToAttack).build();
@@ -93,4 +99,5 @@ public class EconomyEngine {
     public EconomyHero getCurrentHero() {
         return turnQueue.getCurrentHero();
     }
+
 }

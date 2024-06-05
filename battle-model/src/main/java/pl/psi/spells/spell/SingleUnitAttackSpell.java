@@ -36,6 +36,6 @@ public class SingleUnitAttackSpell extends Spell {
         Creature creature =  GameEngine.getInstance().getCreature(targetPoint).get();
 
         int damage = damageCalc.calculateDamage(null, creature);
-        creature.getDamageApplier().applyDamage(new DamageValueObject(damage, AttackTypeEnum.SPELL, CreatureTypeEnum.UNKNOWN));
+        creature.getDamageApplier().applyDamage(new DamageValueObject(damage, AttackTypeEnum.SPELL, CreatureTypeEnum.UNKNOWN), creature);
     }
 }

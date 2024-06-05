@@ -1,5 +1,7 @@
 package pl.psi.converter;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
@@ -8,9 +10,7 @@ import java.util.List;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import pl.psi.EconomyHero;
-import pl.psi.Hero;
-import pl.psi.StartBattlePack;
+import pl.psi.*;
 import pl.psi.spells.spellbook.Spellbook;
 import skills.BattleSkill;
 import pl.psi.creatures.Creature;
@@ -18,9 +18,12 @@ import pl.psi.creatures.NecropolisFactory;
 import pl.psi.gui.MainBattleController;
 import pl.psi.skills.Skill;
 
-public class EcoBattleConverter {
+public class EcoBattleConverter implements PropertyChangeListener {
+
+    private static StartBattlePack lastBattlePack;
 
     public static void startBattle(StartBattlePack aPack) {
+        lastBattlePack = aPack;
         Scene scene = null;
         try {
             final FXMLLoader loader = new FXMLLoader();
@@ -38,6 +41,7 @@ public class EcoBattleConverter {
         }
     }
 
+
     public static Hero convert(final EconomyHero aPlayer1) {
         final List<Creature> creatures = new ArrayList<>();
         final NecropolisFactory factory = new NecropolisFactory();
@@ -52,6 +56,24 @@ public class EcoBattleConverter {
             }
         }
 
-        return new Hero(creatures, new Spellbook(Collections.emptyList()));
+        return new Hero(creatures, new PrimarySkill(0,0,0,0) ,new Spellbook(Collections.emptyList()));
+    }
+//obserwer i potem aktualizuje od walki i potem ustawia lastBattlePack na null
+    void update(){
+        lastBattlePack.getAttacker().changeResources(lastBattlePack.getDefender().getResources());
+
+        lastBattlePack=null;
+    }
+
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if (GameEngine.BATTLE_ENDED.equals(evt.getPropertyName())) {
+            boolean attackerWon = (boolean) evt.getNewValue();
+            if (attackerWon) {
+                update();
+            }
+        }
     }
 }
+
