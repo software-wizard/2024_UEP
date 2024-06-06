@@ -22,6 +22,7 @@ public class Catapult extends Creature {
                       final int aAmount, CreatureTypeEnum aCreatureType, AttackTypeEnum aAttackType) {
         super(aStats,aCalculator,aAmount,aCreatureType,aAttackType);
     }
+    // usun to
     public static class Builder {
         private int amount = 1;
         private DamageCalculatorIf calculator = new DefaultDamageCalculator(new Random());
