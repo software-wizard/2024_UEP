@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import lombok.Getter;
 import pl.psi.creatures.Creature;
+import pl.psi.obstacles.ObstaclesWithHP;
 
 /**
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
@@ -37,13 +38,42 @@ public class GameEngine {
     }
 
     public void attack(final Point point) {
-        board.getCreature(point)
-                .ifPresent(defender -> turnQueue.getCurrentCreature()
-                        .attack(defender));
+        Optional<Creature> optionalDefender = board.getCreature(point);
+        if (optionalDefender.isPresent()) {
+            Creature defender = optionalDefender.get();
+            turnQueue.getCurrentCreature().attack(defender);
+        } else if (board.isObstacleWithHP(point)) {
+            Optional<ObstaclesWithHP> optionalObstacleWithHP = board.getObstacleWithHP(point);
+            if (optionalObstacleWithHP.isPresent()) {
+                ObstaclesWithHP obstacleWithHP = optionalObstacleWithHP.get();
+                turnQueue.getCurrentCreature().attackObstacle(obstacleWithHP, point);
+            }
+        }
         pass();
+    }
+    public boolean isObstacle(final Point aPoint){
+        return board.isObstacle(aPoint);
+    }
+    public boolean isObstacleWithHP(final Point aPoint){
+        return board.isObstacleWithHP(aPoint);
+    }
+    public boolean isPointAnObject(Point aPoint) {
+
+        if (board.getCreature(aPoint).isPresent()) {
+            return true;
+        } else if (board.isObstacle(aPoint)) {
+            return true;
+        }
+        else {
+            return false;
+        }
     }
 
     public boolean canMove(final Point aPoint) {
+        if(isPointAnObject(aPoint) )
+        {
+            return false;
+        }
         return board.canMove(turnQueue.getCurrentCreature(), aPoint);
     }
 
@@ -68,9 +98,15 @@ public class GameEngine {
     public boolean canAttack(final Point point) {
         double distance = board.getPosition(turnQueue.getCurrentCreature())
                 .distance(point);
-        return board.getCreature(point)
-                .isPresent()
-                && distance < 2 && distance > 0;
+        if (board.getCreature(point).isPresent()) {
+            return distance < 2 && distance > 0;
+        }
+
+        if (board.isObstacleWithHP(point)) {
+            return distance < 2 && distance > 0;
+        }
+
+        return false;
     }
 
     public Creature getCreatureToMove() {
