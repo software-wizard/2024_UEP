@@ -11,8 +11,8 @@ import com.google.common.collect.HashBiMap;
 import pl.psi.creatures.Creature;
 import pl.psi.obstacles.Obstacle;
 import pl.psi.obstacles.ObstaclesWithHP;
-import pl.psi.obstacles.ObstaclesWithHPObserver;
-import pl.psi.obstacles.ObstaclesWithHPObserverIF;
+import pl.psi.obstacles.ObstaclesWithHPObservable;
+import pl.psi.obstacles.ObstacleObserver;
 
 import static pl.psi.obstacles.ObstaclesIF.MAX_HEIGHT;
 import static pl.psi.obstacles.ObstaclesIF.maxHP;
@@ -20,7 +20,7 @@ import static pl.psi.obstacles.ObstaclesIF.maxHP;
 /**
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
  */
-public class Board implements ObstaclesWithHPObserverIF
+public class Board implements ObstacleObserver
 {
     private static final int MAX_WITDH = 14;
     private final BiMap< Point, Creature > map = HashBiMap.create();
@@ -128,7 +128,7 @@ public class Board implements ObstaclesWithHPObserverIF
     }
 
     @Override
-    public void update(ObstaclesWithHPObserver o, Object arg) {
+    public void update(ObstaclesWithHPObservable o, Object arg) {
         if (o instanceof ObstaclesWithHP && arg instanceof Point) {
             removeFromTheMapObstacleWithHP((Point) arg);
         }
