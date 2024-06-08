@@ -3,6 +3,7 @@ package pl.psi.spells.calculator;
 import pl.psi.creatures.Creature;
 import pl.psi.creatures.DamageCalculatorIf;
 import pl.psi.obstacles.ObstaclesWithHP;
+import pl.psi.obstacles.Wall;
 
 import java.util.Random;
 
@@ -23,12 +24,17 @@ public class EmpoweredSpellDamageCalculator implements DamageCalculatorIf {
     }
 
     @Override
+    public Random getRand() {
+        return null;
+    }
+
+    @Override
     public int calculateDamageToObstacle(Creature attacker, ObstaclesWithHP obstacleWithHP) {
         return 0;
     }
 
     @Override
-    public Random getRand() {
-        return null;
+    public int calculateDamageToWall(Creature attacker, Wall wall) {
+        return 0;
     }
 }

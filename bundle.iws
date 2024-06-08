@@ -4,13 +4,21 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f3102dac-a942-4483-9cc7-2febc53c83f3" name="Changes" comment="Added Board &amp; ObstaclesWithHP tests">
-      <change afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/ObstaclesWithHPObservable.java" afterDir="false" />
+    <list default="true" id="f3102dac-a942-4483-9cc7-2febc53c83f3" name="Changes" comment="wall partially implemented">
+      <change afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/ObstaclesObservable.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/Wall.java" afterDir="false" />
+      <change afterPath="$PROJECT_DIR$/battle-model/src/test/java/pl/psi/obstacles/WallTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle-gui/src/main/java/pl/psi/gui/MainBattleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-gui/src/main/java/pl/psi/gui/MainBattleController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/GameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/GameEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/Creature.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/Creature.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/DamageCalculatorIf.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/DamageCalculatorIf.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/ObstacleObserver.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/ObstacleObserver.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/ObstaclesWithHP.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/ObstaclesWithHP.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/ObstaclesWithHPObserver.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/ObstaclesWithHPObserverIF.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/ObstacleObserver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bundle.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/bundle.ipr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/ObstaclesWithHPObservable.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/spells/calculator/EmpoweredSpellDamageCalculator.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/spells/calculator/EmpoweredSpellDamageCalculator.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/spells/spell/SingleUnitAttackSpell.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/spells/spell/SingleUnitAttackSpell.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle-model/src/test/java/pl/psi/BoardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/test/java/pl/psi/BoardTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bundle.iws" beforeDir="false" afterPath="$PROJECT_DIR$/bundle.iws" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -300,31 +308,32 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.LaunchBattle.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.BoardTest.creatureCannotEnterObstacle.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.BoardTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.BoardTest.obstacleWithHPRemove.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.BoardTest.testObstacleWithHPRemovalAfterDestruction.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ObstaclesWithHPTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ObstaclesWithHPTest.takeDamageReducesHP.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ObstaclesWithHPTest.testTakeDamageReducesHP.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;specialFields&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/barto/Desktop/pliki/Java projects/2024_UEP/battle-model/src/main/java/pl/psi&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.LaunchBattle.executor": "Run",
+    "JUnit.BoardTest.creatureCannotEnterObstacle.executor": "Run",
+    "JUnit.BoardTest.executor": "Run",
+    "JUnit.BoardTest.obstacleWithHPRemove.executor": "Run",
+    "JUnit.BoardTest.testObstacleWithHPRemovalAfterDestruction.executor": "Run",
+    "JUnit.ObstaclesWithHPTest.executor": "Run",
+    "JUnit.ObstaclesWithHPTest.takeDamageReducesHP.executor": "Run",
+    "JUnit.ObstaclesWithHPTest.testTakeDamageReducesHP.executor": "Run",
+    "JUnit.WallTest.takeDamageReducesHP.executor": "Run",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "specialFields",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/barto/Desktop/pliki/Java projects/2024_UEP/battle-model/src/main/java/pl/psi",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\barto\Desktop\pliki\Java projects\2024_UEP\battle-model\src\main\java\pl\psi" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ObstaclesWithHPTest">
+  <component name="RunManager" selected="Application.LaunchBattle">
     <configuration selected="false" default="true" type="Applet" factoryName="Applet">
       <module name="" />
       <option name="MAIN_CLASS_NAME" />
@@ -413,17 +422,18 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ObstaclesWithHPTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="ObstaclesWithHPTest.takeDamageReducesHP" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="battle-model" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="pl.psi.obstacles.*" />
+          <option name="PATTERN" value="pl.psi.obstacles.ObstaclesObservable" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="pl.psi.obstacles" />
       <option name="MAIN_CLASS_NAME" value="pl.psi.obstacles.ObstaclesWithHPTest" />
-      <option name="TEST_OBJECT" value="class" />
+      <option name="METHOD_NAME" value="takeDamageReducesHP" />
+      <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="TEST_SEARCH_SCOPE">
@@ -433,7 +443,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ObstaclesWithHPTest.takeDamageReducesHP" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WallTest.takeDamageReducesHP" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="battle-model" />
       <extension name="coverage">
         <pattern>
@@ -442,7 +452,7 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="pl.psi.obstacles" />
-      <option name="MAIN_CLASS_NAME" value="pl.psi.obstacles.ObstaclesWithHPTest" />
+      <option name="MAIN_CLASS_NAME" value="pl.psi.obstacles.WallTest" />
       <option name="METHOD_NAME" value="takeDamageReducesHP" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" />
@@ -467,10 +477,10 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ObstaclesWithHPTest" />
+        <item itemvalue="JUnit.WallTest.takeDamageReducesHP" />
         <item itemvalue="JUnit.BoardTest" />
-        <item itemvalue="JUnit.BoardTest.creatureCannotEnterObstacle" />
         <item itemvalue="JUnit.BoardTest.obstacleWithHPRemove" />
+        <item itemvalue="JUnit.BoardTest.creatureCannotEnterObstacle" />
         <item itemvalue="JUnit.ObstaclesWithHPTest.takeDamageReducesHP" />
       </list>
     </recent_temporary>
@@ -537,7 +547,23 @@
       <option name="project" value="LOCAL" />
       <updated>1717602280535</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="observer reworked">
+      <option name="closed" value="true" />
+      <created>1717662632041</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1717662632041</updated>
+    </task>
+    <task id="LOCAL-00005" summary="wall partially implemented">
+      <option name="closed" value="true" />
+      <created>1717842208162</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1717842208162</updated>
+    </task>
+    <option name="localTasksCounter" value="6" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -590,7 +616,9 @@
     <MESSAGE value="added obstacles" />
     <MESSAGE value="added Observer in ObstaclesWithHP" />
     <MESSAGE value="Added Board &amp; ObstaclesWithHP tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Board &amp; ObstaclesWithHP tests" />
+    <MESSAGE value="observer reworked" />
+    <MESSAGE value="wall partially implemented" />
+    <option name="LAST_COMMIT_MESSAGE" value="wall partially implemented" />
   </component>
   <component name="VssConfiguration">
     <CheckoutOptions>

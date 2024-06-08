@@ -24,6 +24,7 @@ import pl.psi.enums.CreatureTypeEnum;
 import static java.lang.Math.random;
 
 import pl.psi.obstacles.ObstaclesWithHP;
+import pl.psi.obstacles.Wall;
 
 /**
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
@@ -71,6 +72,16 @@ public class Creature implements PropertyChangeListener {
         final int damage = getCalculator().calculateDamageToObstacle(this,obstacleWithHP);
         obstacleWithHP.takeDamage(aPoint, damage);
 
+    }
+    public void attackWall(Wall wall,Point aPoint){
+        if (wall.getCurrentLevel() == 1 || wall.getCurrentLevel() == 2 || wall.getCurrentLevel() == 3) {
+            final int catapultDamage = getCalculator().calculateDamageToWall( ,wall);
+            wall.takeDamageFromCatapult(catapultDamage, aPoint);
+        }
+        if (wall.getCurrentLevel() == 2 || wall.getCurrentLevel() == 3) {
+            final int creatureDamage = getCalculator().calculateDamageToWall(this, wall);
+            wall.takeDamageFromCreature(creatureDamage, aPoint);
+        }
     }
 
     public boolean isAlive() {
