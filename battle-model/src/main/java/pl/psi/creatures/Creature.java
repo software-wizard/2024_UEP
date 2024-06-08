@@ -46,7 +46,7 @@ public class Creature implements PropertyChangeListener {
     Creature() {
     }
 
-    private Creature(final CreatureStatisticIf aStats, final DamageCalculatorIf aCalculator,
+    protected Creature(final CreatureStatisticIf aStats, final DamageCalculatorIf aCalculator,
                      final int aAmount, CreatureTypeEnum aCreatureType, AttackTypeEnum aAttackType) {
         stats = aStats;
         amount = aAmount;
@@ -90,6 +90,21 @@ public class Creature implements PropertyChangeListener {
 
     private void applyDamage(DamageValueObject aDamageValueObject) {
         getDamageApplier().applyDamage(aDamageValueObject, this);
+    }
+
+    public void applyDamage(final int aDamage) {
+        int hpToSubstract = aDamage % this.getMaxHp();
+        int amountToSubstract = Math.round(aDamage / this.getMaxHp());
+
+        int hp = this.getCurrentHp() - hpToSubstract;
+        if (hp <= 0) {
+            this.setCurrentHp(this.getMaxHp() - hp);
+            this.setAmount(this.getAmount() - 1);
+        }
+        else{
+            this.setCurrentHp(hp);
+        }
+        this.setAmount(this.getAmount() - amountToSubstract);
     }
 
     public int getMaxHp() {
@@ -136,6 +151,7 @@ public class Creature implements PropertyChangeListener {
     }
 
     protected void restoreCurrentHpToPartHP() {
+        System.out.println("TEST restoreCurrentHpToPartHP");
         Random random = new Random();
         int healHP = random.nextInt(25)+1;
         if (currentHp+healHP >= stats.getMaxHp()) {
@@ -183,6 +199,7 @@ public class Creature implements PropertyChangeListener {
         public Creature build() {
             return new Creature(statistic, calculator, amount, creatureType, attackType);
         }
+
     }
 
     @Override
@@ -190,21 +207,14 @@ public class Creature implements PropertyChangeListener {
         return getName() + System.lineSeparator() + getAmount();
     }
 
-
-    //MachineFactoryMethods - FirstAidTent
     public void healHPCreature(Creature creature) {
         creature.restoreCurrentHpToPartHP();
     }
 
+    //MachineFactoryMethods - FirstAidTent
+    //Implemented in FirstAidTent
     public void chooseHealCreature(List<Creature> creatureList) {
-        Creature smallHP = creatureList.get(0);
-        for (Creature creature : creatureList) {
-            if (creature.getCurrentHp()<smallHP.getCurrentHp()){
-                smallHP=creature;
-            }
-
-        }
-        healHPCreature(smallHP);
 
     }
+
 }
