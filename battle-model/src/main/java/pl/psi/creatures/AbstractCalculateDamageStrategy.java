@@ -5,6 +5,7 @@ import lombok.Getter;
 import java.util.Random;
 
 import pl.psi.obstacles.ObstaclesWithHP;
+import pl.psi.obstacles.Wall;
 
 
 abstract class AbstractCalculateDamageStrategy implements DamageCalculatorIf
@@ -73,7 +74,20 @@ abstract class AbstractCalculateDamageStrategy implements DamageCalculatorIf
         return (int) (attacker.getAmount() * oneCreatureDamageToDeal);
     }
 
-    protected int getArmor( final Creature aDefender )
+    @Override
+    public int calculateDamageToWall(Creature attacker, Wall wall) {
+        final int randValue = rand.nextInt(attacker.getDamage().upperEndpoint() - attacker.getDamage().lowerEndpoint() + 1)
+                + attacker.getDamage().lowerEndpoint();
+
+        double oneCreatureDamageToDeal = randValue;
+
+        if (oneCreatureDamageToDeal < 0) {
+            oneCreatureDamageToDeal = 0;
+        }
+        return (int) (attacker.getAmount() * oneCreatureDamageToDeal);
+    }
+
+    protected int getArmor(final Creature aDefender )
     {
         return aDefender.getArmor();
     }

@@ -48,13 +48,6 @@ public class Wall implements ObstaclesIF, ObstaclesObservable {
     }
 
     public void takeDamageFromCreature(int damage, Point aPoint) {
-        if (currentLevel == 1) {
-            currentHP -= damage;
-            if (currentHP <= 0) {
-                currentLevel = 2;
-                currentHP = levelTwoHP;
-            }
-        }
 
         if (currentLevel == 2) {
             currentHP -= damage;

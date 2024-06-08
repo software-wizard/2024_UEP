@@ -26,7 +26,6 @@ public class GameEngine {
 
     private static GameEngine engine;
 
-    Wall wall;
 
     public  GameEngine(final Hero aHero1, final Hero aHero2) {
         hero1 = aHero1;
@@ -58,7 +57,8 @@ public class GameEngine {
             Optional<Wall> optionalWall = board.getWall(point);
             if (optionalWall.isPresent()){
                 Wall wall = optionalWall.get();
-                turnQueue.getCurrentCreature().attackWall(wall,point);
+                    turnQueue.getCurrentCreature().attackWall(wall, point);
+
             }
 
 
@@ -126,8 +126,17 @@ public class GameEngine {
         if (board.isObstacleWithHP(point)) {
             return distance < 2 && distance > 0;
         }
-        if (board.isWall(point) && wall.getCurrentLevel() == 2 || wall.getCurrentLevel() == 3 ){
-            return distance < 2 && distance > 0;
+        if (board.isWall(point)) {
+            Wall wall = board.getWall(point).orElse(null);
+            if (wall != null) {
+                Creature currentCreature = turnQueue.getCurrentCreature();
+                if (currentCreature.isCatapult()) {
+                    return true;
+                }
+                if (wall.getCurrentLevel() == 2 || wall.getCurrentLevel() == 3){
+                    return true;
+                }
+            }
         }
 
         return false;
