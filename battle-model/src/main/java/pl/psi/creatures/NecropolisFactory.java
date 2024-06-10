@@ -1,7 +1,6 @@
 package pl.psi.creatures;
 
-import pl.psi.creatures.Creature;
-import pl.psi.creatures.CreatureStatistic;
+import pl.psi.enums.AttackTypeEnum;
 
 public class NecropolisFactory
 {
@@ -31,8 +30,9 @@ public class NecropolisFactory
                         .amount( aAmount )
                         .build();
                 case 5:
-                    return new Creature.Builder().statistic( CreatureStatistic.LICH )
-                        .amount( aAmount )
+                    return new Creature.Builder().statistic(CreatureStatistic.LICH)
+                        .amount(aAmount)
+                        .attackType(AttackTypeEnum.RANGE)
                         .build();
                 case 6:
                     return new Creature.Builder().statistic( CreatureStatistic.BLACK_KNIGHT )
@@ -69,6 +69,7 @@ public class NecropolisFactory
                 case 5:
                     return new Creature.Builder().statistic( CreatureStatistic.POWER_LICH )
                         .amount( aAmount )
+                        .attackType(AttackTypeEnum.RANGE)
                         .build();
                 case 6:
                     return new Creature.Builder().statistic( CreatureStatistic.DREAD_KNIGHT )

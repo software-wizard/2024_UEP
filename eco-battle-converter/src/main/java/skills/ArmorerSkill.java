@@ -14,6 +14,6 @@ public class ArmorerSkill extends Skill implements BattleSkill {
 
     @Override
     public void cast(List<Creature> creatures) {
-        creatures.forEach(c -> c.decorateDamageApplier(new ArmoredDamageApplierDecorator(c.getDamageApplier(), level)));
+        creatures.forEach(c -> c.setDamageApplier(new ArmoredDamageApplierDecorator(c.getDamageApplier(), level)));
     }
 }

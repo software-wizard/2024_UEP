@@ -4,42 +4,37 @@ import lombok.Getter;
 
 @Getter
 public class DamageApplier {
-    private Creature creature;
-
-    public DamageApplier(Creature creature) {
-        this.creature = creature;
-    }
 
     public DamageApplier() {
     }
 
-    public void applyDamage(DamageValueObject aDamageValueObject) {
+    public void applyDamage(DamageValueObject aDamageValueObject, Creature aCreature) {
         int dmg = aDamageValueObject.getDamageAmount();
 
-        int hpToSubtract = calculateHpToSubtract(dmg);
-        int amountToSubtract = calculateAmountToSubtract(dmg);
+        int hpToSubtract = calculateHpToSubtract(dmg, aCreature);
+        int amountToSubtract = calculateAmountToSubtract(dmg, aCreature);
 
-        dealDamageToCreature(hpToSubtract, amountToSubtract);
+        dealDamageToCreature(hpToSubtract, amountToSubtract, aCreature);
     }
 
-    protected int calculateAmountToSubtract(int dmg) {
-        return Math.round(dmg / getCreature().getMaxHp());
+    protected int calculateAmountToSubtract(int dmg, Creature aCreature) {
+        return Math.round(dmg / aCreature.getMaxHp());
     }
 
-    protected int calculateHpToSubtract(int dmg) {
-        return dmg % getCreature().getMaxHp();
+    protected int calculateHpToSubtract(int dmg, Creature aCreature) {
+        return dmg % aCreature.getMaxHp();
     }
 
     //wymyslic lepsza nazwe
-    protected void dealDamageToCreature(int hpToSubtract, int amountToSubtract) {
-        int hp = getCreature().getCurrentHp() - hpToSubtract;
+    protected void dealDamageToCreature(int hpToSubtract, int amountToSubtract, Creature aCreature) {
+        int hp = aCreature.getCurrentHp() - hpToSubtract;
         if (hp <= 0) {
-            getCreature().setCurrentHp(getCreature().getMaxHp() - hp);
-            getCreature().setAmount(getCreature().getAmount() - 1);
+            aCreature.setCurrentHp(aCreature.getMaxHp() - hp);
+            aCreature.setAmount(aCreature.getAmount() - 1);
         }
         else{
-            getCreature().setCurrentHp(hp);
+            aCreature.setCurrentHp(hp);
         }
-        getCreature().setAmount(getCreature().getAmount() - amountToSubtract);
+        aCreature.setAmount(aCreature.getAmount() - amountToSubtract);
     }
 }
