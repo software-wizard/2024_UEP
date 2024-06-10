@@ -19,10 +19,6 @@ public class Spellbook {
         return spells.contains(spell);
     }
 
-    public boolean hasSpell(int spellId) {
-        return spells.stream().anyMatch((spell) -> spell.getStats().getSpellId() == spellId);
-    }
-
     public boolean hasSpell(String spellName) {
         return spells.stream().anyMatch((spell) -> spell.getStats().getName().equalsIgnoreCase(spellName));
     }
@@ -37,16 +33,14 @@ public class Spellbook {
         return spell.orElse(null);
     }
 
-    public boolean canCast(int spellId, Hero hero, Point p) {
-        return hasSpell(spellId)
-                && hero.getMana() >= getSpell(spellId).getCostCalculator().getCost(hero)
-                && getSpell(spellId).canCast(hero, p);
+    public boolean canCast(Spell spell, Hero hero, Point p) {
+        return hasSpell(spell)
+                && hero.getMana() >= spell.getCostCalculator().getCost(hero)
+                && spell.canCast(hero, p);
     }
 
-    public void castSpell(int spellId, Hero hero, Point p) {
-        if (!canCast(spellId, hero, p)) throw new IllegalStateException("Spell cannot be casted");
-
-        Spell spell = getSpell(spellId);
+    public void castSpell(Spell spell, Hero hero, Point p) {
+        if (!canCast(spell, hero, p)) throw new IllegalStateException("Spell cannot be casted");
 
         hero.setMana(hero.getMana() - spell.getCostCalculator().getCost(hero));
         spell.cast(hero, p);

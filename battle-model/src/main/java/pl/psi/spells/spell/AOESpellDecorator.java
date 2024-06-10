@@ -30,12 +30,12 @@ public class AOESpellDecorator extends Spell {
 
     @Override
     public boolean canCast(Hero caster, Point targetPoint) {
-        return !pointSelectionStrategy.getTargetPoints(targetPoint, this.getStats().getSize()).isEmpty() && this.decorated.canCast(caster, targetPoint);
+        return !pointSelectionStrategy.getTargetPoints(caster.getParentEngine(), targetPoint, this.getStats().getSize()).isEmpty() && this.decorated.canCast(caster, targetPoint);
     }
 
     @Override
     public void cast(Hero caster, Point targetPoint) {
-        List<Point> adjacent = pointSelectionStrategy.getTargetPoints(targetPoint, this.getStats().getSize());
+        List<Point> adjacent = pointSelectionStrategy.getTargetPoints(caster.getParentEngine(), targetPoint, this.getStats().getSize());
 
         for (Point p : adjacent) {
             this.decorated.cast(caster, p);
