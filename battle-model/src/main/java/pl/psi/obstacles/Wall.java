@@ -1,18 +1,18 @@
 package pl.psi.obstacles;
 
 import lombok.Getter;
+import lombok.Setter;
 import pl.psi.Point;
-
 import java.util.ArrayList;
 
-
+@Getter
+@Setter
 public class Wall implements ObstaclesIF, ObstaclesObservable {
 
     private int levelOneHP = 1500;
     private int levelTwoHP = 1000;
     private int levelThreeHP = 500;
     private int currentHP;
-    @Getter
     private int currentLevel;
 
     private final ArrayList<ObstacleObserver> observers = new ArrayList<>();
@@ -48,13 +48,6 @@ public class Wall implements ObstaclesIF, ObstaclesObservable {
     }
 
     public void takeDamageFromCreature(int damage, Point aPoint) {
-        if (currentLevel == 1) {
-            currentHP -= damage;
-            if (currentHP <= 0) {
-                currentLevel = 2;
-                currentHP = levelTwoHP;
-            }
-        }
 
         if (currentLevel == 2) {
             currentHP -= damage;
@@ -83,8 +76,5 @@ public class Wall implements ObstaclesIF, ObstaclesObservable {
         }
     }
 
-    public int getHP() {
-        return currentHP;
-    }
 
 }

@@ -1,22 +1,27 @@
 package pl.psi;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
+import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import pl.psi.creatures.Creature;
 import pl.psi.creatures.CreatureStats;
 
+import pl.psi.creatures.MachineFactory;
 import pl.psi.obstacles.ObstaclesWithHP;
+import pl.psi.obstacles.Wall;
 
 class BoardTest
 {
 
     private Board board;
     private Creature creature;
+    private Wall wall;
 
     @BeforeEach
     void setUp() {
@@ -66,6 +71,32 @@ class BoardTest
         obstacleWithHP.takeDamage(point,10);
 
         assertThat(board.isObstacleWithHP(point)).isFalse();
+    }
+
+    @Test
+    public void wallCanBeDestroyed(){
+        wall = new Wall();
+
+        MachineFactory machineFactory = new MachineFactory();
+        Creature catapult = machineFactory.create("Catapult");
+
+        catapult.attackWall(wall,new Point(0,0));
+
+        assertEquals(1000,wall.getCurrentHP());
+        AssertionsForClassTypes.assertThat(wall.getCurrentLevel() == 1);
+
+        catapult.attackWall(wall,new Point(0,0));
+        assertEquals(500,wall.getCurrentHP());
+
+        catapult.attackWall(wall,new Point(0,0));
+        assertEquals(1000,wall.getCurrentHP());
+        AssertionsForClassTypes.assertThat(wall.getCurrentLevel() == 2);
+
+        catapult.attackWall(wall,new Point(0,0));
+        catapult.attackWall(wall,new Point(0,0));
+        assertEquals(500,wall.getCurrentHP());
+        AssertionsForClassTypes.assertThat(wall.getCurrentLevel() == 3);
+
     }
 
 

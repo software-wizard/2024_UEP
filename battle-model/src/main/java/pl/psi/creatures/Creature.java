@@ -74,14 +74,16 @@ public class Creature implements PropertyChangeListener {
 
     }
     public void attackWall(Wall wall,Point aPoint){
-        if (wall.getCurrentLevel() == 1 || wall.getCurrentLevel() == 2 || wall.getCurrentLevel() == 3) {
-            final int catapultDamage = getCalculator().calculateDamageToWall( ,wall);
+        if (isCatapult()) {
+            final int catapultDamage = getCalculator().calculateDamageToWall(this, wall);
             wall.takeDamageFromCatapult(catapultDamage, aPoint);
-        }
-        if (wall.getCurrentLevel() == 2 || wall.getCurrentLevel() == 3) {
+        } else if (wall.getCurrentLevel() == 2 || wall.getCurrentLevel() == 3) {
             final int creatureDamage = getCalculator().calculateDamageToWall(this, wall);
             wall.takeDamageFromCreature(creatureDamage, aPoint);
         }
+    }
+    public boolean isCatapult() {
+        return this.getName().equals("Catapult");
     }
 
     public boolean isAlive() {

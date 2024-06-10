@@ -39,10 +39,6 @@ public class Board implements ObstacleObserver
             wall.addObserver(this);
             wallHashMap.put(new Point(7,i),wall);
         }
-
-
-
-
     }
     boolean isWall(Point aPoint){
         return wallHashMap.containsKey(aPoint);
