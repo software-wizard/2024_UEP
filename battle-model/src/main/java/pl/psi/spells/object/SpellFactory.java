@@ -1,10 +1,9 @@
 package pl.psi.spells.object;
 
-import pl.psi.spells.calculator.ReducedSpellCostCalculator;
+import pl.psi.spells.aoe.AOERectangularPointSelection;
+import pl.psi.spells.aoe.AOERingPointSelection;
 import pl.psi.spells.calculator.StaticSpellCostCalculator;
-import pl.psi.spells.object.Spell;
-import pl.psi.spells.object.SpellStatistic;
-import pl.psi.spells.spell.AreaOfEffectAttackSpellDecorator;
+import pl.psi.spells.spell.AOESpellDecorator;
 import pl.psi.spells.spell.PassiveSpell;
 import pl.psi.spells.spell.SingleUnitAttackSpell;
 import pl.psi.spells.spell.TitansLightningBoltSpell;
@@ -19,9 +18,10 @@ public class SpellFactory {
         else if (spellStatistic.equals(SpellStatistic.LIGHTNING_BOLT)) return new SingleUnitAttackSpell(spellStatistic);
         else if (spellStatistic.equals(SpellStatistic.TITANS_LIGHTNING_BOLT)) return new TitansLightningBoltSpell(spellStatistic);
         else if (spellStatistic.equals(SpellStatistic.IMPLOSION)) return new SingleUnitAttackSpell(spellStatistic);
-        else if (spellStatistic.equals(SpellStatistic.FIREBALL)) return new AreaOfEffectAttackSpellDecorator(new SingleUnitAttackSpell(spellStatistic));
+        else if (spellStatistic.equals(SpellStatistic.FIREBALL)) return new AOESpellDecorator(new AOERectangularPointSelection(), new SingleUnitAttackSpell(spellStatistic));
         else if (spellStatistic.equals(SpellStatistic.ICE_BOLT)) return new SingleUnitAttackSpell(spellStatistic);
-        else if (spellStatistic.equals(SpellStatistic.METEOR_SHOWER)) return new AreaOfEffectAttackSpellDecorator(new SingleUnitAttackSpell(spellStatistic));
+        else if (spellStatistic.equals(SpellStatistic.METEOR_SHOWER)) return new AOESpellDecorator(new AOERectangularPointSelection(), new SingleUnitAttackSpell(spellStatistic));
+        else if (spellStatistic.equals(SpellStatistic.FROST_RING)) return new AOESpellDecorator(new AOERingPointSelection(), new SingleUnitAttackSpell(spellStatistic));
 
         if (spellStatistic.getType().equals(SpellType.PASSIVE)) {
             return new PassiveSpell(spellStatistic, new StaticSpellCostCalculator(spellStatistic));

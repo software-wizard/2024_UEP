@@ -10,20 +10,13 @@ import pl.psi.spells.Spellbook;
 /**
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
  */
+@Getter
 public class Hero extends EngineEntity
 {
-    @Getter
     private final List< Creature > creatures;
-
-    @Getter
     private final Spellbook spellbook;
-
-    @Getter
     private final PrimarySkill primarySkills;
-
-    @Getter
     private int mana;
-
 
     public Hero( final List< Creature > aCreatures, final PrimarySkill aPrimarySkills, final Spellbook aSpellbook )
     {

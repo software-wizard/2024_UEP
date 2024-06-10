@@ -20,7 +20,7 @@ public class ReducedSpellCostCalculator extends StaticSpellCostCalculator {
                                 || s.getName().equals("Fire Magic") || s.getName().equals("Water Magic")
                         )
         )) {
-            return spellStatistic.getCost()-spellStatistic.getLevel();
+            return spellStatistic.getCost() - spellStatistic.getLevel();
         }
 
         return spellStatistic.getCost();

@@ -13,7 +13,7 @@ import pl.psi.spells.calculator.ReducedSpellCostCalculator;
 import pl.psi.spells.object.SpellFactory;
 import pl.psi.spells.object.Spell;
 import pl.psi.spells.object.SpellStatistic;
-import pl.psi.spells.spell.AreaOfEffectAttackSpellDecorator;
+import pl.psi.spells.spell.AOESpellDecorator;
 import pl.psi.spells.spell.SingleUnitAttackSpell;
 
 import java.util.List;
@@ -76,7 +76,7 @@ public class SpellTest {
 
         final GameEngine engine = new GameEngine(hero1, hero2);
 
-        final Spell aoeSpell = new AreaOfEffectAttackSpellDecorator(new SingleUnitAttackSpell(SpellStatistic.DAMAGING_SPELL));
+        final Spell aoeSpell = new AOESpellDecorator(new SingleUnitAttackSpell(SpellStatistic.DAMAGING_SPELL));
 
         final Point c2Position = engine.getCreaturePosition(defender2);
         final Point center = new Point(c2Position.getX() - 1, c2Position.getY());

@@ -9,6 +9,7 @@ import pl.psi.enums.AttackTypeEnum;
 import pl.psi.enums.CreatureTypeEnum;
 import pl.psi.spells.calculator.ReducedSpellCostCalculator;
 import pl.psi.spells.calculator.SpellCostCalculatorIf;
+import pl.psi.spells.calculator.SpellDamageCalculatorIf;
 import pl.psi.spells.object.Spell;
 import pl.psi.spells.object.SpellStatisticIf;
 import pl.psi.spells.calculator.EmpoweredSpellDamageCalculator;
@@ -16,26 +17,26 @@ import pl.psi.spells.calculator.EmpoweredSpellDamageCalculator;
 import java.util.Optional;
 
 public class SingleUnitAttackSpell extends Spell {
+    private final EmpoweredSpellDamageCalculator damageCalculator;
     public SingleUnitAttackSpell(final SpellStatisticIf stats) {
         super(stats, new ReducedSpellCostCalculator(stats));
+        this.damageCalculator = new EmpoweredSpellDamageCalculator(stats);
     }
 
     @Override
     public boolean canCast(Hero caster, Point targetPoint) {
-        Optional<Creature> optionalCreature =  caster.getParentEngine().getCreature(targetPoint);
+        Optional<Creature> optionalCreature = caster.getParentEngine().getCreature(targetPoint);
         return optionalCreature.isPresent();
     }
 
     @Override
     public void cast(Hero caster, Point targetPoint) {
-        EmpoweredSpellDamageCalculator damageCalc = new EmpoweredSpellDamageCalculator(
-                this.getStats().getBaseDmg(), this.getStats().getPowerMultiplier(),
-                caster.getPrimarySkills().getSpellPower()
-        );
+        Optional<Creature> optCreature =  caster.getParentEngine().getCreature(targetPoint);
+        if (optCreature.isEmpty()) return;
 
-        Creature creature =  caster.getParentEngine().getCreature(targetPoint).get();
+        Creature creature = optCreature.get();
 
-        int damage = damageCalc.calculateDamage(null, creature);
-        creature.getDamageApplier().applyDamage(new DamageValueObject(damage, AttackTypeEnum.SPELL, CreatureTypeEnum.UNKNOWN));
+        int damage = damageCalculator.calculateDamage(caster, creature);
+        creature.getDamageApplier().applyDamage(new DamageValueObject(damage, AttackTypeEnum.SPELL, CreatureTypeEnum.UNKNOWN), creature);
     }
 }
