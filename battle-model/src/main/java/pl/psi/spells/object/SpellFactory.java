@@ -3,9 +3,7 @@ package pl.psi.spells.object;
 import pl.psi.spells.aoe.AOERectangularPointSelection;
 import pl.psi.spells.aoe.AOERingPointSelection;
 import pl.psi.spells.calculator.StaticSpellCostCalculator;
-import pl.psi.spells.spell.AOESpellDecorator;
 import pl.psi.spells.spell.PassiveSpell;
-import pl.psi.spells.spell.SingleUnitAttackSpell;
 import pl.psi.spells.spell.TitansLightningBoltSpell;
 
 import java.util.ArrayList;
@@ -22,6 +20,8 @@ public class SpellFactory {
         else if (spellStatistic.equals(SpellStatistic.ICE_BOLT)) return new SingleUnitAttackSpell(spellStatistic);
         else if (spellStatistic.equals(SpellStatistic.METEOR_SHOWER)) return new AOESpellDecorator(new AOERectangularPointSelection(), new SingleUnitAttackSpell(spellStatistic));
         else if (spellStatistic.equals(SpellStatistic.FROST_RING)) return new AOESpellDecorator(new AOERingPointSelection(), new SingleUnitAttackSpell(spellStatistic));
+        else if (spellStatistic.equals(SpellStatistic.DEATH_RIPPLE)) return new TargetConstrainedCreaturesSpellDecorator(((caster, c) -> !caster.hasCreature(c)), new SingleUnitAttackSpell(spellStatistic));
+
 
         if (spellStatistic.getType().equals(SpellType.PASSIVE)) {
             return new PassiveSpell(spellStatistic, new StaticSpellCostCalculator(spellStatistic));

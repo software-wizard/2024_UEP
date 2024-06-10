@@ -42,6 +42,8 @@ public class Creature implements PropertyChangeListener {
     @Setter
     private DamageApplier damageApplier = new DamageApplier();
 
+
+
     Creature() {
     }
 

@@ -13,8 +13,8 @@ import pl.psi.spells.calculator.ReducedSpellCostCalculator;
 import pl.psi.spells.object.SpellFactory;
 import pl.psi.spells.object.Spell;
 import pl.psi.spells.object.SpellStatistic;
-import pl.psi.spells.spell.AOESpellDecorator;
-import pl.psi.spells.spell.SingleUnitAttackSpell;
+import pl.psi.spells.object.AOESpellDecorator;
+import pl.psi.spells.object.SingleUnitAttackSpell;
 
 import java.util.List;
 

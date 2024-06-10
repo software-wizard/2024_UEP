@@ -35,5 +35,9 @@ public class Hero extends EngineEntity
         return this.primarySkills.getKnowledge() * 10;
     }
 
+    public boolean hasCreature(Creature c) {
+        return creatures.contains(c);
+    }
+
 
 }
