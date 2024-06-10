@@ -22,7 +22,7 @@ public class SingleUnitAttackSpell extends Spell {
 
     @Override
     public boolean canCast(Hero caster, Point targetPoint) {
-        Optional<Creature> optionalCreature =  GameEngine.getInstance().getCreature(targetPoint);
+        Optional<Creature> optionalCreature =  caster.getParentEngine().getCreature(targetPoint);
         return optionalCreature.isPresent();
     }
 
@@ -33,7 +33,7 @@ public class SingleUnitAttackSpell extends Spell {
                 caster.getPrimarySkills().getSpellPower()
         );
 
-        Creature creature =  GameEngine.getInstance().getCreature(targetPoint).get();
+        Creature creature =  caster.getParentEngine().getCreature(targetPoint).get();
 
         int damage = damageCalc.calculateDamage(null, creature);
         creature.getDamageApplier().applyDamage(new DamageValueObject(damage, AttackTypeEnum.SPELL, CreatureTypeEnum.UNKNOWN));

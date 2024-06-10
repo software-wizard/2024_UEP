@@ -10,7 +10,7 @@ import pl.psi.spells.Spellbook;
 /**
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
  */
-public class Hero
+public class Hero extends EngineEntity
 {
     @Getter
     private final List< Creature > creatures;
@@ -23,6 +23,7 @@ public class Hero
 
     @Getter
     private int mana;
+
 
     public Hero( final List< Creature > aCreatures, final PrimarySkill aPrimarySkills, final Spellbook aSpellbook )
     {
@@ -40,4 +41,6 @@ public class Hero
     public int getMaxMana() {
         return this.primarySkills.getKnowledge() * 10;
     }
+
+
 }

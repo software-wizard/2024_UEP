@@ -21,19 +21,12 @@ public class GameEngine {
     private final Hero hero1;
     private final Hero hero2;
 
-    private static GameEngine engine;
 
-    public  GameEngine(final Hero aHero1, final Hero aHero2) {
-        hero1 = aHero1;
-        hero2 = aHero2;
+    public GameEngine(final Hero aHero1, final Hero aHero2) {
+        hero1 = (Hero) EngineEntity.bindEngine(aHero1, this);
+        hero2 = (Hero) EngineEntity.bindEngine(aHero2, this);
         turnQueue = new TurnQueue(aHero1.getCreatures(), aHero2.getCreatures());
         board = new Board(aHero1.getCreatures(), aHero2.getCreatures());
-
-        engine = this;
-    }
-
-    public static GameEngine getInstance() {
-        return engine;
     }
 
     public void attack(final Point point) {

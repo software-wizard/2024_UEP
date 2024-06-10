@@ -20,9 +20,7 @@ public class AreaOfEffectAttackSpellDecorator extends Spell {
         this.decorated = decorated;
     }
 
-    private List<Point> getAdjacentPoints(Point targetPoint) {
-        GameEngine ge = GameEngine.getInstance();
-
+    private List<Point> getAdjacentPoints(GameEngine ge, Point targetPoint) {
         final Point minPoint = new Point(targetPoint.getX() - radius, targetPoint.getY() - radius);
         final Point maxPoint = new Point(targetPoint.getX() + radius, targetPoint.getY() + radius);
 
@@ -52,12 +50,12 @@ public class AreaOfEffectAttackSpellDecorator extends Spell {
 
     @Override
     public boolean canCast(Hero caster, Point targetPoint) {
-        return !getAdjacentPoints(targetPoint).isEmpty() && this.decorated.canCast(caster, targetPoint);
+        return !getAdjacentPoints(caster.getParentEngine(), targetPoint).isEmpty() && this.decorated.canCast(caster, targetPoint);
     }
 
     @Override
     public void cast(Hero caster, Point targetPoint) {
-        List<Point> adjacent = getAdjacentPoints(targetPoint);
+        List<Point> adjacent = getAdjacentPoints(caster.getParentEngine(), targetPoint);
 
         for (Point p : adjacent) {
             this.decorated.cast(caster, p);
