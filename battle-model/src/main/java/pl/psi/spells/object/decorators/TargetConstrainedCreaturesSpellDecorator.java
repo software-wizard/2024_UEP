@@ -1,9 +1,11 @@
-package pl.psi.spells.object;
+package pl.psi.spells.object.decorators;
 
 import pl.psi.GameEngine;
 import pl.psi.Hero;
 import pl.psi.Point;
 import pl.psi.creatures.Creature;
+import pl.psi.spells.object.interfaces.CreatureConstraintSpellLambda;
+import pl.psi.spells.object.Spell;
 
 import java.util.ArrayList;
 import java.util.List;

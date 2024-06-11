@@ -2,6 +2,8 @@ package pl.psi.spells.object;
 
 import lombok.Getter;
 import pl.psi.spells.calculator.SpellCostCalculatorIf;
+import pl.psi.spells.object.interfaces.CastableSpellIf;
+import pl.psi.spells.object.interfaces.SpellStatisticIf;
 
 @Getter
 public abstract class Spell implements CastableSpellIf {

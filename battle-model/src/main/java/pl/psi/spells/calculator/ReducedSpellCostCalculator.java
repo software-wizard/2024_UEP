@@ -1,9 +1,8 @@
 package pl.psi.spells.calculator;
 
 import pl.psi.Hero;
-import pl.psi.spells.object.SpellSchool;
-import pl.psi.spells.object.SpellStatistic;
-import pl.psi.spells.object.SpellStatisticIf;
+import pl.psi.spells.object.enums.SpellSchool;
+import pl.psi.spells.object.interfaces.SpellStatisticIf;
 
 public class ReducedSpellCostCalculator extends StaticSpellCostCalculator {
 

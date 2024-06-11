@@ -1,10 +1,10 @@
-package pl.psi.spells.object;
+package pl.psi.spells.object.decorators;
 
 import pl.psi.Hero;
 import pl.psi.Point;
 import pl.psi.spells.aoe.AOEPointSelectionStrategyIf;
 import pl.psi.spells.object.Spell;
-import pl.psi.spells.object.SpellStatisticIf;
+import pl.psi.spells.object.interfaces.SpellStatisticIf;
 
 import java.util.List;
 

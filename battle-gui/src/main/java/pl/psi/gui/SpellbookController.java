@@ -8,7 +8,7 @@ import pl.psi.GameEngine;
 import pl.psi.Hero;
 import pl.psi.TurnQueue;
 import pl.psi.spells.object.Spell;
-import pl.psi.spells.object.SpellType;
+import pl.psi.spells.object.enums.SpellType;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;

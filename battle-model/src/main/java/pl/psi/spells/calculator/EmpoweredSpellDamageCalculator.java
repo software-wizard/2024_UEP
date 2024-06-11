@@ -2,12 +2,7 @@ package pl.psi.spells.calculator;
 
 import pl.psi.Hero;
 import pl.psi.creatures.Creature;
-import pl.psi.creatures.DamageCalculatorIf;
-import pl.psi.obstacles.ObstaclesWithHP;
-import pl.psi.spells.object.SpellStatistic;
-import pl.psi.spells.object.SpellStatisticIf;
-
-import java.util.Random;
+import pl.psi.spells.object.interfaces.SpellStatisticIf;
 
 public class EmpoweredSpellDamageCalculator implements SpellDamageCalculatorIf {
     private final SpellStatisticIf spellStatistic;

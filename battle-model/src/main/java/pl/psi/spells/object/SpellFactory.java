@@ -2,7 +2,10 @@ package pl.psi.spells.object;
 
 import pl.psi.spells.aoe.AOERectangularPointSelection;
 import pl.psi.spells.aoe.AOERingPointSelection;
-import pl.psi.spells.calculator.StaticSpellCostCalculator;
+import pl.psi.spells.object.decorators.AOESpellDecorator;
+import pl.psi.spells.object.decorators.TargetConstrainedCreaturesSpellDecorator;
+import pl.psi.spells.object.enums.SpellStatistic;
+import pl.psi.spells.object.enums.SpellType;
 import pl.psi.spells.spell.PassiveSpell;
 import pl.psi.spells.spell.TitansLightningBoltSpell;
 

@@ -1,6 +1,5 @@
 package pl.psi.spells.object;
 
-import pl.psi.GameEngine;
 import pl.psi.Hero;
 import pl.psi.Point;
 import pl.psi.creatures.Creature;
@@ -8,10 +7,7 @@ import pl.psi.creatures.DamageValueObject;
 import pl.psi.enums.AttackTypeEnum;
 import pl.psi.enums.CreatureTypeEnum;
 import pl.psi.spells.calculator.ReducedSpellCostCalculator;
-import pl.psi.spells.calculator.SpellCostCalculatorIf;
-import pl.psi.spells.calculator.SpellDamageCalculatorIf;
-import pl.psi.spells.object.Spell;
-import pl.psi.spells.object.SpellStatisticIf;
+import pl.psi.spells.object.interfaces.SpellStatisticIf;
 import pl.psi.spells.calculator.EmpoweredSpellDamageCalculator;
 
 import java.util.Optional;
