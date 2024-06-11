@@ -15,6 +15,7 @@ public class TargetConstrainedCreaturesSpellDecorator extends Spell {
     private final CreatureConstraintSpellLambda constraintLambda;
 
     public TargetConstrainedCreaturesSpellDecorator(final CreatureConstraintSpellLambda constraintLambda, final Spell decorated) {
+        super(decorated.getStats(), decorated.getCostCalculator());
         this.decorated = decorated;
         this.constraintLambda = constraintLambda;
     }

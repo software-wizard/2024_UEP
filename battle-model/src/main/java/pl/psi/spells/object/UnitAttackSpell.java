@@ -12,9 +12,9 @@ import pl.psi.spells.calculator.EmpoweredSpellDamageCalculator;
 
 import java.util.Optional;
 
-public class SingleUnitAttackSpell extends Spell {
+public class UnitAttackSpell extends Spell {
     private final EmpoweredSpellDamageCalculator damageCalculator;
-    public SingleUnitAttackSpell(final SpellStatisticIf stats) {
+    public UnitAttackSpell(final SpellStatisticIf stats) {
         super(stats, new ReducedSpellCostCalculator(stats));
         this.damageCalculator = new EmpoweredSpellDamageCalculator(stats);
     }

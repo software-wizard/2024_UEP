@@ -19,15 +19,15 @@ public class SpellFactory {
     private static final Map<SpellStatistic, Function<SpellStatistic, Spell>> spellMap = new HashMap<>();
 
     static {
-        spellMap.put(SpellStatistic.MAGIC_ARROW, SingleUnitAttackSpell::new);
-        spellMap.put(SpellStatistic.LIGHTNING_BOLT, SingleUnitAttackSpell::new);
+        spellMap.put(SpellStatistic.MAGIC_ARROW, UnitAttackSpell::new);
+        spellMap.put(SpellStatistic.LIGHTNING_BOLT, UnitAttackSpell::new);
         spellMap.put(SpellStatistic.TITANS_LIGHTNING_BOLT, TitansLightningBoltSpell::new);
-        spellMap.put(SpellStatistic.IMPLOSION, SingleUnitAttackSpell::new);
-        spellMap.put(SpellStatistic.FIREBALL, stat -> new AOESpellDecorator(new AOERectangularPointSelection(), new SingleUnitAttackSpell(stat)));
-        spellMap.put(SpellStatistic.ICE_BOLT, SingleUnitAttackSpell::new);
-        spellMap.put(SpellStatistic.METEOR_SHOWER, stat -> new AOESpellDecorator(new AOERectangularPointSelection(), new SingleUnitAttackSpell(stat)));
-        spellMap.put(SpellStatistic.FROST_RING, stat -> new AOESpellDecorator(new AOERingPointSelection(), new SingleUnitAttackSpell(stat)));
-        spellMap.put(SpellStatistic.DEATH_RIPPLE, stat -> new TargetConstrainedCreaturesSpellDecorator(((caster, c) -> !caster.hasCreature(c)), new SingleUnitAttackSpell(stat)));
+        spellMap.put(SpellStatistic.IMPLOSION, UnitAttackSpell::new);
+        spellMap.put(SpellStatistic.FIREBALL, stat -> new AOESpellDecorator(new AOERectangularPointSelection(), new UnitAttackSpell(stat)));
+        spellMap.put(SpellStatistic.ICE_BOLT, UnitAttackSpell::new);
+        spellMap.put(SpellStatistic.METEOR_SHOWER, stat -> new AOESpellDecorator(new AOERectangularPointSelection(), new UnitAttackSpell(stat)));
+        spellMap.put(SpellStatistic.FROST_RING, stat -> new AOESpellDecorator(new AOERingPointSelection(), new UnitAttackSpell(stat)));
+        spellMap.put(SpellStatistic.DEATH_RIPPLE, stat -> new TargetConstrainedCreaturesSpellDecorator(((caster, c) -> !caster.hasCreature(c)), new UnitAttackSpell(stat)));
     }
 
     public static Spell fromStatistic(SpellStatistic spellStatistic) {
@@ -40,7 +40,7 @@ public class SpellFactory {
         if (spellStatistic.getType().equals(SpellType.PASSIVE)) {
             return new PassiveSpell(spellStatistic);
         } else {
-            return new SingleUnitAttackSpell(spellStatistic);
+            return new UnitAttackSpell(spellStatistic);
         }
     }
 

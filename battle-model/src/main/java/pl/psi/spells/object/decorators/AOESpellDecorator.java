@@ -13,7 +13,7 @@ public class AOESpellDecorator extends Spell {
     private final AOEPointSelectionStrategyIf pointSelectionStrategy;
 
     public AOESpellDecorator(final AOEPointSelectionStrategyIf pointSelectionStrategy, final Spell decorated) {
-        super(null, null);
+        super(decorated.getStats(), decorated.getCostCalculator());
         this.decorated = decorated;
         this.pointSelectionStrategy = pointSelectionStrategy;
     }
