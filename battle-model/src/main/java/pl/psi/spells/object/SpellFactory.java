@@ -23,6 +23,7 @@ public class SpellFactory {
         spellMap.put(SpellStatistic.LIGHTNING_BOLT, UnitAttackSpell::new);
         spellMap.put(SpellStatistic.TITANS_LIGHTNING_BOLT, TitansLightningBoltSpell::new);
         spellMap.put(SpellStatistic.IMPLOSION, UnitAttackSpell::new);
+
         spellMap.put(SpellStatistic.FIREBALL, stat -> new AOESpellDecorator(new AOERectangularPointSelection(), new UnitAttackSpell(stat)));
         spellMap.put(SpellStatistic.ICE_BOLT, UnitAttackSpell::new);
         spellMap.put(SpellStatistic.METEOR_SHOWER, stat -> new AOESpellDecorator(new AOERectangularPointSelection(), new UnitAttackSpell(stat)));

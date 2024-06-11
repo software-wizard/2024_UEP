@@ -42,6 +42,7 @@ public class Creature implements PropertyChangeListener {
     @Setter
     private DamageApplier damageApplier = new DamageApplier();
 
+    private CreatureStatisticIf baseStats;
 
 
     Creature() {
@@ -50,6 +51,7 @@ public class Creature implements PropertyChangeListener {
     private Creature(final CreatureStatisticIf aStats, final DamageCalculatorIf aCalculator,
                      final int aAmount, CreatureTypeEnum aCreatureType, AttackTypeEnum aAttackType) {
         stats = aStats;
+        baseStats = aStats;
         amount = aAmount;
         currentHp = stats.getMaxHp();
         calculator = aCalculator;
@@ -72,8 +74,9 @@ public class Creature implements PropertyChangeListener {
     public void attackObstacle(ObstaclesWithHP obstacleWithHP, Point aPoint) {
         final int damage = getCalculator().calculateDamageToObstacle(this,obstacleWithHP);
         obstacleWithHP.takeDamage(aPoint, damage);
-
     }
+
+
 
     public boolean isAlive() {
         return getAmount() > 0;
