@@ -7,25 +7,38 @@ import pl.psi.spells.spell.PassiveSpell;
 import pl.psi.spells.spell.TitansLightningBoltSpell;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Function;
 
 public class SpellFactory {
+    private static final Map<SpellStatistic, Function<SpellStatistic, Spell>> spellMap = new HashMap<>();
+
+    static {
+        spellMap.put(SpellStatistic.MAGIC_ARROW, SingleUnitAttackSpell::new);
+        spellMap.put(SpellStatistic.LIGHTNING_BOLT, SingleUnitAttackSpell::new);
+        spellMap.put(SpellStatistic.TITANS_LIGHTNING_BOLT, TitansLightningBoltSpell::new);
+        spellMap.put(SpellStatistic.IMPLOSION, SingleUnitAttackSpell::new);
+        spellMap.put(SpellStatistic.FIREBALL, stat -> new AOESpellDecorator(new AOERectangularPointSelection(), new SingleUnitAttackSpell(stat)));
+        spellMap.put(SpellStatistic.ICE_BOLT, SingleUnitAttackSpell::new);
+        spellMap.put(SpellStatistic.METEOR_SHOWER, stat -> new AOESpellDecorator(new AOERectangularPointSelection(), new SingleUnitAttackSpell(stat)));
+        spellMap.put(SpellStatistic.FROST_RING, stat -> new AOESpellDecorator(new AOERingPointSelection(), new SingleUnitAttackSpell(stat)));
+        spellMap.put(SpellStatistic.DEATH_RIPPLE, stat -> new TargetConstrainedCreaturesSpellDecorator(((caster, c) -> !caster.hasCreature(c)), new SingleUnitAttackSpell(stat)));
+    }
 
     public static Spell fromStatistic(SpellStatistic spellStatistic) {
-        if (spellStatistic.equals(SpellStatistic.MAGIC_ARROW)) return new SingleUnitAttackSpell(spellStatistic);
-        else if (spellStatistic.equals(SpellStatistic.LIGHTNING_BOLT)) return new SingleUnitAttackSpell(spellStatistic);
-        else if (spellStatistic.equals(SpellStatistic.TITANS_LIGHTNING_BOLT)) return new TitansLightningBoltSpell(spellStatistic);
-        else if (spellStatistic.equals(SpellStatistic.IMPLOSION)) return new SingleUnitAttackSpell(spellStatistic);
-        else if (spellStatistic.equals(SpellStatistic.FIREBALL)) return new AOESpellDecorator(new AOERectangularPointSelection(), new SingleUnitAttackSpell(spellStatistic));
-        else if (spellStatistic.equals(SpellStatistic.ICE_BOLT)) return new SingleUnitAttackSpell(spellStatistic);
-        else if (spellStatistic.equals(SpellStatistic.METEOR_SHOWER)) return new AOESpellDecorator(new AOERectangularPointSelection(), new SingleUnitAttackSpell(spellStatistic));
-        else if (spellStatistic.equals(SpellStatistic.FROST_RING)) return new AOESpellDecorator(new AOERingPointSelection(), new SingleUnitAttackSpell(spellStatistic));
-        else if (spellStatistic.equals(SpellStatistic.DEATH_RIPPLE)) return new TargetConstrainedCreaturesSpellDecorator(((caster, c) -> !caster.hasCreature(c)), new SingleUnitAttackSpell(spellStatistic));
+        Function<SpellStatistic, Spell> spellConstructor = spellMap.get(spellStatistic);
 
+        if (spellConstructor != null) {
+            return spellConstructor.apply(spellStatistic);
+        }
 
         if (spellStatistic.getType().equals(SpellType.PASSIVE)) {
-            return new PassiveSpell(spellStatistic, new StaticSpellCostCalculator(spellStatistic));
-        } else return new SingleUnitAttackSpell(spellStatistic);
+            return new PassiveSpell(spellStatistic);
+        } else {
+            return new SingleUnitAttackSpell(spellStatistic);
+        }
     }
 
     public static List<Spell> all() {
