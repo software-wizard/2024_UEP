@@ -208,7 +208,7 @@ public class SkillsTest {
                 .build();
         lichWithArchery.setCalculator(new ArcheryCalculatorDecorator(lichWithArchery.getCalculator(), 1));
 
-        Creature lichWithoutArchery = new Creature.Builder().statistic(CreatureStats.builder()
+        Creature lich = new Creature.Builder().statistic(CreatureStats.builder()
                         .armor(10)
                         .attack(13)
                         .maxHp(MAX_HP)
@@ -218,11 +218,12 @@ public class SkillsTest {
 
 
         //when
-        lichWithArchery.attack(lichWithoutArchery);
+        lichWithArchery.attack(lich, AttackTypeEnum.RANGE);
 
         //then
-        assertThat(lichWithoutArchery.getCurrentHp()).isEqualTo(MAX_HP - 13);
-        assertThat(lichWithArchery.getCurrentHp()).isEqualTo(MAX_HP - 12);
+        assertThat(lich.getCurrentHp()).isEqualTo(MAX_HP - 13);
+        //shouldn't counter-attack ranged attack
+        assertThat(lichWithArchery.getCurrentHp()).isEqualTo(MAX_HP);
     }
 
     @Test
@@ -239,7 +240,7 @@ public class SkillsTest {
                 .build();
         lichWithArchery.setCalculator(new ArcheryCalculatorDecorator(lichWithArchery.getCalculator(), 2));
 
-        Creature lichWithoutArchery = new Creature.Builder().statistic(CreatureStats.builder()
+        Creature lich = new Creature.Builder().statistic(CreatureStats.builder()
                         .armor(10)
                         .attack(13)
                         .maxHp(MAX_HP)
@@ -249,11 +250,12 @@ public class SkillsTest {
 
 
         //when
-        lichWithArchery.attack(lichWithoutArchery);
+        lichWithArchery.attack(lich, AttackTypeEnum.RANGE);
 
         //then
-        assertThat(lichWithoutArchery.getCurrentHp()).isEqualTo(MAX_HP - 15);
-        assertThat(lichWithArchery.getCurrentHp()).isEqualTo(MAX_HP - 12);
+        assertThat(lich.getCurrentHp()).isEqualTo(MAX_HP - 15);
+        //shouldn't counter-attack ranged attack
+        assertThat(lichWithArchery.getCurrentHp()).isEqualTo(MAX_HP);
     }
 
     @Test
@@ -270,7 +272,7 @@ public class SkillsTest {
                 .build();
         lichWithArchery.setCalculator(new ArcheryCalculatorDecorator(lichWithArchery.getCalculator(), 3));
 
-        Creature lichWithoutArchery = new Creature.Builder().statistic(CreatureStats.builder()
+        Creature lich = new Creature.Builder().statistic(CreatureStats.builder()
                         .armor(10)
                         .attack(13)
                         .maxHp(MAX_HP)
@@ -280,18 +282,17 @@ public class SkillsTest {
 
 
         //when
-        lichWithArchery.attack(lichWithoutArchery);
+        lichWithArchery.attack(lich, AttackTypeEnum.RANGE);
 
         //then
-        assertThat(lichWithoutArchery.getCurrentHp()).isEqualTo(MAX_HP - 18);
-        assertThat(lichWithArchery.getCurrentHp()).isEqualTo(MAX_HP - 12);
+        assertThat(lich.getCurrentHp()).isEqualTo(MAX_HP - 18);
+        //shouldn't counter-attack ranged attack
+        assertThat(lichWithArchery.getCurrentHp()).isEqualTo(MAX_HP);
     }
 
-    @Disabled
     @Test
     void archeryAndOffenseWorkTogether() { //must implement ranged and melee attacks for this to work
         final int MAX_HP = 30;
-        //given
         Creature lichWithArcheryAndOffense = new Creature.Builder().statistic(CreatureStats.builder()
                         .armor(10)
                         .attack(13)
@@ -303,7 +304,7 @@ public class SkillsTest {
         lichWithArcheryAndOffense.setCalculator(new ArcheryCalculatorDecorator(lichWithArcheryAndOffense.getCalculator(), 3));
         lichWithArcheryAndOffense.setCalculator(new OffenseCalculatorDecorator(lichWithArcheryAndOffense.getCalculator(), 3));
 
-        Creature lichWithoutArchery = new Creature.Builder().statistic(CreatureStats.builder()
+        Creature lich = new Creature.Builder().statistic(CreatureStats.builder()
                         .armor(10)
                         .attack(13)
                         .maxHp(MAX_HP)
@@ -311,12 +312,16 @@ public class SkillsTest {
                         .build())
                 .build();
 
+        lichWithArcheryAndOffense.attack(lich, AttackTypeEnum.RANGE);
 
-        //when
-        lichWithArcheryAndOffense.attack(lichWithoutArchery);
+        assertThat(lich.getCurrentHp()).isEqualTo(MAX_HP - 18);
+        //shouldn't counter-attack ranged attack
+        assertThat(lichWithArcheryAndOffense.getCurrentHp()).isEqualTo(MAX_HP);
 
-        //then
-        assertThat(lichWithoutArchery.getCurrentHp()).isEqualTo(MAX_HP - 18);
+        lichWithArcheryAndOffense.attack(lich, AttackTypeEnum.MELEE);
+
+        assertThat(lich.getCurrentHp()).isEqualTo(MAX_HP-25);
+        //should counter-attack melee attack
         assertThat(lichWithArcheryAndOffense.getCurrentHp()).isEqualTo(MAX_HP - 12);
     }
 }

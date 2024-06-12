@@ -43,10 +43,20 @@ public class GameEngine {
 
     private void attackOnce(Point point) {
         Creature currentCreature = turnQueue.getCurrentCreature();
-//        AttackTypeEnum attackType = determineAttackType();
+        AttackTypeEnum attackType = determineAttackType(currentCreature, point);
         board.getCreature(point)
                 .ifPresent(defender -> currentCreature
-                        .attack(defender));
+                        .attack(defender, attackType));
+    }
+
+    private AttackTypeEnum determineAttackType(Creature aCreature, Point enemyLocation) {
+        AttackTypeEnum creatureAttackType = aCreature.getAttackType();
+        if (creatureAttackType.equals(AttackTypeEnum.RANGE)) {
+            if(!isInMeleeRange(aCreature, enemyLocation)) {
+                return AttackTypeEnum.RANGE;
+            }
+        }
+        return AttackTypeEnum.MELEE;
     }
 
     public boolean canMove(final Point aPoint) {
@@ -80,11 +90,11 @@ public class GameEngine {
 
         return board.getCreature(point)
                 .isPresent() //todo pytanie czy to ekstraktowac do variabla
-                && isInMeleeRange(board.getPosition(currentCreature), point);
+                && isInMeleeRange(currentCreature, point);
     }
 
-    private boolean isInMeleeRange(Point aCreature1, Point aCreature2) {
-        double distance = aCreature1.distance(aCreature2);
+    private boolean isInMeleeRange(Creature aCreature1, Point aCreature2) {
+        double distance = board.getPosition(aCreature1).distance(aCreature2);
         return distance < 2 && distance > 0;
     }
 

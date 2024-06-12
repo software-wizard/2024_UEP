@@ -59,10 +59,10 @@ public class Creature implements PropertyChangeListener {
 
     public void attack(final Creature aDefender, AttackTypeEnum aAttackType) {
         if (isAlive() && !morale.shouldFreeze()) {
-            int damage = getCalculator().calculateDamage(this, aDefender);
+            int damage = getCalculator().calculateDamage(this, aDefender, aAttackType);
             DamageValueObject damageObject = new DamageValueObject(damage, aAttackType, this.creatureType);
             aDefender.getDamageApplier().applyDamage(damageObject, aDefender);
-            if (canCounterAttack(aDefender)) {
+            if (canCounterAttack(aDefender) && aAttackType.equals(AttackTypeEnum.MELEE)) {
                 counterAttack(aDefender);
             }
         }
@@ -89,7 +89,7 @@ public class Creature implements PropertyChangeListener {
     }
 
     private void counterAttack(final Creature aAttacker) {
-        final int damage = aAttacker.getCalculator().calculateDamage(aAttacker, this);
+        final int damage = aAttacker.getCalculator().calculateDamage(aAttacker, this, AttackTypeEnum.MELEE);
         DamageValueObject aDamageValueObject = new DamageValueObject(damage, aAttacker.getAttackType(), aAttacker.getCreatureType());
         this.damageApplier.applyDamage(aDamageValueObject, this);
         aAttacker.counterAttackCounter--;

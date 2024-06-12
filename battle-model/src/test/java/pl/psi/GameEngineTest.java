@@ -50,26 +50,27 @@ public class GameEngineTest
         assertThat(gameEngine.getHeroToMove()).isEqualTo(hero2);
     }
 
-    @Disabled
     @Test
     void rangedCreatureCorrectlyStatesAttackType() {
         final int maxHp = 30;
         //given
-        final Creature lichWithArchery = new Creature.Builder().statistic(CreatureStats.builder()
+        final Creature lichWithArchery = new Creature.Builder()
+                .statistic(CreatureStats.builder()
                         .armor(10)
                         .attack(13)
                         .maxHp(maxHp)
-                        .damage(Range.closed(11, 11))
+                        .damage(Range.closed(10, 10))
                         .build())
                 .attackType(AttackTypeEnum.RANGE)
                 .build();
         lichWithArchery.setCalculator(new ArcheryCalculatorDecorator(lichWithArchery.getCalculator(), 2));
 
-        final Creature lichWithoutArchery = new Creature.Builder().statistic(CreatureStats.builder()
+        final Creature lichWithoutArchery = new Creature.Builder()
+                .statistic(CreatureStats.builder()
                         .armor(10)
                         .attack(13)
                         .maxHp(maxHp)
-                        .damage(Range.closed(11, 11))
+                        .damage(Range.closed(10, 10))
                         .build())
                 .build();
         Hero hero1 = new Hero(List.of(lichWithArchery), new Spellbook(List.of()));
@@ -78,9 +79,7 @@ public class GameEngineTest
         GameEngine gameEngine = new GameEngine(hero1, hero2);
 
         gameEngine.attack(ENEMY_LOCATION);
-        assertThat(gameEngine.getCreature(ENEMY_LOCATION).get().getCurrentHp()).isEqualTo(maxHp - 15);
-
-
+        assertThat(gameEngine.getCreature(ENEMY_LOCATION).get().getCurrentHp()).isEqualTo(maxHp - 13);
     }
 
     @Test
