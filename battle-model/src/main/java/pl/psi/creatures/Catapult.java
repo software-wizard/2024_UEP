@@ -1,5 +1,6 @@
 package pl.psi.creatures;
 
+import lombok.Getter;
 import lombok.Setter;
 import pl.psi.enums.AttackTypeEnum;
 import pl.psi.enums.CreatureTypeEnum;
@@ -8,7 +9,9 @@ import java.util.Random;
 
 public class Catapult extends Creature {
     private CreatureStatisticIf stats;
+    @Getter
     @Setter
+    private int level;
     private int amount;
     private int currentHp;
     private int counterAttackCounter = 1;
@@ -21,6 +24,7 @@ public class Catapult extends Creature {
     private Catapult (final CreatureStatisticIf aStats, final DamageCalculatorIf aCalculator,
                       final int aAmount, CreatureTypeEnum aCreatureType, AttackTypeEnum aAttackType) {
         super(aStats,aCalculator,aAmount,aCreatureType,aAttackType);
+        this.level = 1;
     }
     // usun to
     public static class Builder {
@@ -48,9 +52,8 @@ public class Catapult extends Creature {
 
     }
 
-
-
-
-
+    public void levelUpSpell() {
+        this.level++;
+    }
 
 }
