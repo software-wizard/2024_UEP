@@ -21,6 +21,7 @@ import pl.psi.gui.MainBattleController;
 import pl.psi.skills.Skill;
 
 public class EcoBattleConverter {
+
     public static void startBattle(StartBattlePack aPack) {
         Scene scene = null;
         try {
@@ -40,8 +41,6 @@ public class EcoBattleConverter {
     }
 
     public static Hero convert(final EconomyHero aPlayer1) {
-        final SkillsConverter skillsConverter = new SkillsConverter();
-
         final List<Creature> creatures = new ArrayList<>();
         final NecropolisFactory factory = new NecropolisFactory();
         aPlayer1.getCreatures()
@@ -50,7 +49,7 @@ public class EcoBattleConverter {
 
         // Zakładam ze skille "nie battle" nie muszą byc zalaczane tutaj, poniewaz one musza dzialac jak sobie biegamy po mapie
         for (Skill skill : aPlayer1.getSkills().values()) {
-            if (skill instanceof EcoSkill) {
+            if (skill instanceof EcoSkill) { //todo pytanie instance
                 BattleSkill newSkill = skillsConverter.convert((EcoSkill) skill);
                 newSkill.cast(creatures);
             }

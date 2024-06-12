@@ -28,7 +28,7 @@ public class DamageCreatureSpell extends Spell {
     @Override
     public void cast() {
         if (owner.isAlive()) {
-            final int dmg = calculator.calculateDamage(owner, target);
+            final int dmg = calculator.calculateDamage(owner, target, AttackTypeEnum.SPELL);
             target.applyDamage(new DamageValueObject(dmg, AttackTypeEnum.SPELL, CreatureTypeEnum.SPELL));
         }
 

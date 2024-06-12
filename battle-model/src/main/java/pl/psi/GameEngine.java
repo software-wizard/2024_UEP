@@ -4,8 +4,9 @@ import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.Optional;
 
-import lombok.Getter;
 import pl.psi.creatures.Creature;
+import pl.psi.creatures.Morale;
+import pl.psi.enums.AttackTypeEnum;
 
 /**
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
@@ -29,10 +30,33 @@ public class GameEngine {
     }
 
     public void attack(final Point point) {
-        board.getCreature(point)
-                .ifPresent(defender -> turnQueue.getCurrentCreature()
-                        .attack(defender));
+        attackOnce(point);
+        //If creature gets lucky morale 
+        Morale currentCreatureMorale = turnQueue.getCurrentCreature().getMorale();
+        if (currentCreatureMorale.shouldAttackAgain()) {
+            currentCreatureMorale.setGotLucky(true);
+            return;
+        }
         pass();
+        currentCreatureMorale.setGotLucky(false);
+    }
+
+    private void attackOnce(Point point) {
+        Creature currentCreature = turnQueue.getCurrentCreature();
+        AttackTypeEnum attackType = determineAttackType(currentCreature, point);
+        board.getCreature(point)
+                .ifPresent(defender -> currentCreature
+                        .attack(defender, attackType));
+    }
+
+    private AttackTypeEnum determineAttackType(Creature aCreature, Point enemyLocation) {
+        AttackTypeEnum creatureAttackType = aCreature.getAttackType();
+        if (creatureAttackType.equals(AttackTypeEnum.RANGE)) {
+            if(!isInMeleeRange(aCreature, enemyLocation)) {
+                return AttackTypeEnum.RANGE;
+            }
+        }
+        return AttackTypeEnum.MELEE;
     }
 
     public boolean canMove(final Point aPoint) {
@@ -58,11 +82,20 @@ public class GameEngine {
     }
 
     public boolean canAttack(final Point point) {
-        double distance = board.getPosition(turnQueue.getCurrentCreature())
-                .distance(point);
+        Creature currentCreature = getCreatureToMove();
+        //if currentCreature is ranged it can attack a field where a Creature is present
+        if(currentCreature.getAttackType().equals(AttackTypeEnum.RANGE) && board.getCreature(point).isPresent()) {
+            return true;
+        }
+
         return board.getCreature(point)
-                .isPresent()
-                && distance < 2 && distance > 0;
+                .isPresent() //todo pytanie czy to ekstraktowac do variabla
+                && isInMeleeRange(currentCreature, point);
+    }
+
+    private boolean isInMeleeRange(Creature aCreature1, Point aCreature2) {
+        double distance = board.getPosition(aCreature1).distance(aCreature2);
+        return distance < 2 && distance > 0;
     }
 
     public Creature getCreatureToMove() {

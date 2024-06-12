@@ -1,6 +1,8 @@
 package pl.psi.creatures;
 
 
+import pl.psi.enums.AttackTypeEnum;
+
 public class ArcheryCalculatorDecorator extends AbstractCalculateDamageStrategy {
     private final int level;
     private final AbstractCalculateDamageStrategy decorated;
@@ -13,9 +15,14 @@ public class ArcheryCalculatorDecorator extends AbstractCalculateDamageStrategy 
     }
 
     @Override
-    public int calculateDamage( final Creature aAttacker, final Creature aDefender )
+    public int calculateDamage(final Creature aAttacker, final Creature aDefender, AttackTypeEnum attackType)
     {
-        return (int) (decorated.calculateDamage(aAttacker, aDefender) * getMultiplier());
+        int damage = decorated.calculateDamage(aAttacker, aDefender, attackType);
+        if (attackType.equals(AttackTypeEnum.RANGE)) {
+            return (int) (damage * getMultiplier());
+        }
+        //damage calculator has melee penalty built in
+        return damage;
     }
 
     private double getMultiplier() {

@@ -5,11 +5,12 @@ import lombok.Setter;
 
 import java.util.Random;
 
+@Getter
 public class Morale {
-    @Getter
     private int value;
-    @Getter
-    private Random random;
+    private final Random random;
+    @Setter
+    private boolean gotLucky;
 
     public Morale(int value) {
         this.value = validateValue(value);
@@ -54,7 +55,7 @@ public class Morale {
     }
 
     public boolean shouldAttackAgain() {
-        if (value <= 0) {
+        if (value <= 0 || gotLucky) {
             return false;
         }
         double chance;

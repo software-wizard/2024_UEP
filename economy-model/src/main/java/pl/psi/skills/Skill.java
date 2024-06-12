@@ -3,12 +3,9 @@ package pl.psi.skills;
 import lombok.Getter;
 import pl.psi.enums.SkillEnum;
 
-import java.util.Objects;
-
 @Getter
 public abstract class Skill {
-
-protected int level;
+    protected int level;
     protected SkillEnum skillName;
 
     public Skill(SkillEnum aSkillEnum, int aLevel) {
@@ -27,5 +24,11 @@ protected int level;
     public String toString() {
         String enumString = skillName.name();
         return enumString.charAt(0) + enumString.substring(1).toLowerCase() + " (" + level + ")";
+    }
+
+    public void upgradeLevel() {
+        if (level < 3) {
+            level++;
+        }
     }
 }

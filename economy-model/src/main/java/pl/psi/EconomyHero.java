@@ -62,6 +62,11 @@ public class EconomyHero implements PropertyChangeListener
     }
 
     public void addSkill(Skill aSkill) {
+        SkillEnum skillName = aSkill.getSkillName();
+        if(skills.containsKey(skillName)) {
+            skills.get(skillName).upgradeLevel();
+            return;
+        }
         skills.put(aSkill.getSkillName(), aSkill);
     }
 }

@@ -20,8 +20,6 @@ import com.google.common.collect.Range;
 import lombok.Getter;
 import pl.psi.enums.CreatureTypeEnum;
 
-import static java.lang.Math.random;
-
 /**
  * cokolwiek
  */
@@ -32,7 +30,7 @@ public class Creature implements PropertyChangeListener {
     private int amount;
     private int currentHp;
     private int counterAttackCounter = 1;
-    private Morale morale; //todo temp
+    private Morale morale;
     @Setter
     private DamageCalculatorIf calculator;
     private CreatureTypeEnum creatureType;
@@ -56,21 +54,18 @@ public class Creature implements PropertyChangeListener {
 
 
     public void attack(final Creature aDefender) {
-        if (isAlive() && !morale.shouldFreeze()) {
-            performAttack(aDefender);
-            if (canCounterAttack(aDefender)) {
-                counterAttack(aDefender);
-            }
-            if (morale.shouldAttackAgain()) {
-                performAttack(aDefender);
-            }
-        }
+        attack(aDefender, AttackTypeEnum.MELEE);
     }
 
-    private void performAttack(Creature aDefender) {
-        int damage = getCalculator().calculateDamage(this, aDefender);
-        DamageValueObject damageObject = new DamageValueObject(damage, this.attackType, this.creatureType);
-        aDefender.getDamageApplier().applyDamage(damageObject, aDefender);
+    public void attack(final Creature aDefender, AttackTypeEnum aAttackType) {
+        if (isAlive() && !morale.shouldFreeze()) {
+            int damage = getCalculator().calculateDamage(this, aDefender, aAttackType);
+            DamageValueObject damageObject = new DamageValueObject(damage, aAttackType, this.creatureType);
+            aDefender.getDamageApplier().applyDamage(damageObject, aDefender);
+            if (canCounterAttack(aDefender) && aAttackType.equals(AttackTypeEnum.MELEE)) {
+                counterAttack(aDefender);
+            }
+        }
     }
 
     public boolean isAlive() {
@@ -94,9 +89,9 @@ public class Creature implements PropertyChangeListener {
     }
 
     private void counterAttack(final Creature aAttacker) {
-        final int damage = aAttacker.getCalculator().calculateDamage(aAttacker, this);
-        DamageValueObject aDamageValueObject = new DamageValueObject(damage, this.attackType, this.creatureType);
-        damageApplier.applyDamage(aDamageValueObject, this); //spytac czy lepiej uzywac getDamageApplier czy damageApplier
+        final int damage = aAttacker.getCalculator().calculateDamage(aAttacker, this, AttackTypeEnum.MELEE);
+        DamageValueObject aDamageValueObject = new DamageValueObject(damage, aAttacker.getAttackType(), aAttacker.getCreatureType());
+        this.damageApplier.applyDamage(aDamageValueObject, this);
         aAttacker.counterAttackCounter--;
     }
 
@@ -159,7 +154,7 @@ public class Creature implements PropertyChangeListener {
             return this;
         }
 
-        Builder calculator(final DamageCalculatorIf aCalc) {
+        public Builder calculator(final DamageCalculatorIf aCalc) {
             calculator = aCalc;
             return this;
         }
