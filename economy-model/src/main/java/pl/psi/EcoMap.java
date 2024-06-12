@@ -96,4 +96,60 @@ public class EcoMap
         return fieldObjects.get(aPoint);
     }
 
+    public boolean isGoldField(Point aPoint){
+        if(fieldObjects.get(aPoint).getGold() != 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean isWoodField(Point aPoint){
+        if(fieldObjects.get(aPoint).getWood() != 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean isOreField(Point aPoint){
+        if(fieldObjects.get(aPoint).getOre() != 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean isGemsField(Point aPoint){
+        if(fieldObjects.get(aPoint).getGems() != 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean isSulfurField(Point aPoint){
+        if(fieldObjects.get(aPoint).getSulfur() != 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean isMercuryField(Point aPoint){
+        if(fieldObjects.get(aPoint).getMercury() != 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
+    public boolean isCristalsField(Point aPoint){
+        if(fieldObjects.get(aPoint).getCristals() != 0){
+            return true;
+        }else{
+            return false;
+        }
+    }
+
 }

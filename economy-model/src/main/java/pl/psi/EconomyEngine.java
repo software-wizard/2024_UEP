@@ -83,6 +83,29 @@ public class EconomyEngine {
         return board.isFieldPoint(aPoint);
     }
 
+    public boolean isGoldField(Point aPoint){
+        return board.isGoldField(aPoint);
+    }
+    public boolean isWoodField(Point aPoint){
+        return board.isWoodField(aPoint);
+    }
+    public boolean isOreField(Point aPoint){
+        return board.isOreField(aPoint);
+    }
+    public boolean isGemsField(Point aPoint){
+        return board.isGemsField(aPoint);
+    }
+    public boolean isSulfurField(Point aPoint){
+        return board.isSulfurField(aPoint);
+    }
+    public boolean isMercuryField(Point aPoint){
+        return board.isMercuryField(aPoint);
+    }
+    public boolean isCristalsField(Point aPoint){
+        return board.isCristalsField(aPoint);
+    }
+
+
 
     public void collectField(ResourcesField field) {
         EconomyHero hero = turnQueue.getCurrentHero();

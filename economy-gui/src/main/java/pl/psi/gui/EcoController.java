@@ -85,16 +85,32 @@ public class EcoController implements PropertyChangeListener {
                     mapTile.setBackground(Color.BROWN);
                     mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
                             if(engine.isCurrentHero(currentPoint)) {
-                                CastleWindow castleWindow = new CastleWindow();
+                                BlacksmithGUI castleWindow = new BlacksmithGUI(engine.getCurrentHero(), this);
                                 castleWindow.show();
                             }
                     });
                 }
 
                 if(engine.isFieldPoint(currentPoint)){
-                    mapTile.setBackground(Color.GREENYELLOW);
+                    if(engine.isGoldField(currentPoint)){
+                        mapTile.setIcon("/resourcesIcons/gold.png");
+                    }else if(engine.isWoodField(currentPoint)){
+                        mapTile.setIcon("/resourcesIcons/wood.png");
+                    }else if(engine.isOreField(currentPoint)){
+                        mapTile.setIcon("/resourcesIcons/ore.png");
+                    }else if(engine.isGemsField(currentPoint)){
+                        mapTile.setIcon("/resourcesIcons/gems.png");
+                    }else if(engine.isSulfurField(currentPoint)){
+                        mapTile.setIcon("/resourcesIcons/sulfur.png");
+                    }else if(engine.isMercuryField(currentPoint)){
+                        mapTile.setIcon("/resourcesIcons/mercury.png");
+                    }else if(engine.isCristalsField(currentPoint)){
+                        mapTile.setIcon("/resourcesIcons/crystals.png");
+                    }
+
                     mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED,  (e) -> {
                         if(engine.isCurrentHero(currentPoint)) {
+                            mapTile.removeIcon(); // nie działa
                            engine.collectField(engine.getField(currentPoint));
                            refreshGui();
                         }
@@ -113,5 +129,9 @@ public class EcoController implements PropertyChangeListener {
     public void propertyChange(final PropertyChangeEvent aPropertyChangeEvent) {
         refreshGui();
 
+    }
+
+    public void updateAllResourcesLabel() {
+        allResourcesLabel.setText(engine.getCurrentHero().getResources().getAllResourcesAsString());
     }
 }
