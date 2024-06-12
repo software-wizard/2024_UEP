@@ -8,16 +8,17 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.stage.Stage;
 import pl.psi.EconomyHero;
-import pl.psi.Resources;
+import pl.psi.blacksmith.ShopItem;
+import pl.psi.enums.ItemType;
+
+import java.util.List;
 
 public class BlacksmithGUI extends Stage {
 
-    private EconomyHero economyHero;
-    private EcoController ecoController;
+    private BlacksmithController controller;
 
-    public BlacksmithGUI(EconomyHero economyHero, EcoController ecoController){
-        this.economyHero = economyHero;
-        this.ecoController = ecoController;
+    public BlacksmithGUI(EconomyHero economyHero, EcoController ecoController) {
+        this.controller = new BlacksmithController(economyHero, ecoController);
 
         setTitle("Heroes III Blacksmith");
 
@@ -26,13 +27,16 @@ public class BlacksmithGUI extends Stage {
         Label spellsLabel = new Label("Zaklęcia:");
 
         VBox magicItemsSection = new VBox(10);
-        magicItemsSection.getChildren().addAll(magicItemsLabel, createMagicItemButton("Amulet Mocy", 200), createMagicItemButton("Szata Mędrcy", 150), createMagicItemButton("Miecz Ognia", 300));
-
         VBox militaryUnitsSection = new VBox(10);
-        militaryUnitsSection.getChildren().addAll(militaryUnitsLabel, createMilitaryUnitButton("Łucznicy", 50), createMilitaryUnitButton("Piechurzy", 30), createMilitaryUnitButton("Kawaleria", 100));
-
         VBox spellsSection = new VBox(10);
-        spellsSection.getChildren().addAll(spellsLabel, createSpellButton("Piorun", 80), createSpellButton("Ognista Kula", 120), createSpellButton("Leczenie", 50));
+
+        magicItemsSection.getChildren().add(magicItemsLabel);
+        militaryUnitsSection.getChildren().add(militaryUnitsLabel);
+        spellsSection.getChildren().add(spellsLabel);
+
+        addItemsToSection(magicItemsSection, ItemType.MAGIC_ITEM);
+        addItemsToSection(militaryUnitsSection, ItemType.MILITARY_UNIT);
+        addItemsToSection(spellsSection, ItemType.SPELL);
 
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(10, 10, 10, 10));
@@ -47,58 +51,17 @@ public class BlacksmithGUI extends Stage {
         setScene(scene);
     }
 
-    private Button createMagicItemButton(String itemName, int cost) {
-        Button buyButton = new Button("Kup " + itemName + " za " + cost + " złota");
-        buyButton.setOnAction(event -> {
-            Resources requiredResources = Resources.builder().gold(cost).build();
+    private void addItemsToSection(VBox section, ItemType type) {
+        List<ShopItem> items = controller.getShop().getItemsByType(type);
+        for (ShopItem item : items) {
+            section.getChildren().add(createBuyButton(item));
+        }
+    }
 
-            if (economyHero.getResources().hasEnough(requiredResources)) {
-                economyHero.setResources(economyHero.getResources().subtract(requiredResources));
-                ecoController.updateAllResourcesLabel();
-                System.out.println(economyHero.getResources().getGold());
-                updateResourceLabels();
-            } else {
-                System.out.println("Nie masz wystarczająco zasobów do zakupu " + itemName);
-            }
-        });
+    private Button createBuyButton(ShopItem item) {
+        Button buyButton = new Button("Kup " + item.getName() + " za " + item.getRequiredResources().getGold() + " złota");
+        buyButton.setOnAction(event -> controller.buyItem(item));
         return buyButton;
     }
 
-    private Button createMilitaryUnitButton(String unitName, int cost) {
-        Button buyButton = new Button("Kup " + unitName + " za " + cost + " złota");
-        buyButton.setOnAction(event -> {
-            Resources requiredResources = Resources.builder().gold(cost).build();
-
-            if (economyHero.getResources().hasEnough(requiredResources)) {
-                economyHero.setResources(economyHero.getResources().subtract(requiredResources));
-                System.out.println(economyHero.getResources().getGold());
-                ecoController.updateAllResourcesLabel();
-            } else {
-                System.out.println("Nie masz wystarczająco zasobów do zakupu " + unitName);
-            }
-        });
-        return buyButton;
-    }
-
-    private Button createSpellButton(String spellName, int cost) {
-        Button buyButton = new Button("Kup " + spellName + " za " + cost + " złota");
-        buyButton.setOnAction(event -> {
-            Resources requiredResources = Resources.builder().gold(cost).build();
-
-            if (economyHero.getResources().hasEnough(requiredResources)) {
-                economyHero.setResources(economyHero.getResources().subtract(requiredResources));
-                System.out.println(economyHero.getResources().getGold());
-                ecoController.updateAllResourcesLabel();
-            } else {
-                System.out.println("Nie masz wystarczająco zasobów do zakupu " + spellName);
-            }
-        });
-        return buyButton;
-    }
-
-    private void updateResourceLabels() {
-
-
-
-    }
 }
