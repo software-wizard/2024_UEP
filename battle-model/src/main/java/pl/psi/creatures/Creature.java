@@ -140,7 +140,7 @@ public class Creature implements PropertyChangeListener {
         private int amount = 1;
         private DamageCalculatorIf calculator = new DefaultDamageCalculator(new Random());
         private CreatureStatisticIf statistic;
-        private final CreatureTypeEnum creatureType = CreatureTypeEnum.GROUND;
+        private CreatureTypeEnum creatureType = CreatureTypeEnum.GROUND;
         private AttackTypeEnum attackType = AttackTypeEnum.MELEE;
         private Morale morale = new Morale(0);
 
@@ -166,6 +166,11 @@ public class Creature implements PropertyChangeListener {
 
         public Builder morale(final Morale aMorale) {
             morale = aMorale;
+            return this;
+        }
+
+        public Builder creatureType(final CreatureTypeEnum aCreatureType) {
+            creatureType = aCreatureType;
             return this;
         }
 
