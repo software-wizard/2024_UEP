@@ -55,7 +55,7 @@ public class Creature implements PropertyChangeListener {
 
     public void attack(final Creature aDefender) {
         attack(aDefender, AttackTypeEnum.MELEE);
-    } //todo tu pytanie
+    }
 
     public void attack(final Creature aDefender, AttackTypeEnum aAttackType) {
         if (isAlive() && !morale.shouldFreeze()) {

@@ -6,6 +6,7 @@ import java.util.Optional;
 
 import pl.psi.creatures.Creature;
 import pl.psi.creatures.Morale;
+import pl.psi.enums.AttackTypeEnum;
 
 /**
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
@@ -41,8 +42,10 @@ public class GameEngine {
     }
 
     private void attackOnce(Point point) {
+        Creature currentCreature = turnQueue.getCurrentCreature();
+//        AttackTypeEnum attackType = determineAttackType();
         board.getCreature(point)
-                .ifPresent(defender -> turnQueue.getCurrentCreature()
+                .ifPresent(defender -> currentCreature
                         .attack(defender));
     }
 
@@ -69,11 +72,20 @@ public class GameEngine {
     }
 
     public boolean canAttack(final Point point) {
-        double distance = board.getPosition(turnQueue.getCurrentCreature())
-                .distance(point);
+        Creature currentCreature = getCreatureToMove();
+        //if currentCreature is ranged it can attack a field where a Creature is present
+        if(currentCreature.getAttackType().equals(AttackTypeEnum.RANGE) && board.getCreature(point).isPresent()) {
+            return true;
+        }
+
         return board.getCreature(point)
-                .isPresent()
-                && distance < 2 && distance > 0;
+                .isPresent() //todo pytanie czy to ekstraktowac do variabla
+                && isInMeleeRange(board.getPosition(currentCreature), point);
+    }
+
+    private boolean isInMeleeRange(Point aCreature1, Point aCreature2) {
+        double distance = aCreature1.distance(aCreature2);
+        return distance < 2 && distance > 0;
     }
 
     public Creature getCreatureToMove() {
