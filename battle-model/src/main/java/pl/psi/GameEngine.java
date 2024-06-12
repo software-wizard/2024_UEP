@@ -5,6 +5,7 @@ import java.beans.PropertyChangeSupport;
 import java.util.Optional;
 
 import pl.psi.creatures.Creature;
+import pl.psi.creatures.Morale;
 
 /**
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
@@ -30,10 +31,13 @@ public class GameEngine {
     public void attack(final Point point) {
         attackOnce(point);
         //If creature gets lucky morale 
-        if (turnQueue.getCurrentCreature().getMorale().shouldAttackAgain()) {
+        Morale currentCreatureMorale = turnQueue.getCurrentCreature().getMorale();
+        if (currentCreatureMorale.shouldAttackAgain()) {
+            currentCreatureMorale.setGotLucky(true);
             return;
         }
         pass();
+        currentCreatureMorale.setGotLucky(false);
     }
 
     private void attackOnce(Point point) {
