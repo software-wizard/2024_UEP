@@ -11,14 +11,12 @@ import javafx.stage.Stage;
 import pl.psi.EconomyHero;
 import pl.psi.Hero;
 import pl.psi.StartBattlePack;
-import pl.psi.enums.SkillEnum;
-import pl.psi.skills.EcoSkill;
 import pl.psi.spells.Spellbook;
-import skills.BattleSkill;
 import pl.psi.creatures.Creature;
 import pl.psi.creatures.NecropolisFactory;
 import pl.psi.gui.MainBattleController;
 import pl.psi.skills.Skill;
+import skills.SkillFactory;
 
 public class EcoBattleConverter {
 
@@ -41,7 +39,7 @@ public class EcoBattleConverter {
     }
 
     public static Hero convert(final EconomyHero aPlayer1) {
-        SkillsConverter skillsConverter = new SkillsConverter();
+        SkillFactory skillFactory = new SkillFactory();
         final List<Creature> creatures = new ArrayList<>();
         final NecropolisFactory factory = new NecropolisFactory();
         aPlayer1.getCreatures()
@@ -50,13 +48,7 @@ public class EcoBattleConverter {
 
         // Zakładam ze skille "nie battle" nie muszą byc zalaczane tutaj, poniewaz one musza dzialac jak sobie biegamy po mapie
         for (Skill skill : aPlayer1.getSkills().values()) {
-            if (skill instanceof EcoSkill) { //todo pytanie instance
-                BattleSkill newSkill = skillsConverter.convert((EcoSkill) skill);
-                newSkill.cast(creatures);
-            }
-            if (skill instanceof BattleSkill) {
-                ((BattleSkill) skill).cast(creatures);
-            }
+            skillFactory.create(skill.getSkillName(), skill.getLevel()).cast(creatures);
         }
 
         return new Hero(creatures, new Spellbook(Collections.emptyList()));
