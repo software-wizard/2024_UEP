@@ -146,26 +146,30 @@ public class Creature implements PropertyChangeListener {
         final int damage = aAttacker.getCalculator()
                 .calculateDamage(aAttacker, this);
         DamageValueObject aDamageValueObject = new DamageValueObject(damage, this.attackType, this.creatureType);
-        damageApplier.applyDamage(aDamageValueObject, this); //spytac czy lepiej uzywac getDamageApplier czy damageApplier
+        getDamageApplier().applyDamage(aDamageValueObject, this); //spytac czy lepiej uzywac getDamageApplier czy damageApplier.
+        // odp: getdamageapplier bo efekty
         aAttacker.counterAttackCounter--;
     }
 
     Range<Integer> getDamage() {
-        return stats.getDamage();
+        return getStats().getDamage();
     }
 
     int getAttack() {
-        return stats.getAttack();
+        return getStats().getAttack();
     }
 
     int getArmor() {
-        return stats.getArmor();
+        return getStats().getArmor();
     }
 
     @Override
     public void propertyChange(final PropertyChangeEvent evt) {
         if (TurnQueue.END_OF_TURN.equals(evt.getPropertyName())) {
             counterAttackCounter = 1;
+        } else if (CreatureEffect.EFFECT_ENDED.equals(evt.getPropertyName())) {
+            CreatureEffect effect = (CreatureEffect) evt.getSource();
+            creatureEffects.remove(effect);
         }
     }
 
@@ -188,7 +192,7 @@ public class Creature implements PropertyChangeListener {
     }
 
     public int getMoveRange() {
-        return stats.getMoveRange();
+        return getStats().getMoveRange();
     }
 
     public static class Builder {
