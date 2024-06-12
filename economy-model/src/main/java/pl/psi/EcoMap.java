@@ -81,7 +81,11 @@ public class EcoMap
     }
 
     public Field getField(Point aPoint) {
-
         return fieldObjects.get(aPoint);
+    }
+
+    public void removeField(Field aField) {
+        Point fieldPoint = fieldObjects.inverse().get(aField);
+        fieldObjects.remove(fieldPoint);
     }
 }

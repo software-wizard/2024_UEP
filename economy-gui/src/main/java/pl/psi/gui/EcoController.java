@@ -105,6 +105,7 @@ public class EcoController implements PropertyChangeListener {
                     mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED,  (e) -> {
                         if(engine.isCurrentHero(currentPoint)) {
                            engine.collectField(engine.getField(currentPoint));
+
                            refreshGui();
                         }
                     });

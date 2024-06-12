@@ -82,12 +82,11 @@ public class EconomyEngine {
     public void collectField(Field field) {
         EconomyHero hero = turnQueue.getCurrentHero();
         field.apply(hero);
-
+        board.removeField(field);
     }
 
     public Field getField(Point currentPoint) {
         return board.getField(currentPoint);
-
     }
 
 
