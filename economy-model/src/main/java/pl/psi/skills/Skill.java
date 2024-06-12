@@ -1,6 +1,5 @@
 package pl.psi.skills;
 
-import lombok.Builder;
 import lombok.Getter;
 import pl.psi.enums.SkillEnum;
 
@@ -27,9 +26,7 @@ public abstract class Skill {
         return enumString.charAt(0) + enumString.substring(1).toLowerCase() + " (" + level + ")";
     }
 
-    public void upgradeLevel() {
-        if (level < 3) {
-            level++;
-        }
+    public void upgradeLevel(int toAdd) {
+        level = Math.min(level + toAdd, 3);
     }
 }

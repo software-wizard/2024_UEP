@@ -3,7 +3,10 @@ package BuildingsTest;
 import org.junit.jupiter.api.Test;
 
 import pl.psi.*;
+import pl.psi.enums.SkillEnum;
 import pl.psi.objects.ResourcesField;
+import pl.psi.objects.SkillsField;
+import pl.psi.skills.EcoSkill;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
@@ -52,5 +55,41 @@ public class FieldTest {
 
 
 
+    }
+
+    @Test
+    void pickingUpANewSkillAdsItToSkillList() {
+        EconomyHero hero = new EconomyHero("hero");
+        assertThat(hero.getSkills()).isEmpty();
+
+        EcoSkill ecoSkill = new EcoSkill(SkillEnum.ARMORER, 2);
+        SkillsField skillsField = new SkillsField(ecoSkill);
+        skillsField.apply(hero);
+
+        assertThat(hero.getSkills().get(SkillEnum.ARMORER)).isEqualTo(ecoSkill);
+    }
+
+    @Test
+    void pickingUpASkillAlreadyKnownUpgradesItsLevel() {
+        EconomyHero hero = new EconomyHero("hero");
+        hero.addSkill(new EcoSkill(SkillEnum.ARMORER, 1));
+        assertThat(hero.getSkills().get(SkillEnum.ARMORER).getLevel()).isEqualTo(1);
+
+        SkillsField skillsField = new SkillsField(new EcoSkill(SkillEnum.ARMORER, 2));
+        skillsField.apply(hero);
+
+        assertThat(hero.getSkills().get(SkillEnum.ARMORER).getLevel()).isEqualTo(3);
+    }
+
+    @Test
+    void pickingUpASkillAlreadyKnownWontUpgradeItsLevelPast3() {
+        EconomyHero hero = new EconomyHero("hero");
+        hero.addSkill(new EcoSkill(SkillEnum.ARMORER, 2));
+        assertThat(hero.getSkills().get(SkillEnum.ARMORER).getLevel()).isEqualTo(2);
+
+        SkillsField skillsField = new SkillsField(new EcoSkill(SkillEnum.ARMORER, 2));
+        skillsField.apply(hero);
+
+        assertThat(hero.getSkills().get(SkillEnum.ARMORER).getLevel()).isEqualTo(3);
     }
 }
