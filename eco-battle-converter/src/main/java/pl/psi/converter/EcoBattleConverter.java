@@ -11,7 +11,6 @@ import javafx.stage.Stage;
 import pl.psi.EconomyHero;
 import pl.psi.Hero;
 import pl.psi.StartBattlePack;
-import pl.psi.enums.SkillEnum;
 import pl.psi.skills.EcoSkill;
 import pl.psi.spells.Spellbook;
 import skills.BattleSkill;

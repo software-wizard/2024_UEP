@@ -12,7 +12,6 @@ import pl.psi.enums.AttackTypeEnum;
 import pl.psi.spells.Spellbook;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.junit.Assert.assertTrue;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
@@ -54,7 +53,6 @@ public class GameEngineTest
     @Disabled
     @Test
     void rangedCreatureCorrectlyStatesAttackType() {
-        Range<Integer> notImportantDamage = Range.closed(0, 0);
         final int maxHp = 30;
         //given
         final Creature lichWithArchery = new Creature.Builder().statistic(CreatureStats.builder()

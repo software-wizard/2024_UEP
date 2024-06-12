@@ -1,10 +1,7 @@
 package pl.psi.skills;
 
 import lombok.Getter;
-import lombok.Setter;
 import pl.psi.enums.SkillEnum;
-
-import java.util.Objects;
 
 @Getter
 public abstract class Skill {

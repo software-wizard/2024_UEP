@@ -2,7 +2,6 @@ package skills;
 
 import pl.psi.enums.SkillEnum;
 import pl.psi.skills.EcoSkill;
-import skills.*;
 
 import java.util.HashMap;
 import java.util.Map;
