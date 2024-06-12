@@ -41,6 +41,7 @@ public class EcoBattleConverter {
     }
 
     public static Hero convert(final EconomyHero aPlayer1) {
+        SkillsConverter skillsConverter = new SkillsConverter();
         final List<Creature> creatures = new ArrayList<>();
         final NecropolisFactory factory = new NecropolisFactory();
         aPlayer1.getCreatures()

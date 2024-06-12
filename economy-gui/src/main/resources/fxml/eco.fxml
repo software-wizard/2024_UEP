@@ -8,7 +8,7 @@
 
 <?import javafx.collections.FXCollections?>
 <?import java.lang.String?>
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1600.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="800.0" prefWidth="1500.0" xmlns="http://javafx.com/javafx/17.0.2-ea" xmlns:fx="http://javafx.com/fxml/1">
     <top>
         <!-- Górny obszar z graczami -->
         <HBox alignment="TOP_CENTER" prefHeight="26.0" prefWidth="600.0" BorderPane.alignment="CENTER">
@@ -37,29 +37,24 @@
         </GridPane>
     </center>
     <right>
-        <HBox>
-            <VBox alignment="CENTER_LEFT" maxHeight="220.0" prefWidth="200.0">
-                <Label text="Skills" />
-                <ListView fx:id="skillsList" prefWidth="200"/>
-            </VBox>
-        </HBox>
+        <VBox fx:id="skillsVbox" alignment="TOP_CENTER" maxHeight="220.0" prefWidth="200.0">
+            <Label text="Skills" />
+            <ListView fx:id="skillsList" prefWidth="200"/>
+        </VBox>
     </right>
     <bottom>
-        <HBox alignment="TOP_CENTER">
-            <VBox alignment="TOP_CENTER">
+        <HBox alignment="TOP_CENTER" spacing="10">
+            <VBox alignment="TOP_CENTER" spacing="10">
                 <Label text="Resources" />
                 <Label fx:id="allResourcesLabel" />
             </VBox>
-            <HBox alignment="CENTER_RIGHT">
-                <Button fx:id="passButton" mnemonicParsing="false" prefHeight="37.0" prefWidth="115.0" text="PASS" textAlignment="CENTER">
-                    <font>
-                        <Font size="16.0" />
-                    </font>
-                </Button>
-            </HBox>
+            <Button fx:id="passButton" mnemonicParsing="false" prefHeight="37.0" prefWidth="115.0" text="PASS" textAlignment="CENTER">
+                <font>
+                    <Font size="16.0" />
+                </font>
+            </Button>
         </HBox>
     </bottom>
-
 
     <stylesheets>
         <URL value="@main.css" />
