@@ -1,5 +1,6 @@
 package pl.psi.skills;
 
+import lombok.Builder;
 import lombok.Getter;
 import pl.psi.enums.SkillEnum;
 
