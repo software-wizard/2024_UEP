@@ -2,7 +2,6 @@ package pl.psi.spells.spell;
 
 import pl.psi.Hero;
 import pl.psi.Point;
-import pl.psi.spells.object.UnitAttackSpell;
 import pl.psi.spells.object.interfaces.SpellStatisticIf;
 
 public class TitansLightningBoltSpell extends UnitAttackSpell {

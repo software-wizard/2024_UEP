@@ -85,13 +85,23 @@ public class Creature implements PropertyChangeListener {
     public void applyEffect(CreatureEffectStatistic effectStatistic) {
         for (CreatureEffect effect : creatureEffects) {
             if (effect.getEffectStatistic().equals(effectStatistic)) {
-                effect.setAmount(effect.getAmount() + 1);
+                if (effect.getEffectStatistic().isStackable()) {
+                    effect.setAmount(effect.getAmount() + 1);
+                }
+
                 return;
             }
         }
 
         CreatureEffect effect = CreatureEffectFactory.fromStatistic(effectStatistic);
+        if (effect == null) return;
+
+        effect.addObserver(this);
         creatureEffects.add(effect);
+    }
+
+    public boolean hasEffect(CreatureEffectStatistic effectStatistic) {
+        return creatureEffects.stream().anyMatch((effect) -> effect.getEffectStatistic().equals(effectStatistic));
     }
 
     public void attack(final Creature aDefender) {

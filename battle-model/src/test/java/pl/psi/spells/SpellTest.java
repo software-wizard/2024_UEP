@@ -14,7 +14,7 @@ import pl.psi.spells.object.SpellFactory;
 import pl.psi.spells.object.Spell;
 import pl.psi.spells.object.enums.SpellStatistic;
 import pl.psi.spells.object.decorators.AOESpellDecorator;
-import pl.psi.spells.object.UnitAttackSpell;
+import pl.psi.spells.spell.UnitAttackSpell;
 
 import java.util.List;
 

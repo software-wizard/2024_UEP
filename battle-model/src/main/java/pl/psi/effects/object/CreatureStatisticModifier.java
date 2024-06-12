@@ -14,46 +14,46 @@ public abstract class CreatureStatisticModifier implements CreatureStatisticIf {
 
     @Override
     public String getName() {
-        return baseStats.getName();
+        return prevStats.getName();
     }
 
     @Override
     public int getAttack() {
-        return baseStats.getAttack();
+        return prevStats.getAttack();
     }
 
     @Override
     public int getArmor() {
-        return baseStats.getArmor();
+        return prevStats.getArmor();
     }
 
     @Override
     public int getMaxHp() {
-        return baseStats.getMaxHp();
+        return prevStats.getMaxHp();
     }
 
     @Override
     public int getMoveRange() {
-        return baseStats.getMoveRange();
+        return prevStats.getMoveRange();
     }
 
     @Override
     public Range<Integer> getDamage() {
-        return baseStats.getDamage();
+        return prevStats.getDamage();
     }
 
     @Override
     public int getTier() {
-        return baseStats.getTier();
+        return prevStats.getTier();
     }
 
     @Override
     public String getDescription() {
-        return baseStats.getDescription();
+        return prevStats.getDescription();
     }
 
     @Override
     public boolean isUpgraded() {
-        return baseStats.isUpgraded();
+        return prevStats.isUpgraded();
     }
 }

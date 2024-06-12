@@ -1,4 +1,4 @@
-package pl.psi.spells.object;
+package pl.psi.spells.spell;
 
 import pl.psi.Hero;
 import pl.psi.Point;
@@ -7,6 +7,7 @@ import pl.psi.creatures.DamageValueObject;
 import pl.psi.enums.AttackTypeEnum;
 import pl.psi.enums.CreatureTypeEnum;
 import pl.psi.spells.calculator.ReducedSpellCostCalculator;
+import pl.psi.spells.object.Spell;
 import pl.psi.spells.object.interfaces.SpellStatisticIf;
 import pl.psi.spells.calculator.EmpoweredSpellDamageCalculator;
 
