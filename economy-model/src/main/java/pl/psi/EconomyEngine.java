@@ -1,6 +1,8 @@
 package pl.psi;
 
 import lombok.Getter;
+import pl.psi.creatures.CreatureStatistic;
+import pl.psi.creatures.EconomyCreature;
 import pl.psi.objects.ResourcesField;
 
 import java.beans.PropertyChangeListener;
@@ -64,6 +66,10 @@ public class EconomyEngine {
         return board.isBattlePoint(aPoint) && aPoint.distance(board.getPosition(turnQueue.getCurrentHero())) < 2;
     }
 
+    public boolean isOpponentPoint(Point aPoint){
+        return board.isOpponentPoint(aPoint);
+    }
+
     public StartBattlePack getStartBattlePack(Point aCurrentPoint) {
         EconomyHero heroToAttack = board.getHero(aCurrentPoint).orElseThrow();
         return StartBattlePack.builder().attacker(turnQueue.getCurrentHero()).defender(heroToAttack).build();
@@ -76,6 +82,29 @@ public class EconomyEngine {
     public boolean isFieldPoint(Point aPoint){
         return board.isFieldPoint(aPoint);
     }
+
+    public boolean isGoldField(Point aPoint){
+        return board.isGoldField(aPoint);
+    }
+    public boolean isWoodField(Point aPoint){
+        return board.isWoodField(aPoint);
+    }
+    public boolean isOreField(Point aPoint){
+        return board.isOreField(aPoint);
+    }
+    public boolean isGemsField(Point aPoint){
+        return board.isGemsField(aPoint);
+    }
+    public boolean isSulfurField(Point aPoint){
+        return board.isSulfurField(aPoint);
+    }
+    public boolean isMercuryField(Point aPoint){
+        return board.isMercuryField(aPoint);
+    }
+    public boolean isCristalsField(Point aPoint){
+        return board.isCristalsField(aPoint);
+    }
+
 
 
     public void collectField(ResourcesField field) {
@@ -93,4 +122,5 @@ public class EconomyEngine {
     public EconomyHero getCurrentHero() {
         return turnQueue.getCurrentHero();
     }
+
 }

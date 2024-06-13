@@ -2,12 +2,8 @@ package pl.psi.gui;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-import java.io.IOException;
-import java.util.Optional;
 
-import com.sun.javafx.charts.Legend;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
@@ -74,6 +70,12 @@ public class EcoController implements PropertyChangeListener {
                             (e) -> EcoBattleConverter.startBattle(engine.getStartBattlePack(currentPoint)));
                 }
 
+                if (engine.isOpponentPoint(currentPoint)) {
+                    mapTile.setBackground(Color.YELLOW);
+                    mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED,
+                            (e) -> EcoBattleConverter.startBattle(engine.getStartBattlePack(currentPoint)));
+                }
+
 
                 if (engine.isCurrentHero(currentPoint)) {
                     mapTile.setBackground(Color.GREENYELLOW);
@@ -83,16 +85,32 @@ public class EcoController implements PropertyChangeListener {
                     mapTile.setBackground(Color.BROWN);
                     mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
                             if(engine.isCurrentHero(currentPoint)) {
-                                CastleWindow castleWindow = new CastleWindow();
+                                BlacksmithGUI castleWindow = new BlacksmithGUI(engine.getCurrentHero(), this);
                                 castleWindow.show();
                             }
                     });
                 }
 
                 if(engine.isFieldPoint(currentPoint)){
-                    mapTile.setBackground(Color.GREENYELLOW);
+                    if(engine.isGoldField(currentPoint)){
+                        mapTile.setIcon("/resourcesIcons/gold.png");
+                    }else if(engine.isWoodField(currentPoint)){
+                        mapTile.setIcon("/resourcesIcons/wood.png");
+                    }else if(engine.isOreField(currentPoint)){
+                        mapTile.setIcon("/resourcesIcons/ore.png");
+                    }else if(engine.isGemsField(currentPoint)){
+                        mapTile.setIcon("/resourcesIcons/gems.png");
+                    }else if(engine.isSulfurField(currentPoint)){
+                        mapTile.setIcon("/resourcesIcons/sulfur.png");
+                    }else if(engine.isMercuryField(currentPoint)){
+                        mapTile.setIcon("/resourcesIcons/mercury.png");
+                    }else if(engine.isCristalsField(currentPoint)){
+                        mapTile.setIcon("/resourcesIcons/crystals.png");
+                    }
+
                     mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED,  (e) -> {
                         if(engine.isCurrentHero(currentPoint)) {
+                            mapTile.removeIcon(); // nie działa
                            engine.collectField(engine.getField(currentPoint));
                            refreshGui();
                         }
@@ -111,5 +129,9 @@ public class EcoController implements PropertyChangeListener {
     public void propertyChange(final PropertyChangeEvent aPropertyChangeEvent) {
         refreshGui();
 
+    }
+
+    public void updateAllResourcesLabel() {
+        allResourcesLabel.setText(engine.getCurrentHero().getResources().getAllResourcesAsString());
     }
 }
