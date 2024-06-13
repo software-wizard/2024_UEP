@@ -56,10 +56,10 @@ public enum     CreatureStatistic implements CreatureStatisticIf
     FIRST_AID_TENT("First Aid Tent",0,0,75,0,Range.closed(0,0),0,
             "Heals a small amount of hit points to a top creature in one of your stacks every round. The effect is very weak. First Aid skill gives you control over the tent and makes it heal more hit points, but the tent is extremely easy to destroy, rendering your First Aid skill useless for the rest of the battle - see note on Artillery above. The tent, however, can save you losing a few high-level creatures by topping up their hit points every round.",
             true),//
-    BALLISTA("Ballista",10,10,250,0,Range.closed(8,12),0,
+    BALLISTA("Ballista",10,25,250,0,Range.closed(8,12),0,
             "Ballista is affected by hero's attack still, and unless your hero has a strong attack AND Artillery secondary skill, ballista will not do much damage, buy 2500 gold worth of creatures instead. If you are going for Artillery secondary skill, keep in mind that ballista only has 250 hit points, and once destroyed, the skill will remain useless for the rest of the battle. That is why heroes should choose Offense, Armourer, etc over Artillery. Note: without Artillery secondary skill, ballista will shoot without your control.",
             true),//
-    CATAPULT("Catapult",10,10,1000,0,Range.closed(0,0),0,
+    CATAPULT("Catapult",1000,30,1000,0,Range.closed(500,1500),0,
             "Every hero has one all the time. Catapult is affected by Balistics skill, which unlike other war machine skills is very important to learn. Catapult is durable and comes under your control as you deveop Ballistics. If you are under seige and have powerful spells, destroy the enemy catapult so you can keep your walls and archer towers, turning the tides of battle in your favour. Ballistics secondary skills is essential for towns like Fortress who lack strong flyers and shooters, they must break through the drawbridge before enemy shooters have a good go at them.",
             true);//
 
