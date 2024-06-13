@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
 
 import lombok.AllArgsConstructor;
 import lombok.Getter;
@@ -72,9 +73,16 @@ public class EconomyHero implements PropertyChangeListener
 
     public String skillsAsList() {
         StringBuilder sb = new StringBuilder();
-        for (Skill skill : skills.values()) {
-            sb.append(skill.toString());
-            sb.append(System.lineSeparator());
+        int size = skills.size();
+        int i = 0;
+        List<String> skillStrings = skills.values().stream().map(Skill::toString).sorted().collect(Collectors.toList());
+
+        for (String skill : skillStrings) {
+            sb.append(skill);
+            if (i < size - 1) {
+                sb.append(System.lineSeparator());
+            }
+            i++;
         }
         return sb.toString();
     }
