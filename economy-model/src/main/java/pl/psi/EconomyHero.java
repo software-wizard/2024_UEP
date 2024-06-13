@@ -69,4 +69,13 @@ public class EconomyHero implements PropertyChangeListener
         }
         skills.put(aSkill.getSkillName(), aSkill);
     }
+
+    public String skillsAsList() {
+        StringBuilder sb = new StringBuilder();
+        for (Skill skill : skills.values()) {
+            sb.append(skill.toString());
+            sb.append(System.lineSeparator());
+        }
+        return sb.toString();
+    }
 }

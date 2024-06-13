@@ -77,8 +77,9 @@ public class EcoController implements PropertyChangeListener {
                     mapTile.setName(h.getName());
                     Tooltip tooltip = new Tooltip("Hero: " + h.getName());
                     tooltip.setShowDelay(new Duration(200));
-                    System.out.println("show delay: " + tooltip.getShowDelay());
-                    System.out.println("hide delay: " + tooltip.getHideDelay());
+//                    System.out.println("show delay: " + tooltip.getShowDelay());
+//                    System.out.println("hide delay: " + tooltip.getHideDelay());
+                    tooltip.setText(h.skillsAsList());
                     Tooltip.install(mapTile, tooltip);
                 });
 

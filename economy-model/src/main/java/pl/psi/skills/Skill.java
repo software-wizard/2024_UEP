@@ -23,7 +23,7 @@ public abstract class Skill {
     @Override
     public String toString() {
         String enumString = skillName.name();
-        return enumString.charAt(0) + enumString.substring(1).toLowerCase() + " (" + level + ")";
+        return enumString.charAt(0) + enumString.substring(1).toLowerCase() + " [" + level + "]";
     }
 
     public void upgradeLevel(int toAdd) {
