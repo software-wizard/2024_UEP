@@ -3,16 +3,13 @@ package pl.psi.converter;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import pl.psi.EconomyHero;
-import pl.psi.Hero;
-import pl.psi.StartBattlePack;
-import pl.psi.spells.Spellbook;
+import pl.psi.*;
 import pl.psi.creatures.Creature;
 import pl.psi.creatures.NecropolisFactory;
 import pl.psi.gui.MainBattleController;
 import pl.psi.skills.Skill;
 import pl.psi.spells.Spellbook;
-import skills.BattleSkill;
+import skills.SkillFactory;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -20,8 +17,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import skills.SkillFactory;
 
 public class EcoBattleConverter implements PropertyChangeListener {
 

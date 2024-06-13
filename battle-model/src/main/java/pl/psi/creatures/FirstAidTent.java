@@ -23,7 +23,7 @@ public class FirstAidTent extends Creature {
 
     private FirstAidTent(final CreatureStatisticIf aStats, final DamageCalculatorIf aCalculator,
                      final int aAmount, CreatureTypeEnum aCreatureType, AttackTypeEnum aAttackType) {
-        super(aStats, aCalculator, aAmount, aCreatureType,aAttackType);
+        super(aStats, aCalculator, aAmount, aCreatureType,aAttackType, new Morale(0));
     }
 
     public static class Builder {

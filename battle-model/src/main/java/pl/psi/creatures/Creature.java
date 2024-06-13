@@ -55,14 +55,14 @@ public class Creature implements PropertyChangeListener {
     }
 
     protected Creature(final CreatureStatisticIf aStats, final DamageCalculatorIf aCalculator,
-                     final int aAmount, CreatureTypeEnum aCreatureType, AttackTypeEnum aAttackType) {
+                     final int aAmount, CreatureTypeEnum aCreatureType, AttackTypeEnum aAttackType, Morale aMorale) {
         stats = aStats;
         amount = aAmount;
         currentHp = stats.getMaxHp();
         calculator = aCalculator;
         creatureType = aCreatureType;
         attackType = aAttackType;
-        morale = new Morale(1);
+        morale = aMorale;
     }
 
     public CreatureStatisticIf getStats() {
@@ -183,7 +183,7 @@ public class Creature implements PropertyChangeListener {
 
     private void counterAttack(final Creature aAttacker) {
         final int damage = aAttacker.getCalculator()
-                .calculateDamage(aAttacker, this);
+                .calculateDamage(aAttacker, this, AttackTypeEnum.MELEE);
         DamageValueObject aDamageValueObject = new DamageValueObject(damage, this.attackType, this.creatureType);
         getDamageApplier().applyDamage(aDamageValueObject, this); //spytac czy lepiej uzywac getDamageApplier czy damageApplier.
         // odp: getdamageapplier bo efekty

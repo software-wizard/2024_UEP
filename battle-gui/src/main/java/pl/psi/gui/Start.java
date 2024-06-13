@@ -52,7 +52,7 @@ public class Start extends Application
     {
         return new Hero(
                 List.of(
-                        new NecropolisFactory().create( true, 1, 5 )
+                        new NecropolisFactory().create( true, 1, 5, 1 )
                 ),
                 new PrimarySkill(0, 0, 2, 5),
                 new Spellbook(SpellFactory.all()));
@@ -62,7 +62,7 @@ public class Start extends Application
     {
         return new Hero(
                 List.of(
-                        new NecropolisFactory().create( true, 1, 5 )
+                        new NecropolisFactory().create( true, 1, 5, 1 )
                 ),
                 new PrimarySkill(0, 0, 1, 5),
                 new Spellbook(SpellFactory.all()));
