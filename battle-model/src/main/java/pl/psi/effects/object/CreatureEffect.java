@@ -40,7 +40,6 @@ public abstract class CreatureEffect {
 
     public void turnPassed() {
         this.turnsPassed++;
-
         if (this.effectStatistic.getLength() == EFFECT_LENGTH_INDEFINITE) return;
 
         if (this.turnsPassed >= effectStatistic.getLength()) {

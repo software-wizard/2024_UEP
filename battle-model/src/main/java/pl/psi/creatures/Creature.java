@@ -167,6 +167,11 @@ public class Creature implements PropertyChangeListener {
     public void propertyChange(final PropertyChangeEvent evt) {
         if (TurnQueue.END_OF_TURN.equals(evt.getPropertyName())) {
             counterAttackCounter = 1;
+
+            // copy list to avoid ConcurrentModificationException
+            List<CreatureEffect> temp = new ArrayList<>(creatureEffects);
+
+            temp.forEach(CreatureEffect::turnPassed);
         } else if (CreatureEffect.EFFECT_ENDED.equals(evt.getPropertyName())) {
             CreatureEffect effect = (CreatureEffect) evt.getSource();
             creatureEffects.remove(effect);

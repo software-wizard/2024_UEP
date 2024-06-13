@@ -23,16 +23,24 @@ import static pl.psi.obstacles.ObstaclesIF.maxHP;
 public class Board implements ObstacleObserver
 {
     private static final int MAX_WITDH = 14;
+    private static final int MAX_HEIGHT = 9;
     private final BiMap< Point, Creature > map = HashBiMap.create();
     private  final HashMap<Point, ObstaclesWithHP> obstaclesWithHPMap = new HashMap<>();
     private  final HashMap<Point, Obstacle> regularObstaclesMap = new HashMap<>();
 
+    private final int width;
+    private final int height;
+
     public Board( final List< Creature > aCreatures1, final List< Creature > aCreatures2 )
     {
+        this.width = MAX_WITDH;
+        this.height = MAX_HEIGHT;
+
         addCreatures( aCreatures1, 0 );
         addCreatures( aCreatures2, MAX_WITDH );
         addRandomObstacles();
     }
+
 
     void addRandomObstacles() {
         Random random = new Random();
@@ -106,7 +114,7 @@ public class Board implements ObstacleObserver
     }
 
     boolean isWithinBounds(final Point p) {
-        return map.containsKey(p);
+        return p.getX() >= 0 && p.getX() <= this.width && p.getY() >= 0 && p.getY() <= this.height;
     }
 
     public boolean isObstacleWithHP(Point aPoint) {

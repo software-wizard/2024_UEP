@@ -5,7 +5,7 @@ import lombok.Getter;
 @Getter
 public enum CreatureEffectStatistic implements CreatureEffectStatisticIf {
     TEST("Test", "Test", 0, 1, false),
-    DISRUPTING_RAY("Disrupting Ray", "Reduces the defense of the selected unit by 3/4/5.", 3, 0, false),
+    DISRUPTING_RAY("Disrupting Ray", "Reduces the defense of the selected unit by 3/4/5.", -3, 0, false),
     BLESS("Bless", "Causes the selected/all friendly unit(s) to inflict maximum damage/(maximum damage + 1) when attacking.", 0, 1, false),
     HASTE("Haste", "Increases the speed of the selected/all friendly unit(s) by 3/5.", 3, 1, false),
     ANTI_MAGIC("Anti-Magic", "Target, allied troop becomes immune to spells with max level 3/4/5.", 0, 1, false);
