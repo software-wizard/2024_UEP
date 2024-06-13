@@ -35,6 +35,7 @@ public class GameEngine {
         Morale currentCreatureMorale = turnQueue.getCurrentCreature().getMorale();
         if (currentCreatureMorale.shouldAttackAgain()) {
             currentCreatureMorale.setGotLucky(true);
+
             return;
         }
         pass();

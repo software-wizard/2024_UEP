@@ -16,10 +16,12 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
+import javafx.util.Duration;
 import lombok.NoArgsConstructor;
 import pl.psi.EconomyEngine;
 import pl.psi.EconomyHero;
@@ -57,7 +59,7 @@ public class EcoController implements PropertyChangeListener {
         engine.addObserver(EconomyEngine.ACTIVE_HERO_CHANGED, this);
         engine.addObserver(EconomyEngine.TURN_END, this);
         passButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> engine.pass());
-
+//        initSkillToolTip();
 
     }
 
@@ -71,7 +73,14 @@ public class EcoController implements PropertyChangeListener {
                 Point currentPoint = new Point(x, y);
                 final EcoMapTile mapTile = new EcoMapTile("");
 
-                engine.getHero(currentPoint).ifPresent(h -> mapTile.setName(h.getName()));
+                engine.getHero(currentPoint).ifPresent(h -> {
+                    mapTile.setName(h.getName());
+                    Tooltip tooltip = new Tooltip("Hero: " + h.getName());
+                    tooltip.setShowDelay(new Duration(200));
+                    System.out.println("show delay: " + tooltip.getShowDelay());
+                    System.out.println("hide delay: " + tooltip.getHideDelay());
+                    Tooltip.install(mapTile, tooltip);
+                });
 
                 if (engine.canMove(currentPoint)) {
                     mapTile.setBackground(Color.LIGHTGRAY);
@@ -90,23 +99,23 @@ public class EcoController implements PropertyChangeListener {
                     mapTile.setBackground(Color.GREENYELLOW);
                 }
 
-                if(engine.isCastle(currentPoint)){
+                if (engine.isCastle(currentPoint)) {
                     mapTile.setBackground(Color.BROWN);
                     mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
-                            if(engine.isCurrentHero(currentPoint)) {
-                                CastleWindow castleWindow = new CastleWindow();
-                                castleWindow.show();
-                            }
+                        if (engine.isCurrentHero(currentPoint)) {
+                            CastleWindow castleWindow = new CastleWindow();
+                            castleWindow.show();
+                        }
                     });
                 }
 
-                if(engine.isFieldPoint(currentPoint)){
+                if (engine.isFieldPoint(currentPoint)) {
                     mapTile.setBackground(Color.GREENYELLOW);
-                    mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED,  (e) -> {
-                        if(engine.isCurrentHero(currentPoint)) {
-                           engine.collectField(engine.getField(currentPoint));
+                    mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
+                        if (engine.isCurrentHero(currentPoint)) {
+                            engine.collectField(engine.getField(currentPoint));
 
-                           refreshGui();
+                            refreshGui();
                         }
                     });
                 }
@@ -116,7 +125,7 @@ public class EcoController implements PropertyChangeListener {
             }
         }
 
-        allResourcesLabel.setText(engine.getCurrentHero().getResources().getAllResourcesAsString()) ;
+        allResourcesLabel.setText(engine.getCurrentHero().getResources().getAllResourcesAsString());
 
         List<String> skillsData = engine.getCurrentHero().getSkills().values().stream().map(Skill::toString).collect(Collectors.toList());
         skills = FXCollections.observableArrayList(skillsData);
