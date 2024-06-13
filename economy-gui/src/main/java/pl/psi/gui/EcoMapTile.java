@@ -1,9 +1,14 @@
 package pl.psi.gui;
 
 import javafx.scene.control.Label;
-import javafx.scene.layout.StackPane;
+import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.image.Image;
+
+import java.nio.file.Paths;
+
 
 class EcoMapTile extends StackPane
 {
@@ -29,5 +34,16 @@ class EcoMapTile extends StackPane
     void setBackground( final Color aColor )
     {
         rect.setFill( aColor );
+    }
+
+    void setBackgroundImage(String path)
+    {
+        Image image = new Image(path);
+        BackgroundImage backgroundImage = new BackgroundImage(image,
+                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+                BackgroundPosition.CENTER,
+                new BackgroundSize(40, 40, true, true, false, true));
+        setBackground(new Background(backgroundImage));
+//        rect.setVisible(false);
     }
 }
