@@ -24,7 +24,7 @@ public class Wall implements ObstaclesIF, ObstaclesObservable {
         this.currentLevel = 1;
     }
 
-    public void takeDamageFromCatapult(int damage, Point aPoint) {
+     public void takeDamageFromCatapult(int damage, Point aPoint) {
         if (currentLevel == 1) {
             currentHP -= damage;
             if (currentHP <= 0) {

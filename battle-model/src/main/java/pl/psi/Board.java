@@ -33,7 +33,7 @@ public class Board implements ObstacleObserver
         addRandomObstacles();
     }
 
-    void addWall(){
+    private void addWall(){
         for (int i = 0;i <MAX_HEIGHT+1;i++){
             Wall wall = new Wall();
             wall.addObserver(this);
@@ -44,7 +44,7 @@ public class Board implements ObstacleObserver
         return wallHashMap.containsKey(aPoint);
     }
 
-    void addRandomObstacles() {
+    private void addRandomObstacles() {
         Random random = new Random();
 
 
@@ -114,7 +114,7 @@ public class Board implements ObstacleObserver
     {
         if(regularObstaclesMap.containsKey(aPoint) ||
                 obstaclesWithHPMap.containsKey(aPoint) ||
-                wallHashMap.containsKey(aPoint) ||
+                wallHashMap.containsKey(aPoint)  ||
                 map.containsKey(aPoint)){
             return  false;
         }

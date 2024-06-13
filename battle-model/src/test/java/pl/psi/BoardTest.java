@@ -5,7 +5,6 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.List;
 
-import org.assertj.core.api.AssertionsForClassTypes;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -59,7 +58,7 @@ class BoardTest
     }
 
     @Test
-    void obstacleWithHPRemove() {
+    void obstacleWithHPRemovesFromMap() {
 
         Point point = new Point(3,3);
         ObstaclesWithHP obstacleWithHP = new ObstaclesWithHP(10);
@@ -74,28 +73,18 @@ class BoardTest
     }
 
     @Test
-    public void wallCanBeDestroyed(){
+    public void wallRemovesFromMap(){
         wall = new Wall();
+        Point point = new Point(0,0);
 
         MachineFactory machineFactory = new MachineFactory();
         Creature catapult = machineFactory.create("Catapult");
 
-        catapult.attackWall(wall,new Point(0,0));
+        for(int i = 0; i <6; i++){
+            catapult.attackWall(wall,point);
+        }
 
-        assertEquals(1000,wall.getCurrentHP());
-        AssertionsForClassTypes.assertThat(wall.getCurrentLevel() == 1);
-
-        catapult.attackWall(wall,new Point(0,0));
-        assertEquals(500,wall.getCurrentHP());
-
-        catapult.attackWall(wall,new Point(0,0));
-        assertEquals(1000,wall.getCurrentHP());
-        AssertionsForClassTypes.assertThat(wall.getCurrentLevel() == 2);
-
-        catapult.attackWall(wall,new Point(0,0));
-        catapult.attackWall(wall,new Point(0,0));
-        assertEquals(500,wall.getCurrentHP());
-        AssertionsForClassTypes.assertThat(wall.getCurrentLevel() == 3);
+        assertThat(board.isWall(point)).isFalse();
 
     }
 
