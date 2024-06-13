@@ -28,9 +28,10 @@ import pl.psi.enums.CreatureTypeEnum;
 import static java.lang.Math.random;
 
 import pl.psi.obstacles.ObstaclesWithHP;
+import pl.psi.obstacles.Wall;
 
 /**
- * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
+ * TODO: Describe this class (The first line - untorigin/WarMachines03il the first dot - will interpret as the brief description).
  */
 @Getter
 public class Creature implements PropertyChangeListener {
@@ -52,7 +53,7 @@ public class Creature implements PropertyChangeListener {
     Creature() {
     }
 
-    private Creature(final CreatureStatisticIf aStats, final DamageCalculatorIf aCalculator,
+    protected Creature(final CreatureStatisticIf aStats, final DamageCalculatorIf aCalculator,
                      final int aAmount, CreatureTypeEnum aCreatureType, AttackTypeEnum aAttackType) {
         stats = aStats;
         amount = aAmount;
@@ -119,6 +120,37 @@ public class Creature implements PropertyChangeListener {
         final int damage = getCalculator().calculateDamageToObstacle(this,obstacleWithHP);
         obstacleWithHP.takeDamage(aPoint, damage);
     }
+    public void attackWall(Wall wall,Point aPoint){
+        if (isCatapult()) {
+            if (RandomChance()) {
+                Random random = new Random();
+                int damageMultiplier = random.nextInt(101) + 50;
+                final int catapultDamage = 10 * damageMultiplier;
+                wall.takeDamageFromCatapult(catapultDamage, aPoint);
+                System.out.println("Catapult hit the wall with " + catapultDamage + " damage");
+            }
+            else {
+                final int zeroDmg = 0;
+                wall.takeDamageFromCatapult(zeroDmg, aPoint);
+                System.out.println("Catapult missed the wall");
+            }
+        } else if (wall.getCurrentLevel() == 2 || wall.getCurrentLevel() == 3) {
+            final int creatureDamage = getCalculator().calculateDamageToWall(this, wall);
+            wall.takeDamageFromCreature(creatureDamage, aPoint);
+            System.out.println("Creature hit the wall with " + creatureDamage + " damage");
+        }
+    }
+    public boolean isCatapult() {
+        return this.getName().equals("Catapult");
+    }
+
+    public boolean RandomChance() {
+        Random random = new Random();
+        int randVal = random.nextInt(101);
+        System.out.println("Value: " + randVal);
+        return randVal < 75;
+
+    }
 
 
 
@@ -128,6 +160,21 @@ public class Creature implements PropertyChangeListener {
 
     private void applyDamage(DamageValueObject aDamageValueObject) {
         getDamageApplier().applyDamage(aDamageValueObject, this);
+    }
+
+    public void applyDamage(final int aDamage) {
+        int hpToSubstract = aDamage % this.getMaxHp();
+        int amountToSubstract = Math.round(aDamage / this.getMaxHp());
+
+        int hp = this.getCurrentHp() - hpToSubstract;
+        if (hp <= 0) {
+            this.setCurrentHp(this.getMaxHp() - hp);
+            this.setAmount(this.getAmount() - 1);
+        }
+        else{
+            this.setCurrentHp(hp);
+        }
+        this.setAmount(this.getAmount() - amountToSubstract);
     }
 
     public int getMaxHp() {
@@ -183,6 +230,7 @@ public class Creature implements PropertyChangeListener {
     }
 
     protected void restoreCurrentHpToPartHP() {
+        System.out.println("TEST restoreCurrentHpToPartHP");
         Random random = new Random();
         int healHP = random.nextInt(25)+1;
         if (currentHp+healHP >= stats.getMaxHp()) {
@@ -230,6 +278,7 @@ public class Creature implements PropertyChangeListener {
         public Creature build() {
             return new Creature(statistic, calculator, amount, creatureType, attackType);
         }
+
     }
 
     @Override
@@ -237,21 +286,14 @@ public class Creature implements PropertyChangeListener {
         return getName() + System.lineSeparator() + getAmount();
     }
 
-
-    //MachineFactoryMethods - FirstAidTent
     public void healHPCreature(Creature creature) {
         creature.restoreCurrentHpToPartHP();
     }
 
+    //MachineFactoryMethods - FirstAidTent
+    //Implemented in FirstAidTent
     public void chooseHealCreature(List<Creature> creatureList) {
-        Creature smallHP = creatureList.get(0);
-        for (Creature creature : creatureList) {
-            if (creature.getCurrentHp()<smallHP.getCurrentHp()){
-                smallHP=creature;
-            }
-
-        }
-        healHPCreature(smallHP);
 
     }
+
 }

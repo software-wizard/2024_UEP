@@ -5,7 +5,7 @@ import pl.psi.Point;
 import java.util.ArrayList;
 
 
-public class ObstaclesWithHP implements ObstaclesIF, ObstaclesWithHPObservable {
+public class ObstaclesWithHP implements ObstaclesIF, ObstaclesObservable {
 
     private int maxHp;
     private int currentHp;
@@ -22,9 +22,9 @@ public class ObstaclesWithHP implements ObstaclesIF, ObstaclesWithHPObservable {
     }
 
     @Override
-    public void notifyObservers(Object arg) {
+    public void notifyObservers(Point point) {
         for (ObstacleObserver o : observers) {
-            o.update(this, arg);
+            o.update(this, point);
         }
     }
 

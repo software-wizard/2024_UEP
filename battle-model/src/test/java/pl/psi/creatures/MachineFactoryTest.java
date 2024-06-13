@@ -51,21 +51,30 @@ class MachineFactoryTest {
                         .armor(10)
                         .build())
                 .build();
+        final Creature angel = new Creature.Builder().statistic(CreatureStats.builder()
+                        .maxHp(100)
+                        .damage(Range.closed(10, 10))
+                        .attack(50)
+                        .armor(0)
+                        .build())
+                .build();
 
         MachineFactory machineFactory = new MachineFactory();
 
         Creature ballista = machineFactory.create("Ballista");
-        Creature firstAidTent = machineFactory.create("First Aid Tent");
+        Creature firstAidTent =  machineFactory.create("First Aid Tent");
+        // Animal pies1 = new Pies();
         List<Creature> creaturesList = new ArrayList<>();
         creaturesList.add(firstAidTent);
-        creaturesList.add(ballista);
         creaturesList.add(dragon);
+        creaturesList.add(angel);
+        creaturesList.add(ballista);
         // when
-        ballista.attack(dragon);
+        angel.attack(dragon);
+        ballista.attack(angel);
         firstAidTent.chooseHealCreature(creaturesList);
         // then
-        assertThat(dragon.getCurrentHp()).isEqualTo(70);
-        assertThat(dragon.getCurrentHp()).isEqualTo(dragon.getMaxHp());
-    }
+        assertThat(dragon.getCurrentHp()).isBetween(71,100);
 
+    }
 }

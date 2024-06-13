@@ -1,5 +1,7 @@
 package pl.psi.obstacles;
 
+import pl.psi.Point;
+
 public interface ObstacleObserver {
-    void update(ObstaclesWithHPObservable o, Object arg);
+    void update(ObstaclesObservable o, Point point);
 }

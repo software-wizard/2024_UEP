@@ -474,6 +474,18 @@
         <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-base/11-ea+25/javafx-base-11-ea+25-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Maven: org.openjfx:javafx-base:11.0.2" type="java-imported" external-system-id="Maven">
+      <properties groupId="org.openjfx" artifactId="javafx-base" version="11.0.2" />
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-base/11.0.2/javafx-base-11.0.2.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-base/11.0.2/javafx-base-11.0.2-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-base/11.0.2/javafx-base-11.0.2-sources.jar!/" />
+      </SOURCES>
+    </library>
     <library name="Maven: org.openjfx:javafx-base:win:11-ea+25" type="java-imported" external-system-id="Maven">
       <properties groupId="org.openjfx" artifactId="javafx-base" version="11-ea+25" classifier="win" />
       <CLASSES>
@@ -484,6 +496,18 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-base/11-ea+25/javafx-base-11-ea+25-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.openjfx:javafx-base:win:11.0.2" type="java-imported" external-system-id="Maven">
+      <properties groupId="org.openjfx" artifactId="javafx-base" version="11.0.2" classifier="win" />
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-base/11.0.2/javafx-base-11.0.2-win.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-base/11.0.2/javafx-base-11.0.2-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-base/11.0.2/javafx-base-11.0.2-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.openjfx:javafx-controls:11-ea+25" type="java-imported" external-system-id="Maven">
@@ -498,6 +522,18 @@
         <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/11-ea+25/javafx-controls-11-ea+25-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Maven: org.openjfx:javafx-controls:11.0.2" type="java-imported" external-system-id="Maven">
+      <properties groupId="org.openjfx" artifactId="javafx-controls" version="11.0.2" />
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/11.0.2/javafx-controls-11.0.2.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/11.0.2/javafx-controls-11.0.2-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/11.0.2/javafx-controls-11.0.2-sources.jar!/" />
+      </SOURCES>
+    </library>
     <library name="Maven: org.openjfx:javafx-controls:win:11-ea+25" type="java-imported" external-system-id="Maven">
       <properties groupId="org.openjfx" artifactId="javafx-controls" version="11-ea+25" classifier="win" />
       <CLASSES>
@@ -508,6 +544,18 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/11-ea+25/javafx-controls-11-ea+25-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.openjfx:javafx-controls:win:11.0.2" type="java-imported" external-system-id="Maven">
+      <properties groupId="org.openjfx" artifactId="javafx-controls" version="11.0.2" classifier="win" />
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/11.0.2/javafx-controls-11.0.2-win.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/11.0.2/javafx-controls-11.0.2-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/11.0.2/javafx-controls-11.0.2-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.openjfx:javafx-fxml:11-ea+25" type="java-imported" external-system-id="Maven">
@@ -522,6 +570,18 @@
         <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/11-ea+25/javafx-fxml-11-ea+25-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Maven: org.openjfx:javafx-fxml:11.0.2" type="java-imported" external-system-id="Maven">
+      <properties groupId="org.openjfx" artifactId="javafx-fxml" version="11.0.2" />
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/11.0.2/javafx-fxml-11.0.2.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/11.0.2/javafx-fxml-11.0.2-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/11.0.2/javafx-fxml-11.0.2-sources.jar!/" />
+      </SOURCES>
+    </library>
     <library name="Maven: org.openjfx:javafx-fxml:win:11-ea+25" type="java-imported" external-system-id="Maven">
       <properties groupId="org.openjfx" artifactId="javafx-fxml" version="11-ea+25" classifier="win" />
       <CLASSES>
@@ -532,6 +592,18 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/11-ea+25/javafx-fxml-11-ea+25-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.openjfx:javafx-fxml:win:11.0.2" type="java-imported" external-system-id="Maven">
+      <properties groupId="org.openjfx" artifactId="javafx-fxml" version="11.0.2" classifier="win" />
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/11.0.2/javafx-fxml-11.0.2-win.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/11.0.2/javafx-fxml-11.0.2-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/11.0.2/javafx-fxml-11.0.2-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.openjfx:javafx-graphics:11-ea+25" type="java-imported" external-system-id="Maven">
@@ -546,6 +618,18 @@
         <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/11-ea+25/javafx-graphics-11-ea+25-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Maven: org.openjfx:javafx-graphics:11.0.2" type="java-imported" external-system-id="Maven">
+      <properties groupId="org.openjfx" artifactId="javafx-graphics" version="11.0.2" />
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/11.0.2/javafx-graphics-11.0.2.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/11.0.2/javafx-graphics-11.0.2-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/11.0.2/javafx-graphics-11.0.2-sources.jar!/" />
+      </SOURCES>
+    </library>
     <library name="Maven: org.openjfx:javafx-graphics:win:11-ea+25" type="java-imported" external-system-id="Maven">
       <properties groupId="org.openjfx" artifactId="javafx-graphics" version="11-ea+25" classifier="win" />
       <CLASSES>
@@ -556,6 +640,18 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/11-ea+25/javafx-graphics-11-ea+25-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.openjfx:javafx-graphics:win:11.0.2" type="java-imported" external-system-id="Maven">
+      <properties groupId="org.openjfx" artifactId="javafx-graphics" version="11.0.2" classifier="win" />
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/11.0.2/javafx-graphics-11.0.2-win.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/11.0.2/javafx-graphics-11.0.2-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/11.0.2/javafx-graphics-11.0.2-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.opentest4j:opentest4j:1.2.0" type="java-imported" external-system-id="Maven">
