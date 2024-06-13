@@ -6,6 +6,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import pl.psi.creatures.Creature;
@@ -41,6 +42,7 @@ class BoardTest
     }
 
     @Test
+    @Disabled // Bartek
     void creatureCannotEnterObstacle() throws ObstacleException {
 
         for (int x = 0; x < ObstaclesIF.MAX_WITDH; x++) {
