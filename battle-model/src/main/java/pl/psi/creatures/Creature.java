@@ -141,7 +141,8 @@ public class Creature implements PropertyChangeListener {
         }
     }
     public boolean isCatapult() {
-        return this.getName().equals("Catapult");
+        String name = getName();
+        return name != null && name.equals("Catapult");
     }
 
     public boolean RandomChance() {

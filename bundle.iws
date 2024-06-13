@@ -5,15 +5,14 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f3102dac-a942-4483-9cc7-2febc53c83f3" name="Changes" comment="wall partially added 2">
+      <change beforePath="$PROJECT_DIR$/battle-gui/src/main/java/pl/psi/gui/MainBattleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-gui/src/main/java/pl/psi/gui/MainBattleController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/GameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/GameEngine.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/AbstractCalculateDamageStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/AbstractCalculateDamageStrategy.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/Creature.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/Creature.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/Wall.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/Wall.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/battle-model/src/test/java/pl/psi/BoardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/test/java/pl/psi/BoardTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/battle-model/src/test/java/pl/psi/obstacles/WallTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/test/java/pl/psi/obstacles/WallTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bundle.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/bundle.ipr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bundle.iws" beforeDir="false" afterPath="$PROJECT_DIR$/bundle.iws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hero-common/src/main/java/pl/psi/creatures/CreatureStatistic.java" beforeDir="false" afterPath="$PROJECT_DIR$/hero-common/src/main/java/pl/psi/creatures/CreatureStatistic.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -309,6 +308,9 @@
     &quot;JUnit.BoardTest.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.BoardTest.obstacleWithHPRemove.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.BoardTest.testObstacleWithHPRemovalAfterDestruction.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.BoardTest.wallCanBeDestroyed.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.BoardTest.wallCanBeDestroyedAndLevelUpdates.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.BoardTest.wallRemovesFromMap.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.CatapultTest.catapultShouldANotAttackCreature.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.ObstaclesWithHPTest.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.ObstaclesWithHPTest.takeDamageReducesHP.executor&quot;: &quot;Run&quot;,
@@ -316,6 +318,7 @@
     &quot;JUnit.WallTest.catapultCanAttackWallAtLVL1.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.WallTest.creatureCanAttackWallAtLVL2And3.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.WallTest.creatureCannotAttackWallAtLVL1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.WallTest.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.WallTest.takeDamageReducesHP.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.WallTest.wallCanBeDestroyed.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.WallTest.wallLevelChangesAfterAttacks.executor&quot;: &quot;Run&quot;,
@@ -333,7 +336,7 @@
       <recent name="C:\Users\barto\Desktop\pliki\Java projects\2024_UEP\battle-model\src\main\java\pl\psi" />
     </key>
   </component>
-  <component name="RunManager" selected="Application.LaunchBattle">
+  <component name="RunManager" selected="JUnit.BoardTest">
     <configuration selected="false" default="true" type="Applet" factoryName="Applet">
       <module name="" />
       <option name="MAIN_CLASS_NAME" />
@@ -360,17 +363,37 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WallTest.catapultCanAttackWallAtLVL1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="BoardTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="battle-model" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="pl.psi.obstacles.*" />
+          <option name="PATTERN" value="pl.psi.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="pl.psi.obstacles" />
-      <option name="MAIN_CLASS_NAME" value="pl.psi.obstacles.WallTest" />
-      <option name="METHOD_NAME" value="catapultCanAttackWallAtLVL1" />
+      <option name="PACKAGE_NAME" value="pl.psi" />
+      <option name="MAIN_CLASS_NAME" value="pl.psi.BoardTest" />
+      <option name="TEST_OBJECT" value="class" />
+      <option name="VM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="wholeProject" />
+      </option>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="BoardTest.wallCanBeDestroyedAndLevelUpdates" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="battle-model" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="pl.psi.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="pl.psi" />
+      <option name="MAIN_CLASS_NAME" value="pl.psi.BoardTest" />
+      <option name="METHOD_NAME" value="wallCanBeDestroyedAndLevelUpdates" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -381,17 +404,17 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WallTest.creatureCanAttackWallAtLVL2And3" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="BoardTest.wallRemovesFromMap" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="battle-model" />
       <extension name="coverage">
         <pattern>
-          <option name="PATTERN" value="pl.psi.obstacles.*" />
+          <option name="PATTERN" value="pl.psi.*" />
           <option name="ENABLED" value="true" />
         </pattern>
       </extension>
-      <option name="PACKAGE_NAME" value="pl.psi.obstacles" />
-      <option name="MAIN_CLASS_NAME" value="pl.psi.obstacles.WallTest" />
-      <option name="METHOD_NAME" value="creatureCanAttackWallAtLVL2And3" />
+      <option name="PACKAGE_NAME" value="pl.psi" />
+      <option name="MAIN_CLASS_NAME" value="pl.psi.BoardTest" />
+      <option name="METHOD_NAME" value="wallRemovesFromMap" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -402,7 +425,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WallTest.creatureCannotAttackWallAtLVL1" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WallTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="battle-model" />
       <extension name="coverage">
         <pattern>
@@ -412,29 +435,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="pl.psi.obstacles" />
       <option name="MAIN_CLASS_NAME" value="pl.psi.obstacles.WallTest" />
-      <option name="METHOD_NAME" value="creatureCannotAttackWallAtLVL1" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="wholeProject" />
-      </option>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
-    <configuration name="WallTest.takeDamageReducesHP" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="battle-model" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="pl.psi.obstacles.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="pl.psi.obstacles" />
-      <option name="MAIN_CLASS_NAME" value="pl.psi.obstacles.WallTest" />
-      <option name="METHOD_NAME" value="takeDamageReducesHP" />
-      <option name="TEST_OBJECT" value="method" />
+      <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="TEST_SEARCH_SCOPE">
@@ -478,11 +479,11 @@
     </configuration>
     <recent_temporary>
       <list>
+        <item itemvalue="JUnit.BoardTest" />
         <item itemvalue="JUnit.WallTest.wallLevelChangesAfterAttacks" />
-        <item itemvalue="JUnit.WallTest.creatureCanAttackWallAtLVL2And3" />
-        <item itemvalue="JUnit.WallTest.creatureCannotAttackWallAtLVL1" />
-        <item itemvalue="JUnit.WallTest.catapultCanAttackWallAtLVL1" />
-        <item itemvalue="JUnit.WallTest.takeDamageReducesHP" />
+        <item itemvalue="JUnit.BoardTest.wallRemovesFromMap" />
+        <item itemvalue="JUnit.BoardTest.wallCanBeDestroyedAndLevelUpdates" />
+        <item itemvalue="JUnit.WallTest" />
       </list>
     </recent_temporary>
   </component>
@@ -637,7 +638,8 @@
     <MESSAGE value="wall partially implemented" />
     <MESSAGE value="wall partially implemented 2" />
     <MESSAGE value="wall partially implemented 2" />
-    <option name="LAST_COMMIT_MESSAGE" value="wall partially implemented 2" />
+    <MESSAGE value="Added wall (working)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added wall (working)" />
   </component>
   <component name="VssConfiguration">
     <CheckoutOptions>
