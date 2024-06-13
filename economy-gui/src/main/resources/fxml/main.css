@@ -41,6 +41,6 @@
     -fx-pref-width: 1600;
 }
 
-/*.list-view .list-cell {*/
-/*    -fx-alignment: center;*/
-/*}*/
+.tooltip {
+    -fx-font-size: 15;
+}

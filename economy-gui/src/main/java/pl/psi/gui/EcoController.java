@@ -46,10 +46,15 @@ public class EcoController implements PropertyChangeListener {
     @FXML
     private ListView<String> skillsList;
 
+    SkillTooltip skillTooltip1;
+    SkillTooltip skillTooltip2;
+
     private ObservableList<String> skills;
 
     public EcoController(final EconomyHero aHero1, final EconomyHero aHero2) {
         engine = new EconomyEngine(aHero1, aHero2);
+        skillTooltip1 = new SkillTooltip(aHero1);
+        skillTooltip2 = new SkillTooltip(aHero2);
     }
 
     @FXML
@@ -59,8 +64,6 @@ public class EcoController implements PropertyChangeListener {
         engine.addObserver(EconomyEngine.ACTIVE_HERO_CHANGED, this);
         engine.addObserver(EconomyEngine.TURN_END, this);
         passButton.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> engine.pass());
-//        initSkillToolTip();
-
     }
 
     void refreshGui() {
@@ -75,12 +78,12 @@ public class EcoController implements PropertyChangeListener {
 
                 engine.getHero(currentPoint).ifPresent(h -> {
                     mapTile.setName(h.getName());
-                    Tooltip tooltip = new Tooltip("Hero: " + h.getName());
-                    tooltip.setShowDelay(new Duration(200));
-//                    System.out.println("show delay: " + tooltip.getShowDelay());
-//                    System.out.println("hide delay: " + tooltip.getHideDelay());
-                    tooltip.setText(h.skillsAsList());
-                    Tooltip.install(mapTile, tooltip);
+                    if(h.equals(engine.getHero1())) {
+                        Tooltip.install(mapTile, skillTooltip1);
+                    }
+                    if (h.equals(engine.getHero2())) {
+                        Tooltip.install(mapTile, skillTooltip2);
+                    }
                 });
 
                 if (engine.canMove(currentPoint)) {
@@ -131,7 +134,11 @@ public class EcoController implements PropertyChangeListener {
         List<String> skillsData = engine.getCurrentHero().getSkills().values().stream().map(Skill::toString).collect(Collectors.toList());
         skills = FXCollections.observableArrayList(skillsData);
         skillsList.setItems(skills);
+
+        skillTooltip1.refresh();
+        skillTooltip2.refresh();
     }
+
 
     @Override
     public void propertyChange(final PropertyChangeEvent aPropertyChangeEvent) {
