@@ -13,8 +13,8 @@ public class BallisticsSkill extends Skill implements BattleSkill {
 
     @Override //todo
     public void cast(List<Creature> creatures) {
-//        creatures.stream()
-//                .filter(c -> c.getCreatureType().equals(CreatureTypeEnum.MACHINE))
-//                .forEach(c -> );
+        creatures.stream()
+                .filter(c -> c.getCreatureType().equals(CreatureTypeEnum.MACHINE))
+                .forEach(c -> c.setLevel);
     }
 }
