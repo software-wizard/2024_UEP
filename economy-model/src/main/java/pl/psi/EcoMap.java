@@ -88,4 +88,8 @@ public class EcoMap
         Point fieldPoint = fieldObjects.inverse().get(aField);
         fieldObjects.remove(fieldPoint);
     }
+
+    public void addField(Field aField, Point aPoint) {
+        mapObjects.put(aPoint, aField);
+    }
 }
