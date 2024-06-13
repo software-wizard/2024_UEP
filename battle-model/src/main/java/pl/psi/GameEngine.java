@@ -167,4 +167,8 @@ public class GameEngine {
             return null;
         }
     }
+
+    public boolean isWall(Point currentPoint) {
+        return false;
+    }
 }

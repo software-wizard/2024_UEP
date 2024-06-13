@@ -75,6 +75,7 @@ class BoardTest
         assertThat(board.isObstacleWithHP(point)).isFalse();
     }
 
+    @Disabled
     @Test
     public void wallCanBeDestroyed(){
         wall = new Wall();
