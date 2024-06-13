@@ -1,6 +1,7 @@
-package pl.psi.spells.object;
+package pl.psi.spells.object.enums;
 
 import lombok.Getter;
+import pl.psi.spells.object.interfaces.SpellStatisticIf;
 
 @Getter
 public enum SpellStatistic implements SpellStatisticIf {

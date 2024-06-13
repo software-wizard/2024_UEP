@@ -1,4 +1,7 @@
-package pl.psi.spells.object;
+package pl.psi.spells.object.interfaces;
+
+import pl.psi.spells.object.enums.SpellSchool;
+import pl.psi.spells.object.enums.SpellType;
 
 public interface SpellStatisticIf {
     int getSpellId();

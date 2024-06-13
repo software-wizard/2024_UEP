@@ -11,11 +11,10 @@ import pl.psi.creatures.CreatureStats;
 import pl.psi.spells.calculator.EmpoweredSpellDamageCalculator;
 import pl.psi.spells.calculator.ReducedSpellCostCalculator;
 import pl.psi.spells.object.SpellFactory;
-import pl.psi.spells.spellbook.Spellbook;
 import pl.psi.spells.object.Spell;
-import pl.psi.spells.object.SpellStatistic;
-import pl.psi.spells.spell.AreaOfEffectAttackSpellDecorator;
-import pl.psi.spells.spell.SingleUnitAttackSpell;
+import pl.psi.spells.object.enums.SpellStatistic;
+import pl.psi.spells.object.decorators.AOESpellDecorator;
+import pl.psi.spells.object.UnitAttackSpell;
 
 import java.util.List;
 
@@ -42,7 +41,7 @@ public class SpellTest {
 
         final GameEngine engine = new GameEngine(hero1, hero2);
 
-        final SingleUnitAttackSpell attackSpell = new SingleUnitAttackSpell(SpellStatistic.DAMAGING_SPELL);
+        final UnitAttackSpell attackSpell = new UnitAttackSpell(SpellStatistic.DAMAGING_SPELL);
         attackSpell.cast(hero1, engine.getCreaturePosition(defender));
         assertThat(defender.getCurrentHp()).isEqualTo(95);
     }
@@ -77,7 +76,7 @@ public class SpellTest {
 
         final GameEngine engine = new GameEngine(hero1, hero2);
 
-        final Spell aoeSpell = new AreaOfEffectAttackSpellDecorator(new SingleUnitAttackSpell(SpellStatistic.DAMAGING_SPELL));
+        final Spell aoeSpell = new AOESpellDecorator(new UnitAttackSpell(SpellStatistic.DAMAGING_SPELL));
 
         final Point c2Position = engine.getCreaturePosition(defender2);
         final Point center = new Point(c2Position.getX() - 1, c2Position.getY());

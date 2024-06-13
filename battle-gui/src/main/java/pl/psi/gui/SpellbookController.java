@@ -8,7 +8,7 @@ import pl.psi.GameEngine;
 import pl.psi.Hero;
 import pl.psi.TurnQueue;
 import pl.psi.spells.object.Spell;
-import pl.psi.spells.object.SpellType;
+import pl.psi.spells.object.enums.SpellType;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -34,8 +34,8 @@ public class SpellbookController implements PropertyChangeListener {
         refreshGUI();
     }
 
-    private void onClickSpell(int spellId) {
-        propChangeSupport.firePropertyChange(SPELL_SELECTED_EVENT, null, spellId);
+    private void onClickSpell(Spell spell) {
+        propChangeSupport.firePropertyChange(SPELL_SELECTED_EVENT, null, spell);
     }
 
     private void refreshGUI() {
@@ -52,7 +52,7 @@ public class SpellbookController implements PropertyChangeListener {
             if (spell.getStats().getType().equals(SpellType.PASSIVE)) {
                 tile.setBackground(Color.LIGHTGRAY);
             } else {
-                tile.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> onClickSpell(spell.getStats().getSpellId()));
+                tile.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> onClickSpell(spell));
             }
 
             int x = countAdded % COLUMN_COUNT;

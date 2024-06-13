@@ -2,27 +2,20 @@ package pl.psi;
 
 import java.util.List;
 
-import lombok.Setter;
 import pl.psi.creatures.Creature;
 
 import lombok.Getter;
-import pl.psi.spells.spellbook.Spellbook;
+import pl.psi.spells.Spellbook;
 
 /**
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
  */
-public class Hero
+@Getter
+public class Hero extends EngineEntity
 {
-    @Getter
     private final List< Creature > creatures;
-
-    @Getter
     private final Spellbook spellbook;
-
-    @Getter
     private final PrimarySkill primarySkills;
-
-    @Getter
     private int mana;
 
     public Hero( final List< Creature > aCreatures, final PrimarySkill aPrimarySkills, final Spellbook aSpellbook )
@@ -41,4 +34,10 @@ public class Hero
     public int getMaxMana() {
         return this.primarySkills.getKnowledge() * 10;
     }
+
+    public boolean hasCreature(Creature c) {
+        return creatures.contains(c);
+    }
+
+
 }

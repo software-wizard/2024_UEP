@@ -8,11 +8,15 @@ package pl.psi.creatures;//  ***************************************************
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import lombok.Setter;
 import pl.psi.Point;
+import pl.psi.effects.object.CreatureEffect;
+import pl.psi.effects.object.CreatureEffectFactory;
+import pl.psi.effects.object.CreatureEffectStatistic;
 import pl.psi.enums.AttackTypeEnum;
 import pl.psi.TurnQueue;
 
@@ -43,6 +47,9 @@ public class Creature implements PropertyChangeListener {
     @Setter
     private DamageApplier damageApplier = new DamageApplier();
 
+    private final List<CreatureEffect> creatureEffects = new ArrayList<>();
+
+
     Creature() {
     }
 
@@ -56,6 +63,37 @@ public class Creature implements PropertyChangeListener {
         attackType = aAttackType;
     }
 
+    public CreatureStatisticIf getStats() {
+        CreatureStatisticIf currStats = stats;
+
+        for (CreatureEffect effect : creatureEffects) {
+            currStats = effect.applyStatisticEffect(stats, currStats);
+        }
+
+        return currStats;
+    }
+
+    public DamageApplier getDamageApplier() {
+        DamageApplier currApplier = damageApplier;
+
+        for (CreatureEffect effect : creatureEffects) {
+            currApplier = effect.applyDamageApplierEffect(damageApplier, currApplier);
+        }
+
+        return currApplier;
+    }
+
+    public void applyEffect(CreatureEffectStatistic effectStatistic) {
+        for (CreatureEffect effect : creatureEffects) {
+            if (effect.getEffectStatistic().equals(effectStatistic)) {
+                effect.setAmount(effect.getAmount() + 1);
+                return;
+            }
+        }
+
+        CreatureEffect effect = CreatureEffectFactory.fromStatistic(effectStatistic);
+        creatureEffects.add(effect);
+    }
 
     public void attack(final Creature aDefender) {
         if (isAlive()) {
@@ -71,7 +109,6 @@ public class Creature implements PropertyChangeListener {
     public void attackObstacle(ObstaclesWithHP obstacleWithHP, Point aPoint) {
         final int damage = getCalculator().calculateDamageToObstacle(this,obstacleWithHP);
         obstacleWithHP.takeDamage(aPoint, damage);
-
     }
     public void attackWall(Wall wall,Point aPoint){
         if (isCatapult()) {
@@ -104,6 +141,8 @@ public class Creature implements PropertyChangeListener {
         return randVal < 75;
 
     }
+
+
 
     public boolean isAlive() {
         return getAmount() > 0;
