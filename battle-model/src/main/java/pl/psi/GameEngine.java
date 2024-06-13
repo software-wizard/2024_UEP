@@ -2,7 +2,12 @@ package pl.psi;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.HashSet;
+import java.util.List;
 import java.util.Optional;
+import java.util.Set;
+import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 import lombok.Getter;
 import pl.psi.creatures.Creature;
@@ -24,19 +29,12 @@ public class GameEngine {
     private final Hero hero1;
     private final Hero hero2;
 
-    private static GameEngine engine;
 
-    public  GameEngine(final Hero aHero1, final Hero aHero2) {
-        hero1 = aHero1;
-        hero2 = aHero2;
+    public GameEngine(final Hero aHero1, final Hero aHero2) {
+        hero1 = (Hero) EngineEntity.bindEngine(aHero1, this);
+        hero2 = (Hero) EngineEntity.bindEngine(aHero2, this);
         turnQueue = new TurnQueue(aHero1.getCreatures(), aHero2.getCreatures());
         board = new Board(aHero1.getCreatures(), aHero2.getCreatures());
-
-        engine = this;
-    }
-
-    public static GameEngine getInstance() {
-        return engine;
     }
 
     public void attack(final Point point) {
@@ -129,6 +127,10 @@ public class GameEngine {
         } else {
             throw new IllegalStateException("neither of heroes contains current creature");
         }
+    }
+
+    public List<Creature> getAllCreatures() {
+        return Stream.concat(hero1.getCreatures().stream(), hero2.getCreatures().stream()).collect(Collectors.toList());
     }
 
     public boolean isCurrentCreature(Point aPoint) {

@@ -1,22 +1,22 @@
 package pl.psi.converter;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import pl.psi.*;
+import pl.psi.creatures.Creature;
+import pl.psi.creatures.NecropolisFactory;
+import pl.psi.gui.MainBattleController;
+import pl.psi.skills.Skill;
+import pl.psi.spells.spellbook.Spellbook;
+import skills.BattleSkill;
+
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import pl.psi.*;
-import pl.psi.spells.spellbook.Spellbook;
-import skills.BattleSkill;
-import pl.psi.creatures.Creature;
-import pl.psi.creatures.NecropolisFactory;
-import pl.psi.gui.MainBattleController;
-import pl.psi.skills.Skill;
 
 public class EcoBattleConverter implements PropertyChangeListener {
 
@@ -56,13 +56,14 @@ public class EcoBattleConverter implements PropertyChangeListener {
             }
         }
 
-        return new Hero(creatures, new PrimarySkill(0,0,0,0) ,new Spellbook(Collections.emptyList()));
+        return new Hero(creatures, new PrimarySkill(0, 0, 0, 0), new Spellbook(Collections.emptyList()));
     }
-//obserwer i potem aktualizuje od walki i potem ustawia lastBattlePack na null
-    void update(){
+
+    //obserwer i potem aktualizuje od walki i potem ustawia lastBattlePack na null
+    void update() {
         lastBattlePack.getAttacker().changeResources(lastBattlePack.getDefender().getResources());
 
-        lastBattlePack=null;
+        lastBattlePack = null;
     }
 
 

@@ -1,4 +1,4 @@
-package pl.psi.spells.object;
+package pl.psi.spells.object.enums;
 
 public enum SpellType {
     UNKNOWN,

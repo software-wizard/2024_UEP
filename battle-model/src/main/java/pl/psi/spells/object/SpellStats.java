@@ -2,6 +2,9 @@ package pl.psi.spells.object;
 
 import lombok.Builder;
 import lombok.Getter;
+import pl.psi.spells.object.enums.SpellSchool;
+import pl.psi.spells.object.enums.SpellType;
+import pl.psi.spells.object.interfaces.SpellStatisticIf;
 
 @Getter
 @Builder

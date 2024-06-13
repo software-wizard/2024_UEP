@@ -1,4 +1,4 @@
-package pl.psi.spells.object;
+package pl.psi.spells.object.interfaces;
 
 import pl.psi.Hero;
 import pl.psi.Point;

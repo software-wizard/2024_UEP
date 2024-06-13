@@ -1,7 +1,7 @@
 package pl.psi.spells.calculator;
 
 import pl.psi.Hero;
-import pl.psi.spells.object.SpellStatisticIf;
+import pl.psi.spells.object.interfaces.SpellStatisticIf;
 
 public class StaticSpellCostCalculator implements SpellCostCalculatorIf {
 

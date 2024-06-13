@@ -2,16 +2,12 @@ package pl.psi.spells.spell;
 
 import pl.psi.Hero;
 import pl.psi.Point;
-import pl.psi.spells.object.Spell;
-import pl.psi.spells.object.SpellStatisticIf;
+import pl.psi.spells.object.interfaces.SpellStatisticIf;
 
-public class TitansLightningBoltSpell extends Spell {
-
-    private final SingleUnitAttackSpell decorated;
+public class TitansLightningBoltSpell extends UnitAttackSpell {
 
     public TitansLightningBoltSpell(SpellStatisticIf stats) {
-        super(stats, null);
-        this.decorated = new SingleUnitAttackSpell(stats);
+        super(stats);
     }
 
     private boolean hasTitansThunderArtifact() {
@@ -25,6 +21,6 @@ public class TitansLightningBoltSpell extends Spell {
 
     @Override
     public void cast(Hero caster, Point targetPoint) {
-        this.decorated.cast(caster, targetPoint);
+        super.cast(caster, targetPoint);
     }
 }

@@ -8,11 +8,15 @@ package pl.psi.creatures;//  ***************************************************
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 import lombok.Setter;
 import pl.psi.Point;
+import pl.psi.effects.object.CreatureEffect;
+import pl.psi.effects.object.CreatureEffectFactory;
+import pl.psi.effects.object.CreatureEffectStatistic;
 import pl.psi.enums.AttackTypeEnum;
 import pl.psi.TurnQueue;
 
@@ -42,6 +46,9 @@ public class Creature implements PropertyChangeListener {
     @Setter
     private DamageApplier damageApplier = new DamageApplier();
 
+    private final List<CreatureEffect> creatureEffects = new ArrayList<>();
+
+
     Creature() {
     }
 
@@ -55,6 +62,47 @@ public class Creature implements PropertyChangeListener {
         attackType = aAttackType;
     }
 
+    public CreatureStatisticIf getStats() {
+        CreatureStatisticIf currStats = stats;
+
+        for (CreatureEffect effect : creatureEffects) {
+            currStats = effect.applyStatisticEffect(stats, currStats);
+        }
+
+        return currStats;
+    }
+
+    public DamageApplier getDamageApplier() {
+        DamageApplier currApplier = damageApplier;
+
+        for (CreatureEffect effect : creatureEffects) {
+            currApplier = effect.applyDamageApplierEffect(damageApplier, currApplier);
+        }
+
+        return currApplier;
+    }
+
+    public void applyEffect(CreatureEffectStatistic effectStatistic) {
+        for (CreatureEffect effect : creatureEffects) {
+            if (effect.getEffectStatistic().equals(effectStatistic)) {
+                if (effect.getEffectStatistic().isStackable()) {
+                    effect.setAmount(effect.getAmount() + 1);
+                }
+
+                return;
+            }
+        }
+
+        CreatureEffect effect = CreatureEffectFactory.fromStatistic(effectStatistic);
+        if (effect == null) return;
+
+        effect.addObserver(this);
+        creatureEffects.add(effect);
+    }
+
+    public boolean hasEffect(CreatureEffectStatistic effectStatistic) {
+        return creatureEffects.stream().anyMatch((effect) -> effect.getEffectStatistic().equals(effectStatistic));
+    }
 
     public void attack(final Creature aDefender) {
         if (isAlive()) {
@@ -70,8 +118,9 @@ public class Creature implements PropertyChangeListener {
     public void attackObstacle(ObstaclesWithHP obstacleWithHP, Point aPoint) {
         final int damage = getCalculator().calculateDamageToObstacle(this,obstacleWithHP);
         obstacleWithHP.takeDamage(aPoint, damage);
-
     }
+
+
 
     public boolean isAlive() {
         return getAmount() > 0;
@@ -97,26 +146,35 @@ public class Creature implements PropertyChangeListener {
         final int damage = aAttacker.getCalculator()
                 .calculateDamage(aAttacker, this);
         DamageValueObject aDamageValueObject = new DamageValueObject(damage, this.attackType, this.creatureType);
-        damageApplier.applyDamage(aDamageValueObject, this); //spytac czy lepiej uzywac getDamageApplier czy damageApplier
+        getDamageApplier().applyDamage(aDamageValueObject, this); //spytac czy lepiej uzywac getDamageApplier czy damageApplier.
+        // odp: getdamageapplier bo efekty
         aAttacker.counterAttackCounter--;
     }
 
     Range<Integer> getDamage() {
-        return stats.getDamage();
+        return getStats().getDamage();
     }
 
     int getAttack() {
-        return stats.getAttack();
+        return getStats().getAttack();
     }
 
     int getArmor() {
-        return stats.getArmor();
+        return getStats().getArmor();
     }
 
     @Override
     public void propertyChange(final PropertyChangeEvent evt) {
         if (TurnQueue.END_OF_TURN.equals(evt.getPropertyName())) {
             counterAttackCounter = 1;
+
+            // copy list to avoid ConcurrentModificationException
+            List<CreatureEffect> temp = new ArrayList<>(creatureEffects);
+
+            temp.forEach(CreatureEffect::turnPassed);
+        } else if (CreatureEffect.EFFECT_ENDED.equals(evt.getPropertyName())) {
+            CreatureEffect effect = (CreatureEffect) evt.getSource();
+            creatureEffects.remove(effect);
         }
     }
 
@@ -139,7 +197,7 @@ public class Creature implements PropertyChangeListener {
     }
 
     public int getMoveRange() {
-        return stats.getMoveRange();
+        return getStats().getMoveRange();
     }
 
     public static class Builder {

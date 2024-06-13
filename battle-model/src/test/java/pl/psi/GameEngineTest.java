@@ -6,7 +6,7 @@ import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import pl.psi.creatures.CastleCreatureFactory;
-import pl.psi.spells.spellbook.Spellbook;
+import pl.psi.spells.Spellbook;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
