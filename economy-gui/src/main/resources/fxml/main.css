@@ -44,3 +44,7 @@
 .tooltip {
     -fx-font-size: 15;
 }
+
+#grid {
+    -fx-alignment: center;
+}
