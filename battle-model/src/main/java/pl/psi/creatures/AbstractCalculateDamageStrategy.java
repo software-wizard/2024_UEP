@@ -1,6 +1,7 @@
 package pl.psi.creatures;
 
 import lombok.Getter;
+import pl.psi.enums.AttackTypeEnum;
 
 import java.util.Random;
 
@@ -24,7 +25,7 @@ abstract class AbstractCalculateDamageStrategy implements DamageCalculatorIf
     }
 
     @Override
-    public int calculateDamage( final Creature aAttacker, final Creature aDefender )
+    public int calculateDamage(final Creature aAttacker, final Creature aDefender, final AttackTypeEnum attackType)
     {
         final int armor = getArmor( aDefender );
 
@@ -59,7 +60,13 @@ abstract class AbstractCalculateDamageStrategy implements DamageCalculatorIf
         {
             oneCreatureDamageToDeal = 0;
         }
-        return (int)(aAttacker.getAmount() * oneCreatureDamageToDeal);
+
+        int damage = (int) (aAttacker.getAmount() * oneCreatureDamageToDeal);
+        //Melee ranged penalty
+        if (aAttacker.getAttackType().equals(AttackTypeEnum.RANGE) && attackType.equals(AttackTypeEnum.MELEE)) {
+            damage = damage / 2;
+        }
+        return damage;
     }
 
     public int calculateDamageToObstacle(Creature attacker, ObstaclesWithHP obstaclesWithHP) {

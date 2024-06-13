@@ -3,7 +3,10 @@ package pl.psi.converter;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import pl.psi.*;
+import pl.psi.EconomyHero;
+import pl.psi.Hero;
+import pl.psi.StartBattlePack;
+import pl.psi.spells.Spellbook;
 import pl.psi.creatures.Creature;
 import pl.psi.creatures.NecropolisFactory;
 import pl.psi.gui.MainBattleController;
@@ -17,6 +20,8 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+
+import skills.SkillFactory;
 
 public class EcoBattleConverter implements PropertyChangeListener {
 
@@ -43,17 +48,16 @@ public class EcoBattleConverter implements PropertyChangeListener {
 
 
     public static Hero convert(final EconomyHero aPlayer1) {
+        SkillFactory skillFactory = new SkillFactory();
         final List<Creature> creatures = new ArrayList<>();
         final NecropolisFactory factory = new NecropolisFactory();
         aPlayer1.getCreatures()
                 .forEach(ecoCreature -> creatures
-                        .add(factory.create(ecoCreature.isUpgraded(), ecoCreature.getTier(), 1)));
+                        .add(factory.create(ecoCreature.isUpgraded(), ecoCreature.getTier(), 1, ecoCreature.getMoraleValue())));
 
         // Zakładam ze skille "nie battle" nie muszą byc zalaczane tutaj, poniewaz one musza dzialac jak sobie biegamy po mapiex
         for (Skill skill : aPlayer1.getSkills().values()) {
-            if (skill instanceof BattleSkill) {
-                ((BattleSkill) skill).cast(creatures);
-            }
+            skillFactory.create(skill.getSkillName(), skill.getLevel()).cast(creatures);
         }
 
         return new Hero(creatures, new PrimarySkill(0, 0, 0, 0), new Spellbook(Collections.emptyList()));

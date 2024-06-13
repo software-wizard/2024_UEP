@@ -40,3 +40,7 @@
 #readyButton{
     -fx-pref-width: 1600;
 }
+
+/*.list-view .list-cell {*/
+/*    -fx-alignment: center;*/
+/*}*/

@@ -7,6 +7,7 @@ import java.util.Optional;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
+import pl.psi.objects.Field;
 import pl.psi.objects.ResourcesField;
 
 /**
@@ -17,7 +18,7 @@ public class EcoMap
     private final BiMap< Point, EconomyHero > map = HashBiMap.create();
     private final BiMap<Point, MapObject> mapObjects = HashBiMap.create();
 
-    private final BiMap<Point, ResourcesField> fieldObjects = HashBiMap.create();
+    private final BiMap<Point, Field> fieldObjects = HashBiMap.create();
 
     private final BiMap< Point, Opponent> mapOpponents = HashBiMap.create();
 
@@ -37,9 +38,9 @@ public class EcoMap
         map.put( new Point( 5, 5 ), aHero1 );
         map.put( new Point( EconomyEngine.BOARD_WEIGHT - 5, EconomyEngine.BOARD_HEIGHT - 5 ), aHero2 );
         mapObjects.put(new Point(1,1), castle);
-        for (Map.Entry<Point, ResourcesField> entry : fieldObject.fieldMap.entrySet()) {
+        for (Map.Entry<Point, Field> entry : fieldObject.fieldMap.entrySet()) {
             Point point = entry.getKey();
-            fieldObjects.put(point,entry.getValue());
+            fieldObjects.put(point, entry.getValue());
         }
     }
 
@@ -91,8 +92,7 @@ public class EcoMap
         return fieldObjects.containsKey(aPoint);
     }
 
-    public ResourcesField getField(Point aPoint) {
-
+    public Field getField(Point aPoint) {
         return fieldObjects.get(aPoint);
     }
 
@@ -152,4 +152,9 @@ public class EcoMap
         }
     }
 
+
+    public void removeField(Field aField) {
+        Point fieldPoint = fieldObjects.inverse().get(aField);
+        fieldObjects.remove(fieldPoint);
+    }
 }

@@ -1,5 +1,10 @@
 package pl.psi.creatures;
 
+import pl.psi.enums.AttackTypeEnum;
+import pl.psi.enums.CreatureTypeEnum;
+
+import java.util.List;
+
 public class MachineFactory
 {
 
@@ -15,18 +20,17 @@ public class MachineFactory
                     return new FirstAidTent.Builder().statistic( CreatureStatistic.FIRST_AID_TENT )
                             .build();
                 case "Ballista":
-                    return new Ballista.Builder().statistic( CreatureStatistic.BALLISTA )
+                    return new Creature.Builder().statistic( CreatureStatistic.BALLISTA )
+                            .creatureType(CreatureTypeEnum.MACHINE)
+                            .attackType(AttackTypeEnum.RANGE)
                             .build();
                 case "Catapult":
-                    return new Catapult.Builder().statistic( CreatureStatistic.CATAPULT )
+                    return new Creature.Builder().statistic( CreatureStatistic.CATAPULT )
+                            .creatureType(CreatureTypeEnum.MACHINE)
+                            .attackType(AttackTypeEnum.RANGE)
                             .build();
                 default:
                     throw new IllegalArgumentException( EXCEPTION_MESSAGE );
             }
     }
-
-
-
-
-
 }

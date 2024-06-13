@@ -76,6 +76,7 @@ public enum     CreatureStatistic implements CreatureStatisticIf
     private final int tier;
     private final String description;
     private final boolean isUpgraded;
+    private final int moraleValue;
 
     CreatureStatistic( final String aName, final int aAttack, final int aArmor, final int aMaxHp,
         final int aMoveRange, final Range< Integer > aDamage, final int aTier, final String aDescription,
@@ -91,7 +92,7 @@ public enum     CreatureStatistic implements CreatureStatisticIf
         tier = aTier;
         description = aDescription;
         isUpgraded = aIsUpgraded;
-
+        moraleValue = 0;
     }
 
     String getTranslatedName()
