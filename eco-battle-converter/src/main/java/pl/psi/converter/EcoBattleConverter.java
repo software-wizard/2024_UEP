@@ -8,7 +8,7 @@ import pl.psi.creatures.Creature;
 import pl.psi.creatures.NecropolisFactory;
 import pl.psi.gui.MainBattleController;
 import pl.psi.skills.Skill;
-import pl.psi.spells.spellbook.Spellbook;
+import pl.psi.spells.Spellbook;
 import skills.BattleSkill;
 
 import java.beans.PropertyChangeEvent;
@@ -49,7 +49,7 @@ public class EcoBattleConverter implements PropertyChangeListener {
                 .forEach(ecoCreature -> creatures
                         .add(factory.create(ecoCreature.isUpgraded(), ecoCreature.getTier(), 1)));
 
-        // Zakładam ze skille "nie battle" nie muszą byc zalaczane tutaj, poniewaz one musza dzialac jak sobie biegamy po mapie
+        // Zakładam ze skille "nie battle" nie muszą byc zalaczane tutaj, poniewaz one musza dzialac jak sobie biegamy po mapiex
         for (Skill skill : aPlayer1.getSkills().values()) {
             if (skill instanceof BattleSkill) {
                 ((BattleSkill) skill).cast(creatures);
