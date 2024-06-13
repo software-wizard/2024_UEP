@@ -77,4 +77,7 @@ public class Wall implements ObstaclesIF, ObstaclesObservable {
     }
 
 
+    public int getHP() {
+        return currentHP;
+    }
 }

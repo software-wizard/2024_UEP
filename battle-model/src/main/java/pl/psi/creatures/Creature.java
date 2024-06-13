@@ -27,7 +27,7 @@ import pl.psi.obstacles.ObstaclesWithHP;
 import pl.psi.obstacles.Wall;
 
 /**
- * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
+ * TODO: Describe this class (The first line - untorigin/WarMachines03il the first dot - will interpret as the brief description).
  */
 @Getter
 public class Creature implements PropertyChangeListener {
@@ -75,15 +75,34 @@ public class Creature implements PropertyChangeListener {
     }
     public void attackWall(Wall wall,Point aPoint){
         if (isCatapult()) {
-            final int catapultDamage = getCalculator().calculateDamageToWall(this, wall);
-            wall.takeDamageFromCatapult(catapultDamage, aPoint);
+            if (RandomChance()) {
+                Random random = new Random();
+                int damageMultiplier = random.nextInt(101) + 50;
+                final int catapultDamage = 10 * damageMultiplier;
+                wall.takeDamageFromCatapult(catapultDamage, aPoint);
+                System.out.println("Catapult hit the wall with " + catapultDamage + " damage");
+            }
+            else {
+                final int zeroDmg = 0;
+                wall.takeDamageFromCatapult(zeroDmg, aPoint);
+                System.out.println("Catapult missed the wall");
+            }
         } else if (wall.getCurrentLevel() == 2 || wall.getCurrentLevel() == 3) {
             final int creatureDamage = getCalculator().calculateDamageToWall(this, wall);
             wall.takeDamageFromCreature(creatureDamage, aPoint);
+            System.out.println("Creature hit the wall with " + creatureDamage + " damage");
         }
     }
     public boolean isCatapult() {
         return this.getName().equals("Catapult");
+    }
+
+    public boolean RandomChance() {
+        Random random = new Random();
+        int randVal = random.nextInt(101);
+        System.out.println("Value: " + randVal);
+        return randVal < 75;
+
     }
 
     public boolean isAlive() {

@@ -44,5 +44,13 @@ public class Catapult extends Creature {
             return new Catapult(statistic, calculator, amount, creatureType, attackType);
         }
 
+
+
     }
+
+
+
+
+
+
 }

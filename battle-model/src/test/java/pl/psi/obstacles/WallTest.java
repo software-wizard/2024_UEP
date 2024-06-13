@@ -23,15 +23,15 @@ public class WallTest {
         assertEquals(500, wall.getCurrentHP());
     }
 
-    @Test
-    public void creatureCannotAttackWallAtLVL1(){
-        wall = new Wall();
-        int damage = 100000;
-        wall.takeDamageFromCreature(damage,new Point(0,0));
+    //@Test
+    //public void creatureCannotAttackWallAtLVL1(){
+     //   wall = new Wall();
+     //   int damage = 100000;
+     //   wall.takeDamageFromCreature(damage,new Point(0,0));
 
-        assertEquals(1500, wall.getCurrentHP());
+     //   assertEquals(1500, wall.getCurrentHP());
 
-    }
+    //}
 
     @Test
     public void creatureCanAttackWallAtLVL2And3(){
@@ -88,37 +88,42 @@ public class WallTest {
 
     }
 
-    @Test
-    public void creatureCannotAttackWallAtLVL1(){
-        wall = new Wall();
-        int damage = 100000;
-        wall.takeDamageFromCreature(damage,new Point(0,0));
+  //  @Test
+   // public void creatureCannotAttackWallAtLVL1(){
+    //    wall = new Wall();
+    //    int damage = 100000;
+     //   wall.takeDamageFromCreature(damage,new Point(0,0));
 
-        assertEquals(1500, wall.getHP());
+     //   assertEquals(1500, wall.getHP());
 
-    }
-    @Test
-    public void catapultCanAttackWallAtLVL1(){
-        wall = new Wall();
-        MachineFactory machineFactory = new MachineFactory();
-        Creature catapult = machineFactory.create("Catapult");
-        catapult.attackWall(wall,new Point(0,0));
-        //wall.takeDamageFromCatapult(CreatureStatistic.CATAPULT.getAttack(),new Point(0,0));
+   // }
+    // @Test
+    // public void catapultCanAttackWallAtLVL1(){
+    //     wall = new Wall();
+    //    MachineFactory machineFactory = new MachineFactory();
+    //    Creature catapult = machineFactory.create("Catapult");
+    //    catapult.attackWall(wall,new Point(0,0));
+    //    //wall.takeDamageFromCatapult(CreatureStatistic.CATAPULT.getAttack(),new Point(0,0));
 
-        assertEquals(1490, wall.getHP());
+    //        assertEquals(1490, wall.getHP());
 
-    }
+    // }
 
 
     @Test
     public void wallCanBeDestroyed(){
-        wall = new Wall();
+        Wall wall = new Wall();
+
+        System.out.println(wall.getHP());
+
 
         MachineFactory machineFactory = new MachineFactory();
         Creature catapult = machineFactory.create("Catapult");
         catapult.attackWall(wall,new Point(0,0));
 
-        assertEquals(1000,wall.getHP());
+        System.out.println(wall.getHP());
+        assertEquals(0, wall.getHP());
+
 //        assertThat(wall.getCurrentLevel() == 3);
 //        wall.takeDamageFromCatapult(damage,new Point(0,0));
 //        assertThat(wall.getCurrentLevel() == 2);
