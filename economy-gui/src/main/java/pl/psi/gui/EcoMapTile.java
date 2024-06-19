@@ -3,6 +3,7 @@ package pl.psi.gui;
 import javafx.scene.control.Label;
 import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Path;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.image.Image;
@@ -38,12 +39,14 @@ class EcoMapTile extends StackPane
 
     void setBackgroundImage(String path)
     {
-        Image image = new Image(path);
-        BackgroundImage backgroundImage = new BackgroundImage(image,
-                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
-                BackgroundPosition.CENTER,
-                new BackgroundSize(40, 40, true, true, false, true));
-        setBackground(new Background(backgroundImage));
+//        Image image = new Image(path);
+//        BackgroundImage backgroundImage = new BackgroundImage(image,
+//                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+//                BackgroundPosition.CENTER,
+//                new BackgroundSize(40, 40, true, true, false, true));
+//        setBackground(new Background(backgroundImage));
 //        rect.setVisible(false);
+        Image img = new Image(path);
+        rect.setFill(new ImagePattern(img));
     }
 }

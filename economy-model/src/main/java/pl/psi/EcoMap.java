@@ -79,7 +79,6 @@ public class EcoMap
     public boolean isFieldPoint(Point aPoint){
         return fieldObjects.containsKey(aPoint);
     }
-
     public Field getField(Point aPoint) {
         return fieldObjects.get(aPoint);
     }

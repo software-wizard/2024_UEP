@@ -105,7 +105,8 @@ public class EcoController implements PropertyChangeListener {
                 }
 
                 if (engine.isFieldPoint(currentPoint)) {
-                    mapTile.setBackground(Color.GREENYELLOW);
+//                    mapTile.setBackground(Color.GREENYELLOW);
+                    mapTile.setBackgroundImage("creatures/Black Knight.png");
                     mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
                         if (engine.isCurrentHero(currentPoint)) {
                             engine.collectField(engine.getField(currentPoint));
