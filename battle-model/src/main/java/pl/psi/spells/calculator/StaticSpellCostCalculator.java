@@ -1,7 +1,6 @@
 package pl.psi.spells.calculator;
 
 import pl.psi.Hero;
-import pl.psi.spells.Spellbook;
 import pl.psi.spells.object.interfaces.SpellStatisticIf;
 
 public class StaticSpellCostCalculator implements SpellCostCalculatorIf {
@@ -13,7 +12,7 @@ public class StaticSpellCostCalculator implements SpellCostCalculatorIf {
     }
 
     @Override
-    public int getCost(Spellbook spellbook) {
+    public int getCost(Hero caster) {
         return this.spellStatistic.getCost();
     }
 }
