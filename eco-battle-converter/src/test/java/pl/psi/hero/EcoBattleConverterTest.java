@@ -1,13 +1,14 @@
 package pl.psi.hero;
 
+import com.google.common.collect.Range;
 import org.junit.jupiter.api.Test;
 import pl.psi.EconomyHero;
+import pl.psi.GameEngine;
+import pl.psi.Hero;
 import pl.psi.converter.EcoBattleConverter;
-import pl.psi.creatures.OffenseCalculatorDecorator;
+import pl.psi.creatures.*;
+import pl.psi.spells.Spellbook;
 import skills.ArmorerSkill;
-import pl.psi.creatures.ArmoredDamageApplierDecorator;
-import pl.psi.creatures.Creature;
-import pl.psi.creatures.EconomyNecropolisFactory;
 import skills.OffenseSkill;
 
 import java.util.List;

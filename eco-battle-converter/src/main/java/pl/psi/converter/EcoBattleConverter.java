@@ -1,26 +1,29 @@
 package pl.psi.converter;
 
+import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
+import pl.psi.*;
+import pl.psi.creatures.Creature;
+import pl.psi.creatures.NecropolisFactory;
+import pl.psi.gui.MainBattleController;
+import pl.psi.skills.Skill;
+import pl.psi.spells.Spellbook;
+import skills.SkillFactory;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 
-import javafx.fxml.FXMLLoader;
-import javafx.scene.Scene;
-import javafx.stage.Stage;
-import pl.psi.EconomyHero;
-import pl.psi.Hero;
-import pl.psi.StartBattlePack;
-import pl.psi.spells.Spellbook;
-import skills.BattleSkill;
-import pl.psi.creatures.Creature;
-import pl.psi.creatures.NecropolisFactory;
-import pl.psi.gui.MainBattleController;
-import pl.psi.skills.Skill;
+public class EcoBattleConverter implements PropertyChangeListener {
 
-public class EcoBattleConverter {
+    private static StartBattlePack lastBattlePack;
 
     public static void startBattle(StartBattlePack aPack) {
+        lastBattlePack = aPack;
         Scene scene = null;
         try {
             final FXMLLoader loader = new FXMLLoader();
@@ -38,20 +41,39 @@ public class EcoBattleConverter {
         }
     }
 
+
     public static Hero convert(final EconomyHero aPlayer1) {
+        SkillFactory skillFactory = new SkillFactory();
         final List<Creature> creatures = new ArrayList<>();
         final NecropolisFactory factory = new NecropolisFactory();
         aPlayer1.getCreatures()
                 .forEach(ecoCreature -> creatures
-                        .add(factory.create(ecoCreature.isUpgraded(), ecoCreature.getTier(), 1)));
+                        .add(factory.create(ecoCreature.isUpgraded(), ecoCreature.getTier(), 1, ecoCreature.getMoraleValue())));
 
-        // Zakładam ze skille "nie battle" nie muszą byc zalaczane tutaj, poniewaz one musza dzialac jak sobie biegamy po mapie
+        // Zakładam ze skille "nie battle" nie muszą byc zalaczane tutaj, poniewaz one musza dzialac jak sobie biegamy po mapiex
         for (Skill skill : aPlayer1.getSkills().values()) {
-            if (skill instanceof BattleSkill) {
-                ((BattleSkill) skill).cast(creatures);
-            }
+            skillFactory.create(skill.getSkillName(), skill.getLevel()).cast(creatures);
         }
 
-        return new Hero(creatures, new Spellbook(Collections.emptyList()));
+        return new Hero(creatures, new PrimarySkill(0, 0, 0, 0), new Spellbook(Collections.emptyList()));
+    }
+
+    //obserwer i potem aktualizuje od walki i potem ustawia lastBattlePack na null
+    void update() {
+        lastBattlePack.getAttacker().changeResources(lastBattlePack.getDefender().getResources());
+
+        lastBattlePack = null;
+    }
+
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if (GameEngine.BATTLE_ENDED.equals(evt.getPropertyName())) {
+            boolean attackerWon = (boolean) evt.getNewValue();
+            if (attackerWon) {
+                update();
+            }
+        }
     }
 }
+

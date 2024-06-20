@@ -1,5 +1,5 @@
 package pl.psi.enums;
 
 public enum CreatureTypeEnum {
-    GROUND, FLYING, UNKNOWN
+    GROUND, FLYING, UNKNOWN, MACHINE
 }

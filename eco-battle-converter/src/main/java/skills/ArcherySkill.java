@@ -11,7 +11,7 @@ import java.util.List;
 public class ArcherySkill extends Skill implements BattleSkill {
 
     public ArcherySkill(int aLevel) {
-        super(SkillEnum.OFFENSE, aLevel);
+        super(SkillEnum.ARCHERY, aLevel);
     }
 
     @Override

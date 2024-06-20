@@ -4,14 +4,15 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f3102dac-a942-4483-9cc7-2febc53c83f3" name="Changes" comment="Added Board &amp; ObstaclesWithHP tests">
-      <change afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/ObstaclesWithHPObservable.java" afterDir="false" />
+    <list default="true" id="f3102dac-a942-4483-9cc7-2febc53c83f3" name="Changes" comment="wall partially added 2">
+      <change beforePath="$PROJECT_DIR$/battle-gui/src/main/java/pl/psi/gui/MainBattleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-gui/src/main/java/pl/psi/gui/MainBattleController.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/ObstaclesWithHP.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/ObstaclesWithHP.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/ObstaclesWithHPObserver.java" beforeDir="false" />
-      <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/ObstaclesWithHPObserverIF.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/ObstacleObserver.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/bundle.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/bundle.ipr" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/Creature.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/Creature.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/Wall.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/Wall.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle-model/src/test/java/pl/psi/BoardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/test/java/pl/psi/BoardTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle-model/src/test/java/pl/psi/obstacles/WallTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/test/java/pl/psi/obstacles/WallTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bundle.iws" beforeDir="false" afterPath="$PROJECT_DIR$/bundle.iws" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/hero-common/src/main/java/pl/psi/creatures/CreatureStatistic.java" beforeDir="false" afterPath="$PROJECT_DIR$/hero-common/src/main/java/pl/psi/creatures/CreatureStatistic.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -307,9 +308,20 @@
     &quot;JUnit.BoardTest.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.BoardTest.obstacleWithHPRemove.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.BoardTest.testObstacleWithHPRemovalAfterDestruction.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.BoardTest.wallCanBeDestroyed.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.BoardTest.wallCanBeDestroyedAndLevelUpdates.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.BoardTest.wallRemovesFromMap.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.CatapultTest.catapultShouldANotAttackCreature.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.ObstaclesWithHPTest.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.ObstaclesWithHPTest.takeDamageReducesHP.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.ObstaclesWithHPTest.testTakeDamageReducesHP.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.WallTest.catapultCanAttackWallAtLVL1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.WallTest.creatureCanAttackWallAtLVL2And3.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.WallTest.creatureCannotAttackWallAtLVL1.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.WallTest.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.WallTest.takeDamageReducesHP.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.WallTest.wallCanBeDestroyed.executor&quot;: &quot;Run&quot;,
+    &quot;JUnit.WallTest.wallLevelChangesAfterAttacks.executor&quot;: &quot;Run&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;specialFields&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
@@ -324,7 +336,7 @@
       <recent name="C:\Users\barto\Desktop\pliki\Java projects\2024_UEP\battle-model\src\main\java\pl\psi" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.ObstaclesWithHPTest">
+  <component name="RunManager" selected="JUnit.BoardTest">
     <configuration selected="false" default="true" type="Applet" factoryName="Applet">
       <module name="" />
       <option name="MAIN_CLASS_NAME" />
@@ -371,7 +383,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BoardTest.creatureCannotEnterObstacle" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="BoardTest.wallCanBeDestroyedAndLevelUpdates" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="battle-model" />
       <extension name="coverage">
         <pattern>
@@ -381,7 +393,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="pl.psi" />
       <option name="MAIN_CLASS_NAME" value="pl.psi.BoardTest" />
-      <option name="METHOD_NAME" value="creatureCannotEnterObstacle" />
+      <option name="METHOD_NAME" value="wallCanBeDestroyedAndLevelUpdates" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -392,7 +404,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BoardTest.obstacleWithHPRemove" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="BoardTest.wallRemovesFromMap" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="battle-model" />
       <extension name="coverage">
         <pattern>
@@ -402,7 +414,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="pl.psi" />
       <option name="MAIN_CLASS_NAME" value="pl.psi.BoardTest" />
-      <option name="METHOD_NAME" value="obstacleWithHPRemove" />
+      <option name="METHOD_NAME" value="wallRemovesFromMap" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -413,7 +425,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ObstaclesWithHPTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WallTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="battle-model" />
       <extension name="coverage">
         <pattern>
@@ -422,7 +434,7 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="pl.psi.obstacles" />
-      <option name="MAIN_CLASS_NAME" value="pl.psi.obstacles.ObstaclesWithHPTest" />
+      <option name="MAIN_CLASS_NAME" value="pl.psi.obstacles.WallTest" />
       <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -433,7 +445,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="ObstaclesWithHPTest.takeDamageReducesHP" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="WallTest.wallLevelChangesAfterAttacks" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="battle-model" />
       <extension name="coverage">
         <pattern>
@@ -442,8 +454,8 @@
         </pattern>
       </extension>
       <option name="PACKAGE_NAME" value="pl.psi.obstacles" />
-      <option name="MAIN_CLASS_NAME" value="pl.psi.obstacles.ObstaclesWithHPTest" />
-      <option name="METHOD_NAME" value="takeDamageReducesHP" />
+      <option name="MAIN_CLASS_NAME" value="pl.psi.obstacles.WallTest" />
+      <option name="METHOD_NAME" value="wallLevelChangesAfterAttacks" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -467,11 +479,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.ObstaclesWithHPTest" />
         <item itemvalue="JUnit.BoardTest" />
-        <item itemvalue="JUnit.BoardTest.creatureCannotEnterObstacle" />
-        <item itemvalue="JUnit.BoardTest.obstacleWithHPRemove" />
-        <item itemvalue="JUnit.ObstaclesWithHPTest.takeDamageReducesHP" />
+        <item itemvalue="JUnit.WallTest.wallLevelChangesAfterAttacks" />
+        <item itemvalue="JUnit.BoardTest.wallRemovesFromMap" />
+        <item itemvalue="JUnit.BoardTest.wallCanBeDestroyedAndLevelUpdates" />
+        <item itemvalue="JUnit.WallTest" />
       </list>
     </recent_temporary>
   </component>
@@ -537,7 +549,39 @@
       <option name="project" value="LOCAL" />
       <updated>1717602280535</updated>
     </task>
-    <option name="localTasksCounter" value="4" />
+    <task id="LOCAL-00004" summary="observer reworked">
+      <option name="closed" value="true" />
+      <created>1717662632041</created>
+      <option name="number" value="00004" />
+      <option name="presentableId" value="LOCAL-00004" />
+      <option name="project" value="LOCAL" />
+      <updated>1717662632041</updated>
+    </task>
+    <task id="LOCAL-00005" summary="wall partially implemented">
+      <option name="closed" value="true" />
+      <created>1717842208162</created>
+      <option name="number" value="00005" />
+      <option name="presentableId" value="LOCAL-00005" />
+      <option name="project" value="LOCAL" />
+      <updated>1717842208162</updated>
+    </task>
+    <task id="LOCAL-00006" summary="wall partially implemented">
+      <option name="closed" value="true" />
+      <created>1717844066158</created>
+      <option name="number" value="00006" />
+      <option name="presentableId" value="LOCAL-00006" />
+      <option name="project" value="LOCAL" />
+      <updated>1717844066158</updated>
+    </task>
+    <task id="LOCAL-00007" summary="wall partially added 2">
+      <option name="closed" value="true" />
+      <created>1717865825809</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1717865825809</updated>
+    </task>
+    <option name="localTasksCounter" value="8" />
     <servers />
   </component>
   <component name="TodoView" selected-index="0">
@@ -590,7 +634,12 @@
     <MESSAGE value="added obstacles" />
     <MESSAGE value="added Observer in ObstaclesWithHP" />
     <MESSAGE value="Added Board &amp; ObstaclesWithHP tests" />
-    <option name="LAST_COMMIT_MESSAGE" value="Added Board &amp; ObstaclesWithHP tests" />
+    <MESSAGE value="observer reworked" />
+    <MESSAGE value="wall partially implemented" />
+    <MESSAGE value="wall partially implemented 2" />
+    <MESSAGE value="wall partially implemented 2" />
+    <MESSAGE value="Added wall (working)" />
+    <option name="LAST_COMMIT_MESSAGE" value="Added wall (working)" />
   </component>
   <component name="VssConfiguration">
     <CheckoutOptions>

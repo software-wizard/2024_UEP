@@ -1,10 +1,12 @@
 package pl.psi.creatures;
 
 import lombok.Getter;
+import pl.psi.enums.AttackTypeEnum;
 
 import java.util.Random;
 
 import pl.psi.obstacles.ObstaclesWithHP;
+import pl.psi.obstacles.Wall;
 
 
 abstract class AbstractCalculateDamageStrategy implements DamageCalculatorIf
@@ -23,7 +25,7 @@ abstract class AbstractCalculateDamageStrategy implements DamageCalculatorIf
     }
 
     @Override
-    public int calculateDamage( final Creature aAttacker, final Creature aDefender )
+    public int calculateDamage(final Creature aAttacker, final Creature aDefender, final AttackTypeEnum attackType)
     {
         final int armor = getArmor( aDefender );
 
@@ -58,7 +60,13 @@ abstract class AbstractCalculateDamageStrategy implements DamageCalculatorIf
         {
             oneCreatureDamageToDeal = 0;
         }
-        return (int)(aAttacker.getAmount() * oneCreatureDamageToDeal);
+
+        int damage = (int) (aAttacker.getAmount() * oneCreatureDamageToDeal);
+        //Melee ranged penalty
+        if (aAttacker.getAttackType().equals(AttackTypeEnum.RANGE) && attackType.equals(AttackTypeEnum.MELEE)) {
+            damage = damage / 2;
+        }
+        return damage;
     }
 
     public int calculateDamageToObstacle(Creature attacker, ObstaclesWithHP obstaclesWithHP) {
@@ -73,7 +81,21 @@ abstract class AbstractCalculateDamageStrategy implements DamageCalculatorIf
         return (int) (attacker.getAmount() * oneCreatureDamageToDeal);
     }
 
-    protected int getArmor( final Creature aDefender )
+
+    public int calculateDamageToWall(Creature attacker, Wall wall) {
+        final int randValue = rand.nextInt(attacker.getDamage().upperEndpoint() -
+                attacker.getDamage().lowerEndpoint() + 1)
+                + attacker.getDamage().lowerEndpoint();
+
+        double oneCreatureDamageToDeal = randValue;
+
+        if (oneCreatureDamageToDeal < 0) {
+            oneCreatureDamageToDeal = 0;
+        }
+        return (int) (attacker.getAmount() * oneCreatureDamageToDeal);
+    }
+
+    protected int getArmor(final Creature aDefender )
     {
         return aDefender.getArmor();
     }

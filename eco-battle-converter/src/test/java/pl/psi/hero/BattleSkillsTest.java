@@ -6,6 +6,7 @@ import pl.psi.converter.EcoBattleConverter;
 import pl.psi.creatures.*;
 import skills.ArcherySkill;
 import skills.ArmorerSkill;
+import skills.LeadershipSkill;
 import skills.OffenseSkill;
 
 import java.util.List;
@@ -58,5 +59,44 @@ public class BattleSkillsTest {
                 .getCreatures();
         assertTrue(convertedCreatures.get(0).getCalculator() instanceof OffenseCalculatorDecorator);
         assertTrue(convertedCreatures.get(1).getCalculator() instanceof OffenseCalculatorDecorator);
+    }
+
+    @Test
+    void basicLeadershipSkillTest() {
+        final EconomyHero ecoHero = new EconomyHero("name");
+        final EconomyNecropolisFactory factory = new EconomyNecropolisFactory();
+        ecoHero.addCreature(factory.create(false, 1));
+        ecoHero.addCreature(factory.create(false, 2));
+        ecoHero.addSkill(new LeadershipSkill(1));
+        final List<Creature> convertedCreatures = EcoBattleConverter.convert(ecoHero)
+                .getCreatures();
+        assertEquals(1, convertedCreatures.get(0).getMorale().getValue());
+        assertEquals(2, convertedCreatures.get(1).getMorale().getValue());
+    }
+
+    @Test
+    void advancedLeadershipSkillTest() {
+        final EconomyHero ecoHero = new EconomyHero("name");
+        final EconomyNecropolisFactory factory = new EconomyNecropolisFactory();
+        ecoHero.addCreature(factory.create(false, 1));
+        ecoHero.addCreature(factory.create(false, 2));
+        ecoHero.addSkill(new LeadershipSkill(2));
+        final List<Creature> convertedCreatures = EcoBattleConverter.convert(ecoHero)
+                .getCreatures();
+        assertEquals(2, convertedCreatures.get(0).getMorale().getValue());
+        assertEquals(3, convertedCreatures.get(1).getMorale().getValue());
+    }
+
+    @Test
+    void expertLeadershipSkillTest() {
+        final EconomyHero ecoHero = new EconomyHero("name");
+        final EconomyNecropolisFactory factory = new EconomyNecropolisFactory();
+        ecoHero.addCreature(factory.create(false, 1));
+        ecoHero.addCreature(factory.create(false, 2));
+        ecoHero.addSkill(new LeadershipSkill(3));
+        final List<Creature> convertedCreatures = EcoBattleConverter.convert(ecoHero)
+                .getCreatures();
+        assertEquals(3, convertedCreatures.get(0).getMorale().getValue());
+        assertEquals(3, convertedCreatures.get(1).getMorale().getValue());
     }
 }

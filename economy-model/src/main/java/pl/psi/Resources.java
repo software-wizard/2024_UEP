@@ -93,4 +93,53 @@ public class Resources
                 ", Crystals: " + cristals +
                 ", Gems: " + gems;
     }
+
+    public static ResourcesBuilder builder() {
+        return new ResourcesBuilder();
+    }
+
+    public static class ResourcesBuilder {
+        private int gold;
+        private int wood;
+        private int ore;
+        private int mercury;
+        private int sulfur;
+        private int cristals;
+        private int gems;
+
+        ResourcesBuilder() {}
+
+        public ResourcesBuilder withResource(String resourceType, int amount) {
+            switch (resourceType.toLowerCase()) {
+                case "gold":
+                    this.gold = amount;
+                    break;
+                case "wood":
+                    this.wood = amount;
+                    break;
+                case "ore":
+                    this.ore = amount;
+                    break;
+                case "mercury":
+                    this.mercury = amount;
+                    break;
+                case "sulfur":
+                    this.sulfur = amount;
+                    break;
+                case "cristals":
+                    this.cristals = amount;
+                    break;
+                case "gems":
+                    this.gems = amount;
+                    break;
+                default:
+                    throw new IllegalArgumentException("Unknown resource type: " + resourceType);
+            }
+            return this;
+        }
+
+        public Resources build() {
+            return new Resources(gold, wood, ore, mercury, sulfur, cristals, gems);
+        }
+    }
 }

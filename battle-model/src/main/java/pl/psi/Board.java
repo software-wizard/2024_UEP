@@ -1,8 +1,9 @@
 package pl.psi;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.*;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Optional;
+import java.util.Random;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;

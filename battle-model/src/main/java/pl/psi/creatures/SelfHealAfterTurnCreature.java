@@ -3,6 +3,7 @@ package pl.psi.creatures;
 import java.beans.PropertyChangeEvent;
 
 import com.google.common.collect.Range;
+import pl.psi.enums.AttackTypeEnum;
 
 /**
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
@@ -93,5 +94,10 @@ class SelfHealAfterTurnCreature extends Creature {
     @Override
     public DamageApplier getDamageApplier() {
         return decorated.getDamageApplier();
+    }
+
+    @Override
+    public AttackTypeEnum getAttackType() {
+        return decorated.getAttackType();
     }
 }

@@ -18,13 +18,12 @@ import pl.psi.skills.Skill;
  */
 @Getter
 @AllArgsConstructor
-public class EconomyHero implements PropertyChangeListener
-{
+public class EconomyHero implements PropertyChangeListener {
     private final String name;
     private final List< EconomyCreature > creatures;
     private int maxMovePoints;
     private int currentMovePoints;
-    private Resources resources = Resources.startRes();
+    private Resources resources;
     private Castle castle;
     private final Map<SkillEnum, Skill> skills;
 
@@ -62,6 +61,14 @@ public class EconomyHero implements PropertyChangeListener
     }
 
     public void addSkill(Skill aSkill) {
+        SkillEnum skillName = aSkill.getSkillName();
+        if(skills.containsKey(skillName)) {
+            skills.get(skillName).upgradeLevel(aSkill.getLevel());
+            return;
+        }
         skills.put(aSkill.getSkillName(), aSkill);
+    }
+    public void setResources(Resources resources) {
+        this.resources = resources;
     }
 }
