@@ -14,4 +14,9 @@ public class SkillsField implements Field {
     public void apply(EconomyHero hero) {
         hero.addSkill(skill);
     }
+    public Skill getSkill() {
+        return skill;
+    }
+
+    public boolean isSkillField() {return true;}
 }

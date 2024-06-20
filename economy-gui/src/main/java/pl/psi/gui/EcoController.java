@@ -27,7 +27,7 @@ import pl.psi.EconomyEngine;
 import pl.psi.EconomyHero;
 import pl.psi.Point;
 import pl.psi.converter.EcoBattleConverter;
-import pl.psi.skills.Skill;
+import pl.psi.objects.SkillsField;
 
 @NoArgsConstructor
 public class EcoController implements PropertyChangeListener {
@@ -47,10 +47,13 @@ public class EcoController implements PropertyChangeListener {
     SkillTooltip skillTooltip1;
     SkillTooltip skillTooltip2;
 
+    SkillImageHashMap skillImageHashMap;
+
     public EcoController(final EconomyHero aHero1, final EconomyHero aHero2) {
         engine = new EconomyEngine(aHero1, aHero2);
         skillTooltip1 = new SkillTooltip(aHero1);
         skillTooltip2 = new SkillTooltip(aHero2);
+        skillImageHashMap = new SkillImageHashMap();
     }
 
     @FXML
@@ -106,7 +109,11 @@ public class EcoController implements PropertyChangeListener {
 
                 if (engine.isFieldPoint(currentPoint)) {
 //                    mapTile.setBackground(Color.GREENYELLOW);
-                    mapTile.setBackgroundImage("creatures/Black Knight.png");
+                    if (engine.getField(currentPoint).isSkillField()) {
+                        mapTile.setBackgroundImage(skillImageHashMap.get(((SkillsField) engine.getField(currentPoint)).getSkill().getSkillName()));
+                    } else {
+                        mapTile.setBackgroundImage("creatures/Black Knight.png");
+                    }
                     mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
                         if (engine.isCurrentHero(currentPoint)) {
                             engine.collectField(engine.getField(currentPoint));
