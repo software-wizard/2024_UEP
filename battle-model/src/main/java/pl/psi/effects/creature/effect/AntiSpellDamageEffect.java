@@ -1,14 +1,14 @@
-package pl.psi.effects.effect;
+package pl.psi.effects.creature.effect;
 
 import pl.psi.creatures.Creature;
 import pl.psi.creatures.DamageApplier;
 import pl.psi.creatures.DamageValueObject;
-import pl.psi.effects.object.CreatureEffect;
-import pl.psi.effects.object.CreatureEffectStatisticIf;
+import pl.psi.effects.creature.object.CreatureEffect;
+import pl.psi.effects.generic.EffectStatisticIf;
 import pl.psi.enums.AttackTypeEnum;
 
 public class AntiSpellDamageEffect extends CreatureEffect {
-    public AntiSpellDamageEffect(CreatureEffectStatisticIf effectStatistic) {
+    public AntiSpellDamageEffect(EffectStatisticIf effectStatistic) {
         super(effectStatistic);
     }
 

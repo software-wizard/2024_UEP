@@ -33,6 +33,8 @@ public class GameEngine {
         hero2 = (Hero) EngineEntity.bindEngine(aHero2, this);
         turnQueue = new TurnQueue(aHero1.getCreatures(), aHero2.getCreatures());
         board = new Board(aHero1.getCreatures(), aHero2.getCreatures());
+
+        this.addObserver(board);
     }
 
     public void attack(final Point point) {

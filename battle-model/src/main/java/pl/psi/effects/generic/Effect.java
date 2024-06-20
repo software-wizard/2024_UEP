@@ -1,41 +1,31 @@
-package pl.psi.effects.object;
+package pl.psi.effects.generic;
 
 import lombok.Getter;
 import lombok.Setter;
-import pl.psi.creatures.CreatureStatisticIf;
-import pl.psi.creatures.DamageApplier;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.Arrays;
 
-
-public abstract class CreatureEffect {
+public abstract class Effect {
     public static String EFFECT_ENDED = "EFFECT_ENDED";
     public static int EFFECT_LENGTH_INDEFINITE = 0;
 
     @Getter
-    private final CreatureEffectStatisticIf effectStatistic;
+    protected final EffectStatisticIf effectStatistic;
 
     @Getter
     @Setter
-    private int amount;
+    protected int amount;
 
     @Getter
-    private int turnsPassed;
+    protected int turnsPassed;
 
-    private final PropertyChangeSupport propChangeSupport = new PropertyChangeSupport(this);
+    protected final PropertyChangeSupport propChangeSupport = new PropertyChangeSupport(this);
 
-    protected CreatureEffect(CreatureEffectStatisticIf effectStatistic) {
+    public Effect(EffectStatisticIf effectStatistic) {
         this.effectStatistic = effectStatistic;
         this.turnsPassed = 0;
-    }
-
-    public CreatureStatisticIf applyStatisticEffect(CreatureStatisticIf baseStats, CreatureStatisticIf prevStats) {
-        return prevStats;
-    }
-
-    public DamageApplier applyDamageApplierEffect(DamageApplier baseApplier, DamageApplier prevApplier) {
-        return prevApplier;
     }
 
     public void turnPassed() {
@@ -51,6 +41,11 @@ public abstract class CreatureEffect {
     private void effectEnded() {} // for overloads.
 
     public void addObserver(PropertyChangeListener listener) {
+        // don't want multiple observers, since:
+        // Add a PropertyChangeListener to the listener list. The listener is registered for all properties.
+        // The same listener object may be added more than once, and will be called as many times as it is added.
+
+        if (Arrays.stream(this.propChangeSupport.getPropertyChangeListeners()).anyMatch((l) -> l == listener)) return;
         this.propChangeSupport.addPropertyChangeListener(listener);
     }
 }

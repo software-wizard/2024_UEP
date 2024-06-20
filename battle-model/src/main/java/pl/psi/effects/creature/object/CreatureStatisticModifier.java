@@ -1,4 +1,4 @@
-package pl.psi.effects.object;
+package pl.psi.effects.creature.object;
 
 import com.google.common.collect.Range;
 import pl.psi.creatures.CreatureStatisticIf;
