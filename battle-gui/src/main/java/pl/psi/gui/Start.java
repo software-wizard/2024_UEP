@@ -2,6 +2,7 @@ package pl.psi.gui;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Random;
 
 import pl.psi.Hero;
 
@@ -9,7 +10,8 @@ import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
-import pl.psi.creatures.NecropolisFactory;
+import pl.psi.creatures.*;
+import pl.psi.enums.CreatureTypeEnum;
 import pl.psi.spells.SampleSpell;
 import pl.psi.spells.Spellbook;
 

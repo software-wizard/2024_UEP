@@ -4,6 +4,7 @@ import pl.psi.enums.AttackTypeEnum;
 import pl.psi.enums.CreatureTypeEnum;
 
 import java.util.List;
+import java.util.Random;
 
 public class MachineFactory
 {   private static final String EXCEPTION_MESSAGE = "Name of war machine not found";
@@ -18,11 +19,15 @@ public class MachineFactory
                     return new Creature.Builder().statistic( CreatureStatistic.BALLISTA )
                             .creatureType(CreatureTypeEnum.MACHINE)
                             .attackType(AttackTypeEnum.RANGE)
+                            .calculator(new MachineCalculatorDecorator(new DefaultDamageCalculator(new Random()), 0))
+                            .morale(new Morale(0))
                             .build();
                 case "Catapult":
                     return new Creature.Builder().statistic( CreatureStatistic.CATAPULT )
                             .creatureType(CreatureTypeEnum.MACHINE)
                             .attackType(AttackTypeEnum.RANGE)
+                            .calculator(new MachineCalculatorDecorator(new DefaultDamageCalculator(new Random()), 3))
+                            .morale(new Morale(0))
                             .build();
                 default:
                     throw new IllegalArgumentException( EXCEPTION_MESSAGE );

@@ -1,6 +1,8 @@
 package skills;
 
 import pl.psi.creatures.Creature;
+import pl.psi.creatures.MachineCalculatorDecorator;
+import pl.psi.enums.CreatureTypeEnum;
 import pl.psi.enums.SkillEnum;
 import pl.psi.skills.Skill;
 
@@ -11,10 +13,10 @@ public class BallisticsSkill extends Skill implements BattleSkill {
         super(SkillEnum.BALLISTICS, aLevel);
     }
 
-    @Override //todo
+    @Override
     public void cast(List<Creature> creatures) {
-//        creatures.stream()
-//                .filter(c -> c.getCreatureType().equals(CreatureTypeEnum.MACHINE))
-//                .forEach(c -> c.setLevel);
+        creatures.stream()
+                .filter(c -> c.getCreatureType().equals(CreatureTypeEnum.MACHINE))
+                .forEach(c -> c.setCalculator(new MachineCalculatorDecorator(c.getCalculator(), level)));
     }
 }

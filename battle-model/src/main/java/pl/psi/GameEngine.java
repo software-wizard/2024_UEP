@@ -1,10 +1,13 @@
 package pl.psi;
 
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.List;
 import java.util.Optional;
 
 import pl.psi.creatures.Creature;
+import pl.psi.enums.CreatureTypeEnum;
 
 /**
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
@@ -50,6 +53,9 @@ public class GameEngine {
 
     public void pass() {
         turnQueue.next();
+        if (getCreatureToMove().getCreatureType().equals(CreatureTypeEnum.MACHINE)) {
+            battleAttacker.machineAttack(this);
+        }
     }
 
     public void addObserver(final PropertyChangeListener aObserver) {
@@ -65,6 +71,10 @@ public class GameEngine {
         return this.turnQueue.getCurrentCreature();
     }
 
+    public Point getCreatureLocation(Creature aCreature) {
+        return board.getPosition(aCreature);
+    }
+
     public Hero getHeroToMove() {
         if (hero1.getCreatures().contains(getCreatureToMove())) {
             return hero1;
@@ -77,5 +87,16 @@ public class GameEngine {
 
     public boolean isCurrentCreature(Point aPoint) {
         return Optional.of(turnQueue.getCurrentCreature()).equals(board.getCreature(aPoint));
+    }
+
+    public List<Creature> getEnemyCreatures() {
+        List<Creature> creatures;
+        if (getHeroToMove().equals(hero1)) {
+            creatures = hero2.getCreatures();
+        }
+        else {
+            creatures = hero1.getCreatures();
+        }
+        return List.copyOf(creatures);
     }
 }
