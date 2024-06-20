@@ -2,6 +2,7 @@ package pl.psi.gui;
 
 import java.io.IOException;
 import java.util.List;
+import java.util.Map;
 
 import pl.psi.Hero;
 
@@ -55,7 +56,7 @@ public class Start extends Application
                         new NecropolisFactory().create( true, 1, 5, 1 )
                 ),
                 new PrimarySkill(0, 0, 2, 5),
-                new Spellbook(SpellFactory.all()));
+                new Spellbook(SpellFactory.all(), Map.of()));
     }
 
     private Hero createP1()
@@ -65,7 +66,7 @@ public class Start extends Application
                         new NecropolisFactory().create( true, 1, 5, 1 )
                 ),
                 new PrimarySkill(0, 0, 1, 5),
-                new Spellbook(SpellFactory.all()));
+                new Spellbook(SpellFactory.all(), Map.of()));
     }
 
 }

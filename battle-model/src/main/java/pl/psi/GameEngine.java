@@ -31,8 +31,11 @@ public class GameEngine {
 
 
     public GameEngine(final Hero aHero1, final Hero aHero2) {
-        hero1 = (Hero) EngineEntity.bindEngine(aHero1, this);
-        hero2 = (Hero) EngineEntity.bindEngine(aHero2, this);
+        this.hero1 = aHero1;
+        this.hero2 = aHero2;
+
+        this.hero1.bindEngine(this);
+        this.hero2.bindEngine(this);
         turnQueue = new TurnQueue(aHero1.getCreatures(), aHero2.getCreatures());
         board = new Board(aHero1.getCreatures(), aHero2.getCreatures());
 

@@ -7,10 +7,10 @@ public interface SpellStatisticIf {
     int getSpellId();
     String getName();
     String getDescription();
-    int getCost();
+    int[] getCost();
     SpellType getType();
     int getLevel();
-    int getBaseDmg();
+    int[] getBaseDmg();
     int getSize();
 
     SpellSchool getSchool();

@@ -1,6 +1,7 @@
 package pl.psi;
 
 import java.util.List;
+import java.util.Map;
 
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
@@ -15,21 +16,6 @@ import static org.assertj.core.api.Assertions.assertThat;
  */
 public class GameEngineTest
 {
-    @Disabled //Maciej
-    @Test
-    void shouldWorksHeHe()
-    {
-        final CastleCreatureFactory creatureFactory = new CastleCreatureFactory();
-        final GameEngine gameEngine =
-            new GameEngine( new Hero( List.of( creatureFactory.create( 1, false, 5 ) ),
-                                    new PrimarySkill(1, 2, 3, 4),
-                                    new Spellbook( List.of() )),
-                            new Hero( List.of( creatureFactory.create( 1, false, 5 ) ),
-                                    new PrimarySkill(1, 2, 3, 4),
-                                    new Spellbook( List.of() )));
-
-        gameEngine.attack( new Point( 1, 1 ) );
-    }
 
     @Test
     void gameEngineShouldDeliverInformationAboutCurrentHeroToMove() {
@@ -37,10 +23,10 @@ public class GameEngineTest
 
         final Hero hero1 = new Hero( List.of( creatureFactory.create( 1, false, 5 ) ),
                 new PrimarySkill(1, 2, 3, 4),
-                new Spellbook( List.of() ));
+                new Spellbook( List.of(), Map.of() ));
         final Hero hero2 = new Hero( List.of( creatureFactory.create( 1, false, 5 ) ),
                 new PrimarySkill(1, 2, 3, 4),
-                new Spellbook( List.of() ));
+                new Spellbook( List.of(), Map.of() ));
 
         final GameEngine gameEngine = new GameEngine(hero1, hero2);
 

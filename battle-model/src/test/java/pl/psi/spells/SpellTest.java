@@ -14,15 +14,20 @@ import pl.psi.spells.aoe.AOERingPointSelection;
 import pl.psi.spells.calculator.ReducedSpellCostCalculator;
 import pl.psi.spells.object.SpellFactory;
 import pl.psi.spells.object.Spell;
+import pl.psi.spells.object.enums.SpellExpertise;
+import pl.psi.spells.object.enums.SpellSchool;
 import pl.psi.spells.object.enums.SpellStatistic;
 import pl.psi.spells.object.decorators.AOESpellDecorator;
 import pl.psi.spells.spell.UnitAttackSpell;
 
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class SpellTest {
+
 
     @Test
     void damagingSpellShouldDamageDefenderTest() {
@@ -38,8 +43,12 @@ public class SpellTest {
                         .build())
                 .build();
 
-        final Hero hero1 = new Hero(List.of(attacker), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of()));
-        final Hero hero2 = new Hero(List.of(defender), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of()));
+        final Map<SpellSchool, SpellExpertise> spellSchoolMasteries = new EnumMap<>(Map.ofEntries(
+                Map.entry(SpellSchool.AIR, SpellExpertise.valueOf(2))
+        ));
+
+        final Hero hero1 = new Hero(List.of(attacker), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of(), spellSchoolMasteries));
+        final Hero hero2 = new Hero(List.of(defender), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of(), spellSchoolMasteries));
 
         final GameEngine engine = new GameEngine(hero1, hero2);
 
@@ -73,8 +82,12 @@ public class SpellTest {
                         .build())
                 .build();
 
-        final Hero hero1 = new Hero(List.of(), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of()));
-        final Hero hero2 = new Hero(List.of(defender, defender2, defender3), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of()));
+        final Map<SpellSchool, SpellExpertise> spellSchoolMasteries = new EnumMap<>(Map.ofEntries(
+                Map.entry(SpellSchool.AIR, SpellExpertise.valueOf(2))
+        ));
+
+        final Hero hero1 = new Hero(List.of(defender2), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of(), spellSchoolMasteries));
+        final Hero hero2 = new Hero(List.of(defender), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of(), spellSchoolMasteries));
 
         final GameEngine engine = new GameEngine(hero1, hero2);
 
@@ -89,8 +102,13 @@ public class SpellTest {
 
     @Test
     void linearPointSelectionTests() {
-        final Hero hero1 = new Hero(List.of(), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of()));
-        final Hero hero2 = new Hero(List.of(), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of()));
+        final Map<SpellSchool, SpellExpertise> spellSchoolMasteries = new EnumMap<>(Map.ofEntries(
+                Map.entry(SpellSchool.AIR, SpellExpertise.valueOf(2))
+        ));
+
+        final Hero hero1 = new Hero(List.of(), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of(), spellSchoolMasteries));
+        final Hero hero2 = new Hero(List.of(), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of(), spellSchoolMasteries));
+
 
         final GameEngine engine = new GameEngine(hero1, hero2);
 
@@ -122,8 +140,13 @@ public class SpellTest {
 
     @Test
     void ringPointSelectionTest() {
-        final Hero hero1 = new Hero(List.of(), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of()));
-        final Hero hero2 = new Hero(List.of(), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of()));
+        final Map<SpellSchool, SpellExpertise> spellSchoolMasteries = new EnumMap<>(Map.ofEntries(
+                Map.entry(SpellSchool.AIR, SpellExpertise.valueOf(2))
+        ));
+
+        final Hero hero1 = new Hero(List.of(), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of(), spellSchoolMasteries));
+        final Hero hero2 = new Hero(List.of(), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of(), spellSchoolMasteries));
+
 
         final GameEngine engine = new GameEngine(hero1, hero2);
 
@@ -155,8 +178,13 @@ public class SpellTest {
                         .build())
                 .build();
 
-        final Hero hero1 = new Hero(List.of(), new PrimarySkill(0, 0, 2, 0), new Spellbook(List.of()));
-        final Hero hero2 = new Hero(List.of(defender), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of()));
+        final Map<SpellSchool, SpellExpertise> spellSchoolMasteries = new EnumMap<>(Map.ofEntries(
+                Map.entry(SpellSchool.AIR, SpellExpertise.ADVANCED)
+        ));
+
+        final Hero hero1 = new Hero(List.of(), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of(), spellSchoolMasteries));
+        final Hero hero2 = new Hero(List.of(defender), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of(), spellSchoolMasteries));
+
 
         final GameEngine engine = new GameEngine(hero1, hero2);
 
@@ -164,7 +192,7 @@ public class SpellTest {
         final Point cPosition = engine.getCreaturePosition(defender);
 
         aoeSpell.cast(hero1, cPosition);
-        assertThat(defender.getCurrentHp()).isEqualTo(70);
+        assertThat(defender.getCurrentHp()).isEqualTo(80);
     }
 
     @Test
@@ -173,9 +201,13 @@ public class SpellTest {
         final Spell spellB = SpellFactory.fromStatistic(SpellStatistic.FIREBALL);
         final Spell spellC = SpellFactory.fromStatistic(SpellStatistic.DAMAGING_SPELL);
 
+        final Map<SpellSchool, SpellExpertise> spellSchoolMasteries = new EnumMap<>(Map.ofEntries(
+                Map.entry(SpellSchool.AIR, SpellExpertise.valueOf(2))
+        ));
+
         final Spellbook spellbook = new Spellbook(List.of(
                 spellA, spellB
-        ));
+        ), spellSchoolMasteries);
 
         assertThat(spellbook.hasSpell(spellA)).isTrue();
         assertThat(spellbook.hasSpell(spellC)).isFalse();
@@ -183,8 +215,12 @@ public class SpellTest {
 
     @Test
     void reducedSpellCostCalculatorShouldReturnCorrectValues() {
+        final Map<SpellSchool, SpellExpertise> spellSchoolMasteries = new EnumMap<>(Map.ofEntries(
+                Map.entry(SpellSchool.AIR, SpellExpertise.valueOf(2))
+        ));
+
         final ReducedSpellCostCalculator reducedSpellCostCalculator = new ReducedSpellCostCalculator(SpellStatistic.DAMAGING_SPELL);
-        final Hero hero = new Hero(List.of(), new PrimarySkill(0, 0, 0, 0), new Spellbook(SpellFactory.all()));
+        final Hero hero = new Hero(List.of(), new PrimarySkill(0, 0, 0, 0), new Spellbook(SpellFactory.all(), spellSchoolMasteries));
 
 
         assertThat(reducedSpellCostCalculator.getCost(hero)).isEqualTo(9);
@@ -204,10 +240,14 @@ public class SpellTest {
                         .build())
                 .build();
 
+        final Map<SpellSchool, SpellExpertise> spellSchoolMasteries = new EnumMap<>(Map.ofEntries(
+                Map.entry(SpellSchool.AIR, SpellExpertise.valueOf(2))
+        ));
+
         final Hero hero1 = new Hero(List.of(defender2), new PrimarySkill(0, 0, 2, 1), new Spellbook(List.of(
                 SpellFactory.fromStatistic(SpellStatistic.DAMAGING_SPELL)
-        )));
-        final Hero hero2 = new Hero(List.of(defender), new PrimarySkill(0, 0, 0, 1), new Spellbook(SpellFactory.all()));
+        ), Map.of()));
+        final Hero hero2 = new Hero(List.of(defender), new PrimarySkill(0, 0, 1, 1), new Spellbook(SpellFactory.all(), spellSchoolMasteries));
 
         final GameEngine engine = new GameEngine(hero1, hero2);
 

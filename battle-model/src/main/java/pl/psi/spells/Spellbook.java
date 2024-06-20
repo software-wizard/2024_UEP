@@ -51,8 +51,4 @@ public class Spellbook {
         hero.setMana(hero.getMana() - spell.getCostCalculator().getCost(hero));
         spell.cast(hero, p);
     }
-
-    public class Builder {
-
-    }
 }
