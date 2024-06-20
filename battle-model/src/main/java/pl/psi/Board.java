@@ -1,18 +1,14 @@
 package pl.psi;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.*;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
 import pl.psi.creatures.Creature;
-import pl.psi.obstacles.Obstacle;
-import pl.psi.obstacles.ObstaclesWithHP;
-import pl.psi.obstacles.ObstaclesWithHPObservable;
-import pl.psi.obstacles.ObstacleObserver;
+import pl.psi.obstacles.*;
 import pl.psi.effects.board.object.BoardEffect;
 import pl.psi.effects.board.object.BoardEffectFactory;
 import pl.psi.effects.generic.Effect;
@@ -232,7 +228,6 @@ public class Board implements ObstacleObserver, PropertyChangeListener
         }
     }
 
-    @Override
     public void propertyChange(PropertyChangeEvent evt) {
         if (TurnQueue.END_OF_TURN.equals(evt.getPropertyName())) {
             effects.forEach((point, effectList) -> {
