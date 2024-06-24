@@ -1,8 +1,9 @@
 package pl.psi;
 
 import lombok.Getter;
+import lombok.Value;
 
-@Getter
+@Value
 public class PrimarySkill {
     private final int attack;
     private final int defense;

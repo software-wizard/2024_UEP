@@ -1,6 +1,7 @@
 package pl.psi.spells.spell;
 
 import pl.psi.Hero;
+import pl.psi.Location;
 import pl.psi.Point;
 import pl.psi.spells.calculator.BaseSpellCostCalculator;
 import pl.psi.spells.object.Spell;
@@ -12,10 +13,10 @@ public class PassiveSpell extends Spell {
     }
 
     @Override
-    public boolean canCast(Hero caster, Point targetPoint) {
+    public boolean canCast(Hero caster, Location targetPoint) {
         return false;
     }
 
     @Override
-    public void cast(Hero caster, Point targetPoint) {}
+    public void cast(Hero caster, Location targetPoint) {}
 }

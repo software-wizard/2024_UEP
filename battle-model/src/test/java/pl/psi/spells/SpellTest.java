@@ -2,15 +2,13 @@ package pl.psi.spells;
 
 import com.google.common.collect.Range;
 import org.junit.jupiter.api.Test;
-import pl.psi.GameEngine;
-import pl.psi.Hero;
-import pl.psi.Point;
-import pl.psi.PrimarySkill;
+import pl.psi.*;
 import pl.psi.creatures.Creature;
 import pl.psi.creatures.CreatureStats;
 import pl.psi.spells.aoe.AOELinearSymmetricalPointSelection;
 import pl.psi.spells.aoe.AOERectangularPointSelection;
 import pl.psi.spells.aoe.AOERingPointSelection;
+import pl.psi.spells.calculator.EmpoweredSpellDamageCalculator;
 import pl.psi.spells.calculator.ReducedSpellCostCalculator;
 import pl.psi.spells.object.SpellFactory;
 import pl.psi.spells.object.Spell;
@@ -53,12 +51,13 @@ public class SpellTest {
         final GameEngine engine = new GameEngine(hero1, hero2);
 
         final UnitAttackSpell attackSpell = new UnitAttackSpell(SpellStatistic.DAMAGING_SPELL);
-        attackSpell.cast(hero1, engine.getCreaturePosition(defender));
+        attackSpell.cast(hero1, new Location(engine.getCreaturePosition(defender), engine.getBoard()));
         assertThat(defender.getCurrentHp()).isEqualTo(95);
     }
 
     @Test
     void empoweredSpellDmgCalcShouldReturnCorrectValues() {
+        // Implementation of the test case
 
     }
 
@@ -93,8 +92,8 @@ public class SpellTest {
 
         final Spell aoeSpell = new AOESpellDecorator(new AOERectangularPointSelection(), new UnitAttackSpell(SpellStatistic.DAMAGING_SPELL));
 
-        final Point c2Position = engine.getCreaturePosition(defender2);
-        final Point center = new Point(c2Position.getX() - 1, c2Position.getY());
+        final Location c2Position = new Location(engine.getCreaturePosition(defender2), engine.getBoard());
+        final Location center = new Location(c2Position.getX() - 1, c2Position.getY(), engine.getBoard());
 
         aoeSpell.cast(hero1, center);
         assertThat(defender2.getCurrentHp()).isEqualTo(95);
@@ -115,26 +114,26 @@ public class SpellTest {
         final AOELinearSymmetricalPointSelection horizontalPointSelection = new AOELinearSymmetricalPointSelection(AOELinearSymmetricalPointSelection.Axis.HORIZONTAL);
         final AOELinearSymmetricalPointSelection verticalPointSelection = new AOELinearSymmetricalPointSelection(AOELinearSymmetricalPointSelection.Axis.VERTICAL);
 
-        final Point origin = new Point(2, 2);
+        final Location origin = new Location(2, 2, engine.getBoard());
 
         // Test horizontal point selection with size 2 (should expand more to the right)
-        List<Point> horizontalPointsSize2 = horizontalPointSelection.getTargetPoints(engine, origin, 2);
-        List<Point> expectedHorizontalPointsSize2 = List.of(new Point(2, 2), new Point(3, 2));
+        List<Location> horizontalPointsSize2 = horizontalPointSelection.getTargetPoints(origin, 2);
+        List<Location> expectedHorizontalPointsSize2 = List.of(new Location(2, 2, engine.getBoard()), new Location(3, 2, engine.getBoard()));
         assertThat(horizontalPointsSize2).containsExactlyInAnyOrderElementsOf(expectedHorizontalPointsSize2);
 
         // Test horizontal point selection with size 3 (should expand -1 to the left and +1 to the right)
-        List<Point> horizontalPointsSize3 = horizontalPointSelection.getTargetPoints(engine, origin, 3);
-        List<Point> expectedHorizontalPointsSize3 = List.of(new Point(1, 2), new Point(2, 2), new Point(3, 2));
+        List<Location> horizontalPointsSize3 = horizontalPointSelection.getTargetPoints(origin, 3);
+        List<Location> expectedHorizontalPointsSize3 = List.of(new Location(1, 2, engine.getBoard()), new Location(2, 2, engine.getBoard()), new Location(3, 2, engine.getBoard()));
         assertThat(horizontalPointsSize3).containsExactlyInAnyOrderElementsOf(expectedHorizontalPointsSize3);
 
         // Test vertical point selection with size 2 (should expand more downward)
-        List<Point> verticalPointsSize2 = verticalPointSelection.getTargetPoints(engine, origin, 2);
-        List<Point> expectedVerticalPointsSize2 = List.of(new Point(2, 2), new Point(2, 3));
+        List<Location> verticalPointsSize2 = verticalPointSelection.getTargetPoints(origin, 2);
+        List<Location> expectedVerticalPointsSize2 = List.of(new Location(2, 2, engine.getBoard()), new Location(2, 3, engine.getBoard()));
         assertThat(verticalPointsSize2).containsExactlyInAnyOrderElementsOf(expectedVerticalPointsSize2);
 
         // Test vertical point selection with size 3 (should expand -1 up and +1 down)
-        List<Point> verticalPointsSize3 = verticalPointSelection.getTargetPoints(engine, origin, 3);
-        List<Point> expectedVerticalPointsSize3 = List.of(new Point(2, 1), new Point(2, 2), new Point(2, 3));
+        List<Location> verticalPointsSize3 = verticalPointSelection.getTargetPoints(origin, 3);
+        List<Location> expectedVerticalPointsSize3 = List.of(new Location(2, 1, engine.getBoard()), new Location(2, 2, engine.getBoard()), new Location(2, 3, engine.getBoard()));
         assertThat(verticalPointsSize3).containsExactlyInAnyOrderElementsOf(expectedVerticalPointsSize3);
     }
 
@@ -152,15 +151,15 @@ public class SpellTest {
 
         final AOERingPointSelection ringPointSelection = new AOERingPointSelection();
 
-        final Point origin = new Point(5, 5);
+        final Location origin = new Location(5, 5, engine.getBoard());
 
-        List<Point> expectedPoints = List.of(
-                new Point(4, 4), new Point(5, 4), new Point(6, 4),  // top row
-                new Point(4, 6), new Point(5, 6), new Point(6, 6),  // bottom row
-                new Point(4, 5), new Point(6, 5)                   // left and right columns
+        List<Location> expectedPoints = List.of(
+                new Location(4, 4, engine.getBoard()), new Location(5, 4, engine.getBoard()), new Location(6, 4, engine.getBoard()),  // top row
+                new Location(4, 6, engine.getBoard()), new Location(5, 6, engine.getBoard()), new Location(6, 6, engine.getBoard()),  // bottom row
+                new Location(4, 5, engine.getBoard()), new Location(6, 5, engine.getBoard())                   // left and right columns
         );
 
-        List<Point> actualPoints = ringPointSelection.getTargetPoints(engine, origin, 1);
+        List<Location> actualPoints = ringPointSelection.getTargetPoints(origin, 1);
         assertThat(actualPoints).containsExactlyInAnyOrderElementsOf(expectedPoints);
     }
 
@@ -189,7 +188,7 @@ public class SpellTest {
         final GameEngine engine = new GameEngine(hero1, hero2);
 
         final Spell aoeSpell = SpellFactory.fromStatistic(SpellStatistic.MAGIC_ARROW);
-        final Point cPosition = engine.getCreaturePosition(defender);
+        final Location cPosition = new Location(engine.getCreaturePosition(defender), engine.getBoard());
 
         aoeSpell.cast(hero1, cPosition);
         assertThat(defender.getCurrentHp()).isEqualTo(80);
@@ -251,8 +250,8 @@ public class SpellTest {
 
         final GameEngine engine = new GameEngine(hero1, hero2);
 
-        final Point cPosition = engine.getCreaturePosition(defender);
-        final Point c2Position = engine.getCreaturePosition(defender2);
+        final Location cPosition = new Location(engine.getCreaturePosition(defender), engine.getBoard());
+        final Location c2Position = new Location(engine.getCreaturePosition(defender2), engine.getBoard());
 
         hero2.getSpellbook().castSpell(hero2.getSpellbook().getSpell(SpellStatistic.DAMAGING_SPELL.getSpellId()), hero2, cPosition);
         hero1.getSpellbook().castSpell(hero1.getSpellbook().getSpell(SpellStatistic.DAMAGING_SPELL.getSpellId()), hero1, c2Position);
@@ -263,6 +262,4 @@ public class SpellTest {
         // Hero1 ich nie ma wiec jego koszt sie nie obniza.
         assertThat(hero1.getMana()).isEqualTo(0);
     }
-
-
 }

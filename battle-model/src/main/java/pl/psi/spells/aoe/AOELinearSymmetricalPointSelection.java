@@ -1,6 +1,7 @@
 package pl.psi.spells.aoe;
 
 import pl.psi.GameEngine;
+import pl.psi.Location;
 import pl.psi.Point;
 
 import java.util.ArrayList;
@@ -17,8 +18,8 @@ public class AOELinearSymmetricalPointSelection implements AOEPointSelectionStra
     }
 
     @Override
-    public List<Point> getTargetPoints(final GameEngine ge, final Point originPoint, final int size) {
-        final List<Point> pointList = new ArrayList<>();
+    public List<Location> getTargetPoints(final Location origin, final int size) {
+        final List<Location> pointList = new ArrayList<>();
 
         int halfSize = size / 2;
 
@@ -31,11 +32,11 @@ public class AOELinearSymmetricalPointSelection implements AOEPointSelectionStra
 
         for (int i = start; i <= end; i++) {
             Point p = new Point(
-                    this.axis == Axis.HORIZONTAL ? originPoint.getX() + i : originPoint.getX(),
-                    this.axis == Axis.VERTICAL ? originPoint.getY() + i : originPoint.getY());
+                    this.axis == Axis.HORIZONTAL ? origin.getX() + i : origin.getX(),
+                    this.axis == Axis.VERTICAL ? origin.getY() + i : origin.getY());
 
-            if (ge.isValidPoint(p)) {
-                pointList.add(p);
+            if (origin.getBoard().isValidPoint(p)) {
+                pointList.add(new Location(p, origin.getBoard()));
             }
         }
 

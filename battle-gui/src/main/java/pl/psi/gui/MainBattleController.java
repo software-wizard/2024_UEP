@@ -12,10 +12,7 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import pl.psi.GameEngine;
-import pl.psi.Hero;
-import pl.psi.Point;
-import pl.psi.TurnQueue;
+import pl.psi.*;
 import pl.psi.creatures.Creature;
 import pl.psi.spells.object.Spell;
 
@@ -85,7 +82,7 @@ public class MainBattleController implements PropertyChangeListener
 
         final Hero hero = gameEngine.getHeroToMove();
 
-        if (hero.getSpellbook().canCast(selectedSpell, hero, p)) {
+        if (hero.getSpellbook().canCast(selectedSpell, hero, new Location(p, gameEngine.getBoard()))) {
             source.setBackground(Color.AQUA);
         } else {
             source.setBackground(Color.DARKRED);
@@ -99,9 +96,10 @@ public class MainBattleController implements PropertyChangeListener
 
     private void onSpellCastMapClick(MouseEvent e, Point p) {
         final Hero hero = gameEngine.getHeroToMove();
+        final Location loc = new Location(p, gameEngine.getBoard());
 
-        if (hero.getSpellbook().canCast(selectedSpell, hero, p)) {
-            hero.getSpellbook().castSpell(selectedSpell, hero, p);
+        if (hero.getSpellbook().canCast(selectedSpell, hero, loc)) {
+            hero.getSpellbook().castSpell(selectedSpell, hero, loc);
         }
 
         gameEngine.pass();

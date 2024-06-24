@@ -1,6 +1,7 @@
 package pl.psi.spells.spell;
 
 import pl.psi.Hero;
+import pl.psi.Location;
 import pl.psi.Point;
 import pl.psi.creatures.Creature;
 import pl.psi.effects.generic.EffectStatistic;
@@ -20,15 +21,15 @@ public class CreatureEffectInflictingSpell extends Spell {
     }
 
     @Override
-    public boolean canCast(Hero caster, Point targetPoint) {
-        Optional<Creature> optCreature = caster.getParentEngine().getCreature(targetPoint);
+    public boolean canCast(Hero caster, Location l) {
+        Optional<Creature> optCreature = l.getBoard().getCreature(l);
 
         return optCreature.isPresent() && optCreature.get().hasEffect(effectToInflict) == effectToInflict.isStackable();
     }
 
     @Override
-    public void cast(Hero caster, Point targetPoint) {
-        Optional<Creature> optCreature = caster.getParentEngine().getCreature(targetPoint);
+    public void cast(Hero caster, Location l) {
+        Optional<Creature> optCreature = l.getBoard().getCreature(l);
         if (optCreature.isEmpty()) throw new IllegalStateException("no creature present at position");
 
         optCreature.get().applyEffect(effectToInflict);
