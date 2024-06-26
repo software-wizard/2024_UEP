@@ -178,11 +178,14 @@ public class GameEngineTest
 
         Point skeleton2Location = gameEngine.getCreatureLocation(skeleton2);
         gameEngine.attack(skeleton2Location);
-
         assertThat(skeleton2.getCurrentHp()).isBetween(1, 3);
         assertThat(gameEngine.getHeroToMove()).isEqualTo(hero2); //this means that hero 1 ballista shot on its own
         assertThat(catapult.getCurrentHp()).isEqualTo(993);
-        assertThat(gameEngine.getCreatureToMove()).isEqualTo(ballista); //that means that ballista can choose its own target, because it has lvl 3 calculator
+        assertThat(gameEngine.getCreatureToMove()).isEqualTo(catapult); //that means that ballista can choose its own target, because it has lvl 3 calculator
+        assertThat(gameEngine.canAttack(gameEngine.getCreatureLocation(catapult))).isTrue();
+        assertThat(gameEngine.canAttack(gameEngine.getCreatureLocation(skeleton1))).isFalse();
     }
+
+
 
 }
