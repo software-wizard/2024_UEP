@@ -50,15 +50,22 @@ public class BattleAttacker {
         return AttackTypeEnum.MELEE;
     }
 
-    public boolean canAttack(final Point point, Creature creature) {
-        //if currentCreature is ranged it can attack a field where a Creature is present
-        if(creature.getAttackType().equals(AttackTypeEnum.RANGE) && board.getCreature(point).isPresent()) {
+    public boolean canAttack(final Point point, Creature attacker) {
+        if (board.getCreature(point).isEmpty()) {
+            return false;
+        }
+
+        Creature defender = board.getCreature(point).get();
+
+        if (attacker.getCreatureType().equals(CreatureTypeEnum.MACHINE)) {
+            return defender.getCreatureType().equals(CreatureTypeEnum.MACHINE);
+        }
+
+        if(attacker.getAttackType().equals(AttackTypeEnum.RANGE)) {
             return true;
         }
 
-        return board.getCreature(point)
-                .isPresent()
-                && isInMeleeRange(creature, point);
+        return isInMeleeRange(attacker, point);
     }
 
     private boolean isInMeleeRange(Creature aCreature1, Point aCreature2) {
@@ -68,7 +75,7 @@ public class BattleAttacker {
 
     public void machineAttack(GameEngine gameEngine) {
         MachineCalculatorDecorator machineCalculatorDecorator = (MachineCalculatorDecorator) gameEngine.getCreatureToMove().getCalculator();
-        //niebezpieczne, wiem. chlopaki od maszyn musieliby zrobic klase extendujaca creature, albo mozna w builderze jakos zabezpieczyc
+        //niebezpieczne, wiem. chlopaki od maszyn musieliby zrobic klase extendujaca creature, albo mozna w builderze jakos zabezpieczyc //todo
         if (machineCalculatorDecorator.getLevel() < 2) {
             shootRandomEnemyMachine(gameEngine);
             gameEngine.pass();

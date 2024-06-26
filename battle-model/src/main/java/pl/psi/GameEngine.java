@@ -53,7 +53,7 @@ public class GameEngine {
 
     public void pass() {
         turnQueue.next();
-        if (getCreatureToMove().getCreatureType().equals(CreatureTypeEnum.MACHINE)) {
+        if (getCreatureToMove().getCreatureType().equals(CreatureTypeEnum.MACHINE)) { //to czy do game attackera czy zostawic
             battleAttacker.machineAttack(this);
         }
     }
