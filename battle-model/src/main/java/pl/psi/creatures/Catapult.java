@@ -27,6 +27,7 @@ public class Catapult extends Creature {
                       final int aAmount, CreatureTypeEnum aCreatureType, AttackTypeEnum aAttackType) {
         super(aStats,aCalculator,aAmount,aCreatureType,aAttackType, new Morale(0));
         this.level = 1;
+        this.attackStrategy = (new CatapultAttackStrategy());
     }
 
     public static class Builder {
@@ -35,6 +36,7 @@ public class Catapult extends Creature {
         private CreatureStatisticIf statistic;
         private CreatureTypeEnum creatureType = CreatureTypeEnum.GROUND;
         private AttackTypeEnum attackType = AttackTypeEnum.MELEE;
+        private AttackStrategy strategy;
 
         public Catapult.Builder statistic(final CreatureStatisticIf aStatistic) {
             statistic = aStatistic;
@@ -67,22 +69,6 @@ public class Catapult extends Creature {
     public void levelUpSpell() {
         this.level++;
     }
-
-    @Override
-    public void attackWall(Wall wall, Point aPoint){
-            if (RandomChance()) {
-                Random random = new Random();
-                int damageMultiplier = random.nextInt(101) + 50;
-                final int catapultDamage = 10 * damageMultiplier;
-                wall.takeDamageFromCatapult(catapultDamage, aPoint);
-                System.out.println("Catapult hit the wall with " + catapultDamage + " damage");
-            }
-            else {
-                final int zeroDmg = 0;
-                wall.takeDamageFromCatapult(zeroDmg, aPoint);
-                System.out.println("Catapult missed the wall");
-            }
-        }
 }
 
 

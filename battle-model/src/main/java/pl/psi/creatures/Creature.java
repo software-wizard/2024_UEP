@@ -35,7 +35,7 @@ import pl.psi.obstacles.Wall;
  */
 @Getter
 public class Creature implements PropertyChangeListener {
-    private AttackStrategy attackStrategy;
+    protected AttackStrategy attackStrategy;
     private CreatureStatisticIf stats;
     @Setter
     private int amount;
@@ -111,18 +111,6 @@ public class Creature implements PropertyChangeListener {
     public void attack(final Object target) {
         attack(target, AttackTypeEnum.MELEE, null);
     }
-
-
-//    public void attack(final Creature aDefender, AttackTypeEnum aAttackType) {
-//        if (isAlive() && !morale.shouldFreeze()) {
-//            int damage = getCalculator().calculateDamage(this, aDefender, aAttackType);
-//            DamageValueObject damageObject = new DamageValueObject(damage, aAttackType, this.creatureType);
-//            aDefender.getDamageApplier().applyDamage(damageObject, aDefender);
-//            if (canCounterAttack(aDefender) && aAttackType.equals(AttackTypeEnum.MELEE)) {
-//                counterAttack(aDefender);
-//            }
-//        }
-//    }
 
     public void attackObstacle(ObstaclesWithHP obstacleWithHP, Point aPoint) {
         final int damage = getCalculator().calculateDamageToObstacle(this,obstacleWithHP);

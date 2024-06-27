@@ -63,7 +63,10 @@ public class Ballista extends Creature {
     }
 
     public void attack(Creature creature, Hero hero) {
+        ballistaDamageCalculator(creature, hero);
+    }
 
+    public int randomHitPercentage() {
         int hitPercentage;
         switch (this.level) {
             case 0:
@@ -81,13 +84,15 @@ public class Ballista extends Creature {
             default:
                 hitPercentage = 100;
         }
+        return hitPercentage;
+    }
 
-
+    public void ballistaDamageCalculator(Creature creature, Hero hero) {
         Random random = new Random();
         int randomNumber = random.nextInt(101);
 
 
-        if (randomNumber < hitPercentage) {
+        if (randomNumber < randomHitPercentage()) {
             int heroAttack = Ballista.getAttackHero();
             float damage = 2 + random.nextFloat();
             damage *= heroAttack + 1;

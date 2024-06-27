@@ -26,25 +26,15 @@ public class Wall implements ObstaclesIF, ObstaclesObservable {
 
     }
 
-     public void takeDamageFromCatapult(int damage, Point aPoint) {
-        if (currentLevel == 1) {
-            currentHP -= damage;
-            if (currentHP <= 0) {
-                currentLevel = 2;
-                currentHP = levelTwoHP;
-            }
-        } else if (currentLevel == 2) {
-            currentHP -= damage;
-            if (currentHP <= 0) {
-                currentLevel = 3;
-                currentHP = levelThreeHP;
-            }
-        } else if (currentLevel == 3) {
-            currentHP -= damage;
-            if (currentHP <= 0) {
-                currentHP = 0;
-                notifyObservers(aPoint);
 
+     public void takeDamageFromCatapult(int damage, Point aPoint) {
+        currentHP -= damage;
+        if (currentHP <= 1500 && currentHP > 1000) currentLevel = 1;
+        else if (currentHP <= 1000 && currentHP > 500) currentLevel = 2;
+        else {
+            currentLevel = 3;
+            if (currentHP <= 0) {;
+                notifyObservers(aPoint);
             }
         }
     }

@@ -222,4 +222,28 @@ public class CreatureTest {
         // then
         assertThat(wall.getCurrentHP()).isEqualTo(1500);
     }
+
+    @Test
+    void creatureShouldBeAbleToDealDamageToWall() {
+        // given
+        Wall wall = new Wall();
+        final Creature meleeCreature = new Creature.Builder().statistic(CreatureStats.builder()
+                        .maxHp(100)
+                        .damage(Range.closed(10, 10))
+                        .build())
+                .attackType(AttackTypeEnum.MELEE)
+                .build();
+        MachineFactory machineFactory = new MachineFactory();
+        Creature catapult = machineFactory.create("Catapult");
+
+
+        // when
+        catapult.setAttackStrategy(new WallAttackStrategy());
+        meleeCreature.setAttackStrategy(new WallAttackStrategy());
+
+        catapult.attackWall(wall, null);
+        meleeCreature.attack(wall);
+        // then
+        assertThat(wall.getCurrentHP()).isLessThan(1500);
+    }
 }

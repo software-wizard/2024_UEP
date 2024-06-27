@@ -2,9 +2,11 @@ package pl.psi.creatures;
 
 import com.google.common.collect.Range;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import pl.psi.obstacles.Wall;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.mockito.Mockito.*;
 
 class CatapultTest {
 
@@ -25,16 +27,16 @@ class CatapultTest {
         //then
         assertThat(angel.getCurrentHp()).isEqualTo(100);
     }
-
-//    void catapultShouldDestroyWall() {
-//        //given
-//        final Wall wall = new Wall();
-//        MachineFactory machineFactory = new MachineFactory();
-//        Creature catapult = machineFactory.create("Catapult");
-//        //when
-//        catapult.setAttackStrategy(new WallAttackStrategy());
-//        catapult.attack(wall);
-//        //then
-//        assertThat(wall.getCurrentHp()).isEqualTo(0);
-//    }
+    @Test
+    void catapultShouldDestroyWall() {
+        //given
+        final Wall wall = Mockito.mock(Wall.class);
+        MachineFactory machineFactory = new MachineFactory();
+        Creature catapult = machineFactory.create("Catapult");
+        when(wall.getCurrentHP()).thenReturn(1000);
+        //when
+        catapult.attack(wall);
+        //then
+        assertThat(wall.getCurrentHP()).isEqualTo(1000);
+    }
 }
