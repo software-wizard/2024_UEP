@@ -4,6 +4,7 @@ import com.google.common.collect.Range;
 import org.junit.jupiter.api.Test;
 import pl.psi.TurnQueue;
 import pl.psi.enums.AttackTypeEnum;
+import pl.psi.obstacles.Wall;
 
 import java.util.List;
 
@@ -122,6 +123,7 @@ public class CreatureTest {
                 .build();
 
         // when
+        attacker.setAttackStrategy(new CreatureAttackStrategy());
         attacker.attack(defender);
         attacker.attack(defender);
         // then
@@ -194,10 +196,30 @@ public class CreatureTest {
                         .build())
                 .build();
 
+        rangedCreature.setAttackStrategy(new CreatureAttackStrategy());
         rangedCreature.attack(defender, AttackTypeEnum.MELEE);
         assertThat(defender.getCurrentHp()).isEqualTo(95);
 
         rangedCreature.attack(defender, AttackTypeEnum.RANGE);
         assertThat(defender.getCurrentHp()).isEqualTo(85);
+    }
+
+    @Test
+    void creatureShouldFailToAttackWall() {
+        // given
+        Wall wall = new Wall();
+        final Creature rangedCreature = new Creature.Builder().statistic(CreatureStats.builder()
+                        .maxHp(100)
+                        .damage(Range.closed(10, 10))
+                        .build())
+                .attackType(AttackTypeEnum.RANGE)
+                .build();
+
+        // when
+
+        rangedCreature.setAttackStrategy(new WallAttackStrategy());
+        rangedCreature.attack(wall);
+        // then
+        assertThat(wall.getCurrentHP()).isEqualTo(1500);
     }
 }

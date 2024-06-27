@@ -35,6 +35,7 @@ import pl.psi.obstacles.Wall;
  */
 @Getter
 public class Creature implements PropertyChangeListener {
+    private AttackStrategy attackStrategy;
     private CreatureStatisticIf stats;
     @Setter
     private int amount;
@@ -107,44 +108,28 @@ public class Creature implements PropertyChangeListener {
         return creatureEffects.stream().anyMatch((effect) -> effect.getEffectStatistic().equals(effectStatistic));
     }
 
-    public void attack(final Creature aDefender) {
-        attack(aDefender, AttackTypeEnum.MELEE);
+    public void attack(final Object target) {
+        attack(target, AttackTypeEnum.MELEE, null);
     }
 
-    public void attack(final Creature aDefender, AttackTypeEnum aAttackType) {
-        if (isAlive() && !morale.shouldFreeze()) {
-            int damage = getCalculator().calculateDamage(this, aDefender, aAttackType);
-            DamageValueObject damageObject = new DamageValueObject(damage, aAttackType, this.creatureType);
-            aDefender.getDamageApplier().applyDamage(damageObject, aDefender);
-            if (canCounterAttack(aDefender) && aAttackType.equals(AttackTypeEnum.MELEE)) {
-                counterAttack(aDefender);
-            }
-        }
-    }
+
+//    public void attack(final Creature aDefender, AttackTypeEnum aAttackType) {
+//        if (isAlive() && !morale.shouldFreeze()) {
+//            int damage = getCalculator().calculateDamage(this, aDefender, aAttackType);
+//            DamageValueObject damageObject = new DamageValueObject(damage, aAttackType, this.creatureType);
+//            aDefender.getDamageApplier().applyDamage(damageObject, aDefender);
+//            if (canCounterAttack(aDefender) && aAttackType.equals(AttackTypeEnum.MELEE)) {
+//                counterAttack(aDefender);
+//            }
+//        }
+//    }
 
     public void attackObstacle(ObstaclesWithHP obstacleWithHP, Point aPoint) {
         final int damage = getCalculator().calculateDamageToObstacle(this,obstacleWithHP);
         obstacleWithHP.takeDamage(aPoint, damage);
     }
     public void attackWall(Wall wall,Point aPoint){
-        if (isCatapult()) {
-            if (RandomChance()) {
-                Random random = new Random();
-                int damageMultiplier = random.nextInt(101) + 50;
-                final int catapultDamage = 10 * damageMultiplier;
-                wall.takeDamageFromCatapult(catapultDamage, aPoint);
-                System.out.println("Catapult hit the wall with " + catapultDamage + " damage");
-            }
-            else {
-                final int zeroDmg = 0;
-                wall.takeDamageFromCatapult(zeroDmg, aPoint);
-                System.out.println("Catapult missed the wall");
-            }
-        } else if (wall.getCurrentLevel() == 2 || wall.getCurrentLevel() == 3) {
-            final int creatureDamage = getCalculator().calculateDamageToWall(this, wall);
-            wall.takeDamageFromCreature(creatureDamage, aPoint);
-            System.out.println("Creature hit the wall with " + creatureDamage + " damage");
-        }
+
     }
     public boolean isCatapult() {
         String name = getName();
@@ -177,11 +162,11 @@ public class Creature implements PropertyChangeListener {
         currentHp = aCurrentHp;
     }
 
-    private boolean canCounterAttack(final Creature aDefender) {
+    boolean canCounterAttack(final Creature aDefender) {
         return aDefender.getCounterAttackCounter() > 0 && aDefender.getCurrentHp() > 0;
     }
 
-    private void counterAttack(final Creature aAttacker) {
+    void counterAttack(final Creature aAttacker) {
         final int damage = aAttacker.getCalculator()
                 .calculateDamage(aAttacker, this, AttackTypeEnum.MELEE);
         DamageValueObject aDamageValueObject = new DamageValueObject(damage, this.attackType, this.creatureType);
@@ -222,7 +207,6 @@ public class Creature implements PropertyChangeListener {
     }
 
     protected void restoreCurrentHpToPartHP() {
-        System.out.println("TEST restoreCurrentHpToPartHP");
         Random random = new Random();
         int healHP = random.nextInt(25)+1;
         if (currentHp+healHP >= stats.getMaxHp()) {
@@ -297,6 +281,21 @@ public class Creature implements PropertyChangeListener {
     //Implemented in FirstAidTent
     public void chooseHealCreature(List<Creature> creatureList) {
 
+    }
+    public void setAttackStrategy(AttackStrategy attackStrategy) {
+        this.attackStrategy = attackStrategy;
+    }
+
+    public void attack(Object target, AttackTypeEnum attackType, Point aPoint) {
+        if (attackStrategy != null) {
+            attackStrategy.attack(this, target, attackType, aPoint);
+        } else {
+            throw new IllegalStateException("Attack strategy is not set");
+        }
+    }
+
+    public void attack(Object target, AttackTypeEnum attackType) {
+        attack(target, attackType, null);
     }
 
 }

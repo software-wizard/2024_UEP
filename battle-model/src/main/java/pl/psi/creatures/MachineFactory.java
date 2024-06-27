@@ -20,12 +20,12 @@ public class MachineFactory
                     return new FirstAidTent.Builder().statistic( CreatureStatistic.FIRST_AID_TENT )
                             .build();
                 case "Ballista":
-                    return new Creature.Builder().statistic( CreatureStatistic.BALLISTA )
+                    return new Ballista.Builder().statistic( CreatureStatistic.BALLISTA )
                             .creatureType(CreatureTypeEnum.MACHINE)
                             .attackType(AttackTypeEnum.RANGE)
                             .build();
                 case "Catapult":
-                    return new Creature.Builder().statistic( CreatureStatistic.CATAPULT )
+                    return new Catapult.Builder().statistic( CreatureStatistic.CATAPULT )
                             .creatureType(CreatureTypeEnum.MACHINE)
                             .attackType(AttackTypeEnum.RANGE)
                             .build();

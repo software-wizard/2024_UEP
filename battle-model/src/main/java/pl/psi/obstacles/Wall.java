@@ -14,6 +14,7 @@ public class Wall implements ObstaclesIF, ObstaclesObservable {
     private int levelThreeHP = 500;
     private int currentHP;
     private int currentLevel;
+    private Point point;
 
     private final ArrayList<ObstacleObserver> observers = new ArrayList<>();
 
@@ -22,6 +23,7 @@ public class Wall implements ObstaclesIF, ObstaclesObservable {
     public Wall() {
         this.currentHP = levelOneHP;
         this.currentLevel = 1;
+
     }
 
      public void takeDamageFromCatapult(int damage, Point aPoint) {

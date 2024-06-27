@@ -2,8 +2,10 @@ package pl.psi.creatures;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.psi.Point;
 import pl.psi.enums.AttackTypeEnum;
 import pl.psi.enums.CreatureTypeEnum;
+import pl.psi.obstacles.Wall;
 
 import java.util.Random;
 
@@ -26,12 +28,12 @@ public class Catapult extends Creature {
         super(aStats,aCalculator,aAmount,aCreatureType,aAttackType, new Morale(0));
         this.level = 1;
     }
-    // usun to
+
     public static class Builder {
         private int amount = 1;
         private DamageCalculatorIf calculator = new DefaultDamageCalculator(new Random());
         private CreatureStatisticIf statistic;
-        private final CreatureTypeEnum creatureType = CreatureTypeEnum.GROUND;
+        private CreatureTypeEnum creatureType = CreatureTypeEnum.GROUND;
         private AttackTypeEnum attackType = AttackTypeEnum.MELEE;
 
         public Catapult.Builder statistic(final CreatureStatisticIf aStatistic) {
@@ -41,6 +43,16 @@ public class Catapult extends Creature {
 
         public Catapult.Builder amount(final int aAmount) {
             amount = aAmount;
+            return this;
+        }
+
+        public Catapult.Builder attackType(final AttackTypeEnum aAttackType) {
+            attackType = aAttackType;
+            return this;
+        }
+
+        public Catapult.Builder creatureType(final CreatureTypeEnum aCreatureType) {
+            creatureType = aCreatureType;
             return this;
         }
 
@@ -56,4 +68,21 @@ public class Catapult extends Creature {
         this.level++;
     }
 
+    @Override
+    public void attackWall(Wall wall, Point aPoint){
+            if (RandomChance()) {
+                Random random = new Random();
+                int damageMultiplier = random.nextInt(101) + 50;
+                final int catapultDamage = 10 * damageMultiplier;
+                wall.takeDamageFromCatapult(catapultDamage, aPoint);
+                System.out.println("Catapult hit the wall with " + catapultDamage + " damage");
+            }
+            else {
+                final int zeroDmg = 0;
+                wall.takeDamageFromCatapult(zeroDmg, aPoint);
+                System.out.println("Catapult missed the wall");
+            }
+        }
 }
+
+
