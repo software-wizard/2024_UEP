@@ -5,7 +5,9 @@ import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
+import javafx.scene.paint.ImagePattern;
 import javafx.scene.shape.Rectangle;
+
 
 class EcoMapTile extends StackPane
 {
@@ -40,6 +42,8 @@ class EcoMapTile extends StackPane
 
     void setBackground( final Color aColor ) {
         imageView.setVisible(false);
+        Image img = new Image(path);
+        rect.setFill(new ImagePattern(img));
         rect.setFill( aColor );
     }
 

@@ -7,6 +7,7 @@ import pl.psi.enums.AttackTypeEnum;
 import pl.psi.obstacles.Wall;
 
 import java.util.List;
+import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -245,5 +246,25 @@ public class CreatureTest {
         meleeCreature.attack(wall);
         // then
         assertThat(wall.getCurrentHP()).isLessThan(1500);
+    }
+
+    @Test
+    void creatureDoesNotCounterAttackAfterBeingAttackedFromRange() {
+        int maxHp = 100;
+        final Creature rangedCreature = new Creature.Builder().statistic(CreatureStats.builder()
+                        .maxHp(maxHp)
+                        .damage(Range.closed(10, 10))
+                        .build())
+                .attackType(AttackTypeEnum.RANGE)
+                .build();
+
+        final Creature defender = new Creature.Builder().statistic(CreatureStats.builder()
+                        .maxHp(maxHp)
+                        .damage(Range.closed(10, 10))
+                        .build())
+                .build();
+
+        rangedCreature.attack(defender, AttackTypeEnum.RANGE);
+        assertThat(rangedCreature.getCurrentHp()).isEqualTo(maxHp);
     }
 }

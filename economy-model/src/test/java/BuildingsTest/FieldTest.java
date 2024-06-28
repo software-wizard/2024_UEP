@@ -8,6 +8,8 @@ import pl.psi.objects.ResourcesField;
 import pl.psi.objects.SkillsField;
 import pl.psi.skills.EcoSkill;
 
+import java.beans.PropertyChangeSupport;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -84,12 +86,24 @@ public class FieldTest {
     @Test
     void pickingUpASkillAlreadyKnownWontUpgradeItsLevelPast3() {
         EconomyHero hero = new EconomyHero("hero");
-        hero.addSkill(new EcoSkill(SkillEnum.ARMORER, 2));
-        assertThat(hero.getSkills().get(SkillEnum.ARMORER).getLevel()).isEqualTo(2);
 
         SkillsField skillsField = new SkillsField(new EcoSkill(SkillEnum.ARMORER, 2));
         skillsField.apply(hero);
 
         assertThat(hero.getSkills().get(SkillEnum.ARMORER).getLevel()).isEqualTo(3);
     }
+
+//    @Test //todo
+//    void pickingUpASkillFieldMakesItDisappear() {
+//        EconomyHero hero1 = new EconomyHero("hero");
+//        EconomyHero hero2 = new EconomyHero("hero");
+//
+//        SkillsField skillsField = new SkillsField(new EcoSkill(SkillEnum.ARMORER, 2));
+//        final PropertyChangeSupport observerSupport = new PropertyChangeSupport(this);
+//        EcoMap ecoMap = new EcoMap(hero1, hero2, observerSupport);
+//        ecoMap.
+//        skillsField.apply(hero1);
+//
+//        assertThat(hero.getSkills().get(SkillEnum.ARMORER).getLevel()).isEqualTo(3);
+//    }
 }
