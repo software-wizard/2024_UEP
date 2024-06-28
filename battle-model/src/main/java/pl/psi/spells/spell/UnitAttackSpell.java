@@ -1,6 +1,7 @@
 package pl.psi.spells.spell;
 
 import pl.psi.Hero;
+import pl.psi.Location;
 import pl.psi.Point;
 import pl.psi.creatures.Creature;
 import pl.psi.creatures.DamageValueObject;
@@ -21,14 +22,14 @@ public class UnitAttackSpell extends Spell {
     }
 
     @Override
-    public boolean canCast(Hero caster, Point targetPoint) {
-        Optional<Creature> optionalCreature = caster.getParentEngine().getCreature(targetPoint);
+    public boolean canCast(Hero caster, Location l) {
+        Optional<Creature> optionalCreature = l.getBoard().getCreature(l);
         return optionalCreature.isPresent();
     }
 
     @Override
-    public void cast(Hero caster, Point targetPoint) {
-        Optional<Creature> optCreature =  caster.getParentEngine().getCreature(targetPoint);
+    public void cast(Hero caster, Location l) {
+        Optional<Creature> optCreature =  l.getBoard().getCreature(l);
         if (optCreature.isEmpty()) return;
 
         Creature creature = optCreature.get();

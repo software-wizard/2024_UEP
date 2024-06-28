@@ -1,6 +1,6 @@
-package pl.psi.effects.object;
+package pl.psi.effects.generic;
 
-public interface CreatureEffectStatisticIf {
+public interface EffectStatisticIf {
     String getName();
     String getDescription();
     int getBaseModifierValue();

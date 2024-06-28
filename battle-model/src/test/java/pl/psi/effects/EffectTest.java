@@ -8,14 +8,16 @@ import pl.psi.PrimarySkill;
 import pl.psi.creatures.Creature;
 import pl.psi.creatures.CreatureStats;
 import pl.psi.creatures.DamageValueObject;
-import pl.psi.effects.object.CreatureEffect;
-import pl.psi.effects.object.CreatureEffectFactory;
-import pl.psi.effects.object.CreatureEffectStatistic;
+import pl.psi.effects.generic.EffectStatistic;
 import pl.psi.enums.AttackTypeEnum;
 import pl.psi.enums.CreatureTypeEnum;
 import pl.psi.spells.Spellbook;
+import pl.psi.spells.object.enums.SpellExpertise;
+import pl.psi.spells.object.enums.SpellSchool;
 
+import java.util.EnumMap;
 import java.util.List;
+import java.util.Map;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -29,12 +31,16 @@ public class EffectTest {
                         .build())
                 .build();
 
-        final Hero hero1 = new Hero(List.of(), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of()));
-        final Hero hero2 = new Hero(List.of(defender), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of()));
+        final Map<SpellSchool, SpellExpertise> spellSchoolMasteries = new EnumMap<>(Map.ofEntries(
+                Map.entry(SpellSchool.AIR, SpellExpertise.valueOf(2))
+        ));
+
+        final Hero hero1 = new Hero(List.of(), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of(), spellSchoolMasteries));
+        final Hero hero2 = new Hero(List.of(defender), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of(), spellSchoolMasteries));
 
         final GameEngine engine = new GameEngine(hero1, hero2);
 
-        defender.applyEffect(CreatureEffectStatistic.DISRUPTING_RAY);
+        defender.applyEffect(EffectStatistic.DISRUPTING_RAY);
 
         assertThat(defender.getStats().getArmor()).isEqualTo(7);
     }
@@ -49,12 +55,16 @@ public class EffectTest {
                         .build())
                 .build();
 
-        final Hero hero1 = new Hero(List.of(), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of()));
-        final Hero hero2 = new Hero(List.of(defender), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of()));
+        final Map<SpellSchool, SpellExpertise> spellSchoolMasteries = new EnumMap<>(Map.ofEntries(
+                Map.entry(SpellSchool.AIR, SpellExpertise.valueOf(2))
+        ));
+
+        final Hero hero1 = new Hero(List.of(), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of(), spellSchoolMasteries));
+        final Hero hero2 = new Hero(List.of(defender), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of(), spellSchoolMasteries));
 
         final GameEngine engine = new GameEngine(hero1, hero2);
 
-        defender.applyEffect(CreatureEffectStatistic.HASTE);
+        defender.applyEffect(EffectStatistic.HASTE);
 
         assertThat(defender.getStats().getMoveRange()).isEqualTo(13);
         engine.pass();
@@ -71,12 +81,16 @@ public class EffectTest {
                         .build())
                 .build();
 
-        final Hero hero1 = new Hero(List.of(), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of()));
-        final Hero hero2 = new Hero(List.of(defender), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of()));
+        final Map<SpellSchool, SpellExpertise> spellSchoolMasteries = new EnumMap<>(Map.ofEntries(
+                Map.entry(SpellSchool.AIR, SpellExpertise.valueOf(2))
+        ));
+
+        final Hero hero1 = new Hero(List.of(), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of(), spellSchoolMasteries));
+        final Hero hero2 = new Hero(List.of(defender), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of(), spellSchoolMasteries));
 
         final GameEngine engine = new GameEngine(hero1, hero2);
 
-        defender.applyEffect(CreatureEffectStatistic.ANTI_MAGIC);
+        defender.applyEffect(EffectStatistic.ANTI_MAGIC);
         defender.getDamageApplier().applyDamage(new DamageValueObject(20, AttackTypeEnum.SPELL, CreatureTypeEnum.UNKNOWN), defender);
         assertThat(defender.getCurrentHp()).isEqualTo(100);
     }

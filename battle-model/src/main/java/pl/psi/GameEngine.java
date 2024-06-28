@@ -23,6 +23,8 @@ public class GameEngine {
     public static final String BATTLE_ENDED = "BATTLE_ENDED";
 
     private final TurnQueue turnQueue;
+
+    @Getter
     private final Board board;
     private final PropertyChangeSupport observerSupport = new PropertyChangeSupport(this);
 
@@ -31,8 +33,9 @@ public class GameEngine {
 
 
     public GameEngine(final Hero aHero1, final Hero aHero2) {
-        hero1 = (Hero) EngineEntity.bindEngine(aHero1, this);
-        hero2 = (Hero) EngineEntity.bindEngine(aHero2, this);
+        this.hero1 = aHero1;
+        this.hero2 = aHero2;
+
         turnQueue = new TurnQueue(aHero1.getCreatures(), aHero2.getCreatures());
         board = new Board(aHero1.getCreatures(), aHero2.getCreatures());
     }

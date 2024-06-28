@@ -1,9 +1,7 @@
 package pl.psi;
 
-import java.util.HashMap;
-import java.util.List;
-import java.util.Optional;
-import java.util.Random;
+import java.util.*;
+import java.util.stream.Stream;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
@@ -11,13 +9,12 @@ import com.google.common.collect.HashBiMap;
 import pl.psi.creatures.Creature;
 import pl.psi.obstacles.*;
 
-import static pl.psi.obstacles.ObstaclesIF.MAX_HEIGHT;
 import static pl.psi.obstacles.ObstaclesIF.maxHP;
 
 /**
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
  */
-public class Board implements ObstacleObserver
+public class Board implements ObstacleObserver, BoardIf
 {
     private static final int MAX_WITDH = 14;
     private static final int MAX_HEIGHT = 9;
@@ -174,5 +171,26 @@ public class Board implements ObstacleObserver
         }else if (o instanceof Wall && point != null) {
             removeFromTheMapWall(point);
         }
+    }
+
+    @Override
+    public boolean isValidPoint(Point p) {
+        return isWithinBounds(p);
+    }
+
+    @Override
+    public Optional<Location> getCreatureLocation(Creature c) {
+        if (getPosition(c) != null)
+            return Optional.of(new Location(getPosition(c), this));
+        else return Optional.empty();
+    }
+
+    @Override
+    public Optional<Creature> getCreature(Location l) {
+        return getCreature(l);
+    }
+
+    public Set<Creature> getAllCreatures() {
+        return map.values();
     }
 }

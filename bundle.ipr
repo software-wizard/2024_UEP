@@ -1,9 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="AntConfiguration">
-    <option name="IS_AUTOSCROLL_TO_SOURCE" value="false" />
-    <option name="FILTER_TARGETS" value="false" />
-  </component>
   <component name="CodeStyleManager">
     <option name="USE_DEFAULT_CODE_STYLE_SCHEME" value="true" />
     <option name="CODE_STYLE_SCHEME" value="" />
@@ -294,6 +290,17 @@
         <root url="jar://$MAVEN_REPOSITORY$/com/google/j2objc/j2objc-annotations/1.1/j2objc-annotations-1.1-sources.jar!/" />
       </SOURCES>
     </library>
+    <library name="Maven: junit:junit:4.12">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/junit/junit/4.12/junit-4.12-sources.jar!/" />
+      </SOURCES>
+    </library>
     <library name="Maven: net.bytebuddy:byte-buddy-agent:1.8.15" type="java-imported" external-system-id="Maven">
       <properties groupId="net.bytebuddy" artifactId="byte-buddy-agent" version="1.8.15" />
       <CLASSES>
@@ -352,6 +359,28 @@
       </JAVADOC>
       <SOURCES>
         <root url="jar://$MAVEN_REPOSITORY$/org/codehaus/mojo/animal-sniffer-annotations/1.14/animal-sniffer-annotations-1.14-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.hamcrest:hamcrest-core:1.3">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/hamcrest/hamcrest-core/1.3/hamcrest-core-1.3-sources.jar!/" />
+      </SOURCES>
+    </library>
+    <library name="Maven: org.jetbrains:annotations:24.1.0">
+      <CLASSES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/jetbrains/annotations/24.1.0/annotations-24.1.0.jar!/" />
+      </CLASSES>
+      <JAVADOC>
+        <root url="jar://$MAVEN_REPOSITORY$/org/jetbrains/annotations/24.1.0/annotations-24.1.0-javadoc.jar!/" />
+      </JAVADOC>
+      <SOURCES>
+        <root url="jar://$MAVEN_REPOSITORY$/org/jetbrains/annotations/24.1.0/annotations-24.1.0-sources.jar!/" />
       </SOURCES>
     </library>
     <library name="Maven: org.junit.jupiter:junit-jupiter-api:5.6.0" type="java-imported" external-system-id="Maven">
@@ -486,10 +515,9 @@
         <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-base/11.0.2/javafx-base-11.0.2-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: org.openjfx:javafx-base:win:11-ea+25" type="java-imported" external-system-id="Maven">
-      <properties groupId="org.openjfx" artifactId="javafx-base" version="11-ea+25" classifier="win" />
+    <library name="Maven: org.openjfx:javafx-base:mac:11-ea+25">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-base/11-ea+25/javafx-base-11-ea+25-win.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-base/11-ea+25/javafx-base-11-ea+25-mac.jar!/" />
       </CLASSES>
       <JAVADOC>
         <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-base/11-ea+25/javafx-base-11-ea+25-javadoc.jar!/" />
@@ -498,10 +526,9 @@
         <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-base/11-ea+25/javafx-base-11-ea+25-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: org.openjfx:javafx-base:win:11.0.2" type="java-imported" external-system-id="Maven">
-      <properties groupId="org.openjfx" artifactId="javafx-base" version="11.0.2" classifier="win" />
+    <library name="Maven: org.openjfx:javafx-base:mac:11.0.2">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-base/11.0.2/javafx-base-11.0.2-win.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-base/11.0.2/javafx-base-11.0.2-mac.jar!/" />
       </CLASSES>
       <JAVADOC>
         <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-base/11.0.2/javafx-base-11.0.2-javadoc.jar!/" />
@@ -534,10 +561,9 @@
         <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/11.0.2/javafx-controls-11.0.2-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: org.openjfx:javafx-controls:win:11-ea+25" type="java-imported" external-system-id="Maven">
-      <properties groupId="org.openjfx" artifactId="javafx-controls" version="11-ea+25" classifier="win" />
+    <library name="Maven: org.openjfx:javafx-controls:mac:11-ea+25">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/11-ea+25/javafx-controls-11-ea+25-win.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/11-ea+25/javafx-controls-11-ea+25-mac.jar!/" />
       </CLASSES>
       <JAVADOC>
         <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/11-ea+25/javafx-controls-11-ea+25-javadoc.jar!/" />
@@ -546,10 +572,9 @@
         <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/11-ea+25/javafx-controls-11-ea+25-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: org.openjfx:javafx-controls:win:11.0.2" type="java-imported" external-system-id="Maven">
-      <properties groupId="org.openjfx" artifactId="javafx-controls" version="11.0.2" classifier="win" />
+    <library name="Maven: org.openjfx:javafx-controls:mac:11.0.2">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/11.0.2/javafx-controls-11.0.2-win.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/11.0.2/javafx-controls-11.0.2-mac.jar!/" />
       </CLASSES>
       <JAVADOC>
         <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-controls/11.0.2/javafx-controls-11.0.2-javadoc.jar!/" />
@@ -582,10 +607,9 @@
         <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/11.0.2/javafx-fxml-11.0.2-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: org.openjfx:javafx-fxml:win:11-ea+25" type="java-imported" external-system-id="Maven">
-      <properties groupId="org.openjfx" artifactId="javafx-fxml" version="11-ea+25" classifier="win" />
+    <library name="Maven: org.openjfx:javafx-fxml:mac:11-ea+25">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/11-ea+25/javafx-fxml-11-ea+25-win.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/11-ea+25/javafx-fxml-11-ea+25-mac.jar!/" />
       </CLASSES>
       <JAVADOC>
         <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/11-ea+25/javafx-fxml-11-ea+25-javadoc.jar!/" />
@@ -594,10 +618,9 @@
         <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/11-ea+25/javafx-fxml-11-ea+25-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: org.openjfx:javafx-fxml:win:11.0.2" type="java-imported" external-system-id="Maven">
-      <properties groupId="org.openjfx" artifactId="javafx-fxml" version="11.0.2" classifier="win" />
+    <library name="Maven: org.openjfx:javafx-fxml:mac:11.0.2">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/11.0.2/javafx-fxml-11.0.2-win.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/11.0.2/javafx-fxml-11.0.2-mac.jar!/" />
       </CLASSES>
       <JAVADOC>
         <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-fxml/11.0.2/javafx-fxml-11.0.2-javadoc.jar!/" />
@@ -630,10 +653,9 @@
         <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/11.0.2/javafx-graphics-11.0.2-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: org.openjfx:javafx-graphics:win:11-ea+25" type="java-imported" external-system-id="Maven">
-      <properties groupId="org.openjfx" artifactId="javafx-graphics" version="11-ea+25" classifier="win" />
+    <library name="Maven: org.openjfx:javafx-graphics:mac:11-ea+25">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/11-ea+25/javafx-graphics-11-ea+25-win.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/11-ea+25/javafx-graphics-11-ea+25-mac.jar!/" />
       </CLASSES>
       <JAVADOC>
         <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/11-ea+25/javafx-graphics-11-ea+25-javadoc.jar!/" />
@@ -642,10 +664,9 @@
         <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/11-ea+25/javafx-graphics-11-ea+25-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: org.openjfx:javafx-graphics:win:11.0.2" type="java-imported" external-system-id="Maven">
-      <properties groupId="org.openjfx" artifactId="javafx-graphics" version="11.0.2" classifier="win" />
+    <library name="Maven: org.openjfx:javafx-graphics:mac:11.0.2">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/11.0.2/javafx-graphics-11.0.2-win.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/11.0.2/javafx-graphics-11.0.2-mac.jar!/" />
       </CLASSES>
       <JAVADOC>
         <root url="jar://$MAVEN_REPOSITORY$/org/openjfx/javafx-graphics/11.0.2/javafx-graphics-11.0.2-javadoc.jar!/" />
@@ -666,16 +687,15 @@
         <root url="jar://$MAVEN_REPOSITORY$/org/opentest4j/opentest4j/1.2.0/opentest4j-1.2.0-sources.jar!/" />
       </SOURCES>
     </library>
-    <library name="Maven: org.projectlombok:lombok:1.18.32" type="java-imported" external-system-id="Maven">
-      <properties groupId="org.projectlombok" artifactId="lombok" version="1.18.32" />
+    <library name="Maven: org.projectlombok:lombok:1.18.30">
       <CLASSES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.32/lombok-1.18.32.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30.jar!/" />
       </CLASSES>
       <JAVADOC>
-        <root url="jar://$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.32/lombok-1.18.32-javadoc.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30-javadoc.jar!/" />
       </JAVADOC>
       <SOURCES>
-        <root url="jar://$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.32/lombok-1.18.32-sources.jar!/" />
+        <root url="jar://$MAVEN_REPOSITORY$/org/projectlombok/lombok/1.18.30/lombok-1.18.30-sources.jar!/" />
       </SOURCES>
     </library>
   </component>

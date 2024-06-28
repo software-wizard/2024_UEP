@@ -1,8 +1,6 @@
 package pl.psi.spells.object.decorators;
 
-import pl.psi.GameEngine;
-import pl.psi.Hero;
-import pl.psi.Point;
+import pl.psi.*;
 import pl.psi.creatures.Creature;
 import pl.psi.spells.object.interfaces.CreatureConstraintSpellLambda;
 import pl.psi.spells.object.Spell;
@@ -20,11 +18,10 @@ public class TargetConstrainedCreaturesSpellDecorator extends Spell {
         this.constraintLambda = constraintLambda;
     }
 
-    private List<Creature> getTargetedCreatures(Hero caster) {
-        final GameEngine ge = caster.getParentEngine();
+    private List<Creature> getTargetedCreatures(Hero caster, BoardIf board) {
         final List<Creature> creatureList = new ArrayList<>();
 
-        for (Creature c : ge.getAllCreatures()) {
+        for (Creature c : board.getAllCreatures()) {
             if (constraintLambda.op(caster, c)) creatureList.add(c);
         }
 
@@ -32,14 +29,14 @@ public class TargetConstrainedCreaturesSpellDecorator extends Spell {
     }
 
     @Override
-    public boolean canCast(Hero caster, Point targetPoint) {
-        return !getTargetedCreatures(caster).isEmpty() && decorated.canCast(caster, targetPoint);
+    public boolean canCast(Hero caster, Location targetPoint) {
+        return !getTargetedCreatures(caster, targetPoint.getBoard()).isEmpty() && decorated.canCast(caster, targetPoint);
     }
 
     @Override
-    public void cast(Hero caster, Point targetPoint) {
-        for (Creature c : getTargetedCreatures(caster)) {
-            this.decorated.cast(caster, caster.getParentEngine().getCreaturePosition(c));
+    public void cast(Hero caster, Location targetPoint) {
+        for (Creature c : getTargetedCreatures(caster, targetPoint.getBoard())) {
+            this.decorated.cast(caster, targetPoint.getBoard().getCreatureLocation(c).orElseThrow());
         }
     }
 }

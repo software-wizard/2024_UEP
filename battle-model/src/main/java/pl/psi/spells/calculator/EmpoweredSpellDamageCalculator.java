@@ -2,17 +2,18 @@ package pl.psi.spells.calculator;
 
 import pl.psi.Hero;
 import pl.psi.creatures.Creature;
+import pl.psi.spells.object.enums.SpellSchool;
 import pl.psi.spells.object.interfaces.SpellStatisticIf;
 
-public class EmpoweredSpellDamageCalculator implements SpellDamageCalculatorIf {
-    private final SpellStatisticIf spellStatistic;
+public class EmpoweredSpellDamageCalculator extends BaseSpellDamageCalculator {
 
     public EmpoweredSpellDamageCalculator(final SpellStatisticIf spellStatistic) {
-        this.spellStatistic = spellStatistic;
+        super(spellStatistic);
     }
+
     @Override
     public int calculateDamage(Hero caster, Creature targetCreature) {
-        return spellStatistic.getBaseDmg() + caster.getPrimarySkills().getSpellPower() * spellStatistic.getPowerMultiplier();
+        return getBaseDmg(caster) + caster.getPrimarySkills().getSpellPower() * spellStatistic.getPowerMultiplier();
     }
 
 }

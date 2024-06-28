@@ -1,12 +1,12 @@
-package pl.psi.effects.effect;
+package pl.psi.effects.creature.effect;
 
 import pl.psi.creatures.CreatureStatisticIf;
-import pl.psi.effects.object.CreatureEffect;
-import pl.psi.effects.object.CreatureEffectStatisticIf;
-import pl.psi.effects.object.CreatureStatisticModifier;
+import pl.psi.effects.creature.object.CreatureEffect;
+import pl.psi.effects.generic.EffectStatisticIf;
+import pl.psi.effects.creature.object.CreatureStatisticModifier;
 
 public class AbsoluteSpeedModifierEffect extends CreatureEffect {
-    public AbsoluteSpeedModifierEffect(CreatureEffectStatisticIf effectStatistic) {
+    public AbsoluteSpeedModifierEffect(EffectStatisticIf effectStatistic) {
         super(effectStatistic);
     }
 

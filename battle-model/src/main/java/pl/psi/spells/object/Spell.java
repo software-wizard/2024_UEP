@@ -10,7 +10,6 @@ public abstract class Spell implements CastableSpellIf {
     private SpellStatisticIf stats;
     private SpellCostCalculatorIf costCalculator;
 
-    Spell() {}
     public Spell(final SpellStatisticIf aStats, final SpellCostCalculatorIf aCalculator) {
         this.stats = aStats;
         this.costCalculator = aCalculator;

@@ -1,6 +1,7 @@
 package pl.psi.spells.object.decorators;
 
 import pl.psi.Hero;
+import pl.psi.Location;
 import pl.psi.Point;
 import pl.psi.spells.aoe.AOEPointSelectionStrategyIf;
 import pl.psi.spells.object.Spell;
@@ -29,15 +30,15 @@ public class AOESpellDecorator extends Spell {
     }
 
     @Override
-    public boolean canCast(Hero caster, Point targetPoint) {
-        return !pointSelectionStrategy.getTargetPoints(caster.getParentEngine(), targetPoint, this.getStats().getSize()).isEmpty() && this.decorated.canCast(caster, targetPoint);
+    public boolean canCast(Hero caster, Location l) {
+        return !pointSelectionStrategy.getTargetPoints(l, this.getStats().getSize()).isEmpty() && this.decorated.canCast(caster, l);
     }
 
     @Override
-    public void cast(Hero caster, Point targetPoint) {
-        List<Point> adjacent = pointSelectionStrategy.getTargetPoints(caster.getParentEngine(), targetPoint, this.getStats().getSize());
+    public void cast(Hero caster, Location l) {
+        List<Location> adjacent = pointSelectionStrategy.getTargetPoints(l, this.getStats().getSize());
 
-        for (Point p : adjacent) {
+        for (Location p : adjacent) {
             this.decorated.cast(caster, p);
         }
     }

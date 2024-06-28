@@ -4,24 +4,13 @@ import pl.psi.Hero;
 import pl.psi.spells.object.enums.SpellSchool;
 import pl.psi.spells.object.interfaces.SpellStatisticIf;
 
-public class ReducedSpellCostCalculator extends StaticSpellCostCalculator {
-
+public class ReducedSpellCostCalculator extends BaseSpellCostCalculator {
     public ReducedSpellCostCalculator(final SpellStatisticIf spellStat) {
         super(spellStat);
     }
 
     @Override
-    public int getCost(Hero aHero) {
-        if (aHero.getSpellbook().hasSpell(spellStatistic.getSchool().toString()) || (
-                        spellStatistic.getSchool().equals(SpellSchool.ALL) &&
-                        aHero.getSpellbook().getSpells().stream().anyMatch((s) ->
-                                s.getName().equals("Air Magic") || s.getName().equals("Earth Magic")
-                                || s.getName().equals("Fire Magic") || s.getName().equals("Water Magic")
-                        )
-        )) {
-            return spellStatistic.getCost() - spellStatistic.getLevel();
-        }
-
-        return spellStatistic.getCost();
+    public int getCost(Hero caster) {
+        return getBaseCost(caster);
     }
 }

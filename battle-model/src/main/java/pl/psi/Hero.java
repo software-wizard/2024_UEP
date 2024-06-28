@@ -11,7 +11,7 @@ import pl.psi.spells.Spellbook;
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
  */
 @Getter
-public class Hero extends EngineEntity
+public class Hero
 {
     private final List< Creature > creatures;
     private final Spellbook spellbook;
@@ -38,6 +38,4 @@ public class Hero extends EngineEntity
     public boolean hasCreature(Creature c) {
         return creatures.contains(c);
     }
-
-
 }

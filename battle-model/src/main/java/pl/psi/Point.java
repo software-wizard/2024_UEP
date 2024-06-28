@@ -1,11 +1,13 @@
 package pl.psi;
 
 import lombok.Value;
+import lombok.experimental.NonFinal;
 
 /**
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
  */
 @Value
+@NonFinal
 public class Point
 {
     private final int x;

@@ -1,6 +1,7 @@
 package pl.psi.spells;
 
 import pl.psi.Hero;
+import pl.psi.Location;
 import pl.psi.Point;
 import pl.psi.spells.object.Spell;
 
@@ -33,13 +34,13 @@ public class Spellbook {
         return spell.orElse(null);
     }
 
-    public boolean canCast(Spell spell, Hero hero, Point p) {
+    public boolean canCast(Spell spell, Hero hero, Location l) {
         return hasSpell(spell)
                 && hero.getMana() >= spell.getCostCalculator().getCost(hero)
-                && spell.canCast(hero, p);
+                && spell.canCast(hero, l);
     }
 
-    public void castSpell(Spell spell, Hero hero, Point p) {
+    public void castSpell(Spell spell, Hero hero, Location p) {
         if (!canCast(spell, hero, p)) throw new IllegalStateException("Spell cannot be casted");
 
         hero.setMana(hero.getMana() - spell.getCostCalculator().getCost(hero));

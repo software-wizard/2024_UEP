@@ -5,14 +5,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="f3102dac-a942-4483-9cc7-2febc53c83f3" name="Changes" comment="wall partially added 2">
-      <change beforePath="$PROJECT_DIR$/battle-gui/src/main/java/pl/psi/gui/MainBattleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-gui/src/main/java/pl/psi/gui/MainBattleController.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/Board.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/Creature.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/Creature.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/Wall.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/Wall.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/battle-model/src/test/java/pl/psi/BoardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/test/java/pl/psi/BoardTest.java" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/battle-model/src/test/java/pl/psi/obstacles/WallTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/test/java/pl/psi/obstacles/WallTest.java" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bundle.iws" beforeDir="false" afterPath="$PROJECT_DIR$/bundle.iws" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/hero-common/src/main/java/pl/psi/creatures/CreatureStatistic.java" beforeDir="false" afterPath="$PROJECT_DIR$/hero-common/src/main/java/pl/psi/creatures/CreatureStatistic.java" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -180,8 +173,8 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Interface" />
         <option value="Class" />
+        <option value="Interface" />
       </list>
     </option>
   </component>
@@ -258,6 +251,9 @@
     <option name="ADD_LABEL_ON_UNIT_TEST_PASSED" value="true" />
     <option name="ADD_LABEL_ON_UNIT_TEST_FAILED" value="true" />
   </component>
+  <component name="MarkdownSettingsMigration">
+    <option name="stateVersion" value="1" />
+  </component>
   <component name="PerforceConfiguration">
     <option name="PORT" value="magic:1666" />
     <option name="USER" value="" />
@@ -322,6 +318,7 @@
     &quot;JUnit.WallTest.takeDamageReducesHP.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.WallTest.wallCanBeDestroyed.executor&quot;: &quot;Run&quot;,
     &quot;JUnit.WallTest.wallLevelChangesAfterAttacks.executor&quot;: &quot;Run&quot;,
+    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
     &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
     &quot;git-widget-placeholder&quot;: &quot;specialFields&quot;,
     &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,

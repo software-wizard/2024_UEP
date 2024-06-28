@@ -14,9 +14,10 @@ import java.util.Random;
 
 import lombok.Setter;
 import pl.psi.Point;
-import pl.psi.effects.object.CreatureEffect;
-import pl.psi.effects.object.CreatureEffectFactory;
-import pl.psi.effects.object.CreatureEffectStatistic;
+import pl.psi.effects.creature.object.CreatureEffect;
+import pl.psi.effects.creature.object.CreatureEffectFactory;
+import pl.psi.effects.generic.EffectStatistic;
+import pl.psi.effects.generic.EffectTargetType;
 import pl.psi.enums.AttackTypeEnum;
 import pl.psi.TurnQueue;
 
@@ -24,8 +25,6 @@ import com.google.common.collect.Range;
 
 import lombok.Getter;
 import pl.psi.enums.CreatureTypeEnum;
-
-import static java.lang.Math.random;
 
 import pl.psi.obstacles.ObstaclesWithHP;
 import pl.psi.obstacles.Wall;
@@ -86,7 +85,10 @@ public class Creature implements PropertyChangeListener {
         return currApplier;
     }
 
-    public void applyEffect(CreatureEffectStatistic effectStatistic) {
+    public void applyEffect(EffectStatistic effectStatistic) {
+        if (!effectStatistic.getTargetType().equals(EffectTargetType.CREATURE))
+            throw new IllegalArgumentException("only creature effects can be applied to the creature");
+
         for (CreatureEffect effect : creatureEffects) {
             if (effect.getEffectStatistic().equals(effectStatistic)) {
                 if (effect.getEffectStatistic().isStackable()) {
@@ -104,7 +106,7 @@ public class Creature implements PropertyChangeListener {
         creatureEffects.add(effect);
     }
 
-    public boolean hasEffect(CreatureEffectStatistic effectStatistic) {
+    public boolean hasEffect(EffectStatistic effectStatistic) {
         return creatureEffects.stream().anyMatch((effect) -> effect.getEffectStatistic().equals(effectStatistic));
     }
 
@@ -182,7 +184,6 @@ public class Creature implements PropertyChangeListener {
 
             // copy list to avoid ConcurrentModificationException
             List<CreatureEffect> temp = new ArrayList<>(creatureEffects);
-
             temp.forEach(CreatureEffect::turnPassed);
         } else if (CreatureEffect.EFFECT_ENDED.equals(evt.getPropertyName())) {
             CreatureEffect effect = (CreatureEffect) evt.getSource();

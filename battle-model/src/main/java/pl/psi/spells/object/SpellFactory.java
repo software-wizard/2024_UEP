@@ -1,7 +1,6 @@
 package pl.psi.spells.object;
 
-import pl.psi.effects.effect.AbsoluteArmorModifierEffect;
-import pl.psi.effects.object.CreatureEffectStatistic;
+import pl.psi.effects.generic.EffectStatistic;
 import pl.psi.spells.aoe.AOERectangularPointSelection;
 import pl.psi.spells.aoe.AOERingPointSelection;
 import pl.psi.spells.object.decorators.AOESpellDecorator;
@@ -36,14 +35,15 @@ public class SpellFactory {
 
 
         // --- NON-DAMAGE COMBAT SPELLS --- //
-        spellMap.put(SpellStatistic.DISRUPTING_RAY, stat -> new CreatureEffectInflictingSpell(stat, CreatureEffectStatistic.DISRUPTING_RAY));
-        spellMap.put(SpellStatistic.BLESS, stat -> new CreatureEffectInflictingSpell(stat, CreatureEffectStatistic.BLESS));
-        spellMap.put(SpellStatistic.HASTE, stat -> new CreatureEffectInflictingSpell(stat, CreatureEffectStatistic.HASTE));
-        spellMap.put(SpellStatistic.ANTI_MAGIC, stat -> new CreatureEffectInflictingSpell(stat, CreatureEffectStatistic.ANTI_MAGIC));
+        spellMap.put(SpellStatistic.DISRUPTING_RAY, stat -> new CreatureEffectInflictingSpell(stat, EffectStatistic.DISRUPTING_RAY));
+        spellMap.put(SpellStatistic.BLESS, stat -> new CreatureEffectInflictingSpell(stat, EffectStatistic.BLESS));
+        spellMap.put(SpellStatistic.HASTE, stat -> new CreatureEffectInflictingSpell(stat, EffectStatistic.HASTE));
+        spellMap.put(SpellStatistic.ANTI_MAGIC, stat -> new CreatureEffectInflictingSpell(stat, EffectStatistic.ANTI_MAGIC));
     }
 
     public static Spell fromStatistic(SpellStatistic spellStatistic) {
         Function<SpellStatistic, Spell> spellConstructor = spellMap.get(spellStatistic);
+
 
         if (spellConstructor != null) {
             return spellConstructor.apply(spellStatistic);
