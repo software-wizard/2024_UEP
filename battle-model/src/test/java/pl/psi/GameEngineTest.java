@@ -23,10 +23,10 @@ public class GameEngineTest
 
         final Hero hero1 = new Hero( List.of( creatureFactory.create( 1, false, 5 ) ),
                 new PrimarySkill(1, 2, 3, 4),
-                new Spellbook( List.of(), Map.of() ));
+                new Spellbook( List.of()));
         final Hero hero2 = new Hero( List.of( creatureFactory.create( 1, false, 5 ) ),
                 new PrimarySkill(1, 2, 3, 4),
-                new Spellbook( List.of(), Map.of() ));
+                new Spellbook( List.of()));
 
         final GameEngine gameEngine = new GameEngine(hero1, hero2);
 

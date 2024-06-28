@@ -110,7 +110,6 @@ public class GameEngine {
         if (board.isObstacleWithHP(point)) {
             return distance < 2 && distance > 0;
         }
-
         return false;
     }
 

@@ -56,7 +56,7 @@ public class EcoBattleConverter implements PropertyChangeListener {
             skillFactory.create(skill.getSkillName(), skill.getLevel()).cast(creatures);
         }
 
-        return new Hero(creatures, new PrimarySkill(0, 0, 0, 0), new Spellbook(Collections.emptyList(), Map.of()));
+        return new Hero(creatures, new PrimarySkill(0, 0, 0, 0), new Spellbook(Collections.emptyList()));
     }
 
     //obserwer i potem aktualizuje od walki i potem ustawia lastBattlePack na null

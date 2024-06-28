@@ -35,8 +35,8 @@ public class EffectTest {
                 Map.entry(SpellSchool.AIR, SpellExpertise.valueOf(2))
         ));
 
-        final Hero hero1 = new Hero(List.of(), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of(), spellSchoolMasteries));
-        final Hero hero2 = new Hero(List.of(defender), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of(), spellSchoolMasteries));
+        final Hero hero1 = new Hero(List.of(), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of()));
+        final Hero hero2 = new Hero(List.of(defender), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of()));
 
         final GameEngine engine = new GameEngine(hero1, hero2);
 
@@ -59,8 +59,8 @@ public class EffectTest {
                 Map.entry(SpellSchool.AIR, SpellExpertise.valueOf(2))
         ));
 
-        final Hero hero1 = new Hero(List.of(), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of(), spellSchoolMasteries));
-        final Hero hero2 = new Hero(List.of(defender), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of(), spellSchoolMasteries));
+        final Hero hero1 = new Hero(List.of(), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of()));
+        final Hero hero2 = new Hero(List.of(defender), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of()));
 
         final GameEngine engine = new GameEngine(hero1, hero2);
 
@@ -85,8 +85,8 @@ public class EffectTest {
                 Map.entry(SpellSchool.AIR, SpellExpertise.valueOf(2))
         ));
 
-        final Hero hero1 = new Hero(List.of(), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of(), spellSchoolMasteries));
-        final Hero hero2 = new Hero(List.of(defender), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of(), spellSchoolMasteries));
+        final Hero hero1 = new Hero(List.of(), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of()));
+        final Hero hero2 = new Hero(List.of(defender), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of()));
 
         final GameEngine engine = new GameEngine(hero1, hero2);
 

@@ -45,8 +45,8 @@ public class SpellTest {
                 Map.entry(SpellSchool.AIR, SpellExpertise.valueOf(2))
         ));
 
-        final Hero hero1 = new Hero(List.of(attacker), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of(), spellSchoolMasteries));
-        final Hero hero2 = new Hero(List.of(defender), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of(), spellSchoolMasteries));
+        final Hero hero1 = new Hero(List.of(attacker), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of()));
+        final Hero hero2 = new Hero(List.of(defender), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of()));
 
         final GameEngine engine = new GameEngine(hero1, hero2);
 
@@ -85,8 +85,8 @@ public class SpellTest {
                 Map.entry(SpellSchool.AIR, SpellExpertise.valueOf(2))
         ));
 
-        final Hero hero1 = new Hero(List.of(defender2), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of(), spellSchoolMasteries));
-        final Hero hero2 = new Hero(List.of(defender), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of(), spellSchoolMasteries));
+        final Hero hero1 = new Hero(List.of(defender2), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of()));
+        final Hero hero2 = new Hero(List.of(defender), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of()));
 
         final GameEngine engine = new GameEngine(hero1, hero2);
 
@@ -105,8 +105,8 @@ public class SpellTest {
                 Map.entry(SpellSchool.AIR, SpellExpertise.valueOf(2))
         ));
 
-        final Hero hero1 = new Hero(List.of(), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of(), spellSchoolMasteries));
-        final Hero hero2 = new Hero(List.of(), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of(), spellSchoolMasteries));
+        final Hero hero1 = new Hero(List.of(), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of()));
+        final Hero hero2 = new Hero(List.of(), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of()));
 
 
         final GameEngine engine = new GameEngine(hero1, hero2);
@@ -143,8 +143,8 @@ public class SpellTest {
                 Map.entry(SpellSchool.AIR, SpellExpertise.valueOf(2))
         ));
 
-        final Hero hero1 = new Hero(List.of(), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of(), spellSchoolMasteries));
-        final Hero hero2 = new Hero(List.of(), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of(), spellSchoolMasteries));
+        final Hero hero1 = new Hero(List.of(), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of()));
+        final Hero hero2 = new Hero(List.of(), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of()));
 
 
         final GameEngine engine = new GameEngine(hero1, hero2);
@@ -181,8 +181,8 @@ public class SpellTest {
                 Map.entry(SpellSchool.AIR, SpellExpertise.ADVANCED)
         ));
 
-        final Hero hero1 = new Hero(List.of(), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of(), spellSchoolMasteries));
-        final Hero hero2 = new Hero(List.of(defender), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of(), spellSchoolMasteries));
+        final Hero hero1 = new Hero(List.of(), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of()));
+        final Hero hero2 = new Hero(List.of(defender), new PrimarySkill(0, 0, 0, 0), new Spellbook(List.of()));
 
 
         final GameEngine engine = new GameEngine(hero1, hero2);
@@ -206,7 +206,7 @@ public class SpellTest {
 
         final Spellbook spellbook = new Spellbook(List.of(
                 spellA, spellB
-        ), spellSchoolMasteries);
+        ));
 
         assertThat(spellbook.hasSpell(spellA)).isTrue();
         assertThat(spellbook.hasSpell(spellC)).isFalse();
@@ -219,7 +219,7 @@ public class SpellTest {
         ));
 
         final ReducedSpellCostCalculator reducedSpellCostCalculator = new ReducedSpellCostCalculator(SpellStatistic.DAMAGING_SPELL);
-        final Hero hero = new Hero(List.of(), new PrimarySkill(0, 0, 0, 0), new Spellbook(SpellFactory.all(), spellSchoolMasteries));
+        final Hero hero = new Hero(List.of(), new PrimarySkill(0, 0, 0, 0), new Spellbook(SpellFactory.all()));
 
 
         assertThat(reducedSpellCostCalculator.getCost(hero)).isEqualTo(9);
@@ -245,8 +245,8 @@ public class SpellTest {
 
         final Hero hero1 = new Hero(List.of(defender2), new PrimarySkill(0, 0, 2, 1), new Spellbook(List.of(
                 SpellFactory.fromStatistic(SpellStatistic.DAMAGING_SPELL)
-        ), Map.of()));
-        final Hero hero2 = new Hero(List.of(defender), new PrimarySkill(0, 0, 1, 1), new Spellbook(SpellFactory.all(), spellSchoolMasteries));
+        )));
+        final Hero hero2 = new Hero(List.of(defender), new PrimarySkill(0, 0, 1, 1), new Spellbook(SpellFactory.all()));
 
         final GameEngine engine = new GameEngine(hero1, hero2);
 

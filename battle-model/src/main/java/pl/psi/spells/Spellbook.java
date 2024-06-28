@@ -4,6 +4,7 @@ import pl.psi.Hero;
 import pl.psi.Location;
 import pl.psi.Point;
 import pl.psi.spells.object.Spell;
+import pl.psi.spells.object.enums.SpellSchool;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -45,5 +46,15 @@ public class Spellbook {
 
         hero.setMana(hero.getMana() - spell.getCostCalculator().getCost(hero));
         spell.cast(hero, p);
+    }
+
+    public TempObject getSchoolMastery(SpellSchool aSchool) {
+        return new TempObject();
+    }
+
+    public class TempObject {
+        public int getMasteryLevel() {
+            return 0;
+        }
     }
 }
