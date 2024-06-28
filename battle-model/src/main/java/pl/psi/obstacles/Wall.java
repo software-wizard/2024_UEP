@@ -3,11 +3,13 @@ package pl.psi.obstacles;
 import lombok.Getter;
 import lombok.Setter;
 import pl.psi.Point;
+import pl.psi.creatures.DefenderIf;
+
 import java.util.ArrayList;
 
 @Getter
 @Setter
-public class Wall implements ObstaclesIF, ObstaclesObservable {
+public class Wall extends DefenderIf implements ObstaclesIF, ObstaclesObservable {
 
     private int levelOneHP = 1500;
     private int levelTwoHP = 1000;
@@ -26,7 +28,9 @@ public class Wall implements ObstaclesIF, ObstaclesObservable {
 
     }
 
-
+        public void applyDmg(int damage, Point aPoint){
+            takeDamageFromCatapult(damage, aPoint);
+        }
      public void takeDamageFromCatapult(int damage, Point aPoint) {
         currentHP -= damage;
         if (currentHP <= 1500 && currentHP > 1000) currentLevel = 1;

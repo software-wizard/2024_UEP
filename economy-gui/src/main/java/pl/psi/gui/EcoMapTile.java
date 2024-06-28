@@ -42,8 +42,8 @@ class EcoMapTile extends StackPane
 
     void setBackground( final Color aColor ) {
         imageView.setVisible(false);
-        Image img = new Image(path);
-        rect.setFill(new ImagePattern(img));
+//        Image img = new Image(path);
+//        rect.setFill(new ImagePattern(img));
         rect.setFill( aColor );
     }
 

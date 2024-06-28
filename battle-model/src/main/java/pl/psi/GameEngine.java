@@ -111,6 +111,9 @@ public class GameEngine {
             return distance < 2 && distance > 0;
         }
 
+
+        && (board.getCreature(point))
+
         return false;
     }
 

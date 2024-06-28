@@ -33,7 +33,7 @@ import pl.psi.obstacles.Wall;
  * TODO: Describe this class (The first line - untorigin/WarMachines03il the first dot - will interpret as the brief description).
  */
 @Getter
-public class Creature implements PropertyChangeListener {
+public class Creature extends DefenderIf implements PropertyChangeListener {
     protected AttackStrategy attackStrategy;
     private CreatureStatisticIf stats;
     @Setter
@@ -110,7 +110,7 @@ public class Creature implements PropertyChangeListener {
         return creatureEffects.stream().anyMatch((effect) -> effect.getEffectStatistic().equals(effectStatistic));
     }
 
-    public void attack(final Object target) {
+    public void attack(final DefenderIf target) {
         attack(target, AttackTypeEnum.MELEE, null);
     }
 
@@ -140,7 +140,7 @@ public class Creature implements PropertyChangeListener {
         return getAmount() > 0;
     }
 
-    public void applyDamage(DamageValueObject aDamageValueObject) {
+    public void applyDmg(DamageValueObject aDamageValueObject) {
         getDamageApplier().applyDamage(aDamageValueObject, this);
     }
 
@@ -275,8 +275,11 @@ public class Creature implements PropertyChangeListener {
         this.attackStrategy = attackStrategy;
     }
 
-    public void attack(Object target, AttackTypeEnum attackType, Point aPoint) {
-        if (attackStrategy != null) {
+    boolean canAttack(DefenderIf aDefender){
+
+    }
+    public void attack(DefenderIf target, AttackTypeEnum attackType, Point aPoint) {
+        if (attackStrategy.getStrategy(target.getType()) != null) {
             attackStrategy.attack(this, target, attackType, aPoint);
         } else {
             throw new IllegalStateException("Attack strategy is not set");

@@ -9,7 +9,7 @@ import pl.psi.obstacles.Wall;
 
 
 public interface DamageCalculatorIf {
-    int calculateDamage(Creature aAttacker, Creature aDefender, AttackTypeEnum attackTypeEnum);
+    int calculateDamage(Creature aAttacker, DefenderIf aDefender, AttackTypeEnum attackTypeEnum);
 
     int calculateDamageToObstacle(Creature attacker, ObstaclesWithHP obstacleWithHP);
 

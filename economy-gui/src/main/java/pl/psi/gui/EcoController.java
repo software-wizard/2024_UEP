@@ -40,8 +40,8 @@ public class EcoController implements PropertyChangeListener {
     private Button passButton;
     @FXML
     private Label allResourcesLabel;
-    @FXML
-    private ListView<String> skillsList;
+//    @FXML
+//    private ListView<String> skillsList;
 
     private ObservableList<String> skills;
 
@@ -141,7 +141,7 @@ public class EcoController implements PropertyChangeListener {
 
         List<String> skillsData = engine.getCurrentHero().getSkills().values().stream().map(Skill::toString).collect(Collectors.toList());
         skills = FXCollections.observableArrayList(skillsData);
-        skillsList.setItems(skills);
+//        skillsList.setItems(skills);
     }
 
     @Override

@@ -8,22 +8,20 @@ import java.util.Random;
 
 public class CatapultAttackStrategy implements AttackStrategy {
     @Override
-    public void attack(Creature attacker, Object target, AttackTypeEnum AttackType, Point aPoint) {
-        if (target instanceof Wall) {
-            Wall wall = (Wall) target;
+    public void attack(Creature attacker, DefenderIf target, AttackTypeEnum AttackType, Point aPoint) {
             if (RandomChance()) {
                 Random random = new Random();
                 int damageMultiplier = random.nextInt(101) + 50;
                 final int catapultDamage = 10 * damageMultiplier;
-                wall.takeDamageFromCatapult(catapultDamage, aPoint);
+                target.applyDmg(catapultDamage, aPoint);
                 System.out.println("Catapult hit the wall with " + catapultDamage + " damage");
             } else {
                 final int zeroDmg = 0;
-                wall.takeDamageFromCatapult(zeroDmg, aPoint);
+                target.applyDmg(zeroDmg, aPoint);
                 System.out.println("Catapult missed the wall");
             }
         }
-    }
+
     //75% chance to hit
     public boolean RandomChance() {
         Random random = new Random();
