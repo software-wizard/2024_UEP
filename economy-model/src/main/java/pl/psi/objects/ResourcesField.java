@@ -15,5 +15,5 @@ public class ResourcesField implements Field{
          hero.changeResources(resources);
     }
     @Override
-    public String getImageBackground() {return "creatures/Black Knight.png" ;}
+    public String getImageBackground() {return "creatures/Resource.png" ;}
 }

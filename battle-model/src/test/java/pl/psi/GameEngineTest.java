@@ -152,7 +152,7 @@ public class GameEngineTest
                 .attackType(AttackTypeEnum.RANGE)
                 .calculator(new MachineCalculatorDecorator(new DefaultDamageCalculator(quarterRandom), 0))
                 .morale(new Morale(0))
-                .build();;
+                .build();
 
 
         Creature skeleton1 = new NecropolisFactory().create(true, 1, 5, 0);
