@@ -15,6 +15,7 @@ import pl.psi.enums.CreatureTypeEnum;
 public class GameEngine {
 
     public static final String CREATURE_MOVED = "CREATURE_MOVED";
+    public static final String BATTLE_ENDED = "BATTLE_ENDED";
 
     private final TurnQueue turnQueue;
     private final Board board;
@@ -98,5 +99,21 @@ public class GameEngine {
             creatures = hero1.getCreatures();
         }
         return List.copyOf(creatures);
+    }
+
+    public BoardIf getBoard() {
+        return board;
+    }
+
+    public boolean isObstacle(Point aCurrentPoint) {
+        return false;
+    }
+
+    public boolean isObstacleWithHP(Point aCurrentPoint) {
+        return false;
+    }
+
+    public boolean isWall(Point aCurrentPoint) {
+        return false;
     }
 }

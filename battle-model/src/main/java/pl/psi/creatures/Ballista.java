@@ -23,17 +23,20 @@ public class Ballista extends Creature {
     private AttackTypeEnum attackType;
     @Setter
     private DamageApplier damageApplier = new DamageApplier();
-    protected Ballista (final CreatureStatisticIf aStats, final DamageCalculatorIf aCalculator,
-                         final int aAmount, CreatureTypeEnum aCreatureType, AttackTypeEnum aAttackType) {
-        super(aStats,aCalculator,aAmount,aCreatureType,aAttackType, new Morale(0));
+
+    protected Ballista(final CreatureStatisticIf aStats, final DamageCalculatorIf aCalculator,
+                       final int aAmount, CreatureTypeEnum aCreatureType, AttackTypeEnum aAttackType) {
+        super(aStats, aCalculator, aAmount, aCreatureType, aAttackType, new Morale(0));
         this.level = 1;
     }
+
     public static class Builder {
         private int amount = 1;
         private DamageCalculatorIf calculator = new DefaultDamageCalculator(new Random());
         private CreatureStatisticIf statistic;
         private CreatureTypeEnum creatureType = CreatureTypeEnum.GROUND;
         private AttackTypeEnum attackType = AttackTypeEnum.RANGE;
+        private Morale morale;
 
         public Ballista.Builder statistic(final CreatureStatisticIf aStatistic) {
             statistic = aStatistic;
@@ -55,11 +58,19 @@ public class Ballista extends Creature {
             return this;
         }
 
+        public Ballista.Builder calculator(DamageCalculatorIf aMachineCalculatorDecorator) {
+            calculator = aMachineCalculatorDecorator;
+            return this;
+        }
+
+        public Ballista.Builder morale(Morale aMorale) {
+            morale = aMorale;
+            return this;
+        }
+
         public Ballista build() {
             return new Ballista(statistic, calculator, amount, creatureType, attackType);
         }
-
-
     }
 
     public void attack(Creature creature, Hero hero) {

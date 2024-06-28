@@ -23,9 +23,10 @@ public class Catapult extends Creature {
     private AttackTypeEnum attackType;
     @Setter
     private DamageApplier damageApplier = new DamageApplier();
-    private Catapult (final CreatureStatisticIf aStats, final DamageCalculatorIf aCalculator,
-                      final int aAmount, CreatureTypeEnum aCreatureType, AttackTypeEnum aAttackType) {
-        super(aStats,aCalculator,aAmount,aCreatureType,aAttackType, new Morale(0));
+
+    private Catapult(final CreatureStatisticIf aStats, final DamageCalculatorIf aCalculator,
+                     final int aAmount, CreatureTypeEnum aCreatureType, AttackTypeEnum aAttackType) {
+        super(aStats, aCalculator, aAmount, aCreatureType, aAttackType, new Morale(0));
         this.level = 1;
         this.attackStrategy = (new CatapultAttackStrategy());
     }
@@ -37,6 +38,7 @@ public class Catapult extends Creature {
         private CreatureTypeEnum creatureType = CreatureTypeEnum.GROUND;
         private AttackTypeEnum attackType = AttackTypeEnum.MELEE;
         private AttackStrategy strategy;
+        private Morale morale;
 
         public Catapult.Builder statistic(final CreatureStatisticIf aStatistic) {
             statistic = aStatistic;
@@ -58,12 +60,19 @@ public class Catapult extends Creature {
             return this;
         }
 
+        public Catapult.Builder calculator(DamageCalculatorIf aCalculator) {
+            calculator = aCalculator;
+            return this;
+        }
+
+        public Catapult.Builder morale(Morale aMorale) {
+            morale = aMorale;
+            return this;
+        }
+
         public Catapult build() {
             return new Catapult(statistic, calculator, amount, creatureType, attackType);
         }
-
-
-
     }
 
     public void levelUpSpell() {

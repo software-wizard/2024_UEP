@@ -47,7 +47,7 @@ public class Start extends Application {
                         new NecropolisFactory().create(true, 1, 5, 1)
                 ),
                 new PrimarySkill(0, 0, 2, 5),
-                new Spellbook(SpellFactory.all(), Map.of()));
+                new Spellbook(SpellFactory.all()));
     }
 
     private Hero createP1() {
@@ -56,7 +56,7 @@ public class Start extends Application {
                         new NecropolisFactory().create(true, 1, 5, 1)
                 ),
                 new PrimarySkill(0, 0, 1, 5),
-                new Spellbook(SpellFactory.all(), Map.of()));
+                new Spellbook(SpellFactory.all()));
     }
 
 }

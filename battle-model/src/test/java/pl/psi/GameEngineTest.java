@@ -1,8 +1,11 @@
 package pl.psi;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
+import java.util.Random;
 
+import com.google.common.collect.Range;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
@@ -13,23 +16,23 @@ import pl.psi.enums.CreatureTypeEnum;
 import pl.psi.spells.Spellbook;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
 
 /**
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
  */
-public class GameEngineTest
-{
+public class GameEngineTest {
 
     @Test
     void gameEngineShouldDeliverInformationAboutCurrentHeroToMove() {
         final CastleCreatureFactory creatureFactory = new CastleCreatureFactory();
 
-        final Hero hero1 = new Hero( List.of( creatureFactory.create( 1, false, 5 ) ),
+        final Hero hero1 = new Hero(List.of(creatureFactory.create(1, false, 5)),
                 new PrimarySkill(1, 2, 3, 4),
-                new Spellbook( List.of()));
-        final Hero hero2 = new Hero( List.of( creatureFactory.create( 1, false, 5 ) ),
+                new Spellbook(List.of()));
+        final Hero hero2 = new Hero(List.of(creatureFactory.create(1, false, 5)),
                 new PrimarySkill(1, 2, 3, 4),
-                new Spellbook( List.of()));
+                new Spellbook(List.of()));
 
         final GameEngine gameEngine = new GameEngine(hero1, hero2);
 
@@ -61,8 +64,8 @@ public class GameEngineTest
                         .damage(Range.closed(10, 10))
                         .build())
                 .build();
-        Hero hero1 = new Hero(List.of(lichWithArchery), new Spellbook(List.of()));
-        Hero hero2 = new Hero(List.of(lichWithoutArchery), new Spellbook(List.of()));
+        Hero hero1 = new Hero(List.of(lichWithArchery), null, null);
+        Hero hero2 = new Hero(List.of(lichWithoutArchery), null, null);
 
         GameEngine gameEngine = new GameEngine(hero1, hero2);
 
@@ -95,8 +98,8 @@ public class GameEngineTest
                         .maxHp(200)
                         .build())
                 .build();
-        Hero hero1 = new Hero(List.of(shouldActTwice, shouldActOnce), new Spellbook(List.of()));
-        Hero hero2 = new Hero(List.of(enemyCreature), new Spellbook(List.of()));
+        Hero hero1 = new Hero(List.of(shouldActTwice, shouldActOnce), null, null);
+        Hero hero2 = new Hero(List.of(enemyCreature), null, null);
         GameEngine gameEngine = new GameEngine(hero1, hero2);
 
         Point enemyLocation = gameEngine.getCreatureLocation(enemyCreature);
@@ -144,8 +147,8 @@ public class GameEngineTest
         Creature skeleton1 = new NecropolisFactory().create(true, 1, 5, 0);
         final Hero hero1 = new Hero(
                 List.of(skeleton1,
-                        ballista),
-                new Spellbook(List.of(new SampleSpell())));
+                        ballista), null,
+                new Spellbook(new ArrayList<>()));
 
 
         Creature catapult = new MachineFactory().create("Catapult");
@@ -154,8 +157,8 @@ public class GameEngineTest
         Creature skeleton2 = new NecropolisFactory().create(true, 1, 5, 0);
         final Hero hero2 = new Hero(
                 List.of(skeleton2,
-                        catapult),
-                new Spellbook(List.of(new SampleSpell())));
+                        catapult), null,
+                new Spellbook(new ArrayList<>()));
 
         GameEngine gameEngine = new GameEngine(hero1, hero2);
 
@@ -171,7 +174,6 @@ public class GameEngineTest
         assertThat(gameEngine.canAttack(gameEngine.getCreatureLocation(catapult))).isTrue();
         assertThat(gameEngine.canAttack(gameEngine.getCreatureLocation(skeleton1))).isFalse();
     }
-
 
 
 }

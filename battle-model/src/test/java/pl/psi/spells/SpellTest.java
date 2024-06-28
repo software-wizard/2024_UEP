@@ -51,7 +51,7 @@ public class SpellTest {
         final GameEngine engine = new GameEngine(hero1, hero2);
 
         final UnitAttackSpell attackSpell = new UnitAttackSpell(SpellStatistic.DAMAGING_SPELL);
-        attackSpell.cast(hero1, new Location(engine.getCreaturePosition(defender), engine.getBoard()));
+        attackSpell.cast(hero1, new Location(engine.getCreatureLocation(defender), engine.getBoard()));
         assertThat(defender.getCurrentHp()).isEqualTo(95);
     }
 
@@ -92,7 +92,7 @@ public class SpellTest {
 
         final Spell aoeSpell = new AOESpellDecorator(new AOERectangularPointSelection(), new UnitAttackSpell(SpellStatistic.DAMAGING_SPELL));
 
-        final Location c2Position = new Location(engine.getCreaturePosition(defender2), engine.getBoard());
+        final Location c2Position = new Location(engine.getCreatureLocation(defender2), engine.getBoard());
         final Location center = new Location(c2Position.getX() - 1, c2Position.getY(), engine.getBoard());
 
         aoeSpell.cast(hero1, center);
@@ -188,7 +188,7 @@ public class SpellTest {
         final GameEngine engine = new GameEngine(hero1, hero2);
 
         final Spell aoeSpell = SpellFactory.fromStatistic(SpellStatistic.MAGIC_ARROW);
-        final Location cPosition = new Location(engine.getCreaturePosition(defender), engine.getBoard());
+        final Location cPosition = new Location(engine.getCreatureLocation(defender), engine.getBoard());
 
         aoeSpell.cast(hero1, cPosition);
         assertThat(defender.getCurrentHp()).isEqualTo(80);
@@ -250,8 +250,8 @@ public class SpellTest {
 
         final GameEngine engine = new GameEngine(hero1, hero2);
 
-        final Location cPosition = new Location(engine.getCreaturePosition(defender), engine.getBoard());
-        final Location c2Position = new Location(engine.getCreaturePosition(defender2), engine.getBoard());
+        final Location cPosition = new Location(engine.getCreatureLocation(defender), engine.getBoard());
+        final Location c2Position = new Location(engine.getCreatureLocation(defender2), engine.getBoard());
 
         hero2.getSpellbook().castSpell(hero2.getSpellbook().getSpell(SpellStatistic.DAMAGING_SPELL.getSpellId()), hero2, cPosition);
         hero1.getSpellbook().castSpell(hero1.getSpellbook().getSpell(SpellStatistic.DAMAGING_SPELL.getSpellId()), hero1, c2Position);
