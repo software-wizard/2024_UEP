@@ -2,7 +2,6 @@ package pl.psi.objects;
 
 import pl.psi.EconomyHero;
 import pl.psi.Resources;
-import pl.psi.skills.Skill;
 
 public class ResourcesField implements Field{
 
@@ -15,7 +14,6 @@ public class ResourcesField implements Field{
     public void apply(EconomyHero hero) {
          hero.changeResources(resources);
     }
-
-
-    public boolean isSkillField() { return false;}
+    @Override
+    public String getImageBackground() {return "creatures/Black Knight.png" ;}
 }

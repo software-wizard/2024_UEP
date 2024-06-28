@@ -1,4 +1,4 @@
-package pl.psi.gui;
+package pl.psi.skills;
 
 import pl.psi.enums.SkillEnum;
 
