@@ -1,17 +1,19 @@
 package pl.psi.creatures;
 
+import lombok.Getter;
 import pl.psi.enums.AttackTypeEnum;
 
 import java.util.Random;
 
 public class MachineCalculatorDecorator extends AbstractCalculateDamageStrategy {
+    @Getter
     private final int level;
     private final AbstractCalculateDamageStrategy decorated;
     private final Random random;
 
 
     public MachineCalculatorDecorator(DamageCalculatorIf aDecorated, int aLevel) {
-        this(aDecorated, aLevel, new Random());
+        this(aDecorated, aLevel, aDecorated.getRand());
     }
 
     public MachineCalculatorDecorator(DamageCalculatorIf aDecorated, int aLevel, Random aRandom) {
@@ -23,7 +25,7 @@ public class MachineCalculatorDecorator extends AbstractCalculateDamageStrategy 
 
     @Override
     public int calculateDamage(final Creature aAttacker, final Creature aDefender, AttackTypeEnum attackType) {
-        int dmg = super.calculateDamage(aAttacker, aDefender, attackType);
+        int dmg = decorated.calculateDamage(aAttacker, aDefender, attackType);
         if (shouldHit()) {
             return dmg;
         }
@@ -32,8 +34,6 @@ public class MachineCalculatorDecorator extends AbstractCalculateDamageStrategy 
 
     private double getChance() {
         switch (level) {
-            case 0:
-                return 0.5;
             case 1:
                 return 0.6;
             case 2:
@@ -41,7 +41,7 @@ public class MachineCalculatorDecorator extends AbstractCalculateDamageStrategy 
             case 3:
                 return 0.8;
             default:
-                return 0;
+                return 0.5;
         }
     }
 

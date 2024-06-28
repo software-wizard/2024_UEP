@@ -49,5 +49,5 @@ public class ResourcesField implements Field{
         return this.resources.getCristals();
     }
     @Override
-    public String getImageBackground() {return "creatures/Black Knight.png" ;}
+    public String getImageBackground() {return "creatures/Resource.png" ;}
 }
