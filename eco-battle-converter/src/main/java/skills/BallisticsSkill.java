@@ -16,7 +16,10 @@ public class BallisticsSkill extends Skill implements BattleSkill {
     @Override
     public void cast(List<Creature> creatures) {
         creatures.stream()
-                .filter(c -> c.getCreatureType().equals(CreatureTypeEnum.MACHINE))
-                .forEach(c -> c.setCalculator(new MachineCalculatorDecorator(c.getCalculator(), level)));
+                .filter(creature -> creature.getCreatureType().equals(CreatureTypeEnum.MACHINE))
+                .map(Creature::getCalculator)
+                .filter(calculator -> calculator instanceof MachineCalculatorDecorator) //wiem, ze umiera jednorozec, wole jednak tak dac wrazie czego gdyby powstala kreatura ktora jest typu machine a ma inny kalkulator
+                .map(calculator -> (MachineCalculatorDecorator) calculator)
+                .forEach(calculator -> calculator.setLevel(level));
     }
 }
