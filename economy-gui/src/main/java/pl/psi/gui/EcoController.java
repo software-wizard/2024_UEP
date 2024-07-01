@@ -15,6 +15,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -40,13 +41,14 @@ public class EcoController implements PropertyChangeListener {
     private Button passButton;
     @FXML
     private Label allResourcesLabel;
-//    @FXML
-//    private ListView<String> skillsList;
 
-    private ObservableList<String> skills;
+    SkillTooltip skillTooltip1;
+    SkillTooltip skillTooltip2;
 
     public EcoController(final EconomyHero aHero1, final EconomyHero aHero2) {
         engine = new EconomyEngine(aHero1, aHero2);
+        skillTooltip1 = new SkillTooltip(aHero1);
+        skillTooltip2 = new SkillTooltip(aHero2);
     }
 
     @FXML
@@ -95,6 +97,16 @@ public class EcoController implements PropertyChangeListener {
                     mapTile.setBackground(Color.GREENYELLOW);
                 }
 
+                engine.getHero(currentPoint).ifPresent(h -> {
+                    mapTile.setName(h.getName());
+                    if(h.equals(engine.getHero1())) {
+                        Tooltip.install(mapTile, skillTooltip1);
+                    }
+                    if (h.equals(engine.getHero2())) {
+                        Tooltip.install(mapTile, skillTooltip2);
+                    }
+                });
+
                 if (engine.isCastle(currentPoint)) {
                     mapTile.setBackground(Color.BROWN);
                     mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
@@ -138,10 +150,6 @@ public class EcoController implements PropertyChangeListener {
         }
 
         allResourcesLabel.setText(engine.getCurrentHero().getResources().getAllResourcesAsString());
-
-        List<String> skillsData = engine.getCurrentHero().getSkills().values().stream().map(Skill::toString).collect(Collectors.toList());
-        skills = FXCollections.observableArrayList(skillsData);
-//        skillsList.setItems(skills);
     }
 
     @Override
