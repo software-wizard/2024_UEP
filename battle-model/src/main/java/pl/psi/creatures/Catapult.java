@@ -2,10 +2,8 @@ package pl.psi.creatures;
 
 import lombok.Getter;
 import lombok.Setter;
-import pl.psi.Point;
 import pl.psi.enums.AttackTypeEnum;
 import pl.psi.enums.CreatureTypeEnum;
-import pl.psi.obstacles.Wall;
 
 import java.util.Random;
 
@@ -18,7 +16,7 @@ public class Catapult extends Creature {
     private int currentHp;
     private int counterAttackCounter = 1;
     @Setter
-    private DamageCalculatorIf calculator;
+    private MachineCalculatorDecorator calculator;
     private CreatureTypeEnum creatureType;
     private AttackTypeEnum attackType;
     @Setter
@@ -29,14 +27,15 @@ public class Catapult extends Creature {
         super(aStats, aCalculator, aAmount, aCreatureType, aAttackType, new Morale(0));
         this.level = 1;
         this.attackStrategy = (new CatapultAttackStrategy());
+        this.calculator.setLevel(level);
     }
 
     public static class Builder {
         private int amount = 1;
-        private DamageCalculatorIf calculator = new DefaultDamageCalculator(new Random());
+        private DamageCalculatorIf calculator = new MachineCalculatorDecorator(new DefaultDamageCalculator(new Random()), 0);
         private CreatureStatisticIf statistic;
-        private CreatureTypeEnum creatureType = CreatureTypeEnum.GROUND;
-        private AttackTypeEnum attackType = AttackTypeEnum.MELEE;
+        private CreatureTypeEnum creatureType = CreatureTypeEnum.MACHINE;
+        private AttackTypeEnum attackType = AttackTypeEnum.RANGE;
         private AttackStrategy strategy;
         private Morale morale;
 

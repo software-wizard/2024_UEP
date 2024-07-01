@@ -1,19 +1,14 @@
 package pl.psi;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Map;
-import java.util.Random;
-
 import com.google.common.collect.Range;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
-
-import pl.psi.creatures.CastleCreatureFactory;
 import pl.psi.creatures.*;
 import pl.psi.enums.AttackTypeEnum;
 import pl.psi.enums.CreatureTypeEnum;
 import pl.psi.spells.Spellbook;
+
+import java.util.List;
+import java.util.Random;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
@@ -22,6 +17,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
  */
 public class GameEngineTest {
+    private final QuarterRandom quarterRandom = new QuarterRandom();
 
     @Test
     void gameEngineShouldDeliverInformationAboutCurrentHeroToMove() {
@@ -76,9 +72,6 @@ public class GameEngineTest {
 
     @Test
     void creatureShouldActAgainAfterReceivingGoodMorale() {
-        //always return 0.25 random.
-        QuarterRandom quarterRandom = new QuarterRandom();
-
         Range<Integer> notImportantDamage = Range.closed(0, 0);
         final Creature shouldActTwice = new Creature.Builder()
                 .statistic(CreatureStats.builder()
@@ -122,20 +115,34 @@ public class GameEngineTest {
         assertEquals(gameEngine.getCreatureToMove(), enemyCreature);
     }
 
-    private static class QuarterRandom extends Random {
-        @Override
-        public double nextDouble() {
-            return 0.25;
-        }
-    }
-
     @Test
-    void warMachinesAttackCorrectly() {
-        QuarterRandom quarterRandom = new QuarterRandom(); //both machines will always hit
+    void warMachinesWithLevelSmallerThan2ShootOnItsOwn() {
         int maxHp = 100;
-        Creature ballista = new Creature.Builder().statistic((CreatureStats.builder()
+        Creature catapult1 = new Creature.Builder().statistic((CreatureStats.builder()
+                        .damage(Range.closed(10, 10))
+                        .maxHp(maxHp)
+                        .build()))
+                .creatureType(CreatureTypeEnum.MACHINE)
+                .attackType(AttackTypeEnum.RANGE)
+                .calculator(new MachineCalculatorDecorator(new DefaultDamageCalculator(quarterRandom), 1))
+                .morale(new Morale(0))
+                .build();
+
+        Creature creature1 = new Creature.Builder()
+                .statistic(CreatureStats.builder()
                         .maxHp(maxHp)
                         .damage(Range.closed(10, 10))
+                        .attack(10)
+                        .build())
+                .build();
+
+        Hero hero1 = new Hero(List.of(creature1, catapult1),
+                new PrimarySkill(1, 2, 3, 4),
+                null);
+
+        Creature catapult2 = new Creature.Builder().statistic((CreatureStats.builder()
+                        .damage(Range.closed(10, 10))
+                        .maxHp(maxHp)
                         .build()))
                 .creatureType(CreatureTypeEnum.MACHINE)
                 .attackType(AttackTypeEnum.RANGE)
@@ -143,37 +150,84 @@ public class GameEngineTest {
                 .morale(new Morale(0))
                 .build();
 
+        Creature creature2 = new Creature.Builder()
+                .statistic(CreatureStats.builder()
+                        .maxHp(maxHp)
+                        .damage(Range.closed(10, 10))
+                        .attack(10)
+                        .build())
+                .build();
 
-        Creature skeleton1 = new NecropolisFactory().create(true, 1, 5, 0);
-        final Hero hero1 = new Hero(
-                List.of(skeleton1,
-                        ballista), null,
-                new Spellbook(new ArrayList<>()));
-
-
-        Creature catapult = new MachineFactory().create("Catapult");
-        catapult.setCalculator(new MachineCalculatorDecorator(new DefaultDamageCalculator(quarterRandom), 3));
-
-        Creature skeleton2 = new NecropolisFactory().create(true, 1, 5, 0);
-        final Hero hero2 = new Hero(
-                List.of(skeleton2,
-                        catapult), null,
-                new Spellbook(new ArrayList<>()));
+        Hero hero2 = new Hero(List.of(creature2, catapult2),
+                new PrimarySkill(1, 2, 3, 4),
+                null);
 
         GameEngine gameEngine = new GameEngine(hero1, hero2);
 
         assertThat(gameEngine.getHeroToMove()).isEqualTo(hero1);
-        assertThat(gameEngine.getCreatureToMove()).isEqualTo(skeleton1);
-
-        Point skeleton2Location = gameEngine.getCreatureLocation(skeleton2);
-        gameEngine.attack(skeleton2Location);
-        assertThat(skeleton2.getCurrentHp()).isBetween(1, 3);
-        assertThat(gameEngine.getHeroToMove()).isEqualTo(hero2); //this means that hero 1 ballista shot on its own
-        assertThat(catapult.getCurrentHp()).isEqualTo(993);
-        assertThat(gameEngine.getCreatureToMove()).isEqualTo(catapult); //that means that ballista can choose its own target, because it has lvl 3 calculator
-        assertThat(gameEngine.canAttack(gameEngine.getCreatureLocation(catapult))).isTrue();
-        assertThat(gameEngine.canAttack(gameEngine.getCreatureLocation(skeleton1))).isFalse();
+        assertThat(gameEngine.getCreatureToMove()).isEqualTo(creature1);
+        gameEngine.attack(gameEngine.getCreatureLocation(creature2));
+        assertThat(creature2.getCurrentHp()).isEqualTo(maxHp - 15);
+        //catapult 1 should fire after this attack
+        assertThat(catapult2.getCurrentHp()).isEqualTo(maxHp - 10);
+        assertThat(gameEngine.getHeroToMove()).isEqualTo(hero2);
+        assertThat(gameEngine.getCreatureToMove()).isEqualTo(creature2);
+        gameEngine.attack(gameEngine.getCreatureLocation(creature1));
+        //catapult 2 should fire after this attack
+        assertThat(catapult1.getCurrentHp()).isEqualTo(maxHp - 10);
     }
 
+    @Test
+    void warMachinesCanOnlyAttackWarMachines() {
+        int maxHp = 100;
+        Creature catapult1 = new Creature.Builder().statistic((CreatureStats.builder()
+                        .damage(Range.closed(10, 10))
+                        .maxHp(maxHp)
+                        .build()))
+                .creatureType(CreatureTypeEnum.MACHINE)
+                .attackType(AttackTypeEnum.RANGE)
+                .calculator(new MachineCalculatorDecorator(new DefaultDamageCalculator(quarterRandom), 3))
+                .morale(new Morale(0))
+                .build();
 
+        Hero hero1 = new Hero(List.of(catapult1),
+                new PrimarySkill(1, 2, 3, 4),
+                null);
+
+        Creature catapult2 = new Creature.Builder().statistic((CreatureStats.builder()
+                        .damage(Range.closed(10, 10))
+                        .maxHp(maxHp)
+                        .build()))
+                .creatureType(CreatureTypeEnum.MACHINE)
+                .attackType(AttackTypeEnum.RANGE)
+                .calculator(new MachineCalculatorDecorator(new DefaultDamageCalculator(quarterRandom), 2))
+                .morale(new Morale(0))
+                .build();
+
+        Creature creature2 = new Creature.Builder()
+                .statistic(CreatureStats.builder()
+                        .maxHp(maxHp)
+                        .damage(Range.closed(10, 10))
+                        .attack(10)
+                        .build())
+                .build();
+
+        Hero hero2 = new Hero(List.of(creature2, catapult2),
+                new PrimarySkill(1, 2, 3, 4),
+                null);
+
+        GameEngine gameEngine = new GameEngine(hero1, hero2);
+
+        assertThat(gameEngine.getHeroToMove()).isEqualTo(hero1);
+        assertThat(gameEngine.getCreatureToMove()).isEqualTo(catapult1);
+        assertThat(gameEngine.canAttack(gameEngine.getCreatureLocation(catapult2))).isTrue();
+        assertThat(gameEngine.canAttack(gameEngine.getCreatureLocation(creature2))).isFalse();
+    }
+
+    private static class QuarterRandom extends Random {
+        @Override
+        public double nextDouble() {
+            return 0.25;
+        }
+    }
 }

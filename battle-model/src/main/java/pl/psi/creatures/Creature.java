@@ -6,28 +6,25 @@ package pl.psi.creatures;//  ***************************************************
 //
 //  ******************************************************************
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Random;
-
+import com.google.common.collect.Range;
+import lombok.Getter;
 import lombok.Setter;
 import pl.psi.Point;
+import pl.psi.TurnQueue;
 import pl.psi.effects.creature.object.CreatureEffect;
 import pl.psi.effects.creature.object.CreatureEffectFactory;
 import pl.psi.effects.generic.EffectStatistic;
 import pl.psi.effects.generic.EffectTargetType;
 import pl.psi.enums.AttackTypeEnum;
-import pl.psi.TurnQueue;
-
-import com.google.common.collect.Range;
-
-import lombok.Getter;
 import pl.psi.enums.CreatureTypeEnum;
-
 import pl.psi.obstacles.ObstaclesWithHP;
 import pl.psi.obstacles.Wall;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
 
 /**
  * TODO: Describe this class (The first line - untorigin/WarMachines03il the first dot - will interpret as the brief description).
@@ -63,6 +60,7 @@ public class Creature implements PropertyChangeListener {
         creatureType = aCreatureType;
         attackType = aAttackType;
         morale = aMorale;
+        attackStrategy = new CreatureAttackStrategy();
     }
 
     public CreatureStatisticIf getStats() {
