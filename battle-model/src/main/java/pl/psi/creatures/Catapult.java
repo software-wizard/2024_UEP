@@ -27,7 +27,6 @@ public class Catapult extends Creature {
         super(aStats, aCalculator, aAmount, aCreatureType, aAttackType, new Morale(0));
         this.level = 1;
         this.attackStrategy = (new CatapultAttackStrategy());
-        this.calculator.setLevel(level);
     }
 
     public static class Builder {

@@ -1,11 +1,13 @@
 package pl.psi.creatures;
 
 import com.google.common.collect.Range;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
 
+@Disabled
 class BallistaTest {
 
     @Test

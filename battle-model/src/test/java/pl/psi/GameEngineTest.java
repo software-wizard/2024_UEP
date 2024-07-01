@@ -60,8 +60,12 @@ public class GameEngineTest {
                         .damage(Range.closed(10, 10))
                         .build())
                 .build();
-        Hero hero1 = new Hero(List.of(lichWithArchery), null, null);
-        Hero hero2 = new Hero(List.of(lichWithoutArchery), null, null);
+        Hero hero1 = new Hero(List.of(lichWithArchery),
+                new PrimarySkill(1, 2, 3, 4),
+                new Spellbook(List.of()));
+        Hero hero2 = new Hero(List.of(lichWithoutArchery),
+                new PrimarySkill(1, 2, 3, 4),
+                new Spellbook(List.of()));
 
         GameEngine gameEngine = new GameEngine(hero1, hero2);
 
@@ -91,8 +95,12 @@ public class GameEngineTest {
                         .maxHp(200)
                         .build())
                 .build();
-        Hero hero1 = new Hero(List.of(shouldActTwice, shouldActOnce), null, null);
-        Hero hero2 = new Hero(List.of(enemyCreature), null, null);
+        Hero hero1 = new Hero(List.of(shouldActTwice, shouldActOnce),
+                new PrimarySkill(1, 2, 3, 4),
+                new Spellbook(List.of()));
+        Hero hero2 = new Hero(List.of(enemyCreature),
+                new PrimarySkill(1, 2, 3, 4),
+                new Spellbook(List.of()));
         GameEngine gameEngine = new GameEngine(hero1, hero2);
 
         Point enemyLocation = gameEngine.getCreatureLocation(enemyCreature);

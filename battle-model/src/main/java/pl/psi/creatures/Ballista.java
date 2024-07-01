@@ -28,7 +28,6 @@ public class Ballista extends Creature {
                        final int aAmount, CreatureTypeEnum aCreatureType, AttackTypeEnum aAttackType) {
         super(aStats, aCalculator, aAmount, aCreatureType, aAttackType, new Morale(0));
         this.level = 1;
-        this.calculator.setLevel(level);
     }
 
     public static class Builder {
