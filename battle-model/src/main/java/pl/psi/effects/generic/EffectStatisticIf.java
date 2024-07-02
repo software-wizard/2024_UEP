@@ -6,4 +6,5 @@ public interface EffectStatisticIf {
     int getBaseModifierValue();
     int getLength();
     boolean isStackable();
+    EffectTargetType getTargetType();
 }

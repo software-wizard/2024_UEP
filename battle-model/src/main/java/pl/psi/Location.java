@@ -23,4 +23,5 @@ public class Location extends Point {
     private boolean isValidPoint() {
         return this.board.isValidPoint(this);
     }
+
 }

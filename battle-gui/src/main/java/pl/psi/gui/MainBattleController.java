@@ -2,10 +2,14 @@ package pl.psi.gui;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.util.List;
 import java.util.Optional;
+import java.util.stream.Collectors;
 
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.input.MouseEvent;
@@ -77,13 +81,30 @@ public class MainBattleController implements PropertyChangeListener
         spellButton.addEventHandler(MouseEvent.MOUSE_CLICKED, ( e ) -> showSpellGrid());
     }
 
+    private GridTile getGridTileByPoint(Point p) {
+        Node result = null;
+        ObservableList<Node> childrens = gridMap.getChildren();
+
+        for (Node node : childrens) {
+            if(gridMap.getRowIndex(node) == p.getY() && gridMap.getColumnIndex(node) == p.getX()) {
+                result = node;
+                break;
+            }
+        }
+
+        return (GridTile)result;
+    }
+
     private void onSpellCastMapHover(MouseEvent e, Point p) {
         GridTile source = (GridTile)e.getSource();
 
-        final Hero hero = gameEngine.getHeroToMove();
+        List<Location> affectedPoints = selectedSpell.getTargetPoints(new Location(p, gameEngine.getBoard()));
+        List<GridTile> tiles = affectedPoints.stream().map(this::getGridTileByPoint).collect(Collectors.toList());
 
-        if (hero.getSpellbook().canCast(selectedSpell, hero, new Location(p, gameEngine.getBoard()))) {
-            source.setBackground(Color.AQUA);
+        if (gameEngine.canCastSpell(selectedSpell, p)) {
+            for (GridTile tile : tiles) {
+                tile.setBackground(Color.AQUA);
+            }
         } else {
             source.setBackground(Color.DARKRED);
         }
@@ -95,11 +116,8 @@ public class MainBattleController implements PropertyChangeListener
     }
 
     private void onSpellCastMapClick(MouseEvent e, Point p) {
-        final Hero hero = gameEngine.getHeroToMove();
-        final Location loc = new Location(p, gameEngine.getBoard());
-
-        if (hero.getSpellbook().canCast(selectedSpell, hero, loc)) {
-            hero.getSpellbook().castSpell(selectedSpell, hero, loc);
+        if (gameEngine.canCastSpell(selectedSpell, p)) {
+            gameEngine.castSpell(selectedSpell, p);
         }
 
         gameEngine.pass();

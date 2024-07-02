@@ -4,24 +4,26 @@ import pl.psi.Hero;
 import pl.psi.Location;
 import pl.psi.Point;
 import pl.psi.spells.object.Spell;
+import pl.psi.spells.object.enums.SpellExpertise;
+import pl.psi.spells.object.enums.SpellSchool;
 
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class Spellbook {
     private final List<Spell> spells;
+    private final Map<SpellSchool, SpellExpertise> expertise;
 
-    public Spellbook(final List<Spell> aSpells) {
+    public Spellbook(final List<Spell> aSpells, final Map<SpellSchool, SpellExpertise> expertise) {
         this.spells = aSpells;
+        this.expertise = new EnumMap<>(expertise);
+    }
+
+    public SpellExpertise getSchoolMastery(final SpellSchool school) {
+        return expertise.getOrDefault(school, SpellExpertise.NONE);
     }
 
     public boolean hasSpell(Spell spell) {
         return spells.contains(spell);
-    }
-
-    public boolean hasSpell(String spellName) {
-        return spells.stream().anyMatch((spell) -> spell.getStats().getName().equalsIgnoreCase(spellName));
     }
 
     public List<Spell> getSpells() {

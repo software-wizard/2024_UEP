@@ -1,5 +1,6 @@
 package pl.psi;
 
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
 import java.util.HashSet;
@@ -11,17 +12,16 @@ import java.util.stream.Stream;
 
 import lombok.Getter;
 import pl.psi.creatures.Creature;
+import pl.psi.event.BattleEndedEvent;
+import pl.psi.event.CreatureMovedEvent;
+import pl.psi.event.GameEventType;
 import pl.psi.obstacles.ObstaclesWithHP;
+import pl.psi.spells.object.Spell;
 
 /**
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
  */
-public class GameEngine {
-
-    public static final String CREATURE_MOVED = "CREATURE_MOVED";
-
-    public static final String BATTLE_ENDED = "BATTLE_ENDED";
-
+public class GameEngine implements PropertyChangeListener {
     private final TurnQueue turnQueue;
 
     @Getter
@@ -38,6 +38,8 @@ public class GameEngine {
 
         turnQueue = new TurnQueue(aHero1.getCreatures(), aHero2.getCreatures());
         board = new Board(aHero1.getCreatures(), aHero2.getCreatures());
+
+        turnQueue.addObserver(this);
     }
 
     public void attack(final Point point) {
@@ -56,6 +58,19 @@ public class GameEngine {
 
         checkBattleEnd();
     }
+
+    public boolean canCastSpell(final Spell spell, final Point p) {
+        Location l = new Location(p, this.board);
+        return spell.canCast(this.getHeroToMove(), l);
+    }
+
+    public void castSpell(final Spell spell, final Point p) {
+        Location l = new Location(p, this.board);
+        spell.cast(this.getHeroToMove(), l);
+
+
+    }
+
     public boolean isObstacle(final Point aPoint){
         return board.isObstacle(aPoint);
     }
@@ -66,12 +81,7 @@ public class GameEngine {
 
         if (board.getCreature(aPoint).isPresent()) {
             return true;
-        } else if (board.isObstacle(aPoint)) {
-            return true;
-        }
-        else {
-            return false;
-        }
+        } else return board.isObstacle(aPoint);
     }
 
     public boolean canMove(final Point aPoint) {
@@ -83,8 +93,10 @@ public class GameEngine {
     }
 
     public void move(final Point aPoint) {
+        Point origin = getCreaturePosition(turnQueue.getCurrentCreature());
         board.move(turnQueue.getCurrentCreature(), aPoint);
-        observerSupport.firePropertyChange(CREATURE_MOVED, null, aPoint);
+        observerSupport.firePropertyChange(GameEventType.CREATURE_MOVED.toString(),
+                null, new CreatureMovedEvent(turnQueue.getCurrentCreature(), origin.asLocation(board), aPoint.asLocation(board)));
     }
 
     public Optional<Creature> getCreature(final Point aPoint) {
@@ -97,7 +109,13 @@ public class GameEngine {
 
     public void addObserver(final PropertyChangeListener aObserver) {
         observerSupport.addPropertyChangeListener(aObserver);
-        turnQueue.addObserver(aObserver);
+    }
+
+    @Override
+    public void propertyChange(PropertyChangeEvent evt) {
+        if (evt.getPropertyName().equals(TurnQueue.END_OF_TURN) || evt.getPropertyName().equals(TurnQueue.NEXT_CREATURE)) {
+            observerSupport.firePropertyChange(TurnQueue.END_OF_TURN, evt.getOldValue(), evt.getNewValue());
+        }
     }
 
     public boolean canAttack(final Point point) {
@@ -145,7 +163,7 @@ public class GameEngine {
     }
 
     public void endBattle(boolean attackerWon){
-        observerSupport.firePropertyChange(BATTLE_ENDED, null, attackerWon);
+        observerSupport.firePropertyChange(GameEventType.BATTLE_ENDED.toString(), null, new BattleEndedEvent(attackerWon ? hero1 : hero2));
     }
 
 
@@ -174,4 +192,6 @@ public class GameEngine {
     public boolean isWall(Point currentPoint) {
         return false;
     }
+
+
 }

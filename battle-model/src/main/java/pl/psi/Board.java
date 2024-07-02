@@ -1,5 +1,7 @@
 package pl.psi;
 
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 import java.util.*;
 import java.util.stream.Stream;
 
@@ -7,6 +9,11 @@ import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
 import pl.psi.creatures.Creature;
+import pl.psi.effects.board.object.BoardEffect;
+import pl.psi.effects.board.object.BoardEffectFactory;
+import pl.psi.effects.generic.Effect;
+import pl.psi.effects.generic.EffectStatistic;
+import pl.psi.effects.generic.EffectTargetType;
 import pl.psi.obstacles.*;
 
 import static pl.psi.obstacles.ObstaclesIF.maxHP;
@@ -14,7 +21,7 @@ import static pl.psi.obstacles.ObstaclesIF.maxHP;
 /**
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
  */
-public class Board implements ObstacleObserver, BoardIf
+public class Board implements ObstacleObserver, PropertyChangeListener, BoardIf
 {
     private static final int MAX_WITDH = 14;
     private static final int MAX_HEIGHT = 9;
@@ -22,6 +29,8 @@ public class Board implements ObstacleObserver, BoardIf
     private  final HashMap<Point, ObstaclesWithHP> obstaclesWithHPMap = new HashMap<>();
     private  final HashMap<Point, Obstacle> regularObstaclesMap = new HashMap<>();
     private final HashMap<Point, Wall> wallHashMap = new HashMap<>();
+
+    private final HashMap<Point, List<BoardEffect>> effects = new HashMap<>();
 
     private final int width;
     private final int height;
@@ -35,6 +44,41 @@ public class Board implements ObstacleObserver, BoardIf
         addCreatures( aCreatures2, MAX_WITDH );
         addWall();
         addRandomObstacles();
+    }
+
+    public void applyEffect(Point p, EffectStatistic effectStatistic) {
+        if (!effectStatistic.getTargetType().equals(EffectTargetType.BOARD))
+            throw new IllegalArgumentException("only board effects can be applied to the board");
+
+        List<BoardEffect> effectsAtPoint = effects.get(p);
+
+        if (effectsAtPoint != null) {
+            for (BoardEffect effect : effectsAtPoint) {
+                if (effect.getEffectStatistic().equals(effectStatistic)) {
+                    if (effect.getEffectStatistic().isStackable()) {
+                        effect.setAmount(effect.getAmount() + 1);
+                    }
+
+                    return;
+                }
+            }
+        }
+
+        BoardEffect effect = BoardEffectFactory.fromStatistic(effectStatistic);
+        if (effect == null) return;
+
+        effect.addObserver(this);
+
+        if (effectsAtPoint != null) {
+            effectsAtPoint.add(effect);
+        } else {
+            effects.put(p, List.of(effect));
+        }
+    }
+
+    public boolean hasEffect(Point p, EffectStatistic effectStatistic) {
+        if (effects.get(p) == null) return false;
+        return effects.get(p).stream().anyMatch((effect) -> effect.getEffectStatistic().equals(effectStatistic));
     }
 
     private void addWall(){
@@ -120,10 +164,23 @@ public class Board implements ObstacleObserver, BoardIf
                 obstaclesWithHPMap.containsKey(aPoint) ||
                 wallHashMap.containsKey(aPoint)  ||
                 map.containsKey(aPoint)){
-            return  false;
+            return false;
         }
         final Point oldPosition = getPosition( aCreature );
-        return aPoint.distance( oldPosition.getX(), oldPosition.getY() ) < aCreature.getMoveRange();
+        if (aPoint.distance( oldPosition.getX(), oldPosition.getY() ) >= aCreature.getMoveRange()) return false;
+
+        List<BoardEffect> effectsAtOriginPoint = effects.get(oldPosition);
+        List<BoardEffect> effectsAtTargetPoint = effects.get(aPoint);
+
+        for (BoardEffect effect : effectsAtOriginPoint) {
+            if (!effect.canExit(aCreature)) return false;
+        }
+
+        for (BoardEffect effect : effectsAtTargetPoint) {
+            if (!effect.canEnter(aCreature)) return false;
+        }
+
+        return true;
     }
 
     Point getPosition( Creature aCreature )
@@ -173,6 +230,25 @@ public class Board implements ObstacleObserver, BoardIf
         }
     }
 
+    public void propertyChange(PropertyChangeEvent evt) {
+        if (TurnQueue.END_OF_TURN.equals(evt.getPropertyName())) {
+            effects.forEach((point, effectList) -> {
+                List<BoardEffect> temp = new ArrayList<>(effectList);
+                temp.forEach(BoardEffect::turnPassed);
+            });
+        }
+        else if (Effect.EFFECT_ENDED.equals(evt.getPropertyName())) {
+            BoardEffect effect = (BoardEffect) evt.getSource();
+
+            effects.forEach((point, effectList) -> {
+                effectList.removeIf(e -> e == effect);
+            });
+        }
+    }
+
+
+
+
     @Override
     public boolean isValidPoint(Point p) {
         return isWithinBounds(p);
@@ -187,7 +263,7 @@ public class Board implements ObstacleObserver, BoardIf
 
     @Override
     public Optional<Creature> getCreature(Location l) {
-        return getCreature(l);
+        return getCreature((Point) l);
     }
 
     public Set<Creature> getAllCreatures() {

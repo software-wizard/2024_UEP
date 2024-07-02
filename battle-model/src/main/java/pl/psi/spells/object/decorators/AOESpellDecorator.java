@@ -19,6 +19,10 @@ public class AOESpellDecorator extends Spell {
         this.pointSelectionStrategy = pointSelectionStrategy;
     }
 
+    public List<Location> getTargetPoints(Location origin) {
+        return this.pointSelectionStrategy.getTargetPoints(origin, this.getStats().getSize());
+    }
+
     @Override
     public SpellStatisticIf getStats() {
         return this.decorated.getStats();
