@@ -25,7 +25,10 @@ import pl.psi.EconomyEngine;
 import pl.psi.EconomyHero;
 import pl.psi.Point;
 import pl.psi.converter.EcoBattleConverter;
+import pl.psi.enums.SkillEnum;
+import pl.psi.objects.SkillsField;
 import pl.psi.skills.Skill;
+import pl.psi.skills.SkillImageHashMap;
 
 @NoArgsConstructor
 public class EcoController implements PropertyChangeListener {
@@ -44,11 +47,13 @@ public class EcoController implements PropertyChangeListener {
 
     SkillTooltip skillTooltip1;
     SkillTooltip skillTooltip2;
+    SkillImageHashMap skillImageHashMap;
 
     public EcoController(final EconomyHero aHero1, final EconomyHero aHero2) {
         engine = new EconomyEngine(aHero1, aHero2);
         skillTooltip1 = new SkillTooltip(aHero1);
         skillTooltip2 = new SkillTooltip(aHero2);
+        skillImageHashMap = new SkillImageHashMap();
     }
 
     @FXML
@@ -118,21 +123,26 @@ public class EcoController implements PropertyChangeListener {
                 }
 
                 if (engine.isFieldPoint(currentPoint)) {
-                    if (engine.isGoldField(currentPoint)) {
-                        mapTile.setIcon("/resourcesIcons/gold.png");
-                    } else if (engine.isWoodField(currentPoint)) {
-                        mapTile.setIcon("/resourcesIcons/wood.png");
-                    } else if (engine.isOreField(currentPoint)) {
-                        mapTile.setIcon("/resourcesIcons/ore.png");
-                    } else if (engine.isGemsField(currentPoint)) {
-                        mapTile.setIcon("/resourcesIcons/gems.png");
-                    } else if (engine.isSulfurField(currentPoint)) {
-                        mapTile.setIcon("/resourcesIcons/sulfur.png");
-                    } else if (engine.isMercuryField(currentPoint)) {
-                        mapTile.setIcon("/resourcesIcons/mercury.png");
-                    } else if (engine.isCristalsField(currentPoint)) {
-                        mapTile.setIcon("/resourcesIcons/crystals.png");
+                    if (engine.getField(currentPoint).isSkillField()) {
+                        mapTile.setBackgroundImage(skillImageHashMap.get(((SkillsField) engine.getField(currentPoint)).getSkill().getSkillName()));
+                    } else {
+                        if (engine.isGoldField(currentPoint)) {
+                            mapTile.setIcon("/resourcesIcons/gold.png");
+                        } else if (engine.isWoodField(currentPoint)) {
+                            mapTile.setIcon("/resourcesIcons/wood.png");
+                        } else if (engine.isOreField(currentPoint)) {
+                            mapTile.setIcon("/resourcesIcons/ore.png");
+                        } else if (engine.isGemsField(currentPoint)) {
+                            mapTile.setIcon("/resourcesIcons/gems.png");
+                        } else if (engine.isSulfurField(currentPoint)) {
+                            mapTile.setIcon("/resourcesIcons/sulfur.png");
+                        } else if (engine.isMercuryField(currentPoint)) {
+                            mapTile.setIcon("/resourcesIcons/mercury.png");
+                        } else if (engine.isCristalsField(currentPoint)) {
+                            mapTile.setIcon("/resourcesIcons/crystals.png");
+                        }
                     }
+
 
                     mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
                         if (engine.isCurrentHero(currentPoint)) {

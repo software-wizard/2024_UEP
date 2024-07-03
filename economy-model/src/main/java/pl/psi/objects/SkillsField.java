@@ -25,4 +25,9 @@ public class SkillsField implements Field {
     public String getImageBackground() {
         return hashMap.get(this.skill.getSkillName());
     }
+
+    @Override
+    public boolean isSkillField() {return true;}
+
+
 }

@@ -50,4 +50,7 @@ public class ResourcesField implements Field{
     }
     @Override
     public String getImageBackground() {return "creatures/Resource.png" ;}
+
+    @Override
+    public boolean isSkillField() {return false;}
 }
