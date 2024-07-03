@@ -30,8 +30,7 @@ import java.util.Random;
  * TODO: Describe this class (The first line - untorigin/WarMachines03il the first dot - will interpret as the brief description).
  */
 @Getter
-public class Creature implements PropertyChangeListener {
-    protected AttackStrategy attackStrategy;
+public class Creature implements PropertyChangeListener, DefenderIf {
     private CreatureStatisticIf stats;
     @Setter
     private int amount;
@@ -42,9 +41,13 @@ public class Creature implements PropertyChangeListener {
     private DamageCalculatorIf calculator;
     private CreatureTypeEnum creatureType;
     private AttackTypeEnum attackType;
+    private TargetTypeEnum targetType = TargetTypeEnum.CREATURE;
     @Setter
     private DamageApplier damageApplier = new DamageApplier();
 
+    protected AttackStrategy attackStrategy;
+    private WallAttackStrategy wallAttackStrategy = new WallAttackStrategy();
+    private CreatureAttackStrategy creatureAttackStrategy = new CreatureAttackStrategy();
     private final List<CreatureEffect> creatureEffects = new ArrayList<>();
 
 
@@ -108,7 +111,7 @@ public class Creature implements PropertyChangeListener {
         return creatureEffects.stream().anyMatch((effect) -> effect.getEffectStatistic().equals(effectStatistic));
     }
 
-    public void attack(final Object target) {
+    public void attack(final DefenderIf target) {
         attack(target, AttackTypeEnum.MELEE, null);
     }
 
@@ -273,16 +276,24 @@ public class Creature implements PropertyChangeListener {
         this.attackStrategy = attackStrategy;
     }
 
-    public void attack(Object target, AttackTypeEnum attackType, Point aPoint) {
-        if (attackStrategy != null) {
+    public void attack(DefenderIf target, AttackTypeEnum attackType, Point aPoint) {
+        if (target.getType().equals(TargetTypeEnum.CREATURE)) {
+            attackStrategy = creatureAttackStrategy;
+            attackStrategy.attack(this, target, attackType, aPoint);
+        } else if (target.getType().equals(TargetTypeEnum.WALL)) {
+            attackStrategy = wallAttackStrategy;
             attackStrategy.attack(this, target, attackType, aPoint);
         } else {
             throw new IllegalStateException("Attack strategy is not set");
         }
     }
 
-    public void attack(Object target, AttackTypeEnum attackType) {
+    public void attack(DefenderIf target, AttackTypeEnum attackType) {
         attack(target, attackType, null);
+    }
+
+    public TargetTypeEnum getType() {
+        return targetType;
     }
 
 }

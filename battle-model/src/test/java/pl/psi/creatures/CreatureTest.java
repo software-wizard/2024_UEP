@@ -219,7 +219,7 @@ public class CreatureTest {
 
         // when
 
-        rangedCreature.setAttackStrategy(new WallAttackStrategy());
+
         rangedCreature.attack(wall);
         // then
         assertThat(wall.getCurrentHP()).isEqualTo(1500);
@@ -241,10 +241,10 @@ public class CreatureTest {
 
 
         // when
-        catapult.setAttackStrategy(new WallAttackStrategy());
+//        catapult.setAttackStrategy(new CatapultAttackStrategy());
         meleeCreature.setAttackStrategy(new WallAttackStrategy());
 
-        catapult.attackWall(wall, null);
+        catapult.attack(wall, null);
         meleeCreature.attack(wall);
         // then
         assertThat(wall.getCurrentHP()).isLessThan(1500);
@@ -268,5 +268,28 @@ public class CreatureTest {
 
         rangedCreature.attack(defender, AttackTypeEnum.RANGE);
         assertThat(rangedCreature.getCurrentHp()).isEqualTo(maxHp);
+    }
+
+    @Test
+    void creatureShouldAttackAnotherCreature() {
+        // given
+        final Creature attacker = new Creature.Builder().statistic(CreatureStats.builder()
+                        .maxHp(100)
+                        .damage(Range.closed(10, 10))
+                        .attack(50)
+                        .armor(0)
+                        .build())
+                .build();
+        final Creature defender = new Creature.Builder().statistic(CreatureStats.builder()
+                        .maxHp(100)
+                        .damage(NOT_IMPORTANT_DMG)
+                        .attack(0)
+                        .armor(10)
+                        .build())
+                .build();
+        // when
+        attacker.attack(defender);
+        // then
+        assertThat(defender.getCurrentHp()).isEqualTo(70);
     }
 }

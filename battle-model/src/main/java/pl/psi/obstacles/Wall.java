@@ -3,11 +3,14 @@ package pl.psi.obstacles;
 import lombok.Getter;
 import lombok.Setter;
 import pl.psi.Point;
+import pl.psi.creatures.DefenderIf;
+import pl.psi.creatures.TargetTypeEnum;
+
 import java.util.ArrayList;
 
 @Getter
 @Setter
-public class Wall implements ObstaclesIF, ObstaclesObservable {
+public class Wall implements ObstaclesIF, ObstaclesObservable, DefenderIf {
 
     private int levelOneHP = 1500;
     private int levelTwoHP = 1000;
@@ -15,6 +18,7 @@ public class Wall implements ObstaclesIF, ObstaclesObservable {
     private int currentHP;
     private int currentLevel;
     private Point point;
+    private TargetTypeEnum targetType = TargetTypeEnum.WALL;
 
     private final ArrayList<ObstacleObserver> observers = new ArrayList<>();
 
@@ -71,5 +75,10 @@ public class Wall implements ObstaclesIF, ObstaclesObservable {
 
     public int getHP() {
         return currentHP;
+    }
+
+    @Override
+    public TargetTypeEnum getType() {
+        return TargetTypeEnum.WALL;
     }
 }

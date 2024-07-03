@@ -37,7 +37,7 @@ class SelfHealAfterTurnCreature extends Creature {
     }
 
     @Override
-    public void attack(final Object target) {
+    public void attack(final DefenderIf target) {
         decorated.attack(target);
     }
 
