@@ -73,11 +73,7 @@ public class Ballista extends Creature {
         }
     }
 
-    public void attack(Creature creature, Hero hero) {
-        ballistaDamageCalculator(creature, hero);
-    }
-
-    public int randomHitPercentage() {
+    public int damageMultiplier() {
         int hitPercentage;
         switch (this.level) {
             case 0:
@@ -97,30 +93,45 @@ public class Ballista extends Creature {
         }
         return hitPercentage;
     }
-
-    public void ballistaDamageCalculator(Creature creature, Hero hero) {
-        Random random = new Random();
-        int randomNumber = random.nextInt(101);
-
-
-        if (randomNumber < randomHitPercentage()) {
-            int heroAttack = Ballista.getAttackHero();
-            float damage = 2 + random.nextFloat();
-            damage *= heroAttack + 1;
-            int damageI = (int) damage;
-            if (damageI > 0) {
-                DamageValueObject damageValueObject = new DamageValueObject(damageI, this.attackType, this.creatureType);
-                this.damageApplier.applyDamage(damageValueObject, creature);
-            }
-        }
+    @Override
+    public void attack(Creature creature) {
+        ballistaDamageCalculator(creature);
     }
 
 
-    public static int getAttackHero() {
-        return 10;
+//    public void ballistaDamageCalculator(Creature creature) {
+//        Random random = new Random();
+//        int randomNumber = random.nextInt(101);
+//        if (randomNumber < randomHitPercentage()) {
+//            int heroAttack = 10;
+//            float damage = 2 + random.nextFloat();
+//            damage *= heroAttack + 1;
+//            int damageI = (int) damage;
+//            if (damageI > 0) {
+//                DamageValueObject damageValueObject = new DamageValueObject(damageI, this.attackType, this.creatureType);
+//                this.damageApplier.applyDamage(damageValueObject, creature);
+//            }
+//        }
+//    }
+
+    //dmg ballisty okolo 100. Czy nie za malo?
+    public void ballistaDamageCalculator(Creature creature) {
+        int randomNumber = 2 + new Random().nextInt(2);
+        float percentageHit  = 1 + (float) damageMultiplier()/100;
+        int damage = (int) ((randomNumber * getHeroAttack()) * percentageHit);
+        DamageValueObject damageValueObject = new DamageValueObject(damage, this.attackType, this.creatureType);
+        this.damageApplier.applyDamage(damageValueObject, creature);
+        System.out.println("Ballista attacked creature with " + damage + " damage");
+
     }
+
+
 
     public void levelUpSpell() {
         this.level++;
+    }
+
+    public int getHeroAttack() {
+        return 20;
     }
 }

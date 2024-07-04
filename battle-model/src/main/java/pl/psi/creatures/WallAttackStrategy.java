@@ -8,7 +8,7 @@ import java.util.Random;
 
 public class WallAttackStrategy implements AttackStrategy {
     @Override
-    public void attack(Creature attacker, Object target, AttackTypeEnum aAttackType, Point aPoint) {
+    public void attack(Creature attacker, DefenderIf target, AttackTypeEnum aAttackType, Point aPoint) {
         if (target instanceof Wall) {
             Wall wall = (Wall) target;
             if (wall.getCurrentLevel() == 2 || wall.getCurrentLevel() == 3) {
@@ -21,13 +21,6 @@ public class WallAttackStrategy implements AttackStrategy {
         } else {
             throw new IllegalArgumentException("Target must be a Wall");
         }
-    }
-    public boolean RandomChance() {
-        Random random = new Random();
-        int randVal = random.nextInt(101);
-        System.out.println("Value: " + randVal);
-        return randVal < 75;
-
     }
 }
 

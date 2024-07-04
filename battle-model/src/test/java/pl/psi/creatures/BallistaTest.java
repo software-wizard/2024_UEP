@@ -3,6 +3,7 @@ package pl.psi.creatures;
 import com.google.common.collect.Range;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import pl.psi.Hero;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -25,7 +26,7 @@ class BallistaTest {
         //when
         ballista.attack(angel);
         //then
-        assertThat(angel.getCurrentHp()).isBetween(80,90);
+        assertThat(angel.getCurrentHp()).isBetween(4,36);
 
     }
 
@@ -41,11 +42,29 @@ class BallistaTest {
                 .build();
         MachineFactory machineFactory = new MachineFactory();
         Creature ballista = machineFactory.create("Ballista");
-
+        //when
         ballista.attack(angel);
+        //then
+        assertThat(angel.getCurrentHp()).isBetween(4,36);
 
-        assertThat(angel.getCurrentHp()).isBetween(78, 90);
+    }
 
-
+    @Test
+    void ballistaShouldAttackMoreOnLevel2() {
+        //given
+        final Creature angel = new Creature.Builder().statistic(CreatureStats.builder()
+                        .maxHp(100)
+                        .damage(Range.closed(10, 10))
+                        .attack(50)
+                        .armor(0)
+                        .build())
+                .build();
+        MachineFactory machineFactory = new MachineFactory();
+        Creature ballista = machineFactory.create("Ballista");
+        //when
+        ballista.levelUpSpell();
+        ballista.attack(angel);
+        //then
+        assertThat(angel.getCurrentHp()).isBetween(32,98);
     }
 }

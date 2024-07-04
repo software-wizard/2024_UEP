@@ -19,6 +19,7 @@ import pl.psi.enums.AttackTypeEnum;
 import pl.psi.enums.CreatureTypeEnum;
 import pl.psi.obstacles.ObstaclesWithHP;
 import pl.psi.obstacles.Wall;
+import pl.psi.Hero;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
@@ -111,23 +112,17 @@ public class Creature implements PropertyChangeListener, DefenderIf {
         return creatureEffects.stream().anyMatch((effect) -> effect.getEffectStatistic().equals(effectStatistic));
     }
 
-    public void attack(final DefenderIf target) {
-        attack(target, AttackTypeEnum.MELEE, null);
-    }
-
     public void attackObstacle(ObstaclesWithHP obstacleWithHP, Point aPoint) {
         final int damage = getCalculator().calculateDamageToObstacle(this,obstacleWithHP);
         obstacleWithHP.takeDamage(aPoint, damage);
     }
+
     public void attackWall(Wall wall,Point aPoint){
 
     }
-    public boolean isCatapult() {
-        String name = getName();
-        return name != null && name.equals("Catapult");
-    }
 
-    public boolean RandomChance() {
+//    public abstract void attack(DefenderIf target, Point aPoint);
+    public boolean randomChance() {
         Random random = new Random();
         int randVal = random.nextInt(101);
         System.out.println("Value: " + randVal);
@@ -214,14 +209,19 @@ public class Creature implements PropertyChangeListener, DefenderIf {
         return getStats().getMoveRange();
     }
 
+    public void levelUpSpell() {
+
+    }
+
+
     public static class Builder {
+
         private int amount = 1;
         private DamageCalculatorIf calculator = new DefaultDamageCalculator(new Random());
         private CreatureStatisticIf statistic;
         private CreatureTypeEnum creatureType = CreatureTypeEnum.GROUND;
         private AttackTypeEnum attackType = AttackTypeEnum.MELEE;
         private Morale morale = new Morale(0);
-
         public Builder statistic(final CreatureStatisticIf aStatistic) {
             statistic = aStatistic;
             return this;
@@ -256,8 +256,8 @@ public class Creature implements PropertyChangeListener, DefenderIf {
             return new Creature(statistic, calculator, amount, creatureType, attackType, morale);
         }
 
-    }
 
+    }
     @Override
     public String toString() {
         return getName() + System.lineSeparator() + getAmount();
@@ -269,23 +269,28 @@ public class Creature implements PropertyChangeListener, DefenderIf {
 
     //MachineFactoryMethods - FirstAidTent
     //Implemented in FirstAidTent
+
     public void chooseHealCreature(List<Creature> creatureList) {
 
     }
-    public void setAttackStrategy(AttackStrategy attackStrategy) {
-        this.attackStrategy = attackStrategy;
-    }
-
+//    public void setAttackStrategy(AttackStrategy attackStrategy) {
+//        this.attackStrategy = attackStrategy;
+//    }
     public void attack(DefenderIf target, AttackTypeEnum attackType, Point aPoint) {
         if (target.getType().equals(TargetTypeEnum.CREATURE)) {
             attackStrategy = creatureAttackStrategy;
-            attackStrategy.attack(this, target, attackType, aPoint);
         } else if (target.getType().equals(TargetTypeEnum.WALL)) {
             attackStrategy = wallAttackStrategy;
-            attackStrategy.attack(this, target, attackType, aPoint);
-        } else {
-            throw new IllegalStateException("Attack strategy is not set");
-        }
+        } else throw new IllegalStateException("Attack strategy is not set");
+        attackStrategy.attack(this, target, attackType, aPoint);
+    }
+
+    public void attack(final DefenderIf target) {
+        attack(target, AttackTypeEnum.MELEE, null);
+    }
+
+    public void attack(DefenderIf target, Point aPoint) {
+        attack(target, AttackTypeEnum.MELEE, aPoint);
     }
 
     public void attack(DefenderIf target, AttackTypeEnum attackType) {
@@ -294,6 +299,9 @@ public class Creature implements PropertyChangeListener, DefenderIf {
 
     public TargetTypeEnum getType() {
         return targetType;
+    }
+
+    public void attack(Creature creature) {
     }
 
 }

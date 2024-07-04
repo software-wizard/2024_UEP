@@ -2,12 +2,14 @@ package pl.psi.creatures;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.psi.Point;
 import pl.psi.enums.AttackTypeEnum;
 import pl.psi.enums.CreatureTypeEnum;
+import pl.psi.obstacles.Wall;
 
 import java.util.Random;
 
-public class Catapult extends Creature {
+public class Catapult extends Creature implements  DefenderIf {
     private CreatureStatisticIf stats;
     @Getter
     @Setter
@@ -26,7 +28,7 @@ public class Catapult extends Creature {
                      final int aAmount, CreatureTypeEnum aCreatureType, AttackTypeEnum aAttackType) {
         super(aStats, aCalculator, aAmount, aCreatureType, aAttackType, new Morale(0));
         this.level = 1;
-        this.attackStrategy = (new CatapultAttackStrategy());
+//        this.attackStrategy = (new CatapultAttackStrategy());
     }
 
     public static class Builder {
@@ -75,6 +77,41 @@ public class Catapult extends Creature {
 
     public void levelUpSpell() {
         this.level++;
+    }
+
+//    @Override
+//    public void attack(DefenderIf target, AttackTypeEnum attackType, Point aPoint) {
+//        attackStrategy.attack(this, target, attackType, aPoint);
+//    }
+    @Override
+    public void attack(DefenderIf target, Point aPoint) {
+        Wall wall = (Wall) target;
+        if (randomChance()) {
+            Random random = new Random();
+            int damageMultiplier = random.nextInt(101) + 50;
+            final int catapultDamage = 10 * damageMultiplier;
+            wall.takeDamageFromCatapult(catapultDamage, aPoint);
+            System.out.println("Catapult hit the wall with " + catapultDamage + " damage");
+        } else {
+            final int zeroDmg = 0;
+            wall.takeDamageFromCatapult(zeroDmg, aPoint);
+            System.out.println("Catapult missed the wall");
+        }
+    }
+    @Override
+    public void attack(DefenderIf target) {
+        attack(target, (Point) null);
+    }
+
+    //75% chance to hit
+    //check engine
+    @Override
+    public boolean randomChance() {
+        Random random = new Random();
+        int randVal = random.nextInt(101);
+        System.out.println("Valueeeee: " + randVal);
+        return randVal < 75;
+
     }
 }
 
