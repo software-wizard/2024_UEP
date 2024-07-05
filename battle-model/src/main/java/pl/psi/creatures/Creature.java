@@ -193,7 +193,7 @@ public class Creature implements PropertyChangeListener, DefenderIf {
 
     protected void restoreCurrentHpToPartHP() {
         Random random = new Random();
-        int healHP = random.nextInt(25)+1;
+        int healHP = 20+ random.nextInt(25)+1;
         if (currentHp+healHP >= stats.getMaxHp()) {
             currentHp = stats.getMaxHp();
         } else {
@@ -299,9 +299,6 @@ public class Creature implements PropertyChangeListener, DefenderIf {
 
     public TargetTypeEnum getType() {
         return targetType;
-    }
-
-    public void attack(Creature creature) {
     }
 
 }

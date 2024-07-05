@@ -37,8 +37,8 @@ class MachineFactoryTest {
         angel.attack(dragon);
         firstAidTent.healHPCreature(dragon);
         // then
-        //assertThat(dragon.getCurrentHp()).isEqualTo(dragon.getMaxHp());
-        assertThat(dragon.getCurrentHp()).isBetween(71,95);
+//        assertThat(dragon.getCurrentHp()).isEqualTo(dragon.getMaxHp());
+        assertThat(dragon.getCurrentHp()).isGreaterThan(70);
     }
 
     @Test
@@ -60,10 +60,8 @@ class MachineFactoryTest {
                 .build();
 
         MachineFactory machineFactory = new MachineFactory();
-
         Creature ballista = machineFactory.create("Ballista");
         Creature firstAidTent =  machineFactory.create("First Aid Tent");
-        // Animal pies1 = new Pies();
         List<Creature> creaturesList = new ArrayList<>();
         creaturesList.add(firstAidTent);
         creaturesList.add(dragon);
@@ -74,7 +72,8 @@ class MachineFactoryTest {
         ballista.attack(angel);
         firstAidTent.chooseHealCreature(creaturesList);
         // then
-        assertThat(dragon.getCurrentHp()).isBetween(71,100);
+        assertThat(dragon.getCurrentHp()).isEqualTo(70);
+        assertThat(angel.getCurrentHp()).isBetween(40,80);
 
     }
 }

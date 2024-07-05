@@ -94,7 +94,7 @@ public class Ballista extends Creature {
         return hitPercentage;
     }
     @Override
-    public void attack(Creature creature) {
+    public void attack(DefenderIf creature) {
         ballistaDamageCalculator(creature);
     }
 
@@ -115,7 +115,8 @@ public class Ballista extends Creature {
 //    }
 
     //dmg ballisty okolo 100. Czy nie za malo?
-    public void ballistaDamageCalculator(Creature creature) {
+    public void ballistaDamageCalculator(DefenderIf aCreature) {
+        Creature creature = (Creature) aCreature;
         int randomNumber = 2 + new Random().nextInt(2);
         float percentageHit  = 1 + (float) damageMultiplier()/100;
         int damage = (int) ((randomNumber * getHeroAttack()) * percentageHit);
