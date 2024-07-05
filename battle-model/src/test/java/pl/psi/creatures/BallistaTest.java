@@ -4,6 +4,7 @@ import com.google.common.collect.Range;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import pl.psi.Hero;
+import pl.psi.obstacles.Wall;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
 import static org.junit.jupiter.api.Assertions.*;
@@ -66,5 +67,17 @@ class BallistaTest {
         ballista.attack(angel);
         //then
         assertThat(angel.getCurrentHp()).isBetween(32,98);
+    }
+
+    @Test
+    void ballistaShouldNotAttackWall() {
+        //given
+        final Wall wall = new Wall();
+        MachineFactory machineFactory = new MachineFactory();
+        Creature ballista = machineFactory.create("Ballista");
+        //when
+        ballista.attack(wall);
+        //then
+        assertThat(wall.getCurrentHP()).isEqualTo(1500);
     }
 }

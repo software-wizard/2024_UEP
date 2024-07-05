@@ -85,18 +85,21 @@ public class Catapult extends Creature implements  DefenderIf {
 //    }
     @Override
     public void attack(DefenderIf target, Point aPoint) {
-        Wall wall = (Wall) target;
-        if (randomChance()) {
-            Random random = new Random();
-            int damageMultiplier = random.nextInt(101) + 50;
-            final int catapultDamage = 10 * damageMultiplier;
-            wall.takeDamageFromCatapult(catapultDamage, aPoint);
-            System.out.println("Catapult hit the wall with " + catapultDamage + " damage");
-        } else {
-            final int zeroDmg = 0;
-            wall.takeDamageFromCatapult(zeroDmg, aPoint);
-            System.out.println("Catapult missed the wall");
-        }
+        if (target.getType()==TargetTypeEnum.WALL) {
+            Wall wall = (Wall) target;
+            if (randomChance()) {
+                Random random = new Random();
+                int damageMultiplier = random.nextInt(101) + 50;
+                final int catapultDamage = 10 * damageMultiplier;
+                wall.takeDamageFromCatapult(catapultDamage, aPoint);
+                System.out.println("Catapult hit the wall with " + catapultDamage + " damage");
+            } else {
+                final int zeroDmg = 0;
+                wall.takeDamageFromCatapult(zeroDmg, aPoint);
+                System.out.println("Catapult missed the wall");
+            }
+        } else new IllegalArgumentException("Catapult can attack only walls");
+
     }
     @Override
     public void attack(DefenderIf target) {

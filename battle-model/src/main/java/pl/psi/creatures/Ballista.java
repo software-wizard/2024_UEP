@@ -95,7 +95,9 @@ public class Ballista extends Creature {
     }
     @Override
     public void attack(DefenderIf creature) {
+        if (creature.getType() == TargetTypeEnum.CREATURE)
         ballistaDamageCalculator(creature);
+        else new IllegalArgumentException("Ballista can only attack creatures!");
     }
 
 

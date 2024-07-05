@@ -14,7 +14,7 @@ class FirstAidTentTest {
         //given
         final Creature angel = new Creature.Builder().statistic(CreatureStats.builder()
                         .maxHp(100)
-                        .damage(Range.closed(10, 10))
+                        .damage(Range.closed(1, 1))
                         .attack(50)
                         .armor(0)
                         .build())
