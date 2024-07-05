@@ -124,6 +124,7 @@ public class MainBattleController implements PropertyChangeListener
                 }
 
                 creature.ifPresent( c -> mapTile.setName( c.toString() ) );
+                creature.ifPresent( c -> mapTile.setIcon( c.getImagePath() ) );
                 if ( gameEngine.isObstacle(currentPoint)) {
                     mapTile.setBackground(Color.BLUE);
                 }
@@ -131,6 +132,9 @@ public class MainBattleController implements PropertyChangeListener
                     mapTile.setName("HP");
                     mapTile.setBackground(Color.GREEN);
                 }
+//                if (gameEngine.isWarMachine(currentPoint)){
+//                    mapTile.setBackground(Color.AQUA);
+//                }
                 if (gameEngine.isWall(currentPoint)){
                     mapTile.setBackground(Color.AQUA);
                 }

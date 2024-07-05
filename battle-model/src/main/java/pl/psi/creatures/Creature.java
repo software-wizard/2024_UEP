@@ -23,6 +23,7 @@ import pl.psi.Hero;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -263,6 +264,7 @@ public class Creature implements PropertyChangeListener, DefenderIf {
         return getName() + System.lineSeparator() + getAmount();
     }
 
+
     public void healHPCreature(Creature creature) {
         creature.restoreCurrentHpToPartHP();
     }
@@ -300,5 +302,17 @@ public class Creature implements PropertyChangeListener, DefenderIf {
     public TargetTypeEnum getType() {
         return targetType;
     }
+
+    public String getImagePath() {
+        String basePath = "/creatures/" + this.getName() + ".png";
+//        String imageName = this.getName() + ".png";
+        return basePath;
+
+    }
+
+//    public Image getCreatureImage() {
+//        String imagePath = getImagePath();
+//        return new Image(getClass().getResourceAsStream("/" + imagePath));
+//    }
 
 }
