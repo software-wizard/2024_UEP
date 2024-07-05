@@ -305,14 +305,10 @@ public class Creature implements PropertyChangeListener, DefenderIf {
 
     public String getImagePath() {
         String basePath = "/creatures/" + this.getName() + ".png";
-//        String imageName = this.getName() + ".png";
         return basePath;
 
     }
 
-//    public Image getCreatureImage() {
-//        String imagePath = getImagePath();
-//        return new Image(getClass().getResourceAsStream("/" + imagePath));
-//    }
+
 
 }

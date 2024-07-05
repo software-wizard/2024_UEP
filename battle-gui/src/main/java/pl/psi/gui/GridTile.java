@@ -40,11 +40,10 @@ class GridTile extends StackPane
 
     void setIcon(final String imagePath) {
         try {
-        Image image = new Image(new FileInputStream(imagePath));
-            System.out.println("Image: " + image);
-        imageView.setImage(image);
-        imageView.setVisible(true);
-        rect.setFill(Color.TRANSPARENT);
+            Image image = new Image(getClass().getResourceAsStream(imagePath));
+            imageView.setImage(image);
+            imageView.setVisible(true);
+            rect.setFill(Color.TRANSPARENT);
     } catch (Exception e) {
         System.err.println("Nie można załadować obrazu: " + imagePath);
         e.printStackTrace();
