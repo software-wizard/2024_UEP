@@ -14,6 +14,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import pl.psi.*;
 import pl.psi.creatures.Creature;
+import pl.psi.obstacles.Obstacle;
 import pl.psi.obstacles.Wall;
 import pl.psi.spells.object.Spell;
 
@@ -117,6 +118,7 @@ public class MainBattleController implements PropertyChangeListener
                 Point currentPoint = new Point( x, y );
                 Optional< Creature > creature = gameEngine.getCreature( currentPoint );
                 Optional<Wall> wall = gameEngine.getWall(currentPoint);
+                Obstacle obstacle = new Obstacle();
                 final GridTile mapTile = new GridTile( "" );
 
                 if (selectedSpell != null) {
@@ -129,7 +131,7 @@ public class MainBattleController implements PropertyChangeListener
                 creature.ifPresent( c -> mapTile.setIcon( c.getImagePath() ) );
                 wall.ifPresent( w -> mapTile.setIcon( w.getImagePath()));
                 if ( gameEngine.isObstacle(currentPoint)) {
-                    mapTile.setBackground(Color.BLUE);
+                    mapTile.setIcon(obstacle.getImagePath());
                 }
                 if ( gameEngine.isObstacleWithHP(currentPoint)) {
                     mapTile.setName("HP");

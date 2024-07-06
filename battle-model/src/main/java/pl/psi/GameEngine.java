@@ -2,6 +2,7 @@ package pl.psi;
 
 import pl.psi.creatures.Creature;
 import pl.psi.enums.CreatureTypeEnum;
+import pl.psi.obstacles.Obstacle;
 import pl.psi.obstacles.Wall;
 
 import java.beans.PropertyChangeListener;
@@ -63,6 +64,10 @@ public class GameEngine {
         return board.getWall(aPoint);
     }
 
+    public Optional<Obstacle> getObstacle(final Point aPoint) {
+        return board.getObstacle(aPoint);
+    }
+
     public void pass() {
         turnQueue.next();
         if (getCreatureToMove().getCreatureType().equals(CreatureTypeEnum.MACHINE) && attackEngine.shouldFireRandomly(getCreatureToMove())) {
@@ -118,7 +123,7 @@ public class GameEngine {
     }
 
     public boolean isObstacle(Point aCurrentPoint) {
-        return false;
+        return board.isObstacle(aCurrentPoint);
     }
 
 

@@ -22,7 +22,7 @@ public class Wall implements ObstaclesIF, ObstaclesObservable, DefenderIf {
     private TargetTypeEnum targetType = TargetTypeEnum.WALL;
 
     private final ArrayList<ObstacleObserver> observers = new ArrayList<>();
-    private static String lastUsedName = "Wall2"; // Initialize to "Wall2" so the first one will be "Wall1"
+    private static String lastUsedName = "Wall2";
 
 
 
