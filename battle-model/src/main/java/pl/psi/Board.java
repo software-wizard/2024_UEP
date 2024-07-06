@@ -61,7 +61,7 @@ public class Board implements ObstacleObserver, BoardIf
             if (!regularObstaclesMap.containsKey(point) &&
                     !obstaclesWithHPMap.containsKey(point) &&
                     !wallHashMap.containsKey(point) &&
-                    !creatureHashMap.containsKey(point)) {
+                    !map.containsKey(point)) {
                 regularObstaclesMap.put(point, new Obstacle());
             }
         }
@@ -73,7 +73,8 @@ public class Board implements ObstacleObserver, BoardIf
 
             if (!obstaclesWithHPMap.containsKey(point) &&
                     !regularObstaclesMap.containsKey(point) &&
-                    !wallHashMap.containsKey(point)) {
+                    !wallHashMap.containsKey(point) &&
+                    !map.containsKey(point)){
                 ObstaclesWithHP obstacleWithHP = new ObstaclesWithHP(maxHP);
                 obstacleWithHP.addObserver(this);
                 obstaclesWithHPMap.put(point, obstacleWithHP);

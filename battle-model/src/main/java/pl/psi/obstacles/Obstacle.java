@@ -1,7 +1,7 @@
 package pl.psi.obstacles;
 
 public class Obstacle {
-    private static String lastUsedName = "Wall2";
+    private static String lastUsedName = "Tree";
 
 
     public String getImagePath() {
@@ -11,10 +11,10 @@ public class Obstacle {
     }
 
     public String getName() {
-        if ("DunePalm".equals(lastUsedName)) {
+        if ("Tree".equals(lastUsedName)) {
             lastUsedName = "Stones";
         } else {
-            lastUsedName = "DunePalm";
+            lastUsedName = "Tree";
         }
         return lastUsedName;
     }
