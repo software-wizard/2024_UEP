@@ -7,6 +7,7 @@ import pl.psi.creatures.DefenderIf;
 import pl.psi.creatures.TargetTypeEnum;
 
 import java.util.ArrayList;
+import java.util.Random;
 
 @Getter
 @Setter
@@ -21,6 +22,8 @@ public class Wall implements ObstaclesIF, ObstaclesObservable, DefenderIf {
     private TargetTypeEnum targetType = TargetTypeEnum.WALL;
 
     private final ArrayList<ObstacleObserver> observers = new ArrayList<>();
+    private static String lastUsedName = "Wall2"; // Initialize to "Wall2" so the first one will be "Wall1"
+
 
 
 
@@ -80,5 +83,20 @@ public class Wall implements ObstaclesIF, ObstaclesObservable, DefenderIf {
     @Override
     public TargetTypeEnum getType() {
         return TargetTypeEnum.WALL;
+    }
+
+    public String getImagePath() {
+        String basePath = "/obstacles/" + getName() + ".png";
+        return basePath;
+
+    }
+
+    public String getName() {
+        if ("Wall1".equals(lastUsedName)) {
+            lastUsedName = "Wall2";
+        } else {
+            lastUsedName = "Wall1";
+        }
+        return lastUsedName;
     }
 }

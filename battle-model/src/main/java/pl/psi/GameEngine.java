@@ -2,6 +2,7 @@ package pl.psi;
 
 import pl.psi.creatures.Creature;
 import pl.psi.enums.CreatureTypeEnum;
+import pl.psi.obstacles.Wall;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -53,6 +54,10 @@ public class GameEngine {
 
     public Optional<Creature> getCreature(final Point aPoint) {
         return board.getCreature(aPoint);
+    }
+
+    public Optional<Wall> getWall(final Point aPoint) {
+        return board.getWall(aPoint);
     }
 
     public void pass() {

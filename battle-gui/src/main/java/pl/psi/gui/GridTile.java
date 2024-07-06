@@ -44,9 +44,9 @@ class GridTile extends StackPane
             imageView.setImage(image);
             imageView.setVisible(true);
             rect.setFill(Color.TRANSPARENT);
-    } catch (Exception e) {
-        System.err.println("Nie można załadować obrazu: " + imagePath);
-        e.printStackTrace();
+        } catch (Exception e) {
+            System.err.println("ERROR with path: " + imagePath);
+            e.printStackTrace();
 }
     }
 
