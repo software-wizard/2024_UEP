@@ -39,4 +39,18 @@ public class ObstaclesWithHP implements ObstaclesIF, ObstaclesObservable {
     public int getHP() {
         return currentHp;
     }
+
+    public String getImagePath() {
+        String basePath = "/obstacles/" + getName() + ".png";
+        return basePath;
+
+    }
+
+    public String getName() {
+        return "Barrel";
+    }
+
+    public String toCurrentHPString() {
+        return getHP() + System.lineSeparator();
+    }
 }

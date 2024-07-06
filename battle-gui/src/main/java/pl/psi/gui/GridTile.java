@@ -1,5 +1,7 @@
 package pl.psi.gui;
 
+import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.control.Label;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -24,12 +26,17 @@ class GridTile extends StackPane
         rect.setFill( Color.WHITE);
         rect.setStroke( Color.RED );
         getChildren().add( rect );
-        label = new Label( aName );
-        getChildren().add( label );
+
+
         imageView = new ImageView();
         imageView.setFitWidth(60);
         imageView.setFitHeight(60);
         getChildren().add(imageView);
+
+        label = new Label( aName );
+        StackPane.setAlignment(label, Pos.TOP_LEFT);
+        StackPane.setMargin(label, new Insets(0, 0, 0, 4));
+        getChildren().add( label );
         label.maxWidth(rect.getWidth());
     }
 
