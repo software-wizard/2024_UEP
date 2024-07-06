@@ -46,6 +46,9 @@ public class GameEngine {
     public boolean canMove(final Point aPoint) {
         return board.canMove(turnQueue.getCurrentCreature(), aPoint);
     }
+    public boolean isObstacleWithHP(Point aCurrentPoint) {
+        return board.isObstacleWithHP(aCurrentPoint);
+    }
 
     public void move(final Point aPoint) {
         board.move(turnQueue.getCurrentCreature(), aPoint);
@@ -118,9 +121,6 @@ public class GameEngine {
         return false;
     }
 
-    public boolean isObstacleWithHP(Point aCurrentPoint) {
-        return false;
-    }
 
     public boolean isWall(Point aCurrentPoint) {
         return false;
