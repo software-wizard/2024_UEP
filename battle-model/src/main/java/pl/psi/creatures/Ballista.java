@@ -4,6 +4,7 @@ import lombok.Getter;
 import lombok.Setter;
 import pl.psi.AttackEngine;
 import pl.psi.Hero;
+import pl.psi.Point;
 import pl.psi.enums.AttackTypeEnum;
 import pl.psi.enums.CreatureTypeEnum;
 
@@ -95,32 +96,20 @@ public class Ballista extends Creature {
         return hitPercentage;
     }
 
-
-
-
     @Override
     public void attack(DefenderIf creature, AttackTypeEnum attackType) {
-        if (creature.getType() == TargetTypeEnum.CREATURE) {
-            ballistaDamageCalculator(creature);
+        attack(creature);
+    }
+
+    @Override
+    public void attack(DefenderIf target) {
+        System.out.println("Ballista attack");
+        if (target.getType() == TargetTypeEnum.CREATURE) {
+            ballistaDamageCalculator(target);
         }
         else new IllegalArgumentException("Ballista can only attack creatures!");
     }
 
-
-//    public void ballistaDamageCalculator(Creature creature) {
-//        Random random = new Random();
-//        int randomNumber = random.nextInt(101);
-//        if (randomNumber < randomHitPercentage()) {
-//            int heroAttack = 10;
-//            float damage = 2 + random.nextFloat();
-//            damage *= heroAttack + 1;
-//            int damageI = (int) damage;
-//            if (damageI > 0) {
-//                DamageValueObject damageValueObject = new DamageValueObject(damageI, this.attackType, this.creatureType);
-//                this.damageApplier.applyDamage(damageValueObject, creature);
-//            }
-//        }
-//    }
 
     //dmg ballisty okolo 100. Czy nie za malo?
     public void ballistaDamageCalculator(DefenderIf aCreature) {
