@@ -160,6 +160,8 @@ public class EcoController implements PropertyChangeListener {
         }
 
         allResourcesLabel.setText(engine.getCurrentHero().getResources().getAllResourcesAsString());
+        skillTooltip1.refresh();
+        skillTooltip2.refresh();
     }
 
     @Override

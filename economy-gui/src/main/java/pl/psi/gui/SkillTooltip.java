@@ -14,14 +14,13 @@ public class SkillTooltip extends Tooltip{
         initTooltip();
     }
 
-    private void initTooltip() {
-        setText(hero.skillsAsList());
-        setShowDelay(new Duration(200));
-    }
-
     public void refresh() {
         setText(hero.skillsAsList());
     }
 
+    private void initTooltip() {
+        setText(hero.skillsAsList());
+        setShowDelay(new Duration(200));
+    }
 
 }
