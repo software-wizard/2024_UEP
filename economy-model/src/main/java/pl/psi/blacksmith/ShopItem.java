@@ -47,5 +47,7 @@ public class ShopItem {
         public ShopItem build() {
             return new ShopItem(name, type, requiredResources);
         }
+
+
     }
 }

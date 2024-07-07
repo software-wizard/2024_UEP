@@ -14,11 +14,15 @@ public class Opponent  {
 
     Resources resources;
     List<EconomyCreature> creatures;
-    EconomyHero hero = new EconomyHero("Opponent", creatures,0,0,resources,null,Collections.emptyMap());
+    EconomyHero hero = new EconomyHero("hero");
+
 
     public Opponent(Resources resources, List<EconomyCreature> creatures) {
         this.resources = resources;
         this.creatures = creatures;
+        hero.setResources(resources);
+        creatures.forEach(creature -> hero.addCreature(creature) );
+
     }
 
     public void addCreature(EconomyCreature aEconomyCreature) {

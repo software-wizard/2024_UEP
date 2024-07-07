@@ -8,5 +8,4 @@ import lombok.Value;
 public class StartBattlePack {
     private final EconomyHero attacker;
     private final EconomyHero defender;
-    private final Opponent opponent;
 }

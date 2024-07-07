@@ -25,7 +25,7 @@ public class BlacksmithController {
         if (economyHero.getResources().hasEnough(requiredResources)) {
             economyHero.setResources(economyHero.getResources().subtract(requiredResources));
             ecoController.updateAllResourcesLabel();
-            System.out.println(economyHero.getResources().getGold());
+
         } else {
             System.out.println("Nie masz wystarczająco zasobów do zakupu " + item.getName());
         }

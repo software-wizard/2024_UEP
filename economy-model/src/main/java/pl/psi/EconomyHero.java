@@ -25,7 +25,6 @@ public class EconomyHero implements PropertyChangeListener {
     private int maxMovePoints;
     private int currentMovePoints;
     private Resources resources;
-    private Castle castle;
     private final Map<SkillEnum, Skill> skills;
 
     public EconomyHero( String aName )
@@ -36,6 +35,9 @@ public class EconomyHero implements PropertyChangeListener {
         currentMovePoints = maxMovePoints;
         resources = Resources.startRes();
         skills = new HashMap<>();
+
+        assert creatures != null : "Creatures list should not be null in constructor";
+        System.out.println("EconomyHero constructor: creatures initialized with size " + creatures.size());
     }
 
     @Override

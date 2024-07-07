@@ -124,7 +124,7 @@ public class EcoController implements PropertyChangeListener {
 
                     mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
                         if (engine.isCurrentHero(currentPoint)) {
-                            mapTile.removeIcon(); // nie działa
+                            mapTile.removeIcon();
                             engine.collectField(engine.getField(currentPoint));
 
                             refreshGui();
