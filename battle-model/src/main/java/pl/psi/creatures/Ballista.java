@@ -2,6 +2,7 @@ package pl.psi.creatures;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.psi.AttackEngine;
 import pl.psi.Hero;
 import pl.psi.enums.AttackTypeEnum;
 import pl.psi.enums.CreatureTypeEnum;
@@ -32,7 +33,7 @@ public class Ballista extends Creature {
 
     public static class Builder {
         private int amount = 1;
-        private MachineCalculatorDecorator calculator = new MachineCalculatorDecorator(new DefaultDamageCalculator(new Random()), 1);
+        private MachineCalculatorDecorator calculator = new MachineCalculatorDecorator(new DefaultDamageCalculator(new Random()), 2);
         private CreatureStatisticIf statistic;
         private CreatureTypeEnum creatureType = CreatureTypeEnum.MACHINE;
         private AttackTypeEnum attackType = AttackTypeEnum.RANGE;
@@ -93,14 +94,15 @@ public class Ballista extends Creature {
         }
         return hitPercentage;
     }
+
+
+
+
     @Override
     public void attack(DefenderIf creature, AttackTypeEnum attackType) {
-        attack(creature);
-    }
-    @Override
-    public void attack(DefenderIf creature) {
-        if (creature.getType() == TargetTypeEnum.CREATURE)
-        ballistaDamageCalculator(creature);
+        if (creature.getType() == TargetTypeEnum.CREATURE) {
+            ballistaDamageCalculator(creature);
+        }
         else new IllegalArgumentException("Ballista can only attack creatures!");
     }
 

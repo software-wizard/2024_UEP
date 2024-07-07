@@ -19,7 +19,7 @@ public class MachineFactory {
                 return new Ballista.Builder().statistic(CreatureStatistic.BALLISTA)
                         .creatureType(CreatureTypeEnum.MACHINE)
                         .attackType(AttackTypeEnum.RANGE)
-                        .calculator(new MachineCalculatorDecorator(new DefaultDamageCalculator(new Random()), 0))
+                        .calculator(new MachineCalculatorDecorator(new DefaultDamageCalculator(new Random()), 3))
                         .morale(new Morale(0))
                         .build();
             case "Catapult":

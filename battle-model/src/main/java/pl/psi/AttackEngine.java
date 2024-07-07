@@ -5,6 +5,7 @@ import pl.psi.creatures.MachineCalculatorDecorator;
 import pl.psi.creatures.Morale;
 import pl.psi.enums.AttackTypeEnum;
 import pl.psi.enums.CreatureTypeEnum;
+import pl.psi.obstacles.Wall;
 
 import java.util.ArrayList;
 import java.util.Collections;
@@ -18,7 +19,8 @@ public class AttackEngine {
         this.board = board;
     }
 
-    public void attack(final Point enemyLocation, final Creature attacker) {
+    public void attack(final Point enemyLocation, Creature attacker) {
+        System.out.println("AttackEngine attack");
         attackOnce(enemyLocation, attacker);
         //If creature gets lucky morale
         Morale currentCreatureMorale = attacker.getMorale();
@@ -31,14 +33,23 @@ public class AttackEngine {
 
 
     public boolean canAttack(final Point point, Creature attacker) {
-        if (board.getCreature(point).isEmpty()) {
+        if (board.getCreature(point).isEmpty() &&
+                board.getWall(point).isEmpty()) {
             return false;
         }
-
-        Creature defender = board.getCreature(point).get();
-
         if (attacker.getCreatureType().equals(CreatureTypeEnum.MACHINE)) {
-            return defender.getCreatureType().equals(CreatureTypeEnum.MACHINE);
+            if (attacker.getStats().getName().equals("Catapult")) {
+                if (board.getWall(point).isPresent()) {
+                    return true;
+                }
+            else return false;
+        } else if (attacker.getStats().getName().equals("Ballista")) {
+            if (board.getCreature(point).isPresent() &&
+                    !board.getCreature(point).get().getCreatureType().equals(CreatureTypeEnum.MACHINE)) {
+                return true;
+            }
+            else return false;
+        }
         }
 
         if (attacker.getAttackType().equals(AttackTypeEnum.RANGE)) {
@@ -67,9 +78,21 @@ public class AttackEngine {
 
     private void attackOnce(Point enemyLocation, Creature attacker) {
         AttackTypeEnum attackType = determineAttackType(attacker, enemyLocation);
-        board.getCreature(enemyLocation)
-                .ifPresent(defender -> attacker
-                        .attack(defender, attackType));
+        if (attacker.getCreatureType().equals(CreatureTypeEnum.MACHINE)) {
+            if (attacker.getStats().getName().equals("Catapult")) {
+                board.getWall(enemyLocation)
+                        .ifPresent(defender -> attacker
+                                .attack(defender, attackType));
+            } else if (attacker.getStats().getName().equals("Ballista")) {
+                board.getCreature(enemyLocation)
+                        .ifPresent(defender -> attacker
+                                .attack(defender, attackType));
+            }
+        } else {
+            board.getCreature(enemyLocation)
+                    .ifPresent(defender -> attacker
+                            .attack(defender, attackType));
+        }
     }
 
     private AttackTypeEnum determineAttackType(Creature aCreature, Point enemyLocation) {
