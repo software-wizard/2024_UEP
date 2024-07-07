@@ -4,7 +4,6 @@ import pl.psi.Point;
 import pl.psi.enums.AttackTypeEnum;
 import pl.psi.obstacles.Wall;
 
-import java.util.Random;
 
 public class WallAttackStrategy implements AttackStrategy {
     @Override
@@ -13,8 +12,9 @@ public class WallAttackStrategy implements AttackStrategy {
             Wall wall = (Wall) target;
             if (wall.getCurrentLevel() == 2 || wall.getCurrentLevel() == 3) {
                 final int creatureDamage = attacker.getCalculator().calculateDamageToWall(attacker, wall);
-                wall.takeDamageFromCreature(creatureDamage, aPoint);
-                System.out.println("Creature hit the wall with " + creatureDamage + " damage");
+                int creatureDamageAbs = Math.abs(creatureDamage);
+                wall.takeDamageFromCreature(creatureDamageAbs, aPoint);
+                System.out.println("Creature hit the wall with " + creatureDamageAbs + " damage");
             } else {
                 System.out.println("Wall is too strong for creature to attack");
             }

@@ -5,11 +5,11 @@ import pl.psi.creatures.MachineCalculatorDecorator;
 import pl.psi.creatures.Morale;
 import pl.psi.enums.AttackTypeEnum;
 import pl.psi.enums.CreatureTypeEnum;
-import pl.psi.obstacles.Wall;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class AttackEngine {
 
@@ -39,16 +39,10 @@ public class AttackEngine {
         }
         if (attacker.getCreatureType().equals(CreatureTypeEnum.MACHINE)) {
             if (attacker.getStats().getName().equals("Catapult")) {
-                if (board.getWall(point).isPresent()) {
-                    return true;
-                }
-            else return false;
+                return board.getWall(point).isPresent();
         } else if (attacker.getStats().getName().equals("Ballista")) {
-            if (board.getCreature(point).isPresent() &&
-                    !board.getCreature(point).get().getCreatureType().equals(CreatureTypeEnum.MACHINE)) {
-                return true;
-            }
-            else return false;
+                return board.getCreature(point).isPresent() &&
+                        !board.getCreature(point).get().getCreatureType().equals(CreatureTypeEnum.MACHINE);
         }
         }
 
@@ -83,15 +77,19 @@ public class AttackEngine {
                 board.getWall(enemyLocation)
                         .ifPresent(defender -> attacker
                                 .attack(defender, attackType));
+                return;
             } else if (attacker.getStats().getName().equals("Ballista")) {
                 board.getCreature(enemyLocation)
                         .ifPresent(defender -> attacker
                                 .attack(defender, attackType));
+                return;
             }
+        }
+        Optional<Creature> creature = board.getCreature(enemyLocation);
+        if (creature.isPresent()) {
+            creature.ifPresent(defender -> attacker.attack(defender, attackType));
         } else {
-            board.getCreature(enemyLocation)
-                    .ifPresent(defender -> attacker
-                            .attack(defender, attackType));
+            board.getWall(enemyLocation).ifPresent(defender -> attacker.attack(defender, attackType));
         }
     }
 

@@ -43,13 +43,13 @@ public class Creature implements PropertyChangeListener, DefenderIf {
     private DamageCalculatorIf calculator;
     private CreatureTypeEnum creatureType;
     private AttackTypeEnum attackType;
-    private TargetTypeEnum targetType = TargetTypeEnum.CREATURE;
+    private final TargetTypeEnum targetType = TargetTypeEnum.CREATURE;
     @Setter
     private DamageApplier damageApplier = new DamageApplier();
 
     protected AttackStrategy attackStrategy;
-    private WallAttackStrategy wallAttackStrategy = new WallAttackStrategy();
-    private CreatureAttackStrategy creatureAttackStrategy = new CreatureAttackStrategy();
+    private final WallAttackStrategy wallAttackStrategy = new WallAttackStrategy();
+    private final CreatureAttackStrategy creatureAttackStrategy = new CreatureAttackStrategy();
     private final List<CreatureEffect> creatureEffects = new ArrayList<>();
 
 
@@ -113,11 +113,7 @@ public class Creature implements PropertyChangeListener, DefenderIf {
         return creatureEffects.stream().anyMatch((effect) -> effect.getEffectStatistic().equals(effectStatistic));
     }
 
-    public void attackObstacle(ObstaclesWithHP obstacleWithHP, Point aPoint) {
-        final int damage = getCalculator().calculateDamageToObstacle(this,obstacleWithHP);
-        obstacleWithHP.takeDamage(aPoint, damage);
-    }
-
+    //zamiast tego attack(DefenderIf, Point aPoint) ale zostawiam, bo macie w WallTest
     public void attackWall(Wall wall,Point aPoint){
 
     }
@@ -297,7 +293,6 @@ public class Creature implements PropertyChangeListener, DefenderIf {
 
     public void attack(DefenderIf target, AttackTypeEnum attackType) {
         attack(target, attackType, null);
-        System.out.println("creature attack");
     }
 
     public TargetTypeEnum getType() {
