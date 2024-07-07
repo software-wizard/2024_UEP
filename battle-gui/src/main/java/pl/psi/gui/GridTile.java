@@ -8,6 +8,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
+import javafx.scene.text.Font;
 
 import java.io.FileInputStream;
 import java.io.InputStream;
@@ -34,6 +35,7 @@ class GridTile extends StackPane
         getChildren().add(imageView);
 
         label = new Label( aName );
+        label.setFont(new Font("Arial", 8));
         StackPane.setAlignment(label, Pos.TOP_LEFT);
         StackPane.setMargin(label, new Insets(0, 0, 0, 4));
         getChildren().add( label );

@@ -129,9 +129,14 @@ public class MainBattleController implements PropertyChangeListener
                     mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> onSpellCastMapClick(e, currentPoint));
                 }
 
-                creature.ifPresent( c -> mapTile.setName( c.toString() ) );
-                creature.ifPresent( c -> mapTile.setIcon( c.getImagePath() ) );
-                wall.ifPresent( w -> mapTile.setIcon( w.getImagePath()));
+                creature.ifPresent(c -> {
+                    mapTile.setName(c.toString());
+                    mapTile.setIcon(c.getImagePath());
+                });
+                wall.ifPresent( w -> {
+                    mapTile.setIcon( w.getImagePath());
+                    mapTile.setName( w.toStringHP());
+                });
                 if ( gameEngine.isObstacle(currentPoint)) {
                     mapTile.setIcon(obstacle.getImagePath());
                 }

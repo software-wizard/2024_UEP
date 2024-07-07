@@ -54,6 +54,7 @@ public class GameEngine {
     public void move(final Point aPoint) {
         board.move(turnQueue.getCurrentCreature(), aPoint);
         observerSupport.firePropertyChange(CREATURE_MOVED, null, aPoint);
+        pass();
     }
 
     public Optional<Creature> getCreature(final Point aPoint) {

@@ -32,7 +32,7 @@ public class Ballista extends Creature {
 
     public static class Builder {
         private int amount = 1;
-        private MachineCalculatorDecorator calculator = new MachineCalculatorDecorator(new DefaultDamageCalculator(new Random()), 0);
+        private MachineCalculatorDecorator calculator = new MachineCalculatorDecorator(new DefaultDamageCalculator(new Random()), 1);
         private CreatureStatisticIf statistic;
         private CreatureTypeEnum creatureType = CreatureTypeEnum.MACHINE;
         private AttackTypeEnum attackType = AttackTypeEnum.RANGE;
@@ -92,6 +92,10 @@ public class Ballista extends Creature {
                 hitPercentage = 100;
         }
         return hitPercentage;
+    }
+    @Override
+    public void attack(DefenderIf creature, AttackTypeEnum attackType) {
+        attack(creature);
     }
     @Override
     public void attack(DefenderIf creature) {

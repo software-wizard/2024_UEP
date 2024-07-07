@@ -28,7 +28,6 @@ public class Catapult extends Creature implements  DefenderIf {
                      final int aAmount, CreatureTypeEnum aCreatureType, AttackTypeEnum aAttackType) {
         super(aStats, aCalculator, aAmount, aCreatureType, aAttackType, new Morale(0));
         this.level = 1;
-//        this.attackStrategy = (new CatapultAttackStrategy());
     }
 
     public static class Builder {
@@ -104,10 +103,15 @@ public class Catapult extends Creature implements  DefenderIf {
     @Override
     public void attack(DefenderIf target) {
         attack(target, (Point) null);
+        System.out.println("Catapult attack");
+    }
+
+    @Override
+    public void attack(DefenderIf target, AttackTypeEnum attackType) {
+        attack(target);
     }
 
     //75% chance to hit
-    //check engine
     @Override
     public boolean randomChance() {
         Random random = new Random();

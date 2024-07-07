@@ -297,6 +297,7 @@ public class Creature implements PropertyChangeListener, DefenderIf {
 
     public void attack(DefenderIf target, AttackTypeEnum attackType) {
         attack(target, attackType, null);
+        System.out.println("creature attack");
     }
 
     public TargetTypeEnum getType() {

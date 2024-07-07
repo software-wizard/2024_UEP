@@ -99,4 +99,8 @@ public class Wall implements ObstaclesIF, ObstaclesObservable, DefenderIf {
         }
         return lastUsedName;
     }
+
+    public String toStringHP() {
+        return String.valueOf(getHP());
+    }
 }
