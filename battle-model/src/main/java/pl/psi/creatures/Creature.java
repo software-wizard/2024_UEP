@@ -262,14 +262,14 @@ public class Creature implements PropertyChangeListener, DefenderIf {
 
 
     public void healHPCreature(Creature creature) {
-        creature.restoreCurrentHpToPartHP();
+
     }
 
     //MachineFactoryMethods - FirstAidTent
     //Implemented in FirstAidTent
 
     public void chooseHealCreature(List<Creature> creatureList) {
-
+        System.out.println("choseeeeeeee");
     }
 //    public void setAttackStrategy(AttackStrategy attackStrategy) {
 //        this.attackStrategy = attackStrategy;
@@ -302,6 +302,21 @@ public class Creature implements PropertyChangeListener, DefenderIf {
     public String getImagePath() {
         String basePath = "/creatures/" + this.getName() + ".png";
         return basePath;
+
+    }
+
+    public void heal() {
+        this.currentHp = this.stats.getMaxHp();
+    }
+
+    public void updateHP(int additionalHP) {
+        this.currentHp += additionalHP;
+        if (this.currentHp > this.stats.getMaxHp()) {
+            this.currentHp = this.stats.getMaxHp();
+        }
+    }
+    //for FirstAidTent
+    public void restoreCurrentHpToPartHP(Creature creature) {
 
     }
 

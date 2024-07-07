@@ -43,6 +43,12 @@ public class GameEngine {
         pass();
     }
 
+    public void heal(final Point point) {
+        attackEngine.heal(point, getCreatureToMove());
+        pass();
+    }
+
+
 
     public boolean canMove(final Point aPoint) {
         return board.canMove(turnQueue.getCurrentCreature(), aPoint);
@@ -84,6 +90,10 @@ public class GameEngine {
 
     public boolean canAttack(final Point point) {
         return attackEngine.canAttack(point, turnQueue.getCurrentCreature());
+    }
+
+    public boolean canHeal(final Point point) {
+        return attackEngine.canHeal(point, turnQueue.getCurrentCreature());
     }
 
     public Creature getCreatureToMove() {
@@ -131,4 +141,5 @@ public class GameEngine {
     public boolean isWall(Point aCurrentPoint) {
         return false;
     }
+
 }

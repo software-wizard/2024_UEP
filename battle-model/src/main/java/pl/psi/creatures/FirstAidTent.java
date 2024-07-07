@@ -43,10 +43,10 @@ public class FirstAidTent extends Creature {
             return this;
         }
 
+
         public FirstAidTent build() {
             return new FirstAidTent(statistic, calculator, amount, creatureType, attackType);
         }
-
     }
     @Override
     public void chooseHealCreature(List<Creature> creatureList) {
@@ -60,19 +60,16 @@ public class FirstAidTent extends Creature {
         healHPCreature(smallHP);
     }
 
-    protected void restoreCurrentHpToPartHP() {
-        System.out.println("TEST restoreCurrentHpToPartHP");
+    @Override
+    public void restoreCurrentHpToPartHP(Creature creature) {
         Random random = new Random();
         int healHP = random.nextInt(25)+1;
-        if (currentHp+healHP >= stats.getMaxHp()) {
-            currentHp = stats.getMaxHp();
-        } else {
-            currentHp = currentHp+healHP;
-        }
+        creature.updateHP(healHP);
+        System.out.println("Creature healed by: "+healHP+" HP");
     }
     @Override
     public void healHPCreature(Creature creature) {
-        creature.restoreCurrentHpToPartHP();
+        restoreCurrentHpToPartHP(creature);
     }
 
 }
