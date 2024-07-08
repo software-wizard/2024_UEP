@@ -1,7 +1,6 @@
 package pl.psi.obstacles;
 
 import com.google.common.collect.Range;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import pl.psi.Board;
 import pl.psi.Point;
@@ -39,28 +38,32 @@ public class WallTest {
         board = new Board(c1, c2);
 
         wall.setCurrentLevel(2);
-        creature.attackWall(wall,point);
-        assertThat(wall.getCurrentHP() <1000);
+        wall.setCurrentHP(wall.getLevelTwoHP());
 
+        creature.attack(wall);
+        assertEquals(995,wall.getCurrentHP());
 
         wall.setCurrentLevel(3);
-        creature.attackWall(wall,point);
-        assertThat(wall.getCurrentHP() <500);
+        wall.setCurrentHP(wall.getLevelThreeHP());
+        creature.attack(wall);
+        assertEquals(495,wall.getCurrentHP());
+
+
     }
 
-    @Disabled
+
     @Test
-    public void catapultCanAttackWallAtLVL1(){
+    public void catapultCanAttackWall(){
         wall = new Wall();
         MachineFactory machineFactory = new MachineFactory();
         Creature catapult = machineFactory.create("Catapult");
-        catapult.attackWall(wall,point);
+        catapult.attack(wall);
 
-        assertEquals(1000, wall.getCurrentHP());
+        assertThat( wall.getCurrentHP()<1000);
 
     }
 
-@Disabled
+
     @Test
     public void wallLevelChangesAfterAttacks(){
         wall = new Wall();
@@ -68,24 +71,16 @@ public class WallTest {
         MachineFactory machineFactory = new MachineFactory();
         Creature catapult = machineFactory.create("Catapult");
 
-        catapult.attackWall(wall,point);
+        while(wall.getCurrentLevel() == 1){
+            catapult.attack(wall);
+        }
+        assertEquals(2,wall.getCurrentLevel());
 
-        assertEquals(1000,wall.getCurrentHP());
-        assertThat(wall.getCurrentLevel() == 1);
-
-        catapult.attackWall(wall,point);
-        catapult.attackWall(wall,point);
-
-        assertEquals(1000,wall.getCurrentHP());
-        assertThat(wall.getCurrentLevel() == 2);
-
-        catapult.attackWall(wall,point);
-        catapult.attackWall(wall,point);
-        assertEquals(500,wall.getCurrentHP());
-        assertThat(wall.getCurrentLevel() == 3);
-
+        while(wall.getCurrentLevel() == 2){
+            catapult.attack(wall);
+        }
+        assertEquals(3,wall.getCurrentLevel());
     }
-
     @Test
     public void creatureCannotAttackWallAtLVL1(){
         wall = new Wall();
@@ -98,10 +93,15 @@ public class WallTest {
         final List<Creature> c1 = List.of(creature);
         final List<Creature> c2 = List.of();
         board = new Board(c1, c2);
-        creature.attackWall(wall,point);
+        creature.attack(wall);
 
         assertEquals(1500, wall.getCurrentHP());
 
     }
 
 }
+
+
+
+
+

@@ -4,7 +4,24 @@
     <option name="autoReloadType" value="SELECTIVE" />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="f3102dac-a942-4483-9cc7-2febc53c83f3" name="Changes" comment="wall partially added 2">
+    <list default="true" id="f3102dac-a942-4483-9cc7-2febc53c83f3" name="Changes" comment="part of tests fixed,">
+      <change afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/ObstacleWithHPAttackStrategy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle-gui/src/main/java/pl/psi/gui/MainBattleController.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-gui/src/main/java/pl/psi/gui/MainBattleController.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/AttackEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/AttackEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/Board.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/Board.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/GameEngine.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/GameEngine.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/AbstractCalculateDamageStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/AbstractCalculateDamageStrategy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/Creature.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/Creature.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/DamageCalculatorIf.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/DamageCalculatorIf.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/TargetTypeEnum.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/TargetTypeEnum.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/WallAttackStrategy.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/WallAttackStrategy.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/ObstaclesIF.java" beforeDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/ObstaclesWithHP.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/ObstaclesWithHP.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/Wall.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/Wall.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle-model/src/test/java/pl/psi/BoardTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/test/java/pl/psi/BoardTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle-model/src/test/java/pl/psi/obstacles/ObstaclesWithHPTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/test/java/pl/psi/obstacles/ObstaclesWithHPTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/battle-model/src/test/java/pl/psi/obstacles/WallTest.java" beforeDir="false" afterPath="$PROJECT_DIR$/battle-model/src/test/java/pl/psi/obstacles/WallTest.java" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/bundle.ipr" beforeDir="false" afterPath="$PROJECT_DIR$/bundle.ipr" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/bundle.iws" beforeDir="false" afterPath="$PROJECT_DIR$/bundle.iws" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -173,10 +190,13 @@
   <component name="FileTemplateManagerImpl">
     <option name="RECENT_TEMPLATES">
       <list>
-        <option value="Class" />
         <option value="Interface" />
+        <option value="Class" />
       </list>
     </option>
+  </component>
+  <component name="Git.Merge.Settings">
+    <option name="BRANCH" value="specialFields3" />
   </component>
   <component name="Git.Settings">
     <excluded-from-favorite>
@@ -214,7 +234,7 @@
     </favorite-branches>
     <option name="RECENT_BRANCH_BY_REPOSITORY">
       <map>
-        <entry key="$PROJECT_DIR$" value="master" />
+        <entry key="$PROJECT_DIR$" value="WarMachines06" />
       </map>
     </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
@@ -297,43 +317,52 @@
     <option name="hideEmptyMiddlePackages" value="true" />
     <option name="showLibraryContents" value="true" />
   </component>
-  <component name="PropertiesComponent">{
-  &quot;keyToString&quot;: {
-    &quot;Application.LaunchBattle.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.BoardTest.creatureCannotEnterObstacle.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.BoardTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.BoardTest.obstacleWithHPRemove.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.BoardTest.testObstacleWithHPRemovalAfterDestruction.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.BoardTest.wallCanBeDestroyed.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.BoardTest.wallCanBeDestroyedAndLevelUpdates.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.BoardTest.wallRemovesFromMap.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.CatapultTest.catapultShouldANotAttackCreature.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ObstaclesWithHPTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ObstaclesWithHPTest.takeDamageReducesHP.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.ObstaclesWithHPTest.testTakeDamageReducesHP.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.WallTest.catapultCanAttackWallAtLVL1.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.WallTest.creatureCanAttackWallAtLVL2And3.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.WallTest.creatureCannotAttackWallAtLVL1.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.WallTest.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.WallTest.takeDamageReducesHP.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.WallTest.wallCanBeDestroyed.executor&quot;: &quot;Run&quot;,
-    &quot;JUnit.WallTest.wallLevelChangesAfterAttacks.executor&quot;: &quot;Run&quot;,
-    &quot;RunOnceActivity.OpenProjectViewOnStart&quot;: &quot;true&quot;,
-    &quot;RunOnceActivity.ShowReadmeOnStart&quot;: &quot;true&quot;,
-    &quot;git-widget-placeholder&quot;: &quot;specialFields&quot;,
-    &quot;kotlin-language-version-configured&quot;: &quot;true&quot;,
-    &quot;last_opened_file_path&quot;: &quot;C:/Users/barto/Desktop/pliki/Java projects/2024_UEP/battle-model/src/main/java/pl/psi&quot;,
-    &quot;project.structure.last.edited&quot;: &quot;Modules&quot;,
-    &quot;project.structure.proportion&quot;: &quot;0.0&quot;,
-    &quot;project.structure.side.proportion&quot;: &quot;0.0&quot;
+  <component name="PropertiesComponent"><![CDATA[{
+  "keyToString": {
+    "Application.EconomyStart.executor": "Run",
+    "Application.LaunchBattle.executor": "Debug",
+    "Application.LaunchEconomy.executor": "Run",
+    "JUnit.BoardTest.creatureCannotEnterObstacle.executor": "Run",
+    "JUnit.BoardTest.executor": "Run",
+    "JUnit.BoardTest.obstacleWithHPRemove.executor": "Run",
+    "JUnit.BoardTest.obstacleWithHPRemovesFromMap.executor": "Debug",
+    "JUnit.BoardTest.testObstacleWithHPRemovalAfterDestruction.executor": "Run",
+    "JUnit.BoardTest.wallCanBeDestroyed.executor": "Run",
+    "JUnit.BoardTest.wallCanBeDestroyedAndLevelUpdates.executor": "Run",
+    "JUnit.BoardTest.wallRemovesFromMap.executor": "Run",
+    "JUnit.BoardTest.wallRemovesFromMapAfterAttacks.executor": "Run",
+    "JUnit.BoardTest.wallRemovesFromMapAfterCatapultAttack.executor": "Run",
+    "JUnit.BoardTest.wallRemovesFromMapAfterCreatureAttack.executor": "Run",
+    "JUnit.BoardTest.wallRemovesFromMapAfterCreatureAttacks.executor": "Run",
+    "JUnit.CatapultTest.catapultShouldANotAttackCreature.executor": "Run",
+    "JUnit.CreatureTest.executor": "Run",
+    "JUnit.ObstaclesWithHPTest.executor": "Run",
+    "JUnit.ObstaclesWithHPTest.hpLevelDrops.executor": "Run",
+    "JUnit.ObstaclesWithHPTest.takeDamageReducesHP.executor": "Run",
+    "JUnit.ObstaclesWithHPTest.testTakeDamageReducesHP.executor": "Run",
+    "JUnit.WallTest.catapultCanAttackWallAtLVL1.executor": "Run",
+    "JUnit.WallTest.creatureCanAttackWallAtLVL2And3.executor": "Run",
+    "JUnit.WallTest.creatureCannotAttackWallAtLVL1.executor": "Run",
+    "JUnit.WallTest.executor": "Run",
+    "JUnit.WallTest.takeDamageReducesHP.executor": "Run",
+    "JUnit.WallTest.wallCanBeDestroyed.executor": "Run",
+    "JUnit.WallTest.wallLevelChangesAfterAttacks.executor": "Run",
+    "RunOnceActivity.OpenProjectViewOnStart": "true",
+    "RunOnceActivity.ShowReadmeOnStart": "true",
+    "git-widget-placeholder": "SpecialFieldsFinal",
+    "kotlin-language-version-configured": "true",
+    "last_opened_file_path": "C:/Users/barto/Desktop/pliki/Java projects/2024_UEP/battle-model/src/main/java/pl/psi",
+    "project.structure.last.edited": "Modules",
+    "project.structure.proportion": "0.0",
+    "project.structure.side.proportion": "0.0"
   }
-}</component>
+}]]></component>
   <component name="RecentsManager">
     <key name="CopyFile.RECENT_KEYS">
       <recent name="C:\Users\barto\Desktop\pliki\Java projects\2024_UEP\battle-model\src\main\java\pl\psi" />
     </key>
   </component>
-  <component name="RunManager" selected="JUnit.BoardTest">
+  <component name="RunManager" selected="JUnit.ObstaclesWithHPTest">
     <configuration selected="false" default="true" type="Applet" factoryName="Applet">
       <module name="" />
       <option name="MAIN_CLASS_NAME" />
@@ -380,7 +409,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BoardTest.wallCanBeDestroyedAndLevelUpdates" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="BoardTest.wallRemovesFromMapAfterCatapultAttack" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="battle-model" />
       <extension name="coverage">
         <pattern>
@@ -390,7 +419,7 @@
       </extension>
       <option name="PACKAGE_NAME" value="pl.psi" />
       <option name="MAIN_CLASS_NAME" value="pl.psi.BoardTest" />
-      <option name="METHOD_NAME" value="wallCanBeDestroyedAndLevelUpdates" />
+      <option name="METHOD_NAME" value="wallRemovesFromMapAfterCatapultAttack" />
       <option name="TEST_OBJECT" value="method" />
       <option name="VM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
@@ -401,7 +430,7 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="BoardTest.wallRemovesFromMap" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+    <configuration name="BoardTest.wallRemovesFromMapAfterCreatureAttack" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
       <module name="battle-model" />
       <extension name="coverage">
         <pattern>
@@ -411,8 +440,28 @@
       </extension>
       <option name="PACKAGE_NAME" value="pl.psi" />
       <option name="MAIN_CLASS_NAME" value="pl.psi.BoardTest" />
-      <option name="METHOD_NAME" value="wallRemovesFromMap" />
+      <option name="METHOD_NAME" value="wallRemovesFromMapAfterCreatureAttack" />
       <option name="TEST_OBJECT" value="method" />
+      <option name="VM_PARAMETERS" />
+      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
+      <option name="TEST_SEARCH_SCOPE">
+        <value defaultName="wholeProject" />
+      </option>
+      <method v="2">
+        <option name="Make" enabled="true" />
+      </method>
+    </configuration>
+    <configuration name="ObstaclesWithHPTest" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
+      <module name="battle-model" />
+      <extension name="coverage">
+        <pattern>
+          <option name="PATTERN" value="pl.psi.obstacles.*" />
+          <option name="ENABLED" value="true" />
+        </pattern>
+      </extension>
+      <option name="PACKAGE_NAME" value="pl.psi.obstacles" />
+      <option name="MAIN_CLASS_NAME" value="pl.psi.obstacles.ObstaclesWithHPTest" />
+      <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" />
       <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
       <option name="TEST_SEARCH_SCOPE">
@@ -442,27 +491,6 @@
         <option name="Make" enabled="true" />
       </method>
     </configuration>
-    <configuration name="WallTest.wallLevelChangesAfterAttacks" type="JUnit" factoryName="JUnit" temporary="true" nameIsGenerated="true">
-      <module name="battle-model" />
-      <extension name="coverage">
-        <pattern>
-          <option name="PATTERN" value="pl.psi.obstacles.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <option name="PACKAGE_NAME" value="pl.psi.obstacles" />
-      <option name="MAIN_CLASS_NAME" value="pl.psi.obstacles.WallTest" />
-      <option name="METHOD_NAME" value="wallLevelChangesAfterAttacks" />
-      <option name="TEST_OBJECT" value="method" />
-      <option name="VM_PARAMETERS" />
-      <option name="WORKING_DIRECTORY" value="$PROJECT_DIR$" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="wholeProject" />
-      </option>
-      <method v="2">
-        <option name="Make" enabled="true" />
-      </method>
-    </configuration>
     <configuration default="true" type="JUnit" factoryName="JUnit">
       <option name="TEST_OBJECT" value="class" />
       <option name="VM_PARAMETERS" />
@@ -476,11 +504,11 @@
     </configuration>
     <recent_temporary>
       <list>
-        <item itemvalue="JUnit.BoardTest" />
-        <item itemvalue="JUnit.WallTest.wallLevelChangesAfterAttacks" />
-        <item itemvalue="JUnit.BoardTest.wallRemovesFromMap" />
-        <item itemvalue="JUnit.BoardTest.wallCanBeDestroyedAndLevelUpdates" />
+        <item itemvalue="JUnit.ObstaclesWithHPTest" />
         <item itemvalue="JUnit.WallTest" />
+        <item itemvalue="JUnit.BoardTest" />
+        <item itemvalue="JUnit.BoardTest.wallRemovesFromMapAfterCreatureAttack" />
+        <item itemvalue="JUnit.BoardTest.wallRemovesFromMapAfterCatapultAttack" />
       </list>
     </recent_temporary>
   </component>
@@ -689,5 +717,176 @@
   </component>
   <component name="WebViewSettings">
     <webview flattenPackages="false" showMembers="false" autoscrollToSource="false" />
+  </component>
+  <component name="XDebuggerManager">
+    <breakpoint-manager>
+      <breakpoints>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/ObstacleWithHPAttackStrategy.java</url>
+          <line>12</line>
+          <option name="timeStamp" value="8" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/ObstacleWithHPAttackStrategy.java</url>
+          <line>11</line>
+          <option name="timeStamp" value="9" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/ObstacleWithHPAttackStrategy.java</url>
+          <line>10</line>
+          <option name="timeStamp" value="10" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/ObstacleWithHPAttackStrategy.java</url>
+          <line>9</line>
+          <option name="timeStamp" value="11" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/Catapult.java</url>
+          <line>86</line>
+          <option name="timeStamp" value="43" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/Catapult.java</url>
+          <line>87</line>
+          <option name="timeStamp" value="44" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/Catapult.java</url>
+          <line>88</line>
+          <option name="timeStamp" value="45" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/Catapult.java</url>
+          <line>89</line>
+          <option name="timeStamp" value="46" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/Catapult.java</url>
+          <line>90</line>
+          <option name="timeStamp" value="48" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/Catapult.java</url>
+          <line>91</line>
+          <option name="timeStamp" value="49" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/Catapult.java</url>
+          <line>92</line>
+          <option name="timeStamp" value="50" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/Catapult.java</url>
+          <line>93</line>
+          <option name="timeStamp" value="51" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/Catapult.java</url>
+          <line>94</line>
+          <option name="timeStamp" value="52" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/Catapult.java</url>
+          <line>95</line>
+          <option name="timeStamp" value="53" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/Catapult.java</url>
+          <line>96</line>
+          <option name="timeStamp" value="54" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/Catapult.java</url>
+          <line>97</line>
+          <option name="timeStamp" value="55" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/Wall.java</url>
+          <line>85</line>
+          <option name="timeStamp" value="82" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/Wall.java</url>
+          <line>86</line>
+          <option name="timeStamp" value="83" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/battle-model/src/main/java/pl/psi/Board.java</url>
+          <line>179</line>
+          <option name="timeStamp" value="84" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/battle-model/src/main/java/pl/psi/Board.java</url>
+          <line>180</line>
+          <option name="timeStamp" value="86" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/battle-model/src/main/java/pl/psi/Board.java</url>
+          <line>181</line>
+          <option name="timeStamp" value="87" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/battle-model/src/main/java/pl/psi/Board.java</url>
+          <line>182</line>
+          <option name="timeStamp" value="88" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/battle-model/src/main/java/pl/psi/Board.java</url>
+          <line>161</line>
+          <option name="timeStamp" value="89" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-line">
+          <url>file://$PROJECT_DIR$/battle-model/src/main/java/pl/psi/Board.java</url>
+          <line>162</line>
+          <option name="timeStamp" value="90" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/ObstacleWithHPAttackStrategy.java</url>
+          <line>8</line>
+          <properties class="pl.psi.creatures.ObstacleWithHPAttackStrategy" method="attack">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="12" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/battle-model/src/main/java/pl/psi/creatures/Catapult.java</url>
+          <line>85</line>
+          <properties class="pl.psi.creatures.Catapult" method="attack">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="21" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/battle-model/src/main/java/pl/psi/obstacles/Wall.java</url>
+          <line>84</line>
+          <properties class="pl.psi.obstacles.Wall" method="notifyObservers">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="81" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/battle-model/src/main/java/pl/psi/Board.java</url>
+          <line>178</line>
+          <properties class="pl.psi.Board" method="update">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="85" />
+        </line-breakpoint>
+        <line-breakpoint enabled="true" type="java-method">
+          <url>file://$PROJECT_DIR$/battle-model/src/main/java/pl/psi/Board.java</url>
+          <line>160</line>
+          <properties class="pl.psi.Board" method="removeFromTheMapWall">
+            <option name="EMULATED" value="true" />
+            <option name="WATCH_EXIT" value="false" />
+          </properties>
+          <option name="timeStamp" value="91" />
+        </line-breakpoint>
+      </breakpoints>
+    </breakpoint-manager>
   </component>
 </project>

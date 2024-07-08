@@ -1,11 +1,13 @@
 package pl.psi.obstacles;
 
 import pl.psi.Point;
+import pl.psi.creatures.DefenderIf;
+import pl.psi.creatures.TargetTypeEnum;
 
 import java.util.ArrayList;
 
 
-public class ObstaclesWithHP implements ObstaclesIF, ObstaclesObservable {
+public class ObstaclesWithHP implements  ObstaclesObservable, DefenderIf {
 
     private int maxHp;
     private int currentHp;
@@ -52,5 +54,10 @@ public class ObstaclesWithHP implements ObstaclesIF, ObstaclesObservable {
 
     public String toCurrentHPString() {
         return getHP() + System.lineSeparator();
+    }
+
+    @Override
+    public TargetTypeEnum getType() {
+        return TargetTypeEnum.OBSTACLEWITHHP;
     }
 }

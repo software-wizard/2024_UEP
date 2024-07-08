@@ -1,18 +1,24 @@
 package pl.psi;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import static org.assertj.core.api.Assertions.*;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.Mockito.when;
+
 
 import java.util.List;
 
+import com.google.common.collect.Range;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 
+import org.mockito.Mockito;
+import pl.psi.creatures.Catapult;
 import pl.psi.creatures.Creature;
 import pl.psi.creatures.CreatureStats;
 
 import pl.psi.creatures.MachineFactory;
+import pl.psi.enums.AttackTypeEnum;
 import pl.psi.obstacles.ObstaclesWithHP;
 import pl.psi.obstacles.Wall;
 
@@ -27,6 +33,7 @@ class BoardTest
     void setUp() {
         creature = new Creature.Builder().statistic(CreatureStats.builder()
                         .moveRange(5)
+                        .damage(Range.closed(10,10))
                         .build())
                 .build();
         final List<Creature> c1 = List.of(creature);
@@ -41,24 +48,8 @@ class BoardTest
         board.move( creature, new Point( 3, 3 ) );
 
         assertThat( board.getCreature( new Point( 3, 3 ) )
-            .isPresent() ).isTrue();
+                .isPresent() ).isTrue();
     }
-
-    @Test
-    @Disabled // Bartek
-    void creatureCannotEnterObstacle() throws ObstacleException {
-
-        Point point = new Point(3,3);
-
-        board.addObstacle(point);
-        board.move(creature,point);
-
-        if (board.getCreature(point).isEmpty()){
-            throw new ObstacleException("Creature cannot move into : " + point + ", because it's an obstacle");
-        }
-
-    }
-
     @Test
     void obstacleWithHPRemovesFromMap() {
 
@@ -66,25 +57,36 @@ class BoardTest
         ObstaclesWithHP obstacleWithHP = new ObstaclesWithHP(10);
 
         board.addObstacleWithHP(point,obstacleWithHP);
-
-        board.getObstacleWithHP(point);
-
-        obstacleWithHP.takeDamage(point,10);
+        creature.attack(obstacleWithHP,point);
 
         assertThat(board.isObstacleWithHP(point)).isFalse();
     }
-
     @Disabled
     @Test
-    public void wallRemovesFromMap(){
-        wall = new Wall();
+    public void wallRemovesFromMapAfterCreatureAttack(){
+        Wall wall = new Wall();
         Point point = new Point(0,0);
+        board.addWall(point);
 
+        wall.setCurrentLevel(2);
+            while (wall.getCurrentHP() >0 && wall.getCurrentLevel() >0){
+                creature.attack(wall,point);
+            }
+
+        assertEquals(false,board.getWall(point).isPresent());
+
+    }
+    @Disabled
+    @Test
+    public void wallRemovesFromMapAfterCatapultAttack(){
+        Wall wall = new Wall();
+        Point point = new Point(0,0);
+        board.addWall(point);
         MachineFactory machineFactory = new MachineFactory();
         Creature catapult = machineFactory.create("Catapult");
 
-        for(int i = 0; i <6; i++){
-            catapult.attackWall(wall,point);
+        while (wall.getCurrentHP() >0 && wall.getCurrentLevel() >0){
+            catapult.attack(wall,point);
         }
 
         assertThat(board.isWall(point)).isFalse();
@@ -92,10 +94,6 @@ class BoardTest
     }
 
 
-    class ObstacleException extends Exception {
-        public ObstacleException(String message) {
-            super(message);
-        }
-    }
+
 
 }

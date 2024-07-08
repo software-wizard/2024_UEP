@@ -10,7 +10,7 @@ import java.util.ArrayList;
 
 @Getter
 @Setter
-public class Wall implements ObstaclesIF, ObstaclesObservable, DefenderIf {
+public class Wall implements ObstaclesObservable, DefenderIf {
 
     private int levelOneHP = 1500;
     private int levelTwoHP = 1000;
@@ -34,20 +34,29 @@ public class Wall implements ObstaclesIF, ObstaclesObservable, DefenderIf {
 
 
      public void takeDamageFromCatapult(int damage, Point aPoint) {
-         if (damage >= currentHP) {
-             currentHP = 0;
-         } else {
+        if (currentLevel == 1){
+            currentHP -= damage;
+            if (currentHP <= 0) {
+                currentLevel = 2;
+                currentHP = levelTwoHP;
+            }
+        }
+         else if (currentLevel == 2) {
              currentHP -= damage;
-             if (currentHP <= 1500 && currentHP > 1000) currentLevel = 1;
-             else if (currentHP <= 1000 && currentHP > 500) currentLevel = 2;
-             else {
+             if (currentHP <= 0) {
                  currentLevel = 3;
-                 if (currentHP <= 0) {
-                     notifyObservers(aPoint);
-                 }
+                 currentHP = levelThreeHP;
+             }
+
+         } else if (currentLevel == 3) {
+             currentHP -= damage;
+             if (currentHP <= 0) {
+                 notifyObservers(aPoint);
+                 currentHP = 0;
+
              }
          }
-     }
+    }
 
     public void takeDamageFromCreature(int damage, Point aPoint) {
         if (damage >= currentHP) {

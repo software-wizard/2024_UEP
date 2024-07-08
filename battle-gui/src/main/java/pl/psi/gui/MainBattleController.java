@@ -113,7 +113,6 @@ public class MainBattleController implements PropertyChangeListener
         gridMap.getChildren()
             .clear();
         Obstacle obstacle = new Obstacle();
-        ObstaclesWithHP obstaclesWithHP = new ObstaclesWithHP(1000);
         for( int x = 0; x < 15; x++ )
         {
             for( int y = 0; y < 10; y++ )
@@ -121,6 +120,7 @@ public class MainBattleController implements PropertyChangeListener
                 Point currentPoint = new Point( x, y );
                 Optional< Creature > creature = gameEngine.getCreature( currentPoint );
                 Optional<Wall> wall = gameEngine.getWall(currentPoint);
+                Optional<ObstaclesWithHP> obstaclesWithHP = gameEngine.getObstacleWithHP(currentPoint);
                 final GridTile mapTile = new GridTile( "" );
 
                 if (selectedSpell != null) {
@@ -137,12 +137,12 @@ public class MainBattleController implements PropertyChangeListener
                     mapTile.setIcon( w.getImagePath());
                     mapTile.setName( w.toStringHP());
                 });
+                obstaclesWithHP.ifPresent( o -> {
+                    mapTile.setIcon(o.getImagePath());
+                    mapTile.setName(o.toCurrentHPString() );
+                });
                 if ( gameEngine.isObstacle(currentPoint)) {
                     mapTile.setIcon(obstacle.getImagePath());
-                }
-                if ( gameEngine.isObstacleWithHP(currentPoint)) {
-                    mapTile.setIcon(obstaclesWithHP.getImagePath());
-                    mapTile.setName("1");
                 }
                 if( gameEngine.isCurrentCreature( currentPoint ) )
                 {
