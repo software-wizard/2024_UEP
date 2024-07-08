@@ -32,7 +32,7 @@ public class FieldObjects implements MapObject{
         for(int i = 0; i<=numberOfResources; i++){
             String randomResourceType = resourceTypes[random.nextInt(resourceTypes.length)];
 
-            int resourceQuantity = random.nextInt(maxQuantity - minQuantity + 1)  - minQuantity;
+            int resourceQuantity = random.nextInt(maxQuantity - minQuantity + 1);
 
             fieldMap.put(new Point(random.nextInt(25), random.nextInt(15)),
                     new ResourcesField(Resources.builder().withResource(randomResourceType, resourceQuantity).build()));
