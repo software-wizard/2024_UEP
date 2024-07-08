@@ -50,6 +50,7 @@ public class Creature implements PropertyChangeListener, DefenderIf {
     protected AttackStrategy attackStrategy;
     private WallAttackStrategy wallAttackStrategy = new WallAttackStrategy();
     private CreatureAttackStrategy creatureAttackStrategy = new CreatureAttackStrategy();
+    private ObstacleWithHPAttackStrategy obstacleWithHPAttackStrategy = new ObstacleWithHPAttackStrategy();
     private final List<CreatureEffect> creatureEffects = new ArrayList<>();
 
 
@@ -113,14 +114,6 @@ public class Creature implements PropertyChangeListener, DefenderIf {
         return creatureEffects.stream().anyMatch((effect) -> effect.getEffectStatistic().equals(effectStatistic));
     }
 
-    public void attackObstacle(ObstaclesWithHP obstacleWithHP, Point aPoint) {
-        final int damage = getCalculator().calculateDamageToObstacle(this,obstacleWithHP);
-        obstacleWithHP.takeDamage(aPoint, damage);
-    }
-
-    public void attackWall(Wall wall,Point aPoint){
-
-    }
 
 //    public abstract void attack(DefenderIf target, Point aPoint);
     public boolean randomChance() {
@@ -283,6 +276,9 @@ public class Creature implements PropertyChangeListener, DefenderIf {
             attackStrategy = creatureAttackStrategy;
         } else if (target.getType().equals(TargetTypeEnum.WALL)) {
             attackStrategy = wallAttackStrategy;
+        } else if (target.getType().equals(TargetTypeEnum.OBSTACLEWITHHP)) {
+            attackStrategy = obstacleWithHPAttackStrategy;
+
         } else throw new IllegalStateException("Attack strategy is not set");
         attackStrategy.attack(this, target, attackType, aPoint);
     }

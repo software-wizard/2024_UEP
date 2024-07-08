@@ -9,7 +9,6 @@ import com.google.common.collect.HashBiMap;
 import pl.psi.creatures.Creature;
 import pl.psi.obstacles.*;
 
-import static pl.psi.obstacles.ObstaclesIF.maxHP;
 
 /**
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
@@ -18,6 +17,7 @@ public class Board implements ObstacleObserver, BoardIf
 {
     private static final int MAX_WITDH = 14;
     private static final int MAX_HEIGHT = 9;
+    private static final int maxHP = 10;
     private final BiMap< Point, Creature > map = HashBiMap.create();
     private  final HashMap<Point, ObstaclesWithHP> obstaclesWithHPMap = new HashMap<>();
     private  final HashMap<Point, Obstacle> regularObstaclesMap = new HashMap<>();
@@ -34,16 +34,21 @@ public class Board implements ObstacleObserver, BoardIf
 
         addCreatures( aCreatures1, 0 );
         addCreatures( aCreatures2, MAX_WITDH );
-        addWall();
+        addWalls();
         addRandomObstacles();
     }
 
-    private void addWall(){
+    private void addWalls(){
         for (int i = 0;i <MAX_HEIGHT+1;i++){
             Wall wall = new Wall();
             wall.addObserver(this);
             wallHashMap.put(new Point(7,i),wall);
         }
+    }
+    public void addWall(Point point){
+        Wall wall = new Wall();
+        wall.addObserver(this);
+        wallHashMap.put(point,wall);
     }
     boolean isWall(Point aPoint){
         return wallHashMap.containsKey(aPoint);

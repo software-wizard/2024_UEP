@@ -69,20 +69,8 @@ abstract class AbstractCalculateDamageStrategy implements DamageCalculatorIf
         return damage;
     }
 
-    public int calculateDamageToObstacle(Creature attacker, ObstaclesWithHP obstaclesWithHP) {
-        final int randValue = rand.nextInt(attacker.getDamage().upperEndpoint() - attacker.getDamage().lowerEndpoint() + 1)
-                + attacker.getDamage().lowerEndpoint();
-
-        double oneCreatureDamageToDeal = randValue;
-
-        if (oneCreatureDamageToDeal < 0) {
-            oneCreatureDamageToDeal = 0;
-        }
-        return (int) (attacker.getAmount() * oneCreatureDamageToDeal);
-    }
-
-
-    public int calculateDamageToWall(Creature attacker, Wall wall) {
+    @Override
+    public int calculateDamageToObstacle(Creature attacker, Object obstacleTarget){
         final int randValue = rand.nextInt(attacker.getDamage().upperEndpoint() -
                 attacker.getDamage().lowerEndpoint() + 1)
                 + attacker.getDamage().lowerEndpoint();

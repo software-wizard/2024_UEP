@@ -1,14 +1,18 @@
 package pl.psi;
 
+import pl.psi.creatures.Catapult;
 import pl.psi.creatures.Creature;
 import pl.psi.creatures.MachineCalculatorDecorator;
 import pl.psi.creatures.Morale;
 import pl.psi.enums.AttackTypeEnum;
 import pl.psi.enums.CreatureTypeEnum;
+import pl.psi.obstacles.ObstaclesWithHP;
+import pl.psi.obstacles.Wall;
 
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Optional;
 
 public class AttackEngine {
 
@@ -31,6 +35,23 @@ public class AttackEngine {
 
 
     public boolean canAttack(final Point point, Creature attacker) {
+        if (board.isObstacleWithHP(point)) {
+            return isInMeleeRange(attacker,point);
+        }
+
+        if (board.isWall(point)) {
+            Wall wall = board.getWall(point).orElse(null);
+            if (wall != null) {
+                if (attacker instanceof Catapult) {
+                    return true;
+                }
+                if (wall.getCurrentLevel() == 2 || wall.getCurrentLevel() == 3){
+                    return isInMeleeRange(attacker, point);
+                }
+            }
+        }
+
+
         if (board.getCreature(point).isEmpty()) {
             return false;
         }
@@ -67,9 +88,16 @@ public class AttackEngine {
 
     private void attackOnce(Point enemyLocation, Creature attacker) {
         AttackTypeEnum attackType = determineAttackType(attacker, enemyLocation);
-        board.getCreature(enemyLocation)
-                .ifPresent(defender -> attacker
-                        .attack(defender, attackType));
+        if (board.isObstacleWithHP(enemyLocation)) {
+            Optional<ObstaclesWithHP> obstacle = board.getObstacleWithHP(enemyLocation);
+            obstacle.ifPresent(o -> attacker.attack(o, attackType,enemyLocation));
+        } else if (board.isWall(enemyLocation)) {
+            Optional<Wall> wall = board.getWall(enemyLocation);
+            wall.ifPresent(w -> attacker.attack(w, attackType,enemyLocation));
+        } else {
+            board.getCreature(enemyLocation)
+                    .ifPresent(defender -> attacker.attack(defender, attackType));
+        }
     }
 
     private AttackTypeEnum determineAttackType(Creature aCreature, Point enemyLocation) {

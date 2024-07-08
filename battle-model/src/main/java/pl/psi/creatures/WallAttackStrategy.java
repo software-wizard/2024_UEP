@@ -12,7 +12,7 @@ public class WallAttackStrategy implements AttackStrategy {
         if (target instanceof Wall) {
             Wall wall = (Wall) target;
             if (wall.getCurrentLevel() == 2 || wall.getCurrentLevel() == 3) {
-                final int creatureDamage = attacker.getCalculator().calculateDamageToWall(attacker, wall);
+                final int creatureDamage = attacker.getCalculator().calculateDamageToObstacle(attacker, wall);
                 wall.takeDamageFromCreature(creatureDamage, aPoint);
                 System.out.println("Creature hit the wall with " + creatureDamage + " damage");
             } else {
