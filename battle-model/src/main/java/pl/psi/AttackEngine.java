@@ -42,7 +42,8 @@ public class AttackEngine {
                 return board.getWall(point).isPresent();
             } else if (attacker.getStats().getName().equals("Ballista")) {
                 return board.getCreature(point).isPresent() &&
-                        !board.getCreature(point).get().getCreatureType().equals(CreatureTypeEnum.MACHINE);
+                        !board.getCreature(point).get().getCreatureType().equals(CreatureTypeEnum.MACHINE) &&
+                        !board.getCreature(point).get().getStats().getName().equals("First Aid Tent");
             }
         }
 
