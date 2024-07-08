@@ -2,9 +2,7 @@ package pl.psi.objects;
 
 import lombok.Getter;
 import pl.psi.EconomyHero;
-import pl.psi.Resources;
 import pl.psi.skills.Skill;
-import pl.psi.skills.SkillImageHashMap;
 
 @Getter
 public class SkillsField implements Field {

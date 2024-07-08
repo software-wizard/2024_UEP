@@ -14,7 +14,6 @@ import pl.psi.EconomyHero;
 import pl.psi.Point;
 import pl.psi.converter.EcoBattleConverter;
 import pl.psi.objects.SkillsField;
-import pl.psi.skills.SkillImageHashMap;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
