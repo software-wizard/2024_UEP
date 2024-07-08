@@ -1,20 +1,8 @@
 package pl.psi.gui;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.io.IOException;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-import com.sun.javafx.charts.Legend;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
 import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
@@ -25,10 +13,11 @@ import pl.psi.EconomyEngine;
 import pl.psi.EconomyHero;
 import pl.psi.Point;
 import pl.psi.converter.EcoBattleConverter;
-import pl.psi.enums.SkillEnum;
 import pl.psi.objects.SkillsField;
-import pl.psi.skills.Skill;
 import pl.psi.skills.SkillImageHashMap;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 @NoArgsConstructor
 public class EcoController implements PropertyChangeListener {

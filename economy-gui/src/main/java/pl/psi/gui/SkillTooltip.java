@@ -3,11 +3,10 @@ package pl.psi.gui;
 import javafx.scene.control.Tooltip;
 import javafx.util.Duration;
 import pl.psi.EconomyHero;
-import pl.psi.Hero;
 
 public class SkillTooltip extends Tooltip{
 
-    private EconomyHero hero;
+    private final EconomyHero hero;
 
     public SkillTooltip(EconomyHero hero) {
         this.hero = hero;
