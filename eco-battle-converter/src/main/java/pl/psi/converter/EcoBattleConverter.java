@@ -17,7 +17,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Map;
 
 public class EcoBattleConverter implements PropertyChangeListener {
 
@@ -51,7 +50,6 @@ public class EcoBattleConverter implements PropertyChangeListener {
                 .forEach(ecoCreature -> creatures
                         .add(factory.create(ecoCreature.isUpgraded(), ecoCreature.getTier(), 1, ecoCreature.getMoraleValue())));
 
-        // Zakładam ze skille "nie battle" nie muszą byc zalaczane tutaj, poniewaz one musza dzialac jak sobie biegamy po mapiex
         for (Skill skill : aPlayer1.getSkills().values()) {
             skillFactory.create(skill.getSkillName(), skill.getLevel()).cast(creatures);
         }

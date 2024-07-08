@@ -62,6 +62,18 @@ class EcoMapTile extends StackPane
             e.printStackTrace();
         }
     }
+    void setBackgroundImage(String path)
+    {
+//        Image image = new Image(path);
+//        BackgroundImage backgroundImage = new BackgroundImage(image,
+//                BackgroundRepeat.NO_REPEAT, BackgroundRepeat.NO_REPEAT,
+//                BackgroundPosition.CENTER,
+//                new BackgroundSize(40, 40, true, true, false, true));
+//        setBackground(new Background(backgroundImage));
+//        rect.setVisible(false);
+        Image img = new Image(path);
+        rect.setFill(new ImagePattern(img));
+    }
 
     void removeIcon() {
         collected = true;

@@ -1,13 +1,15 @@
 package pl.psi.creatures;
 
 import lombok.Getter;
+import lombok.Setter;
 import pl.psi.enums.AttackTypeEnum;
 
 import java.util.Random;
 
 public class MachineCalculatorDecorator extends AbstractCalculateDamageStrategy {
     @Getter
-    private final int level;
+    @Setter
+    private int level;
     private final AbstractCalculateDamageStrategy decorated;
     private final Random random;
 

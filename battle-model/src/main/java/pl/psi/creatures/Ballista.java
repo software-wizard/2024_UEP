@@ -18,13 +18,13 @@ public class Ballista extends Creature {
     private int currentHp;
     private int counterAttackCounter = 1;
     @Setter
-    private DamageCalculatorIf calculator;
+    private MachineCalculatorDecorator calculator;
     private CreatureTypeEnum creatureType;
     private AttackTypeEnum attackType;
     @Setter
     private DamageApplier damageApplier = new DamageApplier();
 
-    protected Ballista(final CreatureStatisticIf aStats, final DamageCalculatorIf aCalculator,
+    protected Ballista(final CreatureStatisticIf aStats, final MachineCalculatorDecorator aCalculator,
                        final int aAmount, CreatureTypeEnum aCreatureType, AttackTypeEnum aAttackType) {
         super(aStats, aCalculator, aAmount, aCreatureType, aAttackType, new Morale(0));
         this.level = 1;
@@ -32,9 +32,9 @@ public class Ballista extends Creature {
 
     public static class Builder {
         private int amount = 1;
-        private DamageCalculatorIf calculator = new DefaultDamageCalculator(new Random());
+        private MachineCalculatorDecorator calculator = new MachineCalculatorDecorator(new DefaultDamageCalculator(new Random()), 0);
         private CreatureStatisticIf statistic;
-        private CreatureTypeEnum creatureType = CreatureTypeEnum.GROUND;
+        private CreatureTypeEnum creatureType = CreatureTypeEnum.MACHINE;
         private AttackTypeEnum attackType = AttackTypeEnum.RANGE;
         private Morale morale;
 
@@ -58,7 +58,7 @@ public class Ballista extends Creature {
             return this;
         }
 
-        public Ballista.Builder calculator(DamageCalculatorIf aMachineCalculatorDecorator) {
+        public Ballista.Builder calculator(MachineCalculatorDecorator aMachineCalculatorDecorator) {
             calculator = aMachineCalculatorDecorator;
             return this;
         }

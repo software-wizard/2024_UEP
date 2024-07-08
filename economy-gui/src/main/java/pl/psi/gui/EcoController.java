@@ -1,20 +1,9 @@
 package pl.psi.gui;
 
-import java.beans.PropertyChangeEvent;
-import java.beans.PropertyChangeListener;
-import java.io.IOException;
-import java.util.Collection;
-import java.util.List;
-import java.util.Optional;
-import java.util.stream.Collectors;
-
-import com.sun.javafx.charts.Legend;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListView;
+import javafx.scene.control.Tooltip;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.VBox;
@@ -24,7 +13,10 @@ import pl.psi.EconomyEngine;
 import pl.psi.EconomyHero;
 import pl.psi.Point;
 import pl.psi.converter.EcoBattleConverter;
-import pl.psi.skills.Skill;
+import pl.psi.objects.SkillsField;
+
+import java.beans.PropertyChangeEvent;
+import java.beans.PropertyChangeListener;
 
 @NoArgsConstructor
 public class EcoController implements PropertyChangeListener {
@@ -40,13 +32,15 @@ public class EcoController implements PropertyChangeListener {
     private Button passButton;
     @FXML
     private Label allResourcesLabel;
-//    @FXML
-//    private ListView<String> skillsList;
 
-    private ObservableList<String> skills;
+    SkillTooltip skillTooltip1;
+    SkillTooltip skillTooltip2;
+    SkillImageHashMap skillImageHashMap;
 
     public EcoController(final EconomyHero aHero1, final EconomyHero aHero2) {
         engine = new EconomyEngine(aHero1, aHero2);
+        skillTooltip1 = new SkillTooltip(aHero1);
+        skillTooltip2 = new SkillTooltip(aHero2);
     }
 
     @FXML
@@ -95,6 +89,16 @@ public class EcoController implements PropertyChangeListener {
                     mapTile.setBackground(Color.GREENYELLOW);
                 }
 
+                engine.getHero(currentPoint).ifPresent(h -> {
+                    mapTile.setName(h.getName());
+                    if(h.equals(engine.getHero1())) {
+                        Tooltip.install(mapTile, skillTooltip1);
+                    }
+                    if (h.equals(engine.getHero2())) {
+                        Tooltip.install(mapTile, skillTooltip2);
+                    }
+                });
+
                 if (engine.isCastle(currentPoint)) {
                     mapTile.setBackground(Color.BROWN);
                     mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
@@ -106,21 +110,26 @@ public class EcoController implements PropertyChangeListener {
                 }
 
                 if (engine.isFieldPoint(currentPoint)) {
-                    if (engine.isGoldField(currentPoint)) {
-                        mapTile.setIcon("/resourcesIcons/gold.png");
-                    } else if (engine.isWoodField(currentPoint)) {
-                        mapTile.setIcon("/resourcesIcons/wood.png");
-                    } else if (engine.isOreField(currentPoint)) {
-                        mapTile.setIcon("/resourcesIcons/ore.png");
-                    } else if (engine.isGemsField(currentPoint)) {
-                        mapTile.setIcon("/resourcesIcons/gems.png");
-                    } else if (engine.isSulfurField(currentPoint)) {
-                        mapTile.setIcon("/resourcesIcons/sulfur.png");
-                    } else if (engine.isMercuryField(currentPoint)) {
-                        mapTile.setIcon("/resourcesIcons/mercury.png");
-                    } else if (engine.isCristalsField(currentPoint)) {
-                        mapTile.setIcon("/resourcesIcons/crystals.png");
+                    if (engine.getField(currentPoint).isSkillField()) {
+                        mapTile.setBackgroundImage(SkillImageHashMap.get(((SkillsField)engine.getField(currentPoint)).getSkill().getSkillName()));
+                    } else {
+                        if (engine.isGoldField(currentPoint)) {
+                            mapTile.setIcon("/resourcesIcons/gold.png");
+                        } else if (engine.isWoodField(currentPoint)) {
+                            mapTile.setIcon("/resourcesIcons/wood.png");
+                        } else if (engine.isOreField(currentPoint)) {
+                            mapTile.setIcon("/resourcesIcons/ore.png");
+                        } else if (engine.isGemsField(currentPoint)) {
+                            mapTile.setIcon("/resourcesIcons/gems.png");
+                        } else if (engine.isSulfurField(currentPoint)) {
+                            mapTile.setIcon("/resourcesIcons/sulfur.png");
+                        } else if (engine.isMercuryField(currentPoint)) {
+                            mapTile.setIcon("/resourcesIcons/mercury.png");
+                        } else if (engine.isCristalsField(currentPoint)) {
+                            mapTile.setIcon("/resourcesIcons/crystals.png");
+                        }
                     }
+
 
                     mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> {
                         if (engine.isCurrentHero(currentPoint)) {
@@ -138,10 +147,8 @@ public class EcoController implements PropertyChangeListener {
         }
 
         allResourcesLabel.setText(engine.getCurrentHero().getResources().getAllResourcesAsString());
-
-        List<String> skillsData = engine.getCurrentHero().getSkills().values().stream().map(Skill::toString).collect(Collectors.toList());
-        skills = FXCollections.observableArrayList(skillsData);
-//        skillsList.setItems(skills);
+        skillTooltip1.refresh();
+        skillTooltip2.refresh();
     }
 
     @Override

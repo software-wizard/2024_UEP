@@ -48,6 +48,7 @@ public class ResourcesField implements Field{
     public int getCristals(){
         return this.resources.getCristals();
     }
+
     @Override
-    public String getImageBackground() {return "creatures/Resource.png" ;}
+    public boolean isSkillField() {return false;}
 }
