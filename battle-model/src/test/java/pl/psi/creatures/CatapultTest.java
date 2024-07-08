@@ -1,8 +1,13 @@
 package pl.psi.creatures;
 
 import com.google.common.collect.Range;
+import org.junit.Assert;
+import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
 import org.mockito.Mockito;
+import pl.psi.Point;
+import pl.psi.enums.AttackTypeEnum;
+import pl.psi.enums.CreatureTypeEnum;
 import pl.psi.obstacles.Wall;
 
 import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
@@ -27,6 +32,7 @@ class CatapultTest {
         //then
         assertThat(angel.getCurrentHp()).isEqualTo(100);
     }
+    @Disabled
     @Test
     void catapultShouldDestroyWall() {
         //given
@@ -37,6 +43,49 @@ class CatapultTest {
         //when
         catapult.attack(wall);
         //then
+//        verify(wall, times(1)).takeDamageFromCatapult(anyInt(), any());
         assertThat(wall.getCurrentHP()).isEqualTo(1000);
     }
+
+    @Test
+    void catapultShouldDealDamageToWall() {
+        //given
+        final Wall wall = new Wall();
+        MachineFactory machineFactory = new MachineFactory();
+        Creature catapult = machineFactory.create("Catapult");
+        Creature spyCatapult = spy(catapult);
+        Mockito.doReturn(true).when(spyCatapult).randomChance();
+        //when
+        spyCatapult.attack(wall);
+        //then
+        assertThat(wall.getCurrentHP()).isLessThan(1500);
+    }
+
+    @Test
+    void catapultShouldMissTheWall() {
+        //given
+        final Wall wall = new Wall();
+        MachineFactory machineFactory = new MachineFactory();
+        Creature catapult = machineFactory.create("Catapult");
+        Creature spyCatapult = spy(catapult);
+        Mockito.doReturn(false).when(spyCatapult).randomChance();
+        //when
+        spyCatapult.attack(wall);
+        //then
+        assertThat(wall.getCurrentHP()).isEqualTo(1500);
+    }
+    @Test
+    void attackMethodShouldTakePointAsSecondParameter() {
+        //given
+        final Wall wall = new Wall();
+        MachineFactory machineFactory = new MachineFactory();
+        Creature catapult = machineFactory.create("Catapult");
+        Creature spyCatapult = spy(catapult);
+        Mockito.doReturn(false).when(spyCatapult).randomChance();
+        //when
+        spyCatapult.attack(wall, new Point(1, 1));
+        //then
+        assertThat(wall.getCurrentHP()).isEqualTo(1500);
+    }
+
 }

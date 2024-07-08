@@ -19,9 +19,11 @@ import pl.psi.enums.AttackTypeEnum;
 import pl.psi.enums.CreatureTypeEnum;
 import pl.psi.obstacles.ObstaclesWithHP;
 import pl.psi.obstacles.Wall;
+import pl.psi.Hero;
 
 import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
@@ -30,8 +32,7 @@ import java.util.Random;
  * TODO: Describe this class (The first line - untorigin/WarMachines03il the first dot - will interpret as the brief description).
  */
 @Getter
-public class Creature implements PropertyChangeListener {
-    protected AttackStrategy attackStrategy;
+public class Creature implements PropertyChangeListener, DefenderIf {
     private CreatureStatisticIf stats;
     @Setter
     private int amount;
@@ -42,9 +43,13 @@ public class Creature implements PropertyChangeListener {
     private DamageCalculatorIf calculator;
     private CreatureTypeEnum creatureType;
     private AttackTypeEnum attackType;
+    private final TargetTypeEnum targetType = TargetTypeEnum.CREATURE;
     @Setter
     private DamageApplier damageApplier = new DamageApplier();
 
+    protected AttackStrategy attackStrategy;
+    private final WallAttackStrategy wallAttackStrategy = new WallAttackStrategy();
+    private final CreatureAttackStrategy creatureAttackStrategy = new CreatureAttackStrategy();
     private final List<CreatureEffect> creatureEffects = new ArrayList<>();
 
 
@@ -108,23 +113,13 @@ public class Creature implements PropertyChangeListener {
         return creatureEffects.stream().anyMatch((effect) -> effect.getEffectStatistic().equals(effectStatistic));
     }
 
-    public void attack(final Object target) {
-        attack(target, AttackTypeEnum.MELEE, null);
-    }
-
-    public void attackObstacle(ObstaclesWithHP obstacleWithHP, Point aPoint) {
-        final int damage = getCalculator().calculateDamageToObstacle(this,obstacleWithHP);
-        obstacleWithHP.takeDamage(aPoint, damage);
-    }
+    //zamiast tego attack(DefenderIf, Point aPoint) ale zostawiam, bo macie w WallTest
     public void attackWall(Wall wall,Point aPoint){
 
     }
-    public boolean isCatapult() {
-        String name = getName();
-        return name != null && name.equals("Catapult");
-    }
 
-    public boolean RandomChance() {
+//    public abstract void attack(DefenderIf target, Point aPoint);
+    public boolean randomChance() {
         Random random = new Random();
         int randVal = random.nextInt(101);
         System.out.println("Value: " + randVal);
@@ -195,7 +190,7 @@ public class Creature implements PropertyChangeListener {
 
     protected void restoreCurrentHpToPartHP() {
         Random random = new Random();
-        int healHP = random.nextInt(25)+1;
+        int healHP = 20+ random.nextInt(25)+1;
         if (currentHp+healHP >= stats.getMaxHp()) {
             currentHp = stats.getMaxHp();
         } else {
@@ -211,14 +206,19 @@ public class Creature implements PropertyChangeListener {
         return getStats().getMoveRange();
     }
 
+    public void levelUpSpell() {
+
+    }
+
+
     public static class Builder {
+
         private int amount = 1;
         private DamageCalculatorIf calculator = new DefaultDamageCalculator(new Random());
         private CreatureStatisticIf statistic;
         private CreatureTypeEnum creatureType = CreatureTypeEnum.GROUND;
         private AttackTypeEnum attackType = AttackTypeEnum.MELEE;
         private Morale morale = new Morale(0);
-
         public Builder statistic(final CreatureStatisticIf aStatistic) {
             statistic = aStatistic;
             return this;
@@ -253,36 +253,73 @@ public class Creature implements PropertyChangeListener {
             return new Creature(statistic, calculator, amount, creatureType, attackType, morale);
         }
 
-    }
 
+    }
     @Override
     public String toString() {
         return getName() + System.lineSeparator() + getAmount();
     }
 
+
     public void healHPCreature(Creature creature) {
-        creature.restoreCurrentHpToPartHP();
+
     }
 
     //MachineFactoryMethods - FirstAidTent
     //Implemented in FirstAidTent
+
     public void chooseHealCreature(List<Creature> creatureList) {
-
+        System.out.println("choseeeeeeee");
     }
-    public void setAttackStrategy(AttackStrategy attackStrategy) {
-        this.attackStrategy = attackStrategy;
+//    public void setAttackStrategy(AttackStrategy attackStrategy) {
+//        this.attackStrategy = attackStrategy;
+//    }
+    public void attack(DefenderIf target, AttackTypeEnum attackType, Point aPoint) {
+        if (target.getType().equals(TargetTypeEnum.CREATURE)) {
+            attackStrategy = creatureAttackStrategy;
+        } else if (target.getType().equals(TargetTypeEnum.WALL)) {
+            attackStrategy = wallAttackStrategy;
+        } else throw new IllegalStateException("Attack strategy is not set");
+        attackStrategy.attack(this, target, attackType, aPoint);
     }
 
-    public void attack(Object target, AttackTypeEnum attackType, Point aPoint) {
-        if (attackStrategy != null) {
-            attackStrategy.attack(this, target, attackType, aPoint);
-        } else {
-            throw new IllegalStateException("Attack strategy is not set");
-        }
+    public void attack(final DefenderIf target) {
+        attack(target, AttackTypeEnum.MELEE, null);
     }
 
-    public void attack(Object target, AttackTypeEnum attackType) {
+    public void attack(DefenderIf target, Point aPoint) {
+        attack(target, AttackTypeEnum.MELEE, aPoint);
+    }
+
+    public void attack(DefenderIf target, AttackTypeEnum attackType) {
         attack(target, attackType, null);
     }
+
+    public TargetTypeEnum getType() {
+        return targetType;
+    }
+
+    public String getImagePath() {
+        String basePath = "/creatures/" + this.getName() + ".png";
+        return basePath;
+
+    }
+
+    public void heal() {
+        this.currentHp = this.stats.getMaxHp();
+    }
+
+    public void updateHP(int additionalHP) {
+        this.currentHp += additionalHP;
+        if (this.currentHp > this.stats.getMaxHp()) {
+            this.currentHp = this.stats.getMaxHp();
+        }
+    }
+    //for FirstAidTent
+    public void restoreCurrentHpToPartHP(Creature creature) {
+
+    }
+
+
 
 }

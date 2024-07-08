@@ -2,6 +2,8 @@ package pl.psi;
 
 import pl.psi.creatures.Creature;
 import pl.psi.enums.CreatureTypeEnum;
+import pl.psi.obstacles.Obstacle;
+import pl.psi.obstacles.Wall;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
@@ -41,18 +43,36 @@ public class GameEngine {
         pass();
     }
 
+    public void heal(final Point point) {
+        attackEngine.heal(point, getCreatureToMove());
+        pass();
+    }
+
+
 
     public boolean canMove(final Point aPoint) {
         return board.canMove(turnQueue.getCurrentCreature(), aPoint);
+    }
+    public boolean isObstacleWithHP(Point aCurrentPoint) {
+        return board.isObstacleWithHP(aCurrentPoint);
     }
 
     public void move(final Point aPoint) {
         board.move(turnQueue.getCurrentCreature(), aPoint);
         observerSupport.firePropertyChange(CREATURE_MOVED, null, aPoint);
+        pass();
     }
 
     public Optional<Creature> getCreature(final Point aPoint) {
         return board.getCreature(aPoint);
+    }
+
+    public Optional<Wall> getWall(final Point aPoint) {
+        return board.getWall(aPoint);
+    }
+
+    public Optional<Obstacle> getObstacle(final Point aPoint) {
+        return board.getObstacle(aPoint);
     }
 
     public void pass() {
@@ -70,6 +90,10 @@ public class GameEngine {
 
     public boolean canAttack(final Point point) {
         return attackEngine.canAttack(point, turnQueue.getCurrentCreature());
+    }
+
+    public boolean canHeal(final Point point) {
+        return attackEngine.canHeal(point, turnQueue.getCurrentCreature());
     }
 
     public Creature getCreatureToMove() {
@@ -110,14 +134,12 @@ public class GameEngine {
     }
 
     public boolean isObstacle(Point aCurrentPoint) {
-        return false;
+        return board.isObstacle(aCurrentPoint);
     }
 
-    public boolean isObstacleWithHP(Point aCurrentPoint) {
-        return false;
-    }
 
     public boolean isWall(Point aCurrentPoint) {
         return false;
     }
+
 }

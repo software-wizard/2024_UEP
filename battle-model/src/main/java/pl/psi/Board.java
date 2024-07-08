@@ -22,6 +22,7 @@ public class Board implements ObstacleObserver, BoardIf
     private  final HashMap<Point, ObstaclesWithHP> obstaclesWithHPMap = new HashMap<>();
     private  final HashMap<Point, Obstacle> regularObstaclesMap = new HashMap<>();
     private final HashMap<Point, Wall> wallHashMap = new HashMap<>();
+    private final HashMap<Point, Creature> creatureHashMap = new HashMap<>();
 
     private final int width;
     private final int height;
@@ -59,7 +60,8 @@ public class Board implements ObstacleObserver, BoardIf
 
             if (!regularObstaclesMap.containsKey(point) &&
                     !obstaclesWithHPMap.containsKey(point) &&
-                    !wallHashMap.containsKey(point)) {
+                    !wallHashMap.containsKey(point) &&
+                    !map.containsKey(point)) {
                 regularObstaclesMap.put(point, new Obstacle());
             }
         }
@@ -71,7 +73,8 @@ public class Board implements ObstacleObserver, BoardIf
 
             if (!obstaclesWithHPMap.containsKey(point) &&
                     !regularObstaclesMap.containsKey(point) &&
-                    !wallHashMap.containsKey(point)) {
+                    !wallHashMap.containsKey(point) &&
+                    !map.containsKey(point)){
                 ObstaclesWithHP obstacleWithHP = new ObstaclesWithHP(maxHP);
                 obstacleWithHP.addObserver(this);
                 obstaclesWithHPMap.put(point, obstacleWithHP);
@@ -161,6 +164,9 @@ public class Board implements ObstacleObserver, BoardIf
 
     public  Optional<Wall> getWall(Point point){
         return Optional.ofNullable(wallHashMap.get(point));
+    }
+    public Optional<Obstacle> getObstacle(Point point) {
+        return Optional.ofNullable(regularObstaclesMap.get(point));
     }
 
 

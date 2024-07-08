@@ -2,7 +2,9 @@ package pl.psi.creatures;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.psi.AttackEngine;
 import pl.psi.Hero;
+import pl.psi.Point;
 import pl.psi.enums.AttackTypeEnum;
 import pl.psi.enums.CreatureTypeEnum;
 
@@ -32,7 +34,7 @@ public class Ballista extends Creature {
 
     public static class Builder {
         private int amount = 1;
-        private MachineCalculatorDecorator calculator = new MachineCalculatorDecorator(new DefaultDamageCalculator(new Random()), 0);
+        private MachineCalculatorDecorator calculator = new MachineCalculatorDecorator(new DefaultDamageCalculator(new Random()), 2);
         private CreatureStatisticIf statistic;
         private CreatureTypeEnum creatureType = CreatureTypeEnum.MACHINE;
         private AttackTypeEnum attackType = AttackTypeEnum.RANGE;
@@ -73,11 +75,7 @@ public class Ballista extends Creature {
         }
     }
 
-    public void attack(Creature creature, Hero hero) {
-        ballistaDamageCalculator(creature, hero);
-    }
-
-    public int randomHitPercentage() {
+    public int damageMultiplier() {
         int hitPercentage;
         switch (this.level) {
             case 0:
@@ -98,29 +96,40 @@ public class Ballista extends Creature {
         return hitPercentage;
     }
 
-    public void ballistaDamageCalculator(Creature creature, Hero hero) {
-        Random random = new Random();
-        int randomNumber = random.nextInt(101);
+    @Override
+    public void attack(DefenderIf creature, AttackTypeEnum attackType) {
+        attack(creature);
+    }
 
-
-        if (randomNumber < randomHitPercentage()) {
-            int heroAttack = Ballista.getAttackHero();
-            float damage = 2 + random.nextFloat();
-            damage *= heroAttack + 1;
-            int damageI = (int) damage;
-            if (damageI > 0) {
-                DamageValueObject damageValueObject = new DamageValueObject(damageI, this.attackType, this.creatureType);
-                this.damageApplier.applyDamage(damageValueObject, creature);
-            }
+    @Override
+    public void attack(DefenderIf target) {
+        System.out.println("Ballista attack");
+        if (target.getType() == TargetTypeEnum.CREATURE) {
+            ballistaDamageCalculator(target);
         }
+        else new IllegalArgumentException("Ballista can only attack creatures!");
     }
 
 
-    public static int getAttackHero() {
-        return 10;
+    //dmg ballisty okolo 100. Czy nie za malo?
+    public void ballistaDamageCalculator(DefenderIf aCreature) {
+        Creature creature = (Creature) aCreature;
+        int randomNumber = 2 + new Random().nextInt(2);
+        float percentageHit  = 1 + (float) damageMultiplier()/100;
+        int damage = (int) ((randomNumber * getHeroAttack()) * percentageHit);
+        DamageValueObject damageValueObject = new DamageValueObject(damage, this.attackType, this.creatureType);
+        this.damageApplier.applyDamage(damageValueObject, creature);
+        System.out.println("Ballista attacked creature with " + damage + " damage");
+
     }
+
+
 
     public void levelUpSpell() {
         this.level++;
+    }
+
+    public int getHeroAttack() {
+        return 20;
     }
 }

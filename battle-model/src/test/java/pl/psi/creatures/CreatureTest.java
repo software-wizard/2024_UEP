@@ -1,16 +1,16 @@
 package pl.psi.creatures;
 
 import com.google.common.collect.Range;
-import org.junit.jupiter.api.Disabled;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mockito;
 import pl.psi.TurnQueue;
 import pl.psi.enums.AttackTypeEnum;
 import pl.psi.obstacles.Wall;
 
 import java.util.List;
-import java.util.stream.IntStream;
 
 import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.spy;
 
 /**
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
@@ -125,7 +125,6 @@ public class CreatureTest {
                 .build();
 
         // when
-        attacker.setAttackStrategy(new CreatureAttackStrategy());
         attacker.attack(defender);
         attacker.attack(defender);
         // then
@@ -197,8 +196,6 @@ public class CreatureTest {
                         .damage(Range.closed(10, 10))
                         .build())
                 .build();
-
-        rangedCreature.setAttackStrategy(new CreatureAttackStrategy());
         rangedCreature.attack(defender, AttackTypeEnum.MELEE);
         assertThat(defender.getCurrentHp()).isEqualTo(95);
 
@@ -219,15 +216,15 @@ public class CreatureTest {
 
         // when
 
-        rangedCreature.setAttackStrategy(new WallAttackStrategy());
+
         rangedCreature.attack(wall);
         // then
         assertThat(wall.getCurrentHP()).isEqualTo(1500);
     }
 
     @Test
-    @Disabled
-    void creatureShouldBeAbleToDealDamageToWall() {
+
+    void meleeCreatureShouldBeAbleToDealDamageToWall() {
         // given
         Wall wall = new Wall();
         final Creature meleeCreature = new Creature.Builder().statistic(CreatureStats.builder()
@@ -238,14 +235,12 @@ public class CreatureTest {
                 .build();
         MachineFactory machineFactory = new MachineFactory();
         Creature catapult = machineFactory.create("Catapult");
-
-
+        Creature spyCatapult = spy(catapult);
+        Mockito.doReturn(true).when(spyCatapult).randomChance();
         // when
-        catapult.setAttackStrategy(new WallAttackStrategy());
-        meleeCreature.setAttackStrategy(new WallAttackStrategy());
-
-        catapult.attackWall(wall, null);
+        spyCatapult.attack(wall);
         meleeCreature.attack(wall);
+
         // then
         assertThat(wall.getCurrentHP()).isLessThan(1500);
     }
@@ -268,5 +263,97 @@ public class CreatureTest {
 
         rangedCreature.attack(defender, AttackTypeEnum.RANGE);
         assertThat(rangedCreature.getCurrentHp()).isEqualTo(maxHp);
+    }
+
+    @Test
+    void creatureShouldAttackAnotherCreature() {
+        // given
+        final Creature attacker = new Creature.Builder().statistic(CreatureStats.builder()
+                        .maxHp(100)
+                        .damage(Range.closed(10, 10))
+                        .attack(50)
+                        .armor(0)
+                        .build())
+                .build();
+        final Creature defender = new Creature.Builder().statistic(CreatureStats.builder()
+                        .maxHp(100)
+                        .damage(NOT_IMPORTANT_DMG)
+                        .attack(0)
+                        .armor(10)
+                        .build())
+                .build();
+        // when
+        attacker.attack(defender);
+        // then
+        assertThat(defender.getCurrentHp()).isEqualTo(70);
+    }
+
+    @Test
+    void creatureAttackShouldNotDealDamageToWall() {
+        // given
+        final Creature attacker = new Creature.Builder().statistic(CreatureStats.builder()
+                        .maxHp(100)
+                        .damage(Range.closed(10, 10))
+                        .attack(50)
+                        .armor(0)
+                        .build())
+                .build();
+
+        Wall wall = new Wall();
+        // when
+        attacker.attack(wall);
+        // then
+        assertThat(wall.getCurrentHP()).isEqualTo(1500);
+    }
+
+    @Test
+    void creatureAttackShouldDealDamageToWall() {
+        // given
+        final Creature attackerCreature = new Creature.Builder().statistic(CreatureStats.builder()
+                        .maxHp(100)
+                        .damage(Range.closed(10, 10))
+                        .attack(50)
+                        .armor(0)
+                        .build())
+                .build();
+        Wall wall = new Wall();
+        MachineFactory machineFactory = new MachineFactory();
+        Creature catapult = machineFactory.create("Catapult");
+        Creature spyCatapult = spy(catapult);
+        Mockito.doReturn(true).when(spyCatapult).randomChance();
+
+        //when
+        spyCatapult.attack(wall);
+        int wallHp = wall.getHP();
+        attackerCreature.attack(wall);
+
+        // then
+        assertThat(wall.getCurrentHP()).isLessThan(wallHp);
+
+    }
+
+    @Test
+    void creatureAttackShouldNotDealDamageToWallAfterCatapultMissesWall() {
+        // given
+        final Creature attacker = new Creature.Builder().statistic(CreatureStats.builder()
+                        .maxHp(100)
+                        .damage(Range.closed(10, 10))
+                        .attack(50)
+                        .armor(0)
+                        .build())
+                .build();
+
+        Wall wall = new Wall();
+        MachineFactory machineFactory = new MachineFactory();
+        Creature catapult = machineFactory.create("Catapult");
+        Creature spyCatapult = spy(catapult);
+        Mockito.doReturn(false).when(spyCatapult).randomChance();
+
+        // when
+        catapult.attack(wall);
+        attacker.attack(wall);
+
+        // then
+        assertThat(wall.getCurrentHP()).isEqualTo(1500);
     }
 }

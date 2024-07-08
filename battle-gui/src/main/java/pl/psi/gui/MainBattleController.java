@@ -14,6 +14,9 @@ import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import pl.psi.*;
 import pl.psi.creatures.Creature;
+import pl.psi.obstacles.Obstacle;
+import pl.psi.obstacles.ObstaclesWithHP;
+import pl.psi.obstacles.Wall;
 import pl.psi.spells.object.Spell;
 
 import javax.annotation.Nullable;
@@ -109,12 +112,15 @@ public class MainBattleController implements PropertyChangeListener
     {
         gridMap.getChildren()
             .clear();
+        Obstacle obstacle = new Obstacle();
+        ObstaclesWithHP obstaclesWithHP = new ObstaclesWithHP(1000);
         for( int x = 0; x < 15; x++ )
         {
             for( int y = 0; y < 10; y++ )
             {
                 Point currentPoint = new Point( x, y );
                 Optional< Creature > creature = gameEngine.getCreature( currentPoint );
+                Optional<Wall> wall = gameEngine.getWall(currentPoint);
                 final GridTile mapTile = new GridTile( "" );
 
                 if (selectedSpell != null) {
@@ -123,16 +129,20 @@ public class MainBattleController implements PropertyChangeListener
                     mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED, (e) -> onSpellCastMapClick(e, currentPoint));
                 }
 
-                creature.ifPresent( c -> mapTile.setName( c.toString() ) );
+                creature.ifPresent(c -> {
+                    mapTile.setName(c.toString());
+                    mapTile.setIcon(c.getImagePath());
+                });
+                wall.ifPresent( w -> {
+                    mapTile.setIcon( w.getImagePath());
+                    mapTile.setName( w.toStringHP());
+                });
                 if ( gameEngine.isObstacle(currentPoint)) {
-                    mapTile.setBackground(Color.BLUE);
+                    mapTile.setIcon(obstacle.getImagePath());
                 }
                 if ( gameEngine.isObstacleWithHP(currentPoint)) {
-                    mapTile.setName("HP");
-                    mapTile.setBackground(Color.GREEN);
-                }
-                if (gameEngine.isWall(currentPoint)){
-                    mapTile.setBackground(Color.AQUA);
+                    mapTile.setIcon(obstaclesWithHP.getImagePath());
+                    mapTile.setName("1");
                 }
                 if( gameEngine.isCurrentCreature( currentPoint ) )
                 {
@@ -149,6 +159,11 @@ public class MainBattleController implements PropertyChangeListener
                     mapTile.setBackground( Color.RED );
                     mapTile.addEventHandler( MouseEvent.MOUSE_CLICKED,
                         ( e ) -> { gameEngine.attack( currentPoint ); } );
+                }
+                if (gameEngine.canHeal(currentPoint)) {
+                    mapTile.setBackground(Color.LIGHTGREEN);
+                    mapTile.addEventHandler(MouseEvent.MOUSE_CLICKED,
+                            (e) -> { gameEngine.heal(currentPoint); });
                 }
                 gridMap.add( mapTile, x, y );
             }

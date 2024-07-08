@@ -38,4 +38,5 @@ public class Hero
     public boolean hasCreature(Creature c) {
         return creatures.contains(c);
     }
+
 }

@@ -4,7 +4,6 @@ import java.beans.PropertyChangeEvent;
 
 import com.google.common.collect.Range;
 import pl.psi.enums.AttackTypeEnum;
-import pl.psi.obstacles.Wall;
 
 /**
  * TODO: Describe this class (The first line - until the first dot - will interpret as the brief description).
@@ -37,7 +36,7 @@ class SelfHealAfterTurnCreature extends Creature {
     }
 
     @Override
-    public void attack(final Object target) {
+    public void attack(final DefenderIf target) {
         decorated.attack(target);
     }
 

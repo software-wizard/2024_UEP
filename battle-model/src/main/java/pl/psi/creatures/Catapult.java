@@ -2,12 +2,14 @@ package pl.psi.creatures;
 
 import lombok.Getter;
 import lombok.Setter;
+import pl.psi.Point;
 import pl.psi.enums.AttackTypeEnum;
 import pl.psi.enums.CreatureTypeEnum;
+import pl.psi.obstacles.Wall;
 
 import java.util.Random;
 
-public class Catapult extends Creature {
+public class Catapult extends Creature implements  DefenderIf {
     private CreatureStatisticIf stats;
     @Getter
     @Setter
@@ -25,8 +27,7 @@ public class Catapult extends Creature {
     private Catapult(final CreatureStatisticIf aStats, final DamageCalculatorIf aCalculator,
                      final int aAmount, CreatureTypeEnum aCreatureType, AttackTypeEnum aAttackType) {
         super(aStats, aCalculator, aAmount, aCreatureType, aAttackType, new Morale(0));
-        this.level = 1;
-        this.attackStrategy = (new CatapultAttackStrategy());
+        this.level = 2;
     }
 
     public static class Builder {
@@ -75,6 +76,49 @@ public class Catapult extends Creature {
 
     public void levelUpSpell() {
         this.level++;
+    }
+
+//    @Override
+//    public void attack(DefenderIf target, AttackTypeEnum attackType, Point aPoint) {
+//        attackStrategy.attack(this, target, attackType, aPoint);
+//    }
+    @Override
+    public void attack(DefenderIf target, Point aPoint) {
+        System.out.println("Catapult attackkk");
+        if (target.getType()==TargetTypeEnum.WALL) {
+            Wall wall = (Wall) target;
+            if (randomChance()) {
+                Random random = new Random();
+                int damageMultiplier = random.nextInt(101) + 50;
+                final int catapultDamage = 10 * damageMultiplier;
+                wall.takeDamageFromCatapult(catapultDamage, aPoint);
+                System.out.println("Catapult hit the wall with " + catapultDamage + " damage");
+            } else {
+                final int zeroDmg = 0;
+                wall.takeDamageFromCatapult(zeroDmg, aPoint);
+                System.out.println("Catapult missed the wall");
+            }
+        } else new IllegalArgumentException("Catapult can attack only walls");
+
+    }
+    @Override
+    public void attack(DefenderIf target) {
+        System.out.println("Catapult attack");
+        attack(target, (Point) null);
+    }
+
+    @Override
+    public void attack(DefenderIf target, AttackTypeEnum attackType) {
+        attack(target, (Point) null);
+    }
+
+    //75% chance to hit
+    @Override
+    public boolean randomChance() {
+        Random random = new Random();
+        int randVal = random.nextInt(101);
+        return randVal < 75;
+
     }
 }
 
