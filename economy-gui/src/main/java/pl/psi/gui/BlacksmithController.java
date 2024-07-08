@@ -31,4 +31,13 @@ public class BlacksmithController {
         }
     }
 
+    public void addCreatureToHero(ShopItem item) {
+        shop.addCreatureToHero(economyHero, item);
+
+    }
+
+    public String updateCreaturesStatus() {
+        // Update GUI creaturesStatus TextArea
+        return shop.updateCreaturesStatus(economyHero);
+    }
 }

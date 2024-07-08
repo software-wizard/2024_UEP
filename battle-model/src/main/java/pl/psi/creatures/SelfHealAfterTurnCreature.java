@@ -52,17 +52,17 @@ class SelfHealAfterTurnCreature extends Creature {
     }
 
     @Override
-    Range<Integer> getDamage() {
+    public Range<Integer> getDamage() {
         return decorated.getDamage();
     }
 
     @Override
-    int getAttack() {
+    public int getAttack() {
         return decorated.getAttack();
     }
 
     @Override
-    int getArmor() {
+    public int getArmor() {
         return decorated.getArmor();
     }
 

@@ -165,15 +165,15 @@ public class Creature implements PropertyChangeListener {
         aAttacker.counterAttackCounter--;
     }
 
-    Range<Integer> getDamage() {
+    public Range<Integer> getDamage() {
         return getStats().getDamage();
     }
 
-    int getAttack() {
+    public int getAttack() {
         return getStats().getAttack();
     }
 
-    int getArmor() {
+    public int getArmor() {
         return getStats().getArmor();
     }
 
