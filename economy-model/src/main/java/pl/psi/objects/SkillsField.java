@@ -8,13 +8,10 @@ import pl.psi.skills.SkillImageHashMap;
 
 public class SkillsField implements Field {
 
-    private final SkillImageHashMap hashMap;
-
     @Getter
     private final Skill skill;
     public SkillsField(Skill aSkill) {
         skill = aSkill;
-        hashMap = new SkillImageHashMap();
     }
     @Override
     public void apply(EconomyHero hero) {
@@ -23,7 +20,7 @@ public class SkillsField implements Field {
 
     @Override
     public String getImageBackground() {
-        return hashMap.get(this.skill.getSkillName());
+        return SkillImageHashMap.get(this.skill.getSkillName());
     }
 
     @Override
