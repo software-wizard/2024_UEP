@@ -6,9 +6,9 @@ import pl.psi.Resources;
 import pl.psi.skills.Skill;
 import pl.psi.skills.SkillImageHashMap;
 
+@Getter
 public class SkillsField implements Field {
 
-    @Getter
     private final Skill skill;
     public SkillsField(Skill aSkill) {
         skill = aSkill;

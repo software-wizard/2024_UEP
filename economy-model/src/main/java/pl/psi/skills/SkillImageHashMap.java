@@ -5,9 +5,9 @@ import pl.psi.enums.SkillEnum;
 import java.util.HashMap;
 
 public class SkillImageHashMap {
-    private static HashMap<SkillEnum, String> skillImageMap;
+    private static final HashMap<SkillEnum, String> skillImageMap;
 
-    public SkillImageHashMap() {
+    static {
         skillImageMap = new HashMap<>();
         skillImageMap.put(SkillEnum.ARCHERY, "creatures/Archery.png");
         skillImageMap.put(SkillEnum.ARMORER, "creatures/Armorer.png");
@@ -15,6 +15,7 @@ public class SkillImageHashMap {
         skillImageMap.put(SkillEnum.LEADERSHIP, "creatures/Leadership.png");
         skillImageMap.put(SkillEnum.BALLISTICS, "creatures/Ballistic.png");
     }
+
     public static String get(SkillEnum askillEnum) {
         return skillImageMap.get(askillEnum);
     }

@@ -42,7 +42,6 @@ public class EcoController implements PropertyChangeListener {
         engine = new EconomyEngine(aHero1, aHero2);
         skillTooltip1 = new SkillTooltip(aHero1);
         skillTooltip2 = new SkillTooltip(aHero2);
-        skillImageHashMap = new SkillImageHashMap();
     }
 
     @FXML
@@ -113,7 +112,7 @@ public class EcoController implements PropertyChangeListener {
 
                 if (engine.isFieldPoint(currentPoint)) {
                     if (engine.getField(currentPoint).isSkillField()) {
-                        mapTile.setBackgroundImage(skillImageHashMap.get(((SkillsField) engine.getField(currentPoint)).getSkill().getSkillName()));
+                        mapTile.setBackgroundImage(SkillImageHashMap.get(((SkillsField)engine.getField(currentPoint)).getSkill().getSkillName()));
                     } else {
                         if (engine.isGoldField(currentPoint)) {
                             mapTile.setIcon("/resourcesIcons/gold.png");
