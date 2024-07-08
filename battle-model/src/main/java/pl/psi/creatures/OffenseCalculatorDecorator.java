@@ -4,12 +4,12 @@ import pl.psi.enums.AttackTypeEnum;
 
 public class OffenseCalculatorDecorator extends AbstractCalculateDamageStrategy {
     private final int level;
-    private final AbstractCalculateDamageStrategy decorated;
+    private final DamageCalculatorIf decorated;
 
 
     public OffenseCalculatorDecorator(DamageCalculatorIf aDecorated, int aLevel) {
         super(aDecorated.getRand());
-        decorated = (AbstractCalculateDamageStrategy) aDecorated;
+        decorated = aDecorated;
         level = aLevel;
     }
 
