@@ -12,9 +12,9 @@ import java.util.ArrayList;
 @Setter
 public class Wall implements ObstaclesObservable, DefenderIf {
 
-    private int levelOneHP = 1500;
-    private int levelTwoHP = 1000;
-    private int levelThreeHP = 500;
+    private int levelOneHP = 1000;
+    private int levelTwoHP = 35;
+    private int levelThreeHP = 20;
     private int currentHP;
     private int currentLevel;
     private Point point;
@@ -34,40 +34,54 @@ public class Wall implements ObstaclesObservable, DefenderIf {
 
 
      public void takeDamageFromCatapult(int damage, Point aPoint) {
-        if (currentLevel == 1){
-            currentHP -= damage;
-            if (currentHP <= 0) {
-                currentLevel = 2;
-                currentHP = levelTwoHP;
+        if (currentHP <=0 && currentLevel == 3){
+            currentHP = 0;
+            notifyObservers(aPoint);
+        }else{
+            if (currentLevel == 1){
+                currentHP -= damage;
+                if (currentHP <= 0) {
+                    currentHP = levelTwoHP;
+                    currentLevel = 2;
+                }
+            }
+            else if (currentLevel == 2) {
+                currentHP -= damage;
+                if (currentHP <= 0) {
+                    currentHP = levelThreeHP;
+                    currentLevel = 3;
+                }
+
+            } else if (currentLevel == 3) {
+                currentHP -= damage;
+                if (currentHP <= 0) {
+                    notifyObservers(aPoint);
+                    currentHP = 0;
+
+                }
             }
         }
-         else if (currentLevel == 2) {
-             currentHP -= damage;
-             if (currentHP <= 0) {
-                 currentLevel = 3;
-                 currentHP = levelThreeHP;
-             }
 
-         } else if (currentLevel == 3) {
-             currentHP -= damage;
-             if (currentHP <= 0) {
-                 notifyObservers(aPoint);
-                 currentHP = 0;
-
-             }
-         }
     }
 
     public void takeDamageFromCreature(int damage, Point aPoint) {
-        if (damage >= currentHP) {
+        if (currentHP <=0 && currentLevel == 3){
             currentHP = 0;
-        } else {
-            currentHP -= damage;
-            if (currentHP <= 1000 && currentHP > 500) currentLevel = 2;
-            else {
-                currentLevel = 3;
+            notifyObservers(aPoint);
+        }else{
+             if (currentLevel == 2) {
+                currentHP -= damage;
+                if (currentHP <= 0) {
+                    currentHP = levelThreeHP;
+                    currentLevel = 3;
+                }
+
+            } else if (currentLevel == 3) {
+                currentHP -= damage;
                 if (currentHP <= 0) {
                     notifyObservers(aPoint);
+                    currentHP = 0;
+
                 }
             }
         }
