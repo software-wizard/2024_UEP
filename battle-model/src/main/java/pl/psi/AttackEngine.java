@@ -1,6 +1,5 @@
 package pl.psi;
 
-import pl.psi.creatures.Catapult;
 import pl.psi.creatures.Creature;
 import pl.psi.creatures.MachineCalculatorDecorator;
 import pl.psi.creatures.Morale;
@@ -35,43 +34,21 @@ public class AttackEngine {
     }
 
 
-    public boolean canAttack(final Point point, Creature attacker) {
+    public boolean canAttack(final Point point, Creature attacker, List<Creature> enemyCreatures) {
 
         if (board.isObstacleWithHP(point)) {
-            if (attacker.getCreatureType().equals(CreatureTypeEnum.GROUND)) {
-                if (attacker.getAttackType().equals(AttackTypeEnum.MELEE)) {
-                    return isInMeleeRange(attacker, point);
-                }
-                if (attacker.getAttackType().equals(AttackTypeEnum.RANGE)) {
-                    return true;
-                }
-            }
-            return false;
+            return canAttackObstacle(point, attacker);
         }
 
         if (board.isWall(point)) {
-            Wall wall = board.getWall(point).orElse(null);
-            if (wall != null) {
-                if (attacker.getCreatureType().equals(CreatureTypeEnum.CATAPULT)) {
-                    return true;
-                }
-                if (wall.getCurrentLevel() == 2 || wall.getCurrentLevel() == 3){
-                    if (attacker.getAttackType().equals(AttackTypeEnum.MELEE)) {
-                        return isInMeleeRange(attacker, point);
-                    }
-                    if (attacker.getAttackType().equals(AttackTypeEnum.RANGE)) {
-                        return true;
-                    }
-                }
-            }
-        }
-
-
-        if (attacker.getCreatureType().equals(CreatureTypeEnum.CATAPULT)) {
-            return board.getWall(point).isPresent();
+            return canAttackWall(point, attacker);
         }
 
         if (board.getCreature(point).isEmpty()) {
+            return false;
+        }
+
+        if (!enemyCreatures.contains(board.getCreature(point).get())) {
             return false;
         }
 
@@ -81,6 +58,36 @@ public class AttackEngine {
         }
 
         return isInMeleeRange(attacker, point);
+    }
+
+    private boolean canAttackWall(Point point, Creature attacker) {
+        Wall wall = board.getWall(point).orElse(null);
+        if (wall != null) {
+            if (attacker.getCreatureType().equals(CreatureTypeEnum.CATAPULT)) {
+                return true;
+            }
+            if (wall.getCurrentLevel() == 2 || wall.getCurrentLevel() == 3){
+                if (attacker.getAttackType().equals(AttackTypeEnum.MELEE)) {
+                    return isInMeleeRange(attacker, point);
+                }
+                if (attacker.getAttackType().equals(AttackTypeEnum.RANGE)) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
+    private boolean canAttackObstacle(Point point, Creature attacker) {
+        if (attacker.getCreatureType().equals(CreatureTypeEnum.GROUND)) {
+            if (attacker.getAttackType().equals(AttackTypeEnum.MELEE)) {
+                return isInMeleeRange(attacker, point);
+            }
+            if (attacker.getAttackType().equals(AttackTypeEnum.RANGE)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     public boolean canHeal(final Point point, Creature attacker) {

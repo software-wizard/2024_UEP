@@ -209,54 +209,6 @@ public class GameEngineTest {
     }
 
     @Test
-    @Disabled
-    void warMachinesCanOnlyAttackWarMachines() {
-        int maxHp = 100;
-        Creature catapult1 = new Creature.Builder().statistic((CreatureStats.builder()
-                        .damage(Range.closed(10, 10))
-                        .maxHp(maxHp)
-                        .build()))
-                .creatureType(CreatureTypeEnum.MACHINE)
-                .attackType(AttackTypeEnum.RANGE)
-                .calculator(new MachineCalculatorDecorator(new DefaultDamageCalculator(quarterRandom), 3))
-                .morale(new Morale(0))
-                .build();
-
-        Hero hero1 = new Hero(List.of(catapult1),
-                new PrimarySkill(1, 2, 3, 4),
-                null);
-
-        Creature catapult2 = new Creature.Builder().statistic((CreatureStats.builder()
-                        .damage(Range.closed(10, 10))
-                        .maxHp(maxHp)
-                        .build()))
-                .creatureType(CreatureTypeEnum.MACHINE)
-                .attackType(AttackTypeEnum.RANGE)
-                .calculator(new MachineCalculatorDecorator(new DefaultDamageCalculator(quarterRandom), 2))
-                .morale(new Morale(0))
-                .build();
-
-        Creature creature2 = new Creature.Builder()
-                .statistic(CreatureStats.builder()
-                        .maxHp(maxHp)
-                        .damage(Range.closed(10, 10))
-                        .attack(10)
-                        .build())
-                .build();
-
-        Hero hero2 = new Hero(List.of(creature2, catapult2),
-                new PrimarySkill(1, 2, 3, 4),
-                null);
-
-        GameEngine gameEngine = new GameEngine(hero1, hero2);
-
-        assertThat(gameEngine.getHeroToMove()).isEqualTo(hero1);
-        assertThat(gameEngine.getCreatureToMove()).isEqualTo(catapult1);
-        assertThat(gameEngine.canAttack(gameEngine.getCreatureLocation(catapult2))).isTrue();
-        assertThat(gameEngine.canAttack(gameEngine.getCreatureLocation(creature2))).isFalse();
-    }
-
-    @Test
     void tentCanHealOnlyDamagedAndAllyCreatures() {
         final Creature angel = new Creature.Builder().statistic(CreatureStats.builder()
                         .maxHp(100)
@@ -307,6 +259,49 @@ public class GameEngineTest {
 
         assertThat(dragon.getCurrentHp()).isBetween(71, 95);
     }
+
+    @Test
+    void rangedCreatureCantTargetAllyCreatures() {
+        final Creature dragon = new Creature.Builder().statistic(CreatureStats.builder()
+                        .maxHp(100)
+                        .damage(Range.closed(0, 0))
+                        .attack(0)
+                        .armor(10)
+                        .build())
+                .attackType(AttackTypeEnum.RANGE)
+                .build();
+
+        final Creature dragon2 = new Creature.Builder().statistic(CreatureStats.builder()
+                        .maxHp(100)
+                        .damage(Range.closed(0, 0))
+                        .attack(0)
+                        .armor(10)
+                        .build())
+                .build();
+
+        final Creature dragon3 = new Creature.Builder().statistic(CreatureStats.builder()
+                        .maxHp(100)
+                        .damage(Range.closed(0, 0))
+                        .attack(0)
+                        .armor(10)
+                        .build())
+                .build();
+
+        Hero hero1 = new Hero(List.of(dragon, dragon2),
+                new PrimarySkill(1, 2, 3, 4),
+                new Spellbook(List.of()));
+        Hero hero2 = new Hero(List.of(dragon3),
+                new PrimarySkill(1, 2, 3, 4),
+                new Spellbook(List.of()));
+        GameEngine gameEngine = new GameEngine(hero1, hero2);
+
+        assertThat(gameEngine.getHeroToMove()).isEqualTo(hero1);
+        assertThat(gameEngine.getCreatureToMove()).isEqualTo(dragon);
+
+        assertThat(gameEngine.canAttack(gameEngine.getCreatureLocation(dragon2))).isFalse();
+        assertThat(gameEngine.canAttack(gameEngine.getCreatureLocation(dragon3))).isTrue();
+    }
+
 
     private static class QuarterRandom extends Random {
         @Override

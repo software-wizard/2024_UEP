@@ -93,7 +93,7 @@ public class GameEngine {
     }
 
     public boolean canAttack(final Point point) {
-        return attackEngine.canAttack(point, turnQueue.getCurrentCreature());
+        return attackEngine.canAttack(point, turnQueue.getCurrentCreature(), getEnemyCreatures());
     }
 
     public boolean canHeal(final Point point) {
