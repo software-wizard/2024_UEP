@@ -39,7 +39,7 @@ public class FieldObjects implements MapObject{
             }
         fieldMap.put(new Point(2,2), new ResourcesField(Resources.builder().gold(10).build()));
         fieldMap.put(new Point(5,10), new ResourcesField(Resources.builder().wood(100).build()));
-        fieldMap.put(new Point(4, 4), new SkillsField(new EcoSkill(SkillEnum.LEADERSHIP, 1)));
+        fieldMap.put(new Point(4, 4), new SkillsField(new EcoSkill(SkillEnum.ARCHERY, 1)));
         fieldMap.put(new Point(3, 3), new SkillsField(new EcoSkill(SkillEnum.ARMORER, 1)));
         fieldMap.put(new Point(4,1), new SkillsField(new EcoSkill(SkillEnum.OFFENSE, 1)));
     }
