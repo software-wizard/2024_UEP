@@ -26,6 +26,7 @@ public class AttackEngine {
         Morale currentCreatureMorale = attacker.getMorale();
         if (currentCreatureMorale.shouldAttackAgain()) {
             currentCreatureMorale.setGotLucky(true);
+            System.out.println("CREATURE GOT LUCKY!");
             return;
         }
         currentCreatureMorale.setGotLucky(false);
