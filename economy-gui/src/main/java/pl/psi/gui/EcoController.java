@@ -126,6 +126,7 @@ public class EcoController implements PropertyChangeListener {
                         if (engine.isCurrentHero(currentPoint)) {
                             mapTile.removeIcon();
                             engine.collectField(engine.getField(currentPoint));
+
                             refreshGui();
                         }
                     });

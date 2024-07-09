@@ -88,7 +88,7 @@ public class EcoMap {
     }
 
     private boolean isResource(Point aPoint, ToIntFunction<? super ResourcesField> resourceSupplier) {
-        return Optional.ofNullable(fieldObjects.get(aPoint)).filter(ResourcesField.class::isInstance).map(ResourcesField.class::cast).stream().mapToInt(resourceSupplier).anyMatch(resource -> resource > 0);
+        return Optional.ofNullable(fieldObjects.get(aPoint)).filter(ResourcesField.class::isInstance).map(ResourcesField.class::cast).stream().mapToInt(resourceSupplier).noneMatch(gold -> gold != 0);
     }
 
     public boolean isGoldField(Point aPoint) {
