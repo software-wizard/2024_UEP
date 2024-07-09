@@ -34,22 +34,22 @@ public class Wall implements ObstaclesObservable, DefenderIf {
 
 
      public void takeDamageFromCatapult(int damage, Point aPoint) {
-        if (currentLevel <=0){
+        if (currentHP <=0 && currentLevel == 3){
             currentHP = 0;
             notifyObservers(aPoint);
         }else{
             if (currentLevel == 1){
                 currentHP -= damage;
                 if (currentHP <= 0) {
-                    currentLevel = 2;
                     currentHP = levelTwoHP;
+                    currentLevel = 2;
                 }
             }
             else if (currentLevel == 2) {
                 currentHP -= damage;
                 if (currentHP <= 0) {
-                    currentLevel = 3;
                     currentHP = levelThreeHP;
+                    currentLevel = 3;
                 }
 
             } else if (currentLevel == 3) {
@@ -65,15 +65,15 @@ public class Wall implements ObstaclesObservable, DefenderIf {
     }
 
     public void takeDamageFromCreature(int damage, Point aPoint) {
-        if (currentLevel <=0){
+        if (currentHP <=0 && currentLevel == 3){
             currentHP = 0;
             notifyObservers(aPoint);
         }else{
              if (currentLevel == 2) {
                 currentHP -= damage;
                 if (currentHP <= 0) {
-                    currentLevel = 3;
                     currentHP = levelThreeHP;
+                    currentLevel = 3;
                 }
 
             } else if (currentLevel == 3) {
