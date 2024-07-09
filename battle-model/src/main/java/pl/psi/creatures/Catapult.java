@@ -88,12 +88,12 @@ public class Catapult extends Creature implements  DefenderIf {
 //    }
     @Override
     public void attack(DefenderIf target, Point aPoint) {
-        System.out.println("Catapult attackkk");
+        System.out.println("Catapult launched!");
         if (target.getType()==TargetTypeEnum.WALL) {
             Wall wall = (Wall) target;
             if (randomChance()) {
                 Random random = new Random();
-                int damageMultiplier = random.nextInt(101);
+                int damageMultiplier = 40 + random.nextInt(61);
                 final int catapultDamage = 10 * damageMultiplier;
                 wall.takeDamageFromCatapult(catapultDamage, aPoint);
                 System.out.println("Catapult hit the wall with " + catapultDamage + " damage");

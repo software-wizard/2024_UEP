@@ -21,7 +21,7 @@ public class Wall implements ObstaclesObservable, DefenderIf {
     private TargetTypeEnum targetType = TargetTypeEnum.WALL;
 
     private final ArrayList<ObstacleObserver> observers = new ArrayList<>();
-    private static String lastUsedName = "Wall2";
+    private String name;
 
 
 
@@ -115,13 +115,13 @@ public class Wall implements ObstaclesObservable, DefenderIf {
         return basePath;
     }
 
+
+    public void setName(String aName) {
+        this.name = aName;
+    }
+
     public String getName() {
-        if ("Wall1".equals(lastUsedName)) {
-            lastUsedName = "Wall2";
-        } else {
-            lastUsedName = "Wall1";
-        }
-        return lastUsedName;
+        return name;
     }
 
     public String toStringHP() {

@@ -1,7 +1,6 @@
 package pl.psi;
 
 import java.util.*;
-import java.util.stream.Stream;
 
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
@@ -24,7 +23,6 @@ public class Board implements ObstacleObserver, BoardIf
     private  final HashMap<Point, Obstacle> regularObstaclesMap = new HashMap<>();
     @Getter
     private final HashMap<Point, Wall> wallHashMap = new HashMap<>();
-    private final HashMap<Point, Creature> creatureHashMap = new HashMap<>();
 
     private final int width;
     private final int height;
@@ -43,6 +41,11 @@ public class Board implements ObstacleObserver, BoardIf
     private void addWalls(){
         for (int i = 0;i <MAX_HEIGHT+1;i++){
             Wall wall = new Wall();
+            if(i%2 == 0) {
+                wall.setName("Wall1");
+            } else {
+                wall.setName("Wall2");
+            }
             wall.addObserver(this);
             wallHashMap.put(new Point(7,i),wall);
         }
@@ -88,10 +91,6 @@ public class Board implements ObstacleObserver, BoardIf
 
             }
         }
-    }
-    void addObstacle(Point aPoint){
-        Obstacle obstacle = new Obstacle();
-        regularObstaclesMap.put(aPoint,obstacle);
     }
 
     void addObstacleWithHP(Point aPoint,ObstaclesWithHP obstacleWithHP){
