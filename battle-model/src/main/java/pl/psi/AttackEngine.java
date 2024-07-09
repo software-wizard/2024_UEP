@@ -38,7 +38,15 @@ public class AttackEngine {
     public boolean canAttack(final Point point, Creature attacker) {
 
         if (board.isObstacleWithHP(point)) {
-            return isInMeleeRange(attacker,point);
+            if (attacker.getCreatureType().equals(CreatureTypeEnum.GROUND)) {
+                if (attacker.getAttackType().equals(AttackTypeEnum.MELEE)) {
+                    return isInMeleeRange(attacker, point);
+                }
+                if (attacker.getAttackType().equals(AttackTypeEnum.RANGE)) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         if (board.isWall(point)) {
