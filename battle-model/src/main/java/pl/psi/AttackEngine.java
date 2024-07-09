@@ -34,13 +34,18 @@ public class AttackEngine {
 
     public boolean canAttack(final Point point, Creature attacker, List<Creature> enemyCreatures) {
 
+        if (board.isWall(point)) {
+            return canAttackWall(point, attacker);
+        }
+
+        if (attacker.getCreatureType().equals(CreatureTypeEnum.CATAPULT)) {
+            return false;
+        }
+
         if (board.isObstacleWithHP(point)) {
             return canAttackObstacle(point, attacker);
         }
 
-        if (board.isWall(point)) {
-            return canAttackWall(point, attacker);
-        }
 
         if (board.getCreature(point).isEmpty()) {
             return false;
@@ -115,9 +120,9 @@ public class AttackEngine {
 
     public boolean shouldFireRandomly(Creature machine) {
         DamageCalculatorIf calculator = machine.getCalculator();
-        if (!(calculator instanceof MachineCalculatorDecorator)) {
-            return false;
-        }
+//        if (!(calculator instanceof MachineCalculatorDecorator)) {
+//            return false;
+//        }
         MachineCalculatorDecorator machineCalculator = (MachineCalculatorDecorator) machine.getCalculator();
         return machineCalculator.getLevel() < 2;
     }

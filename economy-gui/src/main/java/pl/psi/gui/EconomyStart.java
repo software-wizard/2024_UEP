@@ -8,9 +8,7 @@ import pl.psi.EconomyHero;
 import pl.psi.creatures.EconomyMachineFactory;
 import pl.psi.creatures.EconomyNecropolisFactory;
 import pl.psi.creatures.MachineFactory;
-import skills.ArcherySkill;
-import skills.ArmorerSkill;
-import skills.OffenseSkill;
+import skills.*;
 
 public class EconomyStart extends Application {
 
@@ -37,13 +35,13 @@ public class EconomyStart extends Application {
 
     private static EconomyHero getFirstHero(EconomyHero hero, boolean aIsUpgraded) {
         System.out.println("getFirstHero called");
-        hero.addSkill(new OffenseSkill(1));
-        hero.addSkill(new ArcherySkill(3));
-        hero.addSkill(new ArmorerSkill(2));
+
+        hero.addSkill(new BallisticsSkill(3));
+        hero.addSkill(new LeadershipSkill(3));
 
         EconomyNecropolisFactory creatureFactory = new EconomyNecropolisFactory();
         EconomyMachineFactory machineFactory = new EconomyMachineFactory();
-        for (int i = 1; i <= 2; i++) {
+        for (int i = 1; i <= 1; i++) {
             hero.addCreature(creatureFactory.create(aIsUpgraded, i));
         }
         hero.addCreature(machineFactory.create("Ballista"));

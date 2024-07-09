@@ -19,7 +19,8 @@ public class Catapult extends Creature implements  DefenderIf {
     private int counterAttackCounter = 1;
     @Setter
     private MachineCalculatorDecorator calculator;
-    private CreatureTypeEnum creatureType;
+    @Getter
+    private CreatureTypeEnum creatureType = CreatureTypeEnum.CATAPULT;
     private AttackTypeEnum attackType;
     @Setter
     private DamageApplier damageApplier = new DamageApplier();

@@ -13,6 +13,8 @@ public class SkillFactory {
                 return new OffenseSkill(aLevel);
             case LEADERSHIP:
                 return new LeadershipSkill(aLevel);
+            case BALLISTICS:
+                return new BallisticsSkill(aLevel);
             default:
                 throw new IllegalArgumentException("Unknown skill.");
 

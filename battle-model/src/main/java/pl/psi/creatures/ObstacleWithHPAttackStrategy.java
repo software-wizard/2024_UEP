@@ -7,6 +7,10 @@ import pl.psi.obstacles.ObstaclesWithHP;
 public class ObstacleWithHPAttackStrategy implements AttackStrategy{
     @Override
     public void attack(Creature attacker, DefenderIf target, AttackTypeEnum AttackType, Point aPoint) {
+        if(attacker.getMorale().shouldFreeze()) {
+            System.out.println("missed!");
+            return;
+        }
         if (target instanceof ObstaclesWithHP) {
             ObstaclesWithHP obstacleWithHP = (ObstaclesWithHP) target;
             final int damageToObstacle = attacker.getCalculator().calculateDamageToObstacle(attacker, obstacleWithHP);

@@ -82,6 +82,7 @@ public class GameEngine {
     public void pass() {
         turnQueue.next();
         if (getCreatureToMove().getCreatureType().equals(CreatureTypeEnum.CATAPULT) && attackEngine.shouldFireRandomly(getCreatureToMove())) {
+            System.out.println("shot randomly");
             attackEngine.shootRandomWall(getCreatureToMove());
             pass();
         }

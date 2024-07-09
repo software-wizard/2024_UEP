@@ -70,6 +70,12 @@ public class EcoBattleConverter implements PropertyChangeListener {
         final List<Creature> creatures = new ArrayList<>();
         final NecropolisFactory factory = new NecropolisFactory();
         final MachineFactory machineFactory = new MachineFactory();
+
+        Creature unluckyLitch = new NecropolisFactory().create(false, 5, 10, 3);
+        unluckyLitch.getMorale().setRandom(new QuarterRandom());
+        unluckyLitch.getMorale().setValue(-3);
+        creatures.add(unluckyLitch);
+
         aPlayer1.getCreatures().forEach(ecoCreature -> {
             if (ecoCreature.isMachine()) {
                 // Convert using MachineFactory

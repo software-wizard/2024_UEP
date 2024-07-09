@@ -67,6 +67,7 @@ public class FirstAidTent extends Creature {
         int healHP = random.nextInt(25)+1;
         creature.updateHP(healHP);
         System.out.println("Creature healed by: "+healHP+" HP");
+        creature.setAmount(creature.getAmount()+1);
     }
     @Override
     public void healHPCreature(Creature creature) {
