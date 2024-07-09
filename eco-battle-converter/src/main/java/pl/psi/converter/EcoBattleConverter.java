@@ -64,6 +64,53 @@ public class EcoBattleConverter implements PropertyChangeListener {
         return new Hero(creatures, new PrimarySkill(0, 0, 0, 0), new Spellbook(Collections.emptyList()));
     }
 
+    public static Hero hardConvert1(final EconomyHero aPlayer1) {
+        SkillFactory skillFactory = new SkillFactory();
+        final List<Creature> creatures = new ArrayList<>();
+        final NecropolisFactory factory = new NecropolisFactory();
+        final MachineFactory machineFactory = new MachineFactory();
+        aPlayer1.getCreatures().forEach(ecoCreature -> {
+            if (ecoCreature.isMachine()) {
+                // Convert using MachineFactory
+                creatures.add(machineFactory.create(ecoCreature.getName()));
+            } else {
+                // Convert using NecropolisFactory for regular creatures
+                creatures.add(factory.create(ecoCreature.isUpgraded(), ecoCreature.getTier(), 10, ecoCreature.getMoraleValue()));
+            }
+        });
+        for (Skill skill : aPlayer1.getSkills().values()) {
+            skillFactory.create(skill.getSkillName(), skill.getLevel()).cast(creatures);
+        }
+
+        return new Hero(creatures, new PrimarySkill(0, 0, 0, 0), new Spellbook(Collections.emptyList()));
+    }
+
+    public static Hero hardConvert2(final EconomyHero aPlayer1) {
+        SkillFactory skillFactory = new SkillFactory();
+        final List<Creature> creatures = new ArrayList<>();
+        final NecropolisFactory factory = new NecropolisFactory();
+        final MachineFactory machineFactory = new MachineFactory();
+
+        Creature luckyLitch = new NecropolisFactory().create(false, 5, 10, 3);
+
+
+        aPlayer1.getCreatures().forEach(ecoCreature -> {
+            if (ecoCreature.isMachine()) {
+                // Convert using MachineFactory
+                creatures.add(machineFactory.create(ecoCreature.getName()));
+            } else {
+                // Convert using NecropolisFactory for regular creatures
+                creatures.add(factory.create(ecoCreature.isUpgraded(), ecoCreature.getTier(), 10, ecoCreature.getMoraleValue()));
+            }
+        });
+
+        for (Skill skill : aPlayer1.getSkills().values()) {
+            skillFactory.create(skill.getSkillName(), skill.getLevel()).cast(creatures);
+        }
+
+        return new Hero(creatures, new PrimarySkill(0, 0, 0, 0), new Spellbook(Collections.emptyList()));
+    }
+
     //obserwer i potem aktualizuje od walki i potem ustawia lastBattlePack na null
     void update() {
         lastBattlePack.getAttacker().changeResources(lastBattlePack.getDefender().getResources());
@@ -81,5 +128,7 @@ public class EcoBattleConverter implements PropertyChangeListener {
             }
         }
     }
+
+
 }
 
