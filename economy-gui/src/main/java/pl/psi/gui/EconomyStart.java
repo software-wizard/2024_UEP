@@ -5,7 +5,9 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import pl.psi.EconomyHero;
+import pl.psi.creatures.EconomyMachineFactory;
 import pl.psi.creatures.EconomyNecropolisFactory;
+import pl.psi.creatures.MachineFactory;
 import skills.ArcherySkill;
 import skills.ArmorerSkill;
 import skills.OffenseSkill;
@@ -28,8 +30,7 @@ public class EconomyStart extends Application {
         hero1.addSkill(new ArcherySkill(3));
         hero1.addSkill(new ArmorerSkill(2));
         hero2.addSkill(new ArmorerSkill(2));
-        loader.setController(new EcoController(getHero(hero1, true),
-                getHero(hero2, false)));
+        loader.setController(new EcoController(getFirstHero(hero1, true), getSecondHero(hero2, false)));
         final Scene scene = new Scene(loader.load());
         aStage.setScene(scene);
         aStage.setX(5);
@@ -37,11 +38,30 @@ public class EconomyStart extends Application {
         aStage.show();
     }
 
-    private static EconomyHero getHero(EconomyHero hero, boolean aIsUpgraded) {
+    private static EconomyHero getFirstHero(EconomyHero hero, boolean aIsUpgraded) {
+        System.out.println("getFirstHero called");
+
         EconomyNecropolisFactory creatureFactory = new EconomyNecropolisFactory();
-        for (int i = 1; i <= 5; i++) {
+        EconomyMachineFactory machineFactory = new EconomyMachineFactory();
+        for (int i = 1; i <= 2; i++) {
             hero.addCreature(creatureFactory.create(aIsUpgraded, i));
         }
+        hero.addCreature(machineFactory.create("Ballista"));
+        hero.addCreature(machineFactory.create("First Aid Tent"));
+        hero.addCreature(machineFactory.create("Catapult"));
+        return hero;
+    }
+
+
+    private static EconomyHero getSecondHero(EconomyHero hero, boolean aIsUpgraded) {
+        System.out.println("getFirstHero called");
+
+        EconomyNecropolisFactory creatureFactory = new EconomyNecropolisFactory();
+        EconomyMachineFactory machineFactory = new EconomyMachineFactory();
+        for (int i = 2; i <= 5; i++) {
+            hero.addCreature(creatureFactory.create(aIsUpgraded, i));
+        }
+        hero.addCreature(machineFactory.create("Catapult"));
         return hero;
     }
 }

@@ -99,4 +99,8 @@ public enum     CreatureStatistic implements CreatureStatisticIf
     {
         return name;
     }
+
+    public boolean isMachine() {
+        return this == FIRST_AID_TENT || this == BALLISTA || this == CATAPULT;
+    }
 }
