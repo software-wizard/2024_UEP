@@ -100,7 +100,6 @@ public class Wall implements ObstaclesObservable, DefenderIf {
         }
     }
 
-
     public int getHP() {
         return currentHP;
     }
@@ -115,14 +114,6 @@ public class Wall implements ObstaclesObservable, DefenderIf {
         return basePath;
     }
 
-
-    public void setName(String aName) {
-        this.name = aName;
-    }
-
-    public String getName() {
-        return name;
-    }
 
     public String toStringHP() {
         return String.valueOf(getHP());
