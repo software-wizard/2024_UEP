@@ -39,7 +39,39 @@ public class GameEngineTest {
     }
 
     @Test
-    @Disabled
+    void creaturesAttackCorrectly() {
+        final Creature angel = new Creature.Builder().statistic(CreatureStats.builder()
+                        .maxHp(100)
+                        .damage(Range.closed(10, 10))
+                        .attack(50)
+                        .armor(0)
+                        .build())
+                .build();
+        final Creature dragon = new Creature.Builder().statistic(CreatureStats.builder()
+                        .maxHp(100)
+                        .damage(Range.closed(0, 0))
+                        .attack(0)
+                        .armor(10)
+                        .build())
+                .build();
+
+        Hero hero1 = new Hero(List.of(angel),
+                new PrimarySkill(1, 2, 3, 4),
+                new Spellbook(List.of()));
+        Hero hero2 = new Hero(List.of(dragon),
+                new PrimarySkill(1, 2, 3, 4),
+                new Spellbook(List.of()));
+        GameEngine gameEngine = new GameEngine(hero1, hero2);
+
+        assertThat(gameEngine.getHeroToMove()).isEqualTo(hero1);
+        assertThat(gameEngine.getCreatureToMove()).isEqualTo(angel);
+        // when
+        gameEngine.attack(gameEngine.getCreatureLocation(dragon));
+        // then
+        assertThat(dragon.getCurrentHp()).isEqualTo(70);
+    }
+
+    @Test
     void rangedCreatureCorrectlyStatesAttackType() {
         final int maxHp = 30;
         //given
@@ -234,6 +266,54 @@ public class GameEngineTest {
         assertThat(gameEngine.getCreatureToMove()).isEqualTo(catapult1);
         assertThat(gameEngine.canAttack(gameEngine.getCreatureLocation(catapult2))).isTrue();
         assertThat(gameEngine.canAttack(gameEngine.getCreatureLocation(creature2))).isFalse();
+    }
+
+    @Test
+    void tentCanHealOnlyDamagedAndAllyCreatures() {
+        final Creature angel = new Creature.Builder().statistic(CreatureStats.builder()
+                        .maxHp(100)
+                        .damage(Range.closed(10, 10))
+                        .attack(50)
+                        .armor(0)
+                        .build())
+                .build();
+
+        final Creature tent = new MachineFactory().create("First Aid Tent");
+
+        final Creature dragon = new Creature.Builder().statistic(CreatureStats.builder()
+                        .maxHp(100)
+                        .damage(Range.closed(0, 0))
+                        .attack(0)
+                        .armor(10)
+                        .build())
+                .build();
+
+        final Creature dragon2 = new Creature.Builder().statistic(CreatureStats.builder()
+                        .maxHp(100)
+                        .damage(Range.closed(0, 0))
+                        .attack(0)
+                        .armor(10)
+                        .build())
+                .build();
+
+        Hero hero1 = new Hero(List.of(angel),
+                new PrimarySkill(1, 2, 3, 4),
+                new Spellbook(List.of()));
+        Hero hero2 = new Hero(List.of(tent, dragon, dragon2),
+                new PrimarySkill(1, 2, 3, 4),
+                new Spellbook(List.of()));
+        GameEngine gameEngine = new GameEngine(hero1, hero2);
+
+        assertThat(gameEngine.getHeroToMove()).isEqualTo(hero1);
+        assertThat(gameEngine.getCreatureToMove()).isEqualTo(angel);
+        // when
+        gameEngine.attack(gameEngine.getCreatureLocation(dragon));
+        // then
+        assertThat(gameEngine.getHeroToMove()).isEqualTo(hero2);
+        assertThat(gameEngine.getCreatureToMove()).isEqualTo(tent);
+        assertThat(gameEngine.canHeal(gameEngine.getCreatureLocation(angel))).isFalse();
+        assertThat(gameEngine.canHeal(gameEngine.getCreatureLocation(dragon))).isTrue();
+        assertThat(gameEngine.canHeal(gameEngine.getCreatureLocation(dragon2))).isFalse();
     }
 
     private static class QuarterRandom extends Random {

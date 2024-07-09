@@ -36,6 +36,7 @@ public class AttackEngine {
 
 
     public boolean canAttack(final Point point, Creature attacker) {
+
         if (board.isObstacleWithHP(point)) {
             return isInMeleeRange(attacker,point);
         }
@@ -56,6 +57,7 @@ public class AttackEngine {
         if (board.getCreature(point).isEmpty()) {
             return false;
         }
+
         if (attacker.getCreatureType().equals(CreatureTypeEnum.MACHINE)) {
             if (attacker.getStats().getName().equals("Catapult")) {
                 return board.getWall(point).isPresent();
@@ -70,6 +72,20 @@ public class AttackEngine {
             return true;
         }
 
+//        if (attacker.getCreatureType().equals(CreatureTypeEnum.MACHINE)) {
+//            if (attacker.getStats().getName().equals("Catapult")) {
+//                board.getWall(enemyLocation)
+//                        .ifPresent(defender -> attacker
+//                                .attack(defender, attackType));
+//                return;
+//            } else if (attacker.getStats().getName().equals("Ballista")) {
+//                board.getCreature(enemyLocation)
+//                        .ifPresent(defender -> attacker
+//                                .attack(defender, attackType));
+//                return;
+//            }
+//        }
+
         return isInMeleeRange(attacker, point);
     }
 
@@ -77,12 +93,11 @@ public class AttackEngine {
         if (board.getCreature(point).isEmpty()) {
             return false;
         }
-        if (attacker.getCreatureType().equals(CreatureTypeEnum.GROUND)) {
-            if (attacker.getStats().getName().equals("First Aid Tent")) {
-                return board.getCreature(point).isPresent() &&
-                        !board.getCreature(point).get().getCreatureType().equals(CreatureTypeEnum.MACHINE) &&
-                        !board.getCreature(point).get().getStats().getName().equals("First Aid Tent");
-            }
+        if (attacker.getCreatureType().equals(CreatureTypeEnum.HEALING_TENT)) {
+            if (board.getCreature(point).isPresent() &&
+                    !board.getCreature(point).get().getCreatureType().equals(CreatureTypeEnum.HEALING_TENT)) {
+                return board.getCreature(point).get().getCurrentHp() < board.getCreature(point).get().getMaxHp();
+            };
         }
         return false;
     }
@@ -106,6 +121,7 @@ public class AttackEngine {
 
     private void attackOnce(Point enemyLocation, Creature attacker) {
         AttackTypeEnum attackType = determineAttackType(attacker, enemyLocation);
+
         if (board.isObstacleWithHP(enemyLocation)) {
             Optional<ObstaclesWithHP> obstacle = board.getObstacleWithHP(enemyLocation);
             obstacle.ifPresent(o -> attacker.attack(o, attackType,enemyLocation));
@@ -115,25 +131,6 @@ public class AttackEngine {
         } else {
             board.getCreature(enemyLocation)
                     .ifPresent(defender -> attacker.attack(defender, attackType));
-        }
-        if (attacker.getCreatureType().equals(CreatureTypeEnum.MACHINE)) {
-            if (attacker.getStats().getName().equals("Catapult")) {
-                board.getWall(enemyLocation)
-                        .ifPresent(defender -> attacker
-                                .attack(defender, attackType));
-                return;
-            } else if (attacker.getStats().getName().equals("Ballista")) {
-                board.getCreature(enemyLocation)
-                        .ifPresent(defender -> attacker
-                                .attack(defender, attackType));
-                return;
-            }
-        }
-        Optional<Creature> creature = board.getCreature(enemyLocation);
-        if (creature.isPresent()) {
-            creature.ifPresent(defender -> attacker.attack(defender, attackType));
-        } else {
-            board.getWall(enemyLocation).ifPresent(defender -> attacker.attack(defender, attackType));
         }
     }
 
