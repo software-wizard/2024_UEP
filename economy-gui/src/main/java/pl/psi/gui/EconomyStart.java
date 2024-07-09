@@ -39,7 +39,7 @@ public class EconomyStart extends Application {
 
     private static EconomyHero getHero(EconomyHero hero, boolean aIsUpgraded) {
         EconomyNecropolisFactory creatureFactory = new EconomyNecropolisFactory();
-        for (int i = 1; i <= 7; i++) {
+        for (int i = 1; i <= 5; i++) {
             hero.addCreature(creatureFactory.create(aIsUpgraded, i));
         }
         return hero;
