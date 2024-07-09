@@ -59,6 +59,9 @@ public class AttackEngine {
     }
 
     private boolean canAttackWall(Point point, Creature attacker) {
+        if (attacker.getCreatureType().equals(CreatureTypeEnum.BALLISTA)) {
+            return false;
+        }
         Wall wall = board.getWall(point).orElse(null);
         if (wall != null) {
             if (attacker.getCreatureType().equals(CreatureTypeEnum.CATAPULT)) {
