@@ -54,7 +54,7 @@ public class EconomyStart extends Application {
 
 
     private static EconomyHero getSecondHero(EconomyHero hero, boolean aIsUpgraded) {
-        System.out.println("getFirstHero called");
+        System.out.println("getSecondHero called");
 
         hero.addSkill(new ArmorerSkill(2));
         EconomyNecropolisFactory creatureFactory = new EconomyNecropolisFactory();

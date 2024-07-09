@@ -72,7 +72,7 @@ class CatapultTest {
         //when
         spyCatapult.attack(wall);
         //then
-        assertThat(wall.getCurrentHP()).isEqualTo(1500);
+        assertThat(wall.getCurrentHP()).isEqualTo(1000);
     }
     @Test
     void attackMethodShouldTakePointAsSecondParameter() {
@@ -85,7 +85,7 @@ class CatapultTest {
         //when
         spyCatapult.attack(wall, new Point(1, 1));
         //then
-        assertThat(wall.getCurrentHP()).isEqualTo(1500);
+        assertThat(wall.getCurrentHP()).isEqualTo(1000);
     }
 
 }
