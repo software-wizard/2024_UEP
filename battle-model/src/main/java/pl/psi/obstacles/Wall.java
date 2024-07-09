@@ -34,40 +34,54 @@ public class Wall implements ObstaclesObservable, DefenderIf {
 
 
      public void takeDamageFromCatapult(int damage, Point aPoint) {
-        if (currentLevel == 1){
-            currentHP -= damage;
-            if (currentHP <= 0) {
-                currentLevel = 2;
-                currentHP = levelTwoHP;
+        if (currentLevel <=0){
+            currentHP = 0;
+            notifyObservers(aPoint);
+        }else{
+            if (currentLevel == 1){
+                currentHP -= damage;
+                if (currentHP <= 0) {
+                    currentLevel = 2;
+                    currentHP = levelTwoHP;
+                }
+            }
+            else if (currentLevel == 2) {
+                currentHP -= damage;
+                if (currentHP <= 0) {
+                    currentLevel = 3;
+                    currentHP = levelThreeHP;
+                }
+
+            } else if (currentLevel == 3) {
+                currentHP -= damage;
+                if (currentHP <= 0) {
+                    notifyObservers(aPoint);
+                    currentHP = 0;
+
+                }
             }
         }
-         else if (currentLevel == 2) {
-             currentHP -= damage;
-             if (currentHP <= 0) {
-                 currentLevel = 3;
-                 currentHP = levelThreeHP;
-             }
 
-         } else if (currentLevel == 3) {
-             currentHP -= damage;
-             if (currentHP <= 0) {
-                 notifyObservers(aPoint);
-                 currentHP = 0;
-
-             }
-         }
     }
 
     public void takeDamageFromCreature(int damage, Point aPoint) {
-        if (damage >= currentHP) {
+        if (currentLevel <=0){
             currentHP = 0;
-        } else {
-            currentHP -= damage;
-            if (currentHP <= 1000 && currentHP > 500) currentLevel = 2;
-            else {
-                currentLevel = 3;
+            notifyObservers(aPoint);
+        }else{
+             if (currentLevel == 2) {
+                currentHP -= damage;
+                if (currentHP <= 0) {
+                    currentLevel = 3;
+                    currentHP = levelThreeHP;
+                }
+
+            } else if (currentLevel == 3) {
+                currentHP -= damage;
                 if (currentHP <= 0) {
                     notifyObservers(aPoint);
+                    currentHP = 0;
+
                 }
             }
         }
