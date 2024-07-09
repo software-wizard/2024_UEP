@@ -26,10 +26,7 @@ public class EconomyStart extends Application {
 
         EconomyHero hero1 = new EconomyHero("P1");
         EconomyHero hero2 = new EconomyHero("P2");
-        hero1.addSkill(new OffenseSkill(1));
-        hero1.addSkill(new ArcherySkill(3));
-        hero1.addSkill(new ArmorerSkill(2));
-        hero2.addSkill(new ArmorerSkill(2));
+
         loader.setController(new EcoController(getFirstHero(hero1, true), getSecondHero(hero2, false)));
         final Scene scene = new Scene(loader.load());
         aStage.setScene(scene);
@@ -40,6 +37,9 @@ public class EconomyStart extends Application {
 
     private static EconomyHero getFirstHero(EconomyHero hero, boolean aIsUpgraded) {
         System.out.println("getFirstHero called");
+        hero.addSkill(new OffenseSkill(1));
+        hero.addSkill(new ArcherySkill(3));
+        hero.addSkill(new ArmorerSkill(2));
 
         EconomyNecropolisFactory creatureFactory = new EconomyNecropolisFactory();
         EconomyMachineFactory machineFactory = new EconomyMachineFactory();
@@ -56,6 +56,7 @@ public class EconomyStart extends Application {
     private static EconomyHero getSecondHero(EconomyHero hero, boolean aIsUpgraded) {
         System.out.println("getFirstHero called");
 
+        hero.addSkill(new ArmorerSkill(2));
         EconomyNecropolisFactory creatureFactory = new EconomyNecropolisFactory();
         EconomyMachineFactory machineFactory = new EconomyMachineFactory();
         for (int i = 2; i <= 5; i++) {
