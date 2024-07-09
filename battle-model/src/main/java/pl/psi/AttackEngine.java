@@ -1,6 +1,7 @@
 package pl.psi;
 
 import pl.psi.creatures.Creature;
+import pl.psi.creatures.DamageCalculatorIf;
 import pl.psi.creatures.MachineCalculatorDecorator;
 import pl.psi.creatures.Morale;
 import pl.psi.enums.AttackTypeEnum;
@@ -118,6 +119,10 @@ public class AttackEngine {
     }
 
     public boolean shouldFireRandomly(Creature machine) {
+        DamageCalculatorIf calculator = machine.getCalculator();
+        if (!(calculator instanceof MachineCalculatorDecorator)) {
+            return false;
+        }
         MachineCalculatorDecorator machineCalculator = (MachineCalculatorDecorator) machine.getCalculator();
         return machineCalculator.getLevel() < 2;
     }

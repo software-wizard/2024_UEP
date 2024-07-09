@@ -2,6 +2,7 @@ package skills;
 
 import pl.psi.creatures.Creature;
 import pl.psi.creatures.OffenseCalculatorDecorator;
+import pl.psi.enums.CreatureTypeEnum;
 import pl.psi.enums.SkillEnum;
 import pl.psi.skills.Skill;
 
@@ -15,6 +16,8 @@ public class OffenseSkill extends Skill implements BattleSkill {
 
     @Override
     public void cast(List<Creature> creatures) {
-        creatures.forEach(c -> c.setCalculator(new OffenseCalculatorDecorator(c.getCalculator(), level)));
+        creatures.stream()
+                .filter(c -> c.getCreatureType().equals(CreatureTypeEnum.GROUND))
+                .forEach(c -> c.setCalculator(new OffenseCalculatorDecorator(c.getCalculator(), level)));
     }
 }
