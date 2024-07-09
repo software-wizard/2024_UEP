@@ -221,7 +221,7 @@ public class CreatureTest {
 
         rangedCreature.attack(wall);
         // then
-        assertThat(wall.getCurrentHP()).isEqualTo(1500);
+        assertThat(wall.getCurrentHP()).isEqualTo(1000);
     }
 
     @Test
@@ -305,7 +305,7 @@ public class CreatureTest {
         // when
         attacker.attack(wall);
         // then
-        assertThat(wall.getCurrentHP()).isEqualTo(1500);
+        assertThat(wall.getCurrentHP()).isEqualTo(1000);
     }
 
     @Test
@@ -355,6 +355,6 @@ public class CreatureTest {
         attacker.attack(wall);
 
         // then
-        assertThat(wall.getCurrentHP()).isEqualTo(1500);
+        assertThat(wall.getCurrentHP()).isEqualTo(1000);
     }
 }
