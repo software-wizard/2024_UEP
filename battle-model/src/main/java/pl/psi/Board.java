@@ -6,6 +6,7 @@ import java.util.stream.Stream;
 import com.google.common.collect.BiMap;
 import com.google.common.collect.HashBiMap;
 
+import lombok.Getter;
 import pl.psi.creatures.Creature;
 import pl.psi.obstacles.*;
 
@@ -21,6 +22,7 @@ public class Board implements ObstacleObserver, BoardIf
     private final BiMap< Point, Creature > map = HashBiMap.create();
     private  final HashMap<Point, ObstaclesWithHP> obstaclesWithHPMap = new HashMap<>();
     private  final HashMap<Point, Obstacle> regularObstaclesMap = new HashMap<>();
+    @Getter
     private final HashMap<Point, Wall> wallHashMap = new HashMap<>();
     private final HashMap<Point, Creature> creatureHashMap = new HashMap<>();
 

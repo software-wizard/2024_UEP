@@ -9,10 +9,7 @@ import pl.psi.enums.CreatureTypeEnum;
 import pl.psi.obstacles.ObstaclesWithHP;
 import pl.psi.obstacles.Wall;
 
-import java.util.ArrayList;
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import java.util.*;
 
 public class AttackEngine {
 
@@ -104,18 +101,10 @@ public class AttackEngine {
         return false;
     }
 
-    public void shootRandomEnemyMachine(Creature attacker, List<Creature> aEnemyCreatures) {
-        ArrayList<Creature> enemyCreatures = new ArrayList<>(aEnemyCreatures);
-        Collections.shuffle(enemyCreatures);
-        for (Creature c : enemyCreatures) {
-            if (c.getCreatureType().equals(CreatureTypeEnum.BALLISTA)
-                    || c.getCreatureType().equals(CreatureTypeEnum.CATAPULT)
-                    || c.getCreatureType().equals(CreatureTypeEnum.HEALING_TENT)) {
-                attack(board.getPosition(c), attacker);
-                System.out.println("machine shot enemy machine");
-                return;
-            }
-        }
+    public void shootRandomWall(Creature attacker) {
+        List<Point> walls = new ArrayList<>(board.getWallHashMap().keySet());
+        Collections.shuffle(walls);
+        attackOnce(walls.get(0), attacker);
     }
 
     public boolean shouldFireRandomly(Creature machine) {
