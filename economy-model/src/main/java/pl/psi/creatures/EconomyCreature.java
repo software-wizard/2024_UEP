@@ -12,4 +12,12 @@ public class EconomyCreature
     private final int tier;
     private final int goldCost;
     private final int moraleValue;
+
+    public boolean isMachine() {
+        return this.stats.isMachine();
+    }
+
+    public String getName() {
+        return this.stats.getName();
+    }
 }

@@ -103,10 +103,6 @@ public class Catapult extends Creature implements  DefenderIf {
     }
 
     @Override
-    public void attack(DefenderIf target, AttackTypeEnum attackType, Point aPoint) {
-        attack(target, (Point) null);
-    }
-    @Override
     public void attack(DefenderIf target) {
         System.out.println("Catapult attack");
         attack(target, (Point) null);
@@ -114,6 +110,11 @@ public class Catapult extends Creature implements  DefenderIf {
 
     @Override
     public void attack(DefenderIf target, AttackTypeEnum attackType) {
+        attack(target, (Point) null);
+    }
+
+    @Override
+    public void attack(DefenderIf target, AttackTypeEnum attackType, Point aPoint) {
         attack(target, (Point) null);
     }
 

@@ -5,6 +5,7 @@ import javafx.scene.Scene;
 import javafx.stage.Stage;
 import pl.psi.*;
 import pl.psi.creatures.Creature;
+import pl.psi.creatures.MachineFactory;
 import pl.psi.creatures.NecropolisFactory;
 import pl.psi.gui.MainBattleController;
 import pl.psi.skills.Skill;
@@ -46,10 +47,16 @@ public class EcoBattleConverter implements PropertyChangeListener {
         SkillFactory skillFactory = new SkillFactory();
         final List<Creature> creatures = new ArrayList<>();
         final NecropolisFactory factory = new NecropolisFactory();
-        aPlayer1.getCreatures()
-                .forEach(ecoCreature -> creatures
-                        .add(factory.create(ecoCreature.isUpgraded(), ecoCreature.getTier(), 1, ecoCreature.getMoraleValue())));
-
+        final MachineFactory machineFactory = new MachineFactory();
+        aPlayer1.getCreatures().forEach(ecoCreature -> {
+            if (ecoCreature.isMachine()) {
+                // Convert using MachineFactory
+                creatures.add(machineFactory.create(ecoCreature.getName()));
+            } else {
+                // Convert using NecropolisFactory for regular creatures
+                creatures.add(factory.create(ecoCreature.isUpgraded(), ecoCreature.getTier(), 10, ecoCreature.getMoraleValue()));
+            }
+        });
         for (Skill skill : aPlayer1.getSkills().values()) {
             skillFactory.create(skill.getSkillName(), skill.getLevel()).cast(creatures);
         }
