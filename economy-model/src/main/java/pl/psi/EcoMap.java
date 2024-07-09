@@ -30,7 +30,6 @@ public class EcoMap {
     public EcoMap(final EconomyHero aHero1, final EconomyHero aHero2, PropertyChangeSupport aObserverSupport) {
 
         Opponent opponent = new Opponent(Resources.builder().gold(10).build(), Collections.emptyList());
-        mapOpponents.put(new Point(10, 10), opponent);
 
 
         map.put(new Point(5, 5), aHero1);
@@ -88,7 +87,7 @@ public class EcoMap {
     }
 
     private boolean isResource(Point aPoint, ToIntFunction<? super ResourcesField> resourceSupplier) {
-        return Optional.ofNullable(fieldObjects.get(aPoint)).filter(ResourcesField.class::isInstance).map(ResourcesField.class::cast).stream().mapToInt(resourceSupplier).noneMatch(gold -> gold != 0);
+        return Optional.ofNullable(fieldObjects.get(aPoint)).filter(ResourcesField.class::isInstance).map(ResourcesField.class::cast).stream().mapToInt(resourceSupplier).anyMatch(resource -> resource > 0);
     }
 
     public boolean isGoldField(Point aPoint) {
