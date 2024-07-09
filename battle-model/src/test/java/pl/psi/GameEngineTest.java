@@ -306,14 +306,18 @@ public class GameEngineTest {
 
         assertThat(gameEngine.getHeroToMove()).isEqualTo(hero1);
         assertThat(gameEngine.getCreatureToMove()).isEqualTo(angel);
-        // when
+
         gameEngine.attack(gameEngine.getCreatureLocation(dragon));
-        // then
+
         assertThat(gameEngine.getHeroToMove()).isEqualTo(hero2);
         assertThat(gameEngine.getCreatureToMove()).isEqualTo(tent);
         assertThat(gameEngine.canHeal(gameEngine.getCreatureLocation(angel))).isFalse();
         assertThat(gameEngine.canHeal(gameEngine.getCreatureLocation(dragon))).isTrue();
         assertThat(gameEngine.canHeal(gameEngine.getCreatureLocation(dragon2))).isFalse();
+
+        gameEngine.heal(gameEngine.getCreatureLocation(dragon));
+
+        assertThat(dragon.getCurrentHp()).isBetween(71, 95);
     }
 
     private static class QuarterRandom extends Random {

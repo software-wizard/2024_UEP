@@ -150,11 +150,9 @@ public class AttackEngine {
     }
 
     public void heal(Point creatureToHealLocation, Creature firstAidTent) {
-        if (firstAidTent.getCreatureType().equals(CreatureTypeEnum.GROUND)) {
-            if (firstAidTent.getStats().getName().equals("First Aid Tent")) {
+        if (firstAidTent.getCreatureType().equals(CreatureTypeEnum.HEALING_TENT)) {
                 board.getCreature(creatureToHealLocation)
                         .ifPresent(firstAidTent::restoreCurrentHpToPartHP);
-            }
         }
     }
 }
