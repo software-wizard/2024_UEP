@@ -37,7 +37,15 @@ public class AttackEngine {
 
     public boolean canAttack(final Point point, Creature attacker) {
         if (board.isObstacleWithHP(point)) {
-            return isInMeleeRange(attacker,point);
+            if (attacker.getCreatureType().equals(CreatureTypeEnum.GROUND)) {
+                if (attacker.getAttackType().equals(AttackTypeEnum.MELEE)) {
+                    return isInMeleeRange(attacker, point);
+                }
+                if (attacker.getAttackType().equals(AttackTypeEnum.RANGE)) {
+                    return true;
+                }
+            }
+            return false;
         }
 
         if (board.isWall(point)) {
@@ -46,8 +54,15 @@ public class AttackEngine {
                 if (attacker instanceof Catapult) {
                     return true;
                 }
-                if (wall.getCurrentLevel() == 2 || wall.getCurrentLevel() == 3){
-                    return isInMeleeRange(attacker, point);
+                if (wall.getCurrentLevel() == 2 || wall.getCurrentLevel() == 3) {
+                    if (attacker.getCreatureType().equals(CreatureTypeEnum.GROUND)) {
+                        if (attacker.getAttackType().equals(AttackTypeEnum.MELEE)) {
+                            return isInMeleeRange(attacker, point);
+                        }
+                        if (attacker.getAttackType().equals(AttackTypeEnum.RANGE)) {
+                            return true;
+                        }
+                    }
                 }
             }
         }
@@ -133,7 +148,7 @@ public class AttackEngine {
         if (creature.isPresent()) {
             creature.ifPresent(defender -> attacker.attack(defender, attackType));
         } else {
-            board.getWall(enemyLocation).ifPresent(defender -> attacker.attack(defender, attackType));
+            board.getWall(enemyLocation).ifPresent(defender -> attacker.attack(defender, attackType,enemyLocation));
         }
     }
 
