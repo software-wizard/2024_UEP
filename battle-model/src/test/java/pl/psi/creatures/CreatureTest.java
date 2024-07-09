@@ -244,7 +244,7 @@ public class CreatureTest {
         meleeCreature.attack(wall);
 
         // then
-        assertThat(wall.getCurrentHP()).isLessThan(1500);
+        assertThat(wall.getCurrentHP()).isLessThan(1000);
     }
 
     @Test

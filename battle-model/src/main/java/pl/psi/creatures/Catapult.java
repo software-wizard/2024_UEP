@@ -93,7 +93,7 @@ public class Catapult extends Creature implements  DefenderIf {
             Wall wall = (Wall) target;
             if (randomChance()) {
                 Random random = new Random();
-                int damageMultiplier = random.nextInt(101) + 50;
+                int damageMultiplier = random.nextInt(101);
                 final int catapultDamage = 10 * damageMultiplier;
                 wall.takeDamageFromCatapult(catapultDamage, aPoint);
                 System.out.println("Catapult hit the wall with " + catapultDamage + " damage");
