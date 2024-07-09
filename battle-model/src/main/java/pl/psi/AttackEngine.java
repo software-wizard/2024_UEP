@@ -36,6 +36,7 @@ public class AttackEngine {
 
 
     public boolean canAttack(final Point point, Creature attacker) {
+
         if (board.isObstacleWithHP(point)) {
             if (attacker.getCreatureType().equals(CreatureTypeEnum.GROUND)) {
                 if (attacker.getAttackType().equals(AttackTypeEnum.MELEE)) {

@@ -12,9 +12,9 @@ import java.util.ArrayList;
 @Setter
 public class Wall implements ObstaclesObservable, DefenderIf {
 
-    private int levelOneHP = 1500;
-    private int levelTwoHP = 1000;
-    private int levelThreeHP = 500;
+    private int levelOneHP = 1000;
+    private int levelTwoHP = 35;
+    private int levelThreeHP = 20;
     private int currentHP;
     private int currentLevel;
     private Point point;
