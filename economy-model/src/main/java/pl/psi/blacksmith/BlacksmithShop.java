@@ -67,9 +67,21 @@ public class BlacksmithShop {
                 .build());
 
         items.add(ShopItem.builder()
-                .name("Leczenie")
-                .type(ItemType.SPELL)
-                .requiredResources(pl.psi.Resources.builder().gold(50).build())
+                .name("Ballista")
+                .type(ItemType.WAR_MACHINE)
+                .requiredResources(pl.psi.Resources.builder().gold(3000).build())
+                .build());
+
+        items.add(ShopItem.builder()
+                .name("Namiot Pierwszej Pomocy")
+                .type(ItemType.WAR_MACHINE)
+                .requiredResources(pl.psi.Resources.builder().gold(2500).build())
+                .build());
+
+        items.add(ShopItem.builder()
+                .name("Katapulta")
+                .type(ItemType.WAR_MACHINE)
+                .requiredResources(pl.psi.Resources.builder().gold(5000).build())
                 .build());
     }
 

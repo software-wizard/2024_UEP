@@ -25,18 +25,22 @@ public class BlacksmithGUI extends Stage {
         Label magicItemsLabel = new Label("Magiczne przedmioty:");
         Label militaryUnitsLabel = new Label("Jednostki wojskowe:");
         Label spellsLabel = new Label("Zaklęcia:");
+        Label warMachineLabel = new Label("Maszyny oblężnicze:");
 
         VBox magicItemsSection = new VBox(10);
         VBox militaryUnitsSection = new VBox(10);
         VBox spellsSection = new VBox(10);
+        VBox warMachineSection = new VBox(10);
 
         magicItemsSection.getChildren().add(magicItemsLabel);
         militaryUnitsSection.getChildren().add(militaryUnitsLabel);
         spellsSection.getChildren().add(spellsLabel);
+        warMachineSection.getChildren().add(warMachineLabel);
 
         addItemsToSection(magicItemsSection, ItemType.MAGIC_ITEM);
         addItemsToSection(militaryUnitsSection, ItemType.MILITARY_UNIT);
         addItemsToSection(spellsSection, ItemType.SPELL);
+        addItemsToSection(warMachineSection, ItemType.WAR_MACHINE);
 
         GridPane grid = new GridPane();
         grid.setPadding(new Insets(10, 10, 10, 10));
@@ -46,8 +50,9 @@ public class BlacksmithGUI extends Stage {
         grid.add(magicItemsSection, 0, 0);
         grid.add(militaryUnitsSection, 1, 0);
         grid.add(spellsSection, 2, 0);
+        grid.add(warMachineSection, 3, 0);
 
-        Scene scene = new Scene(grid, 700, 400);
+        Scene scene = new Scene(grid, 900, 400);
         setScene(scene);
     }
 

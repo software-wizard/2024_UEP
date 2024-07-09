@@ -112,6 +112,11 @@ public class Catapult extends Creature implements  DefenderIf {
         attack(target, (Point) null);
     }
 
+    @Override
+    public void attack(DefenderIf target, AttackTypeEnum attackType, Point aPoint) {
+        attack(target, (Point) null);
+    }
+
     //75% chance to hit
     @Override
     public boolean randomChance() {
