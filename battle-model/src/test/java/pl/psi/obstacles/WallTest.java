@@ -20,7 +20,7 @@ public class WallTest {
     @Test
     public void takeDamageReducesHP() {
         wall = new Wall();
-        int damage = 1000;
+        int damage = 500;
 
         wall.takeDamageFromCatapult(damage,point);
         assertEquals(500, wall.getCurrentHP());
@@ -41,12 +41,12 @@ public class WallTest {
         wall.setCurrentHP(wall.getLevelTwoHP());
 
         creature.attack(wall);
-        assertEquals(995,wall.getCurrentHP());
+        assertEquals(30,wall.getCurrentHP());
 
         wall.setCurrentLevel(3);
         wall.setCurrentHP(wall.getLevelThreeHP());
         creature.attack(wall);
-        assertEquals(495,wall.getCurrentHP());
+        assertEquals(15,wall.getCurrentHP());
 
 
     }
@@ -95,7 +95,7 @@ public class WallTest {
         board = new Board(c1, c2);
         creature.attack(wall);
 
-        assertEquals(1500, wall.getCurrentHP());
+        assertEquals(1000, wall.getCurrentHP());
 
     }
 
