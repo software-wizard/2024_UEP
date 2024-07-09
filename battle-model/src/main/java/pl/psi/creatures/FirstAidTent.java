@@ -30,8 +30,9 @@ public class FirstAidTent extends Creature {
         private int amount = 1;
         private DamageCalculatorIf calculator = new DefaultDamageCalculator(new Random());
         private CreatureStatisticIf statistic;
-        private final CreatureTypeEnum creatureType = CreatureTypeEnum.GROUND;
+        private final CreatureTypeEnum creatureType = CreatureTypeEnum.HEALING_TENT;
         private AttackTypeEnum attackType = AttackTypeEnum.MELEE;
+
 
         public FirstAidTent.Builder statistic(final CreatureStatisticIf aStatistic) {
             statistic = aStatistic;

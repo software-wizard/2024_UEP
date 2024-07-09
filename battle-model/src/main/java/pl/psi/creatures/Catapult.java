@@ -101,6 +101,11 @@ public class Catapult extends Creature implements  DefenderIf {
         } else new IllegalArgumentException("Catapult can attack only walls");
 
     }
+
+    @Override
+    public void attack(DefenderIf target, AttackTypeEnum attackType, Point aPoint) {
+        attack(target, (Point) null);
+    }
     @Override
     public void attack(DefenderIf target) {
         System.out.println("Catapult attack");
