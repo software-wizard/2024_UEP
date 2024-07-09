@@ -52,7 +52,7 @@ public class AttackEngine {
         if (board.isWall(point)) {
             Wall wall = board.getWall(point).orElse(null);
             if (wall != null) {
-                if (attacker instanceof Catapult) {
+                if (attacker.getCreatureType().equals(CreatureTypeEnum.CATAPULT)) {
                     return true;
                 }
                 if (wall.getCurrentLevel() == 2 || wall.getCurrentLevel() == 3){
@@ -62,22 +62,17 @@ public class AttackEngine {
         }
 
 
+        if (attacker.getCreatureType().equals(CreatureTypeEnum.CATAPULT)) {
+            return board.getWall(point).isPresent();
+        }
+
         if (board.getCreature(point).isEmpty()) {
             return false;
         }
 
-        if (attacker.getCreatureType().equals(CreatureTypeEnum.MACHINE)) {
-            if (attacker.getStats().getName().equals("Catapult")) {
-                return board.getWall(point).isPresent();
-            } else if (attacker.getStats().getName().equals("Ballista")) {
-                return board.getCreature(point).isPresent() &&
-                        !board.getCreature(point).get().getCreatureType().equals(CreatureTypeEnum.MACHINE) &&
-                        !board.getCreature(point).get().getStats().getName().equals("First Aid Tent");
-            }
-        }
-
-        if (attacker.getAttackType().equals(AttackTypeEnum.RANGE)) {
-            return true;
+        if (attacker.getAttackType().equals(AttackTypeEnum.RANGE) || attacker.getCreatureType().equals(CreatureTypeEnum.BALLISTA)) {
+            Creature enemy = board.getCreature(point).get();
+            return enemy.getCreatureType().equals(CreatureTypeEnum.GROUND);
         }
 
 //        if (attacker.getCreatureType().equals(CreatureTypeEnum.MACHINE)) {
