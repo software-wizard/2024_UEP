@@ -47,8 +47,6 @@ public class WallTest {
         wall.setCurrentHP(wall.getLevelThreeHP());
         creature.attack(wall);
         assertEquals(495,wall.getCurrentHP());
-
-
     }
 
 

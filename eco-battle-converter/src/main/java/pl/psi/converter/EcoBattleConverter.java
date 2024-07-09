@@ -18,6 +18,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
+import java.util.Random;
 
 public class EcoBattleConverter implements PropertyChangeListener {
 
@@ -30,7 +31,7 @@ public class EcoBattleConverter implements PropertyChangeListener {
             final FXMLLoader loader = new FXMLLoader();
             loader.setLocation(EcoBattleConverter.class.getClassLoader()
                     .getResource("fxml/main-battle.fxml"));
-            loader.setController(new MainBattleController(convert(aPack.getAttacker()), convert(aPack.getDefender())));
+            loader.setController(new MainBattleController(hardConvert1(aPack.getAttacker()), hardConvert2(aPack.getDefender())));
             scene = new Scene(loader.load());
             final Stage aStage = new Stage();
             aStage.setScene(scene);
@@ -92,7 +93,9 @@ public class EcoBattleConverter implements PropertyChangeListener {
         final MachineFactory machineFactory = new MachineFactory();
 
         Creature luckyLitch = new NecropolisFactory().create(false, 5, 10, 3);
-
+        luckyLitch.getMorale().setRandom(new QuarterRandom());
+        luckyLitch.getMorale().setValue(3);
+        creatures.add(luckyLitch);
 
         aPlayer1.getCreatures().forEach(ecoCreature -> {
             if (ecoCreature.isMachine()) {
@@ -128,6 +131,14 @@ public class EcoBattleConverter implements PropertyChangeListener {
             }
         }
     }
+
+    private static class QuarterRandom extends Random {
+        @Override
+        public double nextDouble() {
+            return 0.25;
+        }
+    }
+
 
 
 }

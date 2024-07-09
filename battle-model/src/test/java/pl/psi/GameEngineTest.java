@@ -222,7 +222,7 @@ public class GameEngineTest {
 
         final Creature dragon = new Creature.Builder().statistic(CreatureStats.builder()
                         .maxHp(100)
-                        .damage(Range.closed(0, 0))
+                        .damage(Range.closed(10, 10))
                         .attack(0)
                         .armor(10)
                         .build())
@@ -239,7 +239,7 @@ public class GameEngineTest {
         Hero hero1 = new Hero(List.of(angel),
                 new PrimarySkill(1, 2, 3, 4),
                 new Spellbook(List.of()));
-        Hero hero2 = new Hero(List.of(tent, dragon, dragon2),
+        Hero hero2 = new Hero(List.of(dragon, tent, dragon2),
                 new PrimarySkill(1, 2, 3, 4),
                 new Spellbook(List.of()));
         GameEngine gameEngine = new GameEngine(hero1, hero2);
@@ -250,14 +250,18 @@ public class GameEngineTest {
         gameEngine.attack(gameEngine.getCreatureLocation(dragon));
 
         assertThat(gameEngine.getHeroToMove()).isEqualTo(hero2);
-        assertThat(gameEngine.getCreatureToMove()).isEqualTo(tent);
+        assertThat(gameEngine.getCreatureToMove()).isEqualTo(dragon);
+
+        gameEngine.attack(gameEngine.getCreatureLocation(angel));
+
+        assertThat(angel.getCurrentHp()).isLessThan(angel.getMaxHp());
         assertThat(gameEngine.canHeal(gameEngine.getCreatureLocation(angel))).isFalse();
         assertThat(gameEngine.canHeal(gameEngine.getCreatureLocation(dragon))).isTrue();
         assertThat(gameEngine.canHeal(gameEngine.getCreatureLocation(dragon2))).isFalse();
 
         gameEngine.heal(gameEngine.getCreatureLocation(dragon));
 
-        assertThat(dragon.getCurrentHp()).isBetween(71, 95);
+        assertThat(dragon.getCurrentHp()).isBetween(41, 65);
     }
 
     @Test

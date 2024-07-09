@@ -59,7 +59,7 @@ public class EconomyStart extends Application {
         hero.addSkill(new ArmorerSkill(2));
         EconomyNecropolisFactory creatureFactory = new EconomyNecropolisFactory();
         EconomyMachineFactory machineFactory = new EconomyMachineFactory();
-        for (int i = 2; i <= 5; i++) {
+        for (int i = 2; i <= 4; i++) {
             hero.addCreature(creatureFactory.create(aIsUpgraded, i));
         }
         hero.addCreature(machineFactory.create("Catapult"));

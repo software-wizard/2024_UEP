@@ -97,7 +97,7 @@ public class GameEngine {
     }
 
     public boolean canHeal(final Point point) {
-        return attackEngine.canHeal(point, turnQueue.getCurrentCreature());
+        return attackEngine.canHeal(point, turnQueue.getCurrentCreature(), getEnemyCreatures());
     }
 
     public Creature getCreatureToMove() {

@@ -88,8 +88,11 @@ public class AttackEngine {
         return false;
     }
 
-    public boolean canHeal(final Point point, Creature attacker) {
+    public boolean canHeal(final Point point, Creature attacker, List<Creature> enemyCreatures) {
         if (board.getCreature(point).isEmpty()) {
+            return false;
+        }
+        if (enemyCreatures.contains(board.getCreature(point).get())) {
             return false;
         }
         if (attacker.getCreatureType().equals(CreatureTypeEnum.HEALING_TENT)) {

@@ -23,11 +23,14 @@ public class Catapult extends Creature implements  DefenderIf {
     private AttackTypeEnum attackType;
     @Setter
     private DamageApplier damageApplier = new DamageApplier();
+    @Setter
+    Random random;
 
     private Catapult(final CreatureStatisticIf aStats, final DamageCalculatorIf aCalculator,
                      final int aAmount, CreatureTypeEnum aCreatureType, AttackTypeEnum aAttackType) {
         super(aStats, aCalculator, aAmount, aCreatureType, aAttackType, new Morale(0));
         this.level = 2;
+        random = new Random();
     }
 
     public static class Builder {
@@ -121,7 +124,6 @@ public class Catapult extends Creature implements  DefenderIf {
     //75% chance to hit
     @Override
     public boolean randomChance() {
-        Random random = new Random();
         int randVal = random.nextInt(101);
         return randVal < 75;
 
