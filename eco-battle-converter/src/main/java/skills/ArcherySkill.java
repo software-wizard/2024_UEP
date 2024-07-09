@@ -3,6 +3,7 @@ package skills;
 import pl.psi.creatures.ArcheryCalculatorDecorator;
 import pl.psi.creatures.Creature;
 import pl.psi.enums.AttackTypeEnum;
+import pl.psi.enums.CreatureTypeEnum;
 import pl.psi.enums.SkillEnum;
 import pl.psi.skills.Skill;
 
@@ -18,6 +19,8 @@ public class ArcherySkill extends Skill implements BattleSkill {
     public void cast(List<Creature> creatures) {
         creatures.stream()
                 .filter(c -> c.getAttackType().equals(AttackTypeEnum.RANGE))
+                .filter(c -> !c.getCreatureType().equals(CreatureTypeEnum.CATAPULT))
+                .filter(c -> !c.getCreatureType().equals(CreatureTypeEnum.BALLISTA))
                 .forEach(c -> c.setCalculator(new ArcheryCalculatorDecorator(c.getCalculator(), level)));
     }
 }
