@@ -81,7 +81,7 @@ public class GameEngine {
 
     public void pass() {
         turnQueue.next();
-        if (getCreatureToMove().getCreatureType().equals(CreatureTypeEnum.MACHINE) && attackEngine.shouldFireRandomly(getCreatureToMove())) {
+        if (getCreatureToMove().getCreatureType().equals(CreatureTypeEnum.CATAPULT) && attackEngine.shouldFireRandomly(getCreatureToMove())) {
             attackEngine.shootRandomEnemyMachine(getCreatureToMove(), getEnemyCreatures());
             pass();
         }

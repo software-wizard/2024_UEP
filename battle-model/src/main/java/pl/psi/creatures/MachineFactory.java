@@ -17,16 +17,16 @@ public class MachineFactory {
                         .build();
             case "Ballista":
                 return new Ballista.Builder().statistic(CreatureStatistic.BALLISTA)
-                        .creatureType(CreatureTypeEnum.MACHINE)
+                        .creatureType(CreatureTypeEnum.BALLISTA)
                         .attackType(AttackTypeEnum.RANGE)
-                        .calculator(new MachineCalculatorDecorator(new DefaultDamageCalculator(new Random()), 3))
+                        .calculator(new MachineCalculatorDecorator(new DefaultDamageCalculator(new Random()), 0))
                         .morale(new Morale(0))
                         .build();
             case "Catapult":
                 return new Catapult.Builder().statistic(CreatureStatistic.CATAPULT)
-                        .creatureType(CreatureTypeEnum.MACHINE)
+                        .creatureType(CreatureTypeEnum.CATAPULT)
                         .attackType(AttackTypeEnum.RANGE)
-                        .calculator(new MachineCalculatorDecorator(new DefaultDamageCalculator(new Random()), 3))
+                        .calculator(new MachineCalculatorDecorator(new DefaultDamageCalculator(new Random()), 0))
                         .morale(new Morale(0))
                         .build();
             default:

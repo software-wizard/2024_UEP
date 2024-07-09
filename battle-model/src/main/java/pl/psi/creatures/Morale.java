@@ -8,7 +8,8 @@ import java.util.Random;
 @Getter
 public class Morale {
     private int value;
-    private final Random random;
+    @Setter
+    private Random random;
     @Setter
     private boolean gotLucky;
 

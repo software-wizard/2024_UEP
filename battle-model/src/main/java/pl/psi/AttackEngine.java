@@ -56,7 +56,12 @@ public class AttackEngine {
                     return true;
                 }
                 if (wall.getCurrentLevel() == 2 || wall.getCurrentLevel() == 3){
-                    return isInMeleeRange(attacker, point);
+                    if (attacker.getAttackType().equals(AttackTypeEnum.MELEE)) {
+                        return isInMeleeRange(attacker, point);
+                    }
+                    if (attacker.getAttackType().equals(AttackTypeEnum.RANGE)) {
+                        return true;
+                    }
                 }
             }
         }
@@ -74,20 +79,6 @@ public class AttackEngine {
             Creature enemy = board.getCreature(point).get();
             return enemy.getCreatureType().equals(CreatureTypeEnum.GROUND);
         }
-
-//        if (attacker.getCreatureType().equals(CreatureTypeEnum.MACHINE)) {
-//            if (attacker.getStats().getName().equals("Catapult")) {
-//                board.getWall(enemyLocation)
-//                        .ifPresent(defender -> attacker
-//                                .attack(defender, attackType));
-//                return;
-//            } else if (attacker.getStats().getName().equals("Ballista")) {
-//                board.getCreature(enemyLocation)
-//                        .ifPresent(defender -> attacker
-//                                .attack(defender, attackType));
-//                return;
-//            }
-//        }
 
         return isInMeleeRange(attacker, point);
     }
@@ -109,7 +100,9 @@ public class AttackEngine {
         ArrayList<Creature> enemyCreatures = new ArrayList<>(aEnemyCreatures);
         Collections.shuffle(enemyCreatures);
         for (Creature c : enemyCreatures) {
-            if (c.getCreatureType().equals(CreatureTypeEnum.MACHINE)) {
+            if (c.getCreatureType().equals(CreatureTypeEnum.BALLISTA)
+                    || c.getCreatureType().equals(CreatureTypeEnum.CATAPULT)
+                    || c.getCreatureType().equals(CreatureTypeEnum.HEALING_TENT)) {
                 attack(board.getPosition(c), attacker);
                 System.out.println("machine shot enemy machine");
                 return;

@@ -159,17 +159,12 @@ public class GameEngineTest {
 
     @Test
     @Disabled
-    void warMachinesWithLevelSmallerThan2ShootOnItsOwn() {
+    void catapultWithLevelSmallerThan2ShootOnItsOwn() {
         int maxHp = 100;
-        Creature catapult1 = new Creature.Builder().statistic((CreatureStats.builder()
-                        .damage(Range.closed(10, 10))
-                        .maxHp(maxHp)
-                        .build()))
-                .creatureType(CreatureTypeEnum.MACHINE)
-                .attackType(AttackTypeEnum.RANGE)
-                .calculator(new MachineCalculatorDecorator(new DefaultDamageCalculator(quarterRandom), 1))
-                .morale(new Morale(0))
-                .build();
+        MachineFactory machineFactory = new MachineFactory();
+
+        Creature catapult1 = machineFactory.create("Catapult");
+        catapult1.getMorale().setRandom(quarterRandom);
 
         Creature creature1 = new Creature.Builder()
                 .statistic(CreatureStats.builder()
@@ -183,15 +178,8 @@ public class GameEngineTest {
                 new PrimarySkill(1, 2, 3, 4),
                 null);
 
-        Creature catapult2 = new Creature.Builder().statistic((CreatureStats.builder()
-                        .damage(Range.closed(10, 10))
-                        .maxHp(maxHp)
-                        .build()))
-                .creatureType(CreatureTypeEnum.MACHINE)
-                .attackType(AttackTypeEnum.RANGE)
-                .calculator(new MachineCalculatorDecorator(new DefaultDamageCalculator(quarterRandom), 0))
-                .morale(new Morale(0))
-                .build();
+        Creature catapult2 = machineFactory.create("Catapult");
+        catapult2.getMorale().setRandom(quarterRandom);
 
         Creature creature2 = new Creature.Builder()
                 .statistic(CreatureStats.builder()
